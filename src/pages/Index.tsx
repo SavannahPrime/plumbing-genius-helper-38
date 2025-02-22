@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Wrench, MessageSquare, Image as ImageIcon, AlertTriangle, Tools } from "lucide-react";
+import { Wrench, MessageSquare, Image as ImageIcon, AlertTriangle, Settings } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -17,7 +17,7 @@ const features = [
     description: "Upload photos for AI-powered problem identification",
   },
   {
-    icon: <Tools className="w-6 h-6" />,
+    icon: <Settings className="w-6 h-6" />,
     title: "Step-by-Step Guides",
     description: "Follow detailed repair instructions with images",
   },
