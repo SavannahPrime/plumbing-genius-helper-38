@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -39,40 +38,34 @@ const Chat = () => {
     // If responding to a question about leak location
     if (wasAskingAboutLocation && lastAiMessage.includes("leak")) {
       if (lowerMessage.includes("sink")) {
-        return "Ah, under the sink - that's a common trouble spot. Could be the P-trap connection or the supply lines. Are you seeing water pooling at the base of the cabinet? Also, does the leak happen when you're using the sink, or is it constant?";
+        return "If you're seeing water under the sink, first check if the leak happens when using the sink or is constant. This will tell us if it's the drain (when in use) or supply lines (constant). Can you check and let me know?";
       } else if (lowerMessage.includes("faucet")) {
-        return "Based on my experience, faucet leaks usually come from worn-out O-rings or cartridges. Is the leak coming from the base of the spout or around the handles? This will tell us exactly which parts need replacing.";
+        return "For a leaky faucet, first tell me - is it dripping from the spout when off, or leaking around the base when you turn the handle? This will help us identify exactly which parts need replacing.";
       } else if (lowerMessage.includes("pipe")) {
-        return "A pipe leak can be serious. Is this on a visible pipe or behind a wall? If you're seeing water stains on walls/ceiling or hearing dripping inside walls, we need to act quickly to prevent structural damage.";
+        return "If it's a pipe leak, first shut off the main water valve! Then let me know - is this a visible pipe under a sink/in basement, or are you seeing water stains on walls/ceiling? This is crucial for next steps.";
       }
     }
 
     // Response for timing-related follow-ups
     if (wasAskingAboutTiming) {
-      if (lowerMessage.includes("day") || lowerMessage.includes("today")) {
-        return "Since it's a recent issue, let's act quickly before any serious damage occurs. Have you tried shutting off the local water valve to see if that stops the problem?";
-      } else if (lowerMessage.includes("week") || lowerMessage.includes("month")) {
-        return "I see it's been ongoing. In my experience, issues that persist this long often indicate a deeper problem. Have you noticed any changes in your water bill during this time?";
-      }
+      return "Thanks for that info. Have you noticed any changes in your water bill? Also, can you shut off the water supply to that area for now while we figure this out?";
     }
     
     // Initial problem identification
     if (lowerMessage.includes("leak")) {
-      return "I hear you're dealing with a leak. First, let's locate where it's coming from exactly. Is it from a pipe, faucet, or maybe under the sink? This will help me give you the most accurate solution. Also, have you noticed any water damage or mold around the area?";
+      return "Got it - you've got a leak. First thing: where exactly are you seeing the water? Is it from a pipe, faucet, or under a fixture? We need to stop the water loss first, then we can fix the cause.";
     } else if (lowerMessage.includes("clog") || lowerMessage.includes("drain")) {
-      if (lowerMessage.includes("shower")) {
-        return "Shower drains often clog due to hair and soap buildup. Have you noticed standing water during showers? Before we try any chemicals, let's try removing the drain cover and checking for visible blockage - you'd be surprised what I've found in 30 years of doing this!";
-      } else if (lowerMessage.includes("toilet")) {
-        return "Toilet clogs can be tricky. Is it backing up completely or just draining slowly? Also, did you notice anything unusual that might have been flushed? Let's figure out if a plunger might work or if we need something more heavy-duty.";
+      if (lowerMessage.includes("toilet")) {
+        return "For a clogged toilet, first make sure it won't overflow. Is the water level normal, or rising when flushed? If it's safe, try a plunger. If that doesn't work, I'll guide you through the next steps.";
       } else if (lowerMessage.includes("sink")) {
-        return "Kitchen sink clogs are often from grease or food particles. Does the clog seem to be in the disposal side or the other basin? And have you tried running hot water to see if it helps dissolve any grease buildup?";
+        return "For a clogged sink - is this in the kitchen or bathroom? And is the water completely stopped or just draining slowly? This will help me recommend the right fix.";
       } else {
-        return "Dealing with a clog, eh? Let me help you diagnose this. Is the water draining slowly or completely stopped? Also, which drain is affected - sink, shower, or toilet? This will help me recommend the right approach.";
+        return "I understand you're dealing with a clog. Which drain is affected - sink, shower, or toilet? And is it completely stopped or just slow? Let me know so I can help you fix it.";
       }
-    } else if (lowerMessage.includes("pressure") || lowerMessage.includes("low water")) {
-      return "Low water pressure can be tricky. Is this happening at all faucets or just one? If it's at one faucet, it might just be a clogged aerator - an easy fix! If it's throughout the house, we should check your pressure regulator and main water line. When did you first notice this issue?";
+    } else if (lowerMessage.includes("pressure")) {
+      return "Low pressure can be serious or simple. Is this affecting all faucets or just one? If it's just one, it might be a quick aerator cleaning. If it's everywhere, we need to check your main line.";
     } else {
-      return "Could you tell me more about what you're experiencing? As a plumber, I find it helpful to know a few things: When did the problem start? Is it constant or intermittent? And have you noticed any unusual sounds or smells? These details will help me give you the most accurate solution.";
+      return "Could you describe what's happening? Are you seeing, hearing, or smelling something unusual? The more specific you can be, the better I can help fix it.";
     }
   };
 
