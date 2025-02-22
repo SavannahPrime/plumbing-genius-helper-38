@@ -7,8 +7,37 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
+interface Message {
+  text: string;
+  isAi: boolean;
+}
+
 const Chat = () => {
   const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      text: "Hello! I'm your AI plumbing assistant. How can I help you today?",
+      isAi: true
+    }
+  ]);
+
+  const handleSendMessage = () => {
+    if (!message.trim()) return;
+    
+    // Add user message
+    setMessages(prev => [...prev, { text: message, isAi: false }]);
+    
+    // Clear input
+    setMessage("");
+    
+    // Simulate AI response
+    setTimeout(() => {
+      setMessages(prev => [...prev, {
+        text: "I understand you're having a plumbing issue. Could you provide more details about what you're experiencing?",
+        isAi: true
+      }]);
+    }, 1000);
+  };
 
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
@@ -33,18 +62,27 @@ const Chat = () => {
       <main className="container mx-auto px-4 py-6">
         <div className="max-w-3xl mx-auto">
           {/* Messages Container */}
-          <div className="min-h-[400px] mb-6">
-            <motion.div 
-              className="mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <Card className="p-4 bg-gray-100 max-w-[80%]">
-                <p className="text-gray-800">
-                  Hello! I'm your AI plumbing assistant. How can I help you today?
-                </p>
-              </Card>
-            </motion.div>
+          <div className="min-h-[400px] mb-20">
+            {messages.map((msg, index) => (
+              <motion.div 
+                key={index}
+                className={`mb-4 flex ${msg.isAi ? 'justify-start' : 'justify-end'}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                <Card 
+                  className={`p-4 max-w-[80%] ${
+                    msg.isAi 
+                      ? 'bg-gray-100' 
+                      : 'bg-[#0A2540] text-white'
+                  }`}
+                >
+                  <p className={msg.isAi ? 'text-gray-800' : 'text-white'}>
+                    {msg.text}
+                  </p>
+                </Card>
+              </motion.div>
+            ))}
           </div>
 
           {/* Input Area */}
@@ -70,10 +108,16 @@ const Chat = () => {
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Describe your plumbing issue..."
                   className="flex-grow"
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' && message.trim()) {
+                      handleSendMessage();
+                    }
+                  }}
                 />
                 <Button 
                   className="flex-shrink-0 bg-[#0A2540]"
-                  disabled={!message}
+                  disabled={!message.trim()}
+                  onClick={handleSendMessage}
                 >
                   <Send className="w-5 h-5" />
                 </Button>
