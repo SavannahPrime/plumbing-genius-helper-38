@@ -14,8 +14,10 @@ interface Message {
 
 interface ConversationContext {
   currentTopic: string;
-  awaitingResponse: boolean;
+  subTopic: string;
+  stage: number;
   lastQuestion: string;
+  previousAnswers: string[];
 }
 
 const Chat = () => {
@@ -28,48 +30,118 @@ const Chat = () => {
   ]);
   const [context, setContext] = useState<ConversationContext>({
     currentTopic: "",
-    awaitingResponse: false,
-    lastQuestion: ""
+    subTopic: "",
+    stage: 0,
+    lastQuestion: "",
+    previousAnswers: []
   });
 
-  const generateFollowUpQuestion = (topic: string, userResponse: string) => {
-    if (topic === "leak_location") {
-      if (userResponse.includes("sink") || userResponse.includes("under")) {
-        return "Is the leak constant or does it only happen when using the sink? This will help us determine if it's a drain or supply line issue.";
+  const generateNextResponse = (topic: string, subTopic: string, stage: number, previousAnswers: string[]) => {
+    // Leak troubleshooting flow
+    if (topic === "leak") {
+      if (stage === 0) {
+        return "Where exactly are you seeing the water? Is it under a sink, from a pipe, ceiling, or somewhere else?";
       }
-      if (userResponse.includes("ceiling") || userResponse.includes("wall")) {
-        return "This could be serious. Do you notice the leak happening more during showers/bathroom use, or is it constant? Also, is the water stain growing?";
+      
+      const location = previousAnswers[0].toLowerCase();
+      
+      if (stage === 1) {
+        if (location.includes("sink")) {
+          return "Is the leak constant or does it only happen when using the sink? Also, can you see if it's coming from the drain pipe (bottom) or supply lines (the tubes going to the faucet)?";
+        }
+        if (location.includes("ceiling")) {
+          return "This is potentially serious. Is there a bathroom or water pipes directly above this spot? And how large is the water stain - can you describe its size?";
+        }
+        if (location.includes("pipe")) {
+          return "Is this a visible pipe in your basement/under sink, or inside a wall? And is the leak constant or only when using water?";
+        }
       }
-      if (userResponse.includes("toilet")) {
-        return "Is the water pooling around the base of the toilet, or do you see it coming from the tank or supply line? Also, does it leak constantly or only when flushing?";
+
+      if (stage === 2) {
+        if (location.includes("sink")) {
+          return previousAnswers[1].includes("constant") 
+            ? "Constant leaks usually indicate a supply line issue. Can you see any corrosion or mineral buildup around the connections? This will help determine if we need to replace the entire line or just tighten/reseal connections."
+            : "Since it only leaks during use, it's likely a drain pipe issue. Do you see any water spots or corrosion around the drain pipe joints?";
+        }
+        if (location.includes("ceiling")) {
+          return "Based on the location and timing, this could be related to your " + 
+            (previousAnswers[1].includes("bathroom") ? "bathroom plumbing. Do you notice the leak getting worse during or after showers?" : "water supply lines. Has there been any recent plumbing work in that area?");
+        }
       }
     }
 
-    if (topic === "clog_initial") {
-      if (userResponse.includes("toilet")) {
-        return "Before we proceed - what's the water level in the bowl right now? Is it higher than normal or normal? This is important to prevent overflow.";
+    // Clog troubleshooting flow
+    if (topic === "clog") {
+      if (stage === 0) {
+        return "Which drain is affected - sink, toilet, shower, or something else? And is it completely stopped up or just draining slowly?";
       }
-      if (userResponse.includes("sink")) {
-        return "When did you first notice the clog, and have you tried any drain cleaners? If so, which ones? (This is important because some cleaners can damage pipes if mixed)";
+
+      const drainType = previousAnswers[0].toLowerCase();
+      
+      if (stage === 1) {
+        if (drainType.includes("sink")) {
+          return "When did you first notice the clog, and have you tried any drain cleaners? If so, which ones? (This is important because mixing different cleaners can be dangerous)";
+        }
+        if (drainType.includes("toilet")) {
+          return "What's the water level in the bowl - normal or higher than usual? And does it change level or make gurgling sounds on its own?";
+        }
+        if (drainType.includes("shower")) {
+          return "Does the water back up immediately or take time to accumulate? Also, can you see any hair or debris near the drain cover?";
+        }
       }
-      if (userResponse.includes("shower")) {
-        return "Does the water back up immediately when you start the shower, or does it drain slowly? Also, have you noticed any hair or soap scum buildup?";
+
+      if (stage === 2) {
+        if (drainType.includes("sink")) {
+          return previousAnswers[1].includes("cleaner") 
+            ? "Since you've used chemicals, we need to be careful. Don't use any other products for at least 24 hours. Do you have a plunger specifically for sinks? If not, I can suggest some safe alternatives."
+            : "That's good that no chemicals were used yet. Do you have a sink plunger or a zip-it tool? These are our best first options for clearing the clog safely.";
+        }
+        if (drainType.includes("toilet")) {
+          return previousAnswers[1].includes("high") 
+            ? "Don't flush again! This could overflow. Do you have a toilet plunger? If so, make sure there's enough water to cover the plunger head for proper suction."
+            : "Since the water level is normal, it's safe to try flushing. But first, do you have a toilet plunger ready in case it starts to back up?";
+        }
       }
     }
 
+    // Water heater troubleshooting flow
     if (topic === "water_heater") {
-      if (userResponse.includes("no hot") || userResponse.includes("cold")) {
-        return "First, is your water heater gas or electric? This will determine our next troubleshooting steps.";
+      if (stage === 0) {
+        return "What's the main issue you're experiencing with your water heater - no hot water, not hot enough, strange noises, or leaking?";
       }
-      if (userResponse.includes("leak")) {
-        return "Where exactly is the water coming from - the top, bottom, or connections? Also, what color is the water - clear or rusty?";
+
+      const issue = previousAnswers[0].toLowerCase();
+      
+      if (stage === 1) {
+        if (issue.includes("no hot") || issue.includes("not hot")) {
+          return "Is your water heater gas or electric? Also, did this happen suddenly or gradually?";
+        }
+        if (issue.includes("leak")) {
+          return "Where exactly is the water coming from - top, bottom, or connections? And what color is the water - clear or rusty?";
+        }
+        if (issue.includes("noise")) {
+          return "What kind of noise - popping, crackling, or rumbling? And how long has this been happening?";
+        }
       }
-      if (userResponse.includes("noise")) {
-        return "What kind of noise are you hearing - popping, crackling, or rumbling? This will help identify if it's sediment buildup or a more serious issue.";
+
+      if (stage === 2) {
+        if (issue.includes("no hot")) {
+          return previousAnswers[1].includes("gas") 
+            ? "For gas water heaters, we need to check the pilot light. Can you see if it's lit? If you're not comfortable checking this, don't attempt it - safety first."
+            : "For electric water heaters, first check your circuit breaker. Has it tripped? Also, do you know where the reset button is on your water heater?";
+        }
+        if (issue.includes("leak")) {
+          if (previousAnswers[1].includes("bottom")) {
+            return "A leak from the bottom usually means the tank itself has failed. How old is your water heater? This will help determine if repair or replacement is more cost-effective.";
+          }
+          if (previousAnswers[1].includes("top")) {
+            return "Top leaks are often from the inlet/outlet pipes or the pressure relief valve. Do you see any corrosion around these connections?";
+          }
+        }
       }
     }
 
-    return "Could you provide more details about what you're experiencing? This will help me give you the most accurate solution.";
+    return "Based on what you've told me, we should take a closer look at this issue. Could you provide more specific details about what you're observing?";
   };
 
   const generatePlumberResponse = (userMessage: string) => {
@@ -81,57 +153,64 @@ const Chat = () => {
         (lowerMessage.includes("ceiling") && lowerMessage.includes("drip"))) {
       setContext({
         currentTopic: "emergency",
-        awaitingResponse: true,
-        lastQuestion: "Did you manage to shut off the water?"
+        subTopic: "water_damage",
+        stage: 0,
+        lastQuestion: "Did you manage to shut off the water?",
+        previousAnswers: []
       });
       return "EMERGENCY ACTION NEEDED: 1. Locate and shut off your main water valve immediately! It's usually near your water meter. 2. If it's a toilet overflow, also close the valve behind the toilet. 3. Move valuable items away from the water. Did you manage to shut off the water?";
     }
 
-    // If we're awaiting a response to a previous question
-    if (context.awaitingResponse) {
-      const nextQuestion = generateFollowUpQuestion(context.currentTopic, lowerMessage);
+    // Continue existing conversation
+    if (context.currentTopic) {
+      const newAnswers = [...context.previousAnswers, userMessage];
+      const nextStage = context.stage + 1;
+      
       setContext(prev => ({
         ...prev,
-        lastQuestion: nextQuestion
+        stage: nextStage,
+        previousAnswers: newAnswers
       }));
-      return nextQuestion;
+
+      return generateNextResponse(context.currentTopic, context.subTopic, nextStage, newAnswers);
     }
 
-    // Initial problem identification
+    // Start new conversation based on issue
     if (lowerMessage.includes("leak")) {
       setContext({
-        currentTopic: "leak_location",
-        awaitingResponse: true,
-        lastQuestion: "Where exactly are you seeing the water?"
+        currentTopic: "leak",
+        subTopic: "",
+        stage: 0,
+        lastQuestion: "",
+        previousAnswers: []
       });
-      return "I'll help you fix that leak. First, where exactly are you seeing the water? Is it under a sink, from a pipe, ceiling, or somewhere else?";
+      return generateNextResponse("leak", "", 0, []);
     }
 
-    if (lowerMessage.includes("clog") || lowerMessage.includes("won't drain")) {
+    if (lowerMessage.includes("clog") || lowerMessage.includes("drain")) {
       setContext({
-        currentTopic: "clog_initial",
-        awaitingResponse: true,
-        lastQuestion: "Which drain is affected?"
+        currentTopic: "clog",
+        subTopic: "",
+        stage: 0,
+        lastQuestion: "",
+        previousAnswers: []
       });
-      return "I understand you're dealing with a clog. Which drain is affected - sink, toilet, or shower? This will help me guide you to the right solution.";
+      return generateNextResponse("clog", "", 0, []);
     }
 
     if (lowerMessage.includes("water heater")) {
       setContext({
         currentTopic: "water_heater",
-        awaitingResponse: true,
-        lastQuestion: "What issues are you experiencing with your water heater?"
+        subTopic: "",
+        stage: 0,
+        lastQuestion: "",
+        previousAnswers: []
       });
-      return "What issues are you experiencing with your water heater - no hot water, strange noises, or is it leaking? Let me know the main problem and I'll help you fix it.";
+      return generateNextResponse("water_heater", "", 0, []);
     }
 
     // General response for unclear issues
-    setContext({
-      currentTopic: "general",
-      awaitingResponse: true,
-      lastQuestion: "Could you provide more details?"
-    });
-    return "I can help with that. Could you tell me: 1. When did this start? 2. Is it constant or intermittent? 3. Have you tried any fixes already?";
+    return "I can help with that. Could you tell me more specifically what kind of plumbing issue you're experiencing? For example, is it a leak, clog, water heater problem, or something else?";
   };
 
   const handleSendMessage = () => {
