@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -36,6 +35,50 @@ const Chat = () => {
     previousAnswers: []
   });
 
+  const identifyProblemType = (message: string) => {
+    const lowerMessage = message.toLowerCase();
+    
+    // Emergency keywords
+    if (lowerMessage.includes("overflow") || 
+        lowerMessage.includes("flood") ||
+        (lowerMessage.includes("water") && lowerMessage.includes("everywhere")) ||
+        (lowerMessage.includes("ceiling") && lowerMessage.includes("drip"))) {
+      return "emergency";
+    }
+    
+    // Leak keywords
+    if (lowerMessage.includes("leak") || 
+        lowerMessage.includes("drip") || 
+        lowerMessage.includes("water damage") ||
+        lowerMessage.includes("wet")) {
+      return "leak";
+    }
+    
+    // Clog keywords
+    if (lowerMessage.includes("clog") || 
+        lowerMessage.includes("blocked") || 
+        lowerMessage.includes("won't drain") ||
+        lowerMessage.includes("slow drain") ||
+        lowerMessage.includes("backing up")) {
+      return "clog";
+    }
+    
+    // Water heater keywords
+    if (lowerMessage.includes("water heater") || 
+        lowerMessage.includes("hot water") ||
+        lowerMessage.includes("no hot")) {
+      return "water_heater";
+    }
+    
+    // Toilet keywords
+    if (lowerMessage.includes("toilet") ||
+        lowerMessage.includes("flush")) {
+      return "toilet";
+    }
+    
+    return "unknown";
+  };
+
   const generateNextResponse = (topic: string, subTopic: string, stage: number, previousAnswers: string[]) => {
     // Leak troubleshooting flow
     if (topic === "leak") {
@@ -59,13 +102,26 @@ const Chat = () => {
 
       if (stage === 2) {
         if (location.includes("sink")) {
-          return previousAnswers[1].includes("constant") 
+          const leakType = previousAnswers[1].toLowerCase();
+          return leakType.includes("constant") 
             ? "Constant leaks usually indicate a supply line issue. Can you see any corrosion or mineral buildup around the connections? This will help determine if we need to replace the entire line or just tighten/reseal connections."
             : "Since it only leaks during use, it's likely a drain pipe issue. Do you see any water spots or corrosion around the drain pipe joints?";
         }
         if (location.includes("ceiling")) {
+          const aboveInfo = previousAnswers[1].toLowerCase();
           return "Based on the location and timing, this could be related to your " + 
-            (previousAnswers[1].includes("bathroom") ? "bathroom plumbing. Do you notice the leak getting worse during or after showers?" : "water supply lines. Has there been any recent plumbing work in that area?");
+            (aboveInfo.includes("bathroom") ? "bathroom plumbing. Do you notice the leak getting worse during or after showers?" : "water supply lines. Has there been any recent plumbing work in that area?");
+        }
+      }
+
+      if (stage === 3) {
+        if (location.includes("sink")) {
+          const corrosionInfo = previousAnswers[2].toLowerCase();
+          if (corrosionInfo.includes("yes") || corrosionInfo.includes("corrosion") || corrosionInfo.includes("buildup")) {
+            return "The corrosion indicates we need to replace the affected section. Is this a connection you can easily access under the sink? I can guide you through a temporary fix, but you'll want to replace that section soon.";
+          } else {
+            return "If there's no visible corrosion, we might just need to tighten the connections. Do you have an adjustable wrench available? I can guide you through checking and tightening the connections safely.";
+          }
         }
       }
     }
@@ -141,7 +197,7 @@ const Chat = () => {
       }
     }
 
-    return "Based on what you've told me, we should take a closer look at this issue. Could you provide more specific details about what you're observing?";
+    return "Based on what you've told me, let's try a different approach. Could you describe what happened right before you noticed this issue?";
   };
 
   const generatePlumberResponse = (userMessage: string) => {
@@ -161,56 +217,37 @@ const Chat = () => {
       return "EMERGENCY ACTION NEEDED: 1. Locate and shut off your main water valve immediately! It's usually near your water meter. 2. If it's a toilet overflow, also close the valve behind the toilet. 3. Move valuable items away from the water. Did you manage to shut off the water?";
     }
 
-    // Continue existing conversation
+    // If we're in the middle of a conversation, analyze the response and continue
     if (context.currentTopic) {
+      // Store the user's answer and update the stage
       const newAnswers = [...context.previousAnswers, userMessage];
       const nextStage = context.stage + 1;
       
+      // Update context with the new information
       setContext(prev => ({
         ...prev,
         stage: nextStage,
         previousAnswers: newAnswers
       }));
 
+      // Generate the next response based on updated context
       return generateNextResponse(context.currentTopic, context.subTopic, nextStage, newAnswers);
     }
 
-    // Start new conversation based on issue
-    if (lowerMessage.includes("leak")) {
-      setContext({
-        currentTopic: "leak",
-        subTopic: "",
-        stage: 0,
-        lastQuestion: "",
-        previousAnswers: []
-      });
-      return generateNextResponse("leak", "", 0, []);
-    }
+    // If this is a new conversation, identify the problem type
+    const problemType = identifyProblemType(userMessage);
+    
+    // Set initial context for the identified problem
+    setContext({
+      currentTopic: problemType,
+      subTopic: "",
+      stage: 0,
+      lastQuestion: "",
+      previousAnswers: []
+    });
 
-    if (lowerMessage.includes("clog") || lowerMessage.includes("drain")) {
-      setContext({
-        currentTopic: "clog",
-        subTopic: "",
-        stage: 0,
-        lastQuestion: "",
-        previousAnswers: []
-      });
-      return generateNextResponse("clog", "", 0, []);
-    }
-
-    if (lowerMessage.includes("water heater")) {
-      setContext({
-        currentTopic: "water_heater",
-        subTopic: "",
-        stage: 0,
-        lastQuestion: "",
-        previousAnswers: []
-      });
-      return generateNextResponse("water_heater", "", 0, []);
-    }
-
-    // General response for unclear issues
-    return "I can help with that. Could you tell me more specifically what kind of plumbing issue you're experiencing? For example, is it a leak, clog, water heater problem, or something else?";
+    // Generate initial response based on problem type
+    return generateNextResponse(problemType, "", 0, []);
   };
 
   const handleSendMessage = () => {
@@ -222,7 +259,7 @@ const Chat = () => {
     // Clear input
     setMessage("");
     
-    // Generate plumber response
+    // Generate plumber response with a small delay for natural feeling
     setTimeout(() => {
       setMessages(prev => [...prev, {
         text: generatePlumberResponse(message),
@@ -233,7 +270,6 @@ const Chat = () => {
 
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
-      {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center">
           <Link to="/" className="p-2 hover:bg-gray-100 rounded-full transition-colors">
@@ -250,10 +286,8 @@ const Chat = () => {
         </div>
       </header>
 
-      {/* Chat Area */}
       <main className="container mx-auto px-4 py-6">
         <div className="max-w-3xl mx-auto">
-          {/* Messages Container */}
           <div className="min-h-[400px] mb-20">
             {messages.map((msg, index) => (
               <motion.div 
@@ -277,7 +311,6 @@ const Chat = () => {
             ))}
           </div>
 
-          {/* Input Area */}
           <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-4">
             <div className="container mx-auto max-w-3xl">
               <div className="flex items-center gap-2">
