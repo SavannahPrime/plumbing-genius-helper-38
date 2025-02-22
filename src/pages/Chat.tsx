@@ -23,12 +23,46 @@ const Chat = () => {
 
   const generatePlumberResponse = (userMessage: string) => {
     const lowerMessage = userMessage.toLowerCase();
+    const messageHistory = messages.map(msg => msg.text.toLowerCase());
     
-    // Basic context understanding for common plumbing issues
+    // Check for context in previous messages
+    const lastAiMessage = messages.filter(msg => msg.isAi).pop()?.text.toLowerCase() || "";
+    const wasAskingAboutLocation = lastAiMessage.includes("where") || lastAiMessage.includes("which");
+    const wasAskingAboutTiming = lastAiMessage.includes("when") || lastAiMessage.includes("how long");
+    
+    // If responding to a question about leak location
+    if (wasAskingAboutLocation && lastAiMessage.includes("leak")) {
+      if (lowerMessage.includes("sink")) {
+        return "Ah, under the sink - that's a common trouble spot. Could be the P-trap connection or the supply lines. Are you seeing water pooling at the base of the cabinet? Also, does the leak happen when you're using the sink, or is it constant?";
+      } else if (lowerMessage.includes("faucet")) {
+        return "Based on my experience, faucet leaks usually come from worn-out O-rings or cartridges. Is the leak coming from the base of the spout or around the handles? This will tell us exactly which parts need replacing.";
+      } else if (lowerMessage.includes("pipe")) {
+        return "A pipe leak can be serious. Is this on a visible pipe or behind a wall? If you're seeing water stains on walls/ceiling or hearing dripping inside walls, we need to act quickly to prevent structural damage.";
+      }
+    }
+
+    // Response for timing-related follow-ups
+    if (wasAskingAboutTiming) {
+      if (lowerMessage.includes("day") || lowerMessage.includes("today")) {
+        return "Since it's a recent issue, let's act quickly before any serious damage occurs. Have you tried shutting off the local water valve to see if that stops the problem?";
+      } else if (lowerMessage.includes("week") || lowerMessage.includes("month")) {
+        return "I see it's been ongoing. In my experience, issues that persist this long often indicate a deeper problem. Have you noticed any changes in your water bill during this time?";
+      }
+    }
+    
+    // Initial problem identification
     if (lowerMessage.includes("leak")) {
       return "I hear you're dealing with a leak. First, let's locate where it's coming from exactly. Is it from a pipe, faucet, or maybe under the sink? This will help me give you the most accurate solution. Also, have you noticed any water damage or mold around the area?";
     } else if (lowerMessage.includes("clog") || lowerMessage.includes("drain")) {
-      return "Dealing with a clog, eh? Let me help you diagnose this. Is the water draining slowly or completely stopped? Also, which drain is affected - sink, shower, or toilet? This will help me recommend the right approach, whether it's using a plunger, plumber's snake, or if we need to look at the main line.";
+      if (lowerMessage.includes("shower")) {
+        return "Shower drains often clog due to hair and soap buildup. Have you noticed standing water during showers? Before we try any chemicals, let's try removing the drain cover and checking for visible blockage - you'd be surprised what I've found in 30 years of doing this!";
+      } else if (lowerMessage.includes("toilet")) {
+        return "Toilet clogs can be tricky. Is it backing up completely or just draining slowly? Also, did you notice anything unusual that might have been flushed? Let's figure out if a plunger might work or if we need something more heavy-duty.";
+      } else if (lowerMessage.includes("sink")) {
+        return "Kitchen sink clogs are often from grease or food particles. Does the clog seem to be in the disposal side or the other basin? And have you tried running hot water to see if it helps dissolve any grease buildup?";
+      } else {
+        return "Dealing with a clog, eh? Let me help you diagnose this. Is the water draining slowly or completely stopped? Also, which drain is affected - sink, shower, or toilet? This will help me recommend the right approach.";
+      }
     } else if (lowerMessage.includes("pressure") || lowerMessage.includes("low water")) {
       return "Low water pressure can be tricky. Is this happening at all faucets or just one? If it's at one faucet, it might just be a clogged aerator - an easy fix! If it's throughout the house, we should check your pressure regulator and main water line. When did you first notice this issue?";
     } else {
