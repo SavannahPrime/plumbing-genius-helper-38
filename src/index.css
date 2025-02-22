@@ -44,40 +44,10 @@
 
 @layer components {
   .glass-panel {
-    @apply backdrop-blur-lg bg-white/80 border border-white/20 shadow-lg;
+    @apply backdrop-blur-lg bg-white/90 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-200;
   }
 
   .nav-item {
-    @apply px-4 py-2 rounded-lg transition-all duration-200 hover:bg-secondary/10;
+    @apply px-4 py-2 rounded-lg transition-all duration-200 hover:bg-secondary/10 font-medium;
   }
-
-  .button-primary {
-    @apply px-6 py-3 bg-primary text-white rounded-lg transition-all duration-200 hover:bg-primary/90 active:scale-95;
-  }
-
-  .button-secondary {
-    @apply px-6 py-3 bg-secondary text-white rounded-lg transition-all duration-200 hover:bg-secondary/90 active:scale-95;
-  }
-
-  .button-accent {
-    @apply px-6 py-3 bg-accent text-white rounded-lg transition-all duration-200 hover:bg-accent/90 active:scale-95;
-  }
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyeAZ9hiJ-Ek-_EeA.woff2')
-    format('woff2');
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 300 700;
-  font-display: swap;
-  src: url('https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmSU5fBBc4AMP6lQ.woff2')
-    format('woff2');
 }
