@@ -16,10 +16,25 @@ const Chat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([
     {
-      text: "Hello! I'm your AI plumbing assistant. How can I help you today?",
+      text: "Hi there! I'm your experienced plumbing assistant with over 30 years of hands-on experience. Whether you're dealing with a leaky faucet, clogged drain, or water pressure issues, I'm here to help. What plumbing problem can I assist you with today?",
       isAi: true
     }
   ]);
+
+  const generatePlumberResponse = (userMessage: string) => {
+    const lowerMessage = userMessage.toLowerCase();
+    
+    // Basic context understanding for common plumbing issues
+    if (lowerMessage.includes("leak")) {
+      return "I hear you're dealing with a leak. First, let's locate where it's coming from exactly. Is it from a pipe, faucet, or maybe under the sink? This will help me give you the most accurate solution. Also, have you noticed any water damage or mold around the area?";
+    } else if (lowerMessage.includes("clog") || lowerMessage.includes("drain")) {
+      return "Dealing with a clog, eh? Let me help you diagnose this. Is the water draining slowly or completely stopped? Also, which drain is affected - sink, shower, or toilet? This will help me recommend the right approach, whether it's using a plunger, plumber's snake, or if we need to look at the main line.";
+    } else if (lowerMessage.includes("pressure") || lowerMessage.includes("low water")) {
+      return "Low water pressure can be tricky. Is this happening at all faucets or just one? If it's at one faucet, it might just be a clogged aerator - an easy fix! If it's throughout the house, we should check your pressure regulator and main water line. When did you first notice this issue?";
+    } else {
+      return "Could you tell me more about what you're experiencing? As a plumber, I find it helpful to know a few things: When did the problem start? Is it constant or intermittent? And have you noticed any unusual sounds or smells? These details will help me give you the most accurate solution.";
+    }
+  };
 
   const handleSendMessage = () => {
     if (!message.trim()) return;
@@ -30,10 +45,10 @@ const Chat = () => {
     // Clear input
     setMessage("");
     
-    // Simulate AI response
+    // Generate plumber response
     setTimeout(() => {
       setMessages(prev => [...prev, {
-        text: "I understand you're having a plumbing issue. Could you provide more details about what you're experiencing?",
+        text: generatePlumberResponse(message),
         isAi: true
       }]);
     }, 1000);
@@ -52,7 +67,7 @@ const Chat = () => {
               AI Chat Assistant
             </h1>
             <p className="font-roboto text-[16px] text-gray-600">
-              Describe your plumbing issue, and I'll help you fix it.
+              Expert plumbing advice at your fingertips
             </p>
           </div>
         </div>
