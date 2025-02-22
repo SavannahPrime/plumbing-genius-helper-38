@@ -25,6 +25,12 @@ const Chat = () => {
     const lowerMessage = userMessage.toLowerCase();
     const messageHistory = messages.map(msg => msg.text.toLowerCase());
     
+    // Emergency situations that need immediate action
+    if (lowerMessage.includes("overflow") || 
+        (lowerMessage.includes("toilet") && (lowerMessage.includes("flood") || lowerMessage.includes("water") || lowerMessage.includes("everywhere")))) {
+      return "IMMEDIATE ACTION NEEDED: 1. Remove the tank lid 2. Lift the float to stop water flow 3. If that doesn't work, turn off the water valve behind the toilet (turn clockwise) immediately! Once you've done this, let me know and I'll help you resolve the underlying issue. Is the water stopped now?";
+    }
+
     // Check for context in previous messages
     const lastAiMessage = messages.filter(msg => msg.isAi).pop()?.text.toLowerCase() || "";
     const wasAskingAboutLocation = lastAiMessage.includes("where") || lastAiMessage.includes("which");
