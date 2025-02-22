@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Wrench, MessageSquare, Image as ImageIcon, MoreVertical } from "lucide-react";
+import { Wrench, MessageSquare, Image as ImageIcon, MoreVertical, Settings } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -17,13 +17,19 @@ const features = [
     title: "Visual Diagnosis",
     description: "Upload photos for AI-powered problem identification",
     link: "/diagnosis"
+  },
+  {
+    icon: <Settings className="w-6 h-6 text-secondary" />,
+    title: "Common Problems",
+    description: "Browse guides for frequent plumbing issues",
+    link: "/fixes"
   }
 ];
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
-      {/* Header Section */}
+      {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
@@ -88,7 +94,7 @@ const Index = () => {
 
         {/* Feature Cards */}
         <motion.div 
-          className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto"
+          className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
