@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Wrench, MessageSquare, Image as ImageIcon, AlertTriangle, Settings } from "lucide-react";
+import { Wrench, MessageSquare, Image as ImageIcon, MoreVertical } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -17,98 +17,98 @@ const features = [
     title: "Visual Diagnosis",
     description: "Upload photos for AI-powered problem identification",
     link: "/diagnosis"
-  },
-  {
-    icon: <Settings className="w-6 h-6 text-secondary" />,
-    title: "Common Fixes",
-    description: "Step-by-step repair guides with images",
-    link: "/guides"
-  },
-  {
-    icon: <AlertTriangle className="w-6 h-6 text-accent" />,
-    title: "Emergency Support",
-    description: "Quick access to emergency procedures",
-    link: "/emergency"
-  },
+  }
 ];
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/5">
-      <header className="container mx-auto px-4 py-6 bg-white/80 backdrop-blur-sm border-b">
-        <nav className="flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <Wrench className="w-8 h-8 text-primary" />
-            <span className="text-xl font-bold text-primary">Plumber's Helper</span>
+    <div className="min-h-screen bg-[#F5F5F5]">
+      {/* Header Section */}
+      <header className="bg-white shadow-sm">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <Wrench className="w-7 h-7 text-[#0A2540]" />
+            <span className="font-inter font-bold text-xl text-[#0A2540]">
+              Plumber's Helper
+            </span>
           </div>
-          <div className="hidden md:flex items-center space-x-6">
-            {features.map((feature) => (
-              <Link 
-                key={feature.title}
-                to={feature.link} 
-                className="nav-item text-gray-600 hover:text-primary transition-colors"
-              >
-                {feature.title}
-              </Link>
-            ))}
-          </div>
-        </nav>
+          <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+            <MoreVertical className="w-6 h-6 text-gray-600" />
+          </button>
+        </div>
       </header>
 
-      <main className="container mx-auto px-4 py-16">
-        <div className="text-center max-w-3xl mx-auto">
+      <main className="container mx-auto px-4 py-12">
+        {/* Hero Section */}
+        <div className="max-w-2xl mx-auto text-center mb-12">
           <motion.h1 
-            className="text-4xl md:text-6xl font-bold text-primary mb-6"
+            className="font-inter font-bold text-[28px] md:text-[32px] text-[#0A2540] mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
             Your AI-Powered Plumbing Assistant
           </motion.h1>
-          <motion.p 
-            className="text-lg md:text-xl text-gray-600 mb-12"
+          <motion.h2 
+            className="font-roboto text-base md:text-lg text-gray-700 mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             Get instant solutions for your plumbing problems with our intelligent assistant. 
             Upload photos, follow guides, and solve issues quickly.
-          </motion.p>
+          </motion.h2>
+
+          {/* CTA Buttons */}
           <motion.div 
-            className="flex flex-col sm:flex-row justify-center gap-4 mb-16"
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <Link to="/chat">
-              <Button size="lg" variant="default" className="w-full sm:w-auto">
-                <MessageSquare className="mr-2" />
+              <Button 
+                className="w-full sm:w-auto text-lg py-6 px-8 bg-[#0A2540] hover:bg-[#0A2540]/90 shadow-md active:scale-[0.98] transition-all"
+              >
+                <MessageSquare className="w-5 h-5 mr-2" />
                 Start Chat
               </Button>
             </Link>
             <Link to="/diagnosis">
-              <Button size="lg" variant="secondary" className="w-full sm:w-auto">
-                <ImageIcon className="mr-2" />
+              <Button 
+                variant="secondary"
+                className="w-full sm:w-auto text-lg py-6 px-8 shadow-md active:scale-[0.98] transition-all"
+              >
+                <ImageIcon className="w-5 h-5 mr-2" />
                 Visual Diagnosis
               </Button>
             </Link>
           </motion.div>
         </div>
 
+        {/* Feature Cards */}
         <motion.div 
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
           {features.map((feature, index) => (
             <Link to={feature.link} key={index}>
-              <Card className="h-full p-6 glass-panel hover:scale-105 transition-transform duration-200 cursor-pointer">
-                <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-4">
-                  {feature.icon}
+              <Card className="p-6 hover:shadow-lg transition-shadow duration-200">
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 rounded-full bg-[#00AEEF]/10 flex items-center justify-center flex-shrink-0">
+                    {feature.icon}
+                  </div>
+                  <div>
+                    <h3 className="font-inter font-bold text-lg text-gray-900 mb-2">
+                      {feature.title}
+                    </h3>
+                    <p className="font-roboto text-base text-gray-700">
+                      {feature.description}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-primary">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
               </Card>
             </Link>
           ))}
