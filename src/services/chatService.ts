@@ -60,7 +60,7 @@ export const generateNextResponse = (
       return "Where exactly are you seeing the water? Is it under a sink, from a pipe, ceiling, or somewhere else?";
     }
 
-    const location = previousAnswers[0].toLowerCase();
+    const location = previousAnswers[0]?.toLowerCase() || "";
     updateContext({ location });
 
     if (stage === 1) {
@@ -76,7 +76,7 @@ export const generateNextResponse = (
     }
 
     if (stage === 2) {
-      const leakType = previousAnswers[1].toLowerCase();
+      const leakType = previousAnswers[1]?.toLowerCase() || "";
       updateContext({ severity: leakType.includes("constant") ? "high" : "medium" });
       
       if (location.includes("sink")) {
@@ -87,7 +87,7 @@ export const generateNextResponse = (
     }
 
     if (stage === 3) {
-      const hasCorrosion = previousAnswers[2].toLowerCase().includes("yes");
+      const hasCorrosion = previousAnswers[2]?.toLowerCase().includes("yes");
       updateContext({ condition: hasCorrosion ? "corroded" : "good" });
       
       return hasCorrosion
@@ -100,7 +100,7 @@ export const generateNextResponse = (
     }
 
     if (stage === 5) {
-      const hasTools = previousAnswers[4].toLowerCase().includes("yes");
+      const hasTools = previousAnswers[4]?.toLowerCase().includes("yes");
       updateContext({ tools: hasTools ? ["wrench"] : [] });
       
       return hasTools
@@ -109,7 +109,7 @@ export const generateNextResponse = (
     }
 
     if (stage === 6) {
-      const foundValve = previousAnswers[5].toLowerCase().includes("yes");
+      const foundValve = previousAnswers[5]?.toLowerCase().includes("yes");
       updateContext({ hasShutoff: foundValve });
       
       return foundValve
@@ -122,7 +122,7 @@ export const generateNextResponse = (
     }
 
     if (stage === 8) {
-      const recentWork = previousAnswers[7].toLowerCase();
+      const recentWork = previousAnswers[7]?.toLowerCase();
       updateContext({ recentWork: recentWork.includes("recent") ? "yes" : "no" });
       
       return "Based on everything you've told me, I can guide you through some steps. Would you like to try fixing this yourself with my guidance, or would you prefer recommendations for professional plumbers in your area?";
@@ -130,7 +130,7 @@ export const generateNextResponse = (
 
     // Continue with detailed fix instructions or professional recommendations based on all gathered information
     if (stage > 8) {
-      const wantsDIY = previousAnswers[8].toLowerCase().includes("myself") || previousAnswers[8].toLowerCase().includes("guide");
+      const wantsDIY = previousAnswers[8]?.toLowerCase().includes("myself") || previousAnswers[8]?.toLowerCase().includes("guide");
       
       if (wantsDIY) {
         // Sequence of specific repair steps based on all gathered information
@@ -169,7 +169,8 @@ export const generateNextResponse = (
       return "Which drain is affected - sink, toilet, shower, or something else? And is it completely stopped up or just draining slowly?";
     }
 
-    const drainType = previousAnswers[0].toLowerCase();
+    const drainType = previousAnswers[0]?.toLowerCase() || "";
+    updateContext({ location: drainType });
     
     if (stage === 1) {
       if (drainType.includes("sink")) {
@@ -181,19 +182,82 @@ export const generateNextResponse = (
       if (drainType.includes("shower")) {
         return "Does the water back up immediately or take time to accumulate? Also, can you see any hair or debris near the drain cover?";
       }
+      return "Could you describe when you first noticed the clog and what symptoms you're seeing?";
     }
 
     if (stage === 2) {
+      const description = previousAnswers[1]?.toLowerCase() || "";
+      updateContext({ symptoms: description });
+      
       if (drainType.includes("sink")) {
-        return previousAnswers[1].includes("cleaner") 
-          ? "Since you've used chemicals, we need to be careful. Don't use any other products for at least 24 hours. Do you have a plunger specifically for sinks? If not, I can suggest some safe alternatives."
-          : "That's good that no chemicals were used yet. Do you have a sink plunger or a zip-it tool? These are our best first options for clearing the clog safely.";
+        if (description.includes("cleaner")) {
+          updateContext({ attempted: ["chemical cleaner"] });
+          return "Since you've used chemicals, we need to be careful. Don't use any other products for at least 24 hours. Do you have a plunger specifically for sinks? If not, I can suggest some safe alternatives.";
+        }
+        return "That's good that no chemicals were used yet. Do you have a sink plunger or a zip-it tool? These are our best first options for clearing the clog safely.";
       }
       if (drainType.includes("toilet")) {
-        return previousAnswers[1].includes("high") 
-          ? "Don't flush again! This could overflow. Do you have a toilet plunger? If so, make sure there's enough water to cover the plunger head for proper suction."
-          : "Since the water level is normal, it's safe to try flushing. But first, do you have a toilet plunger ready in case it starts to back up?";
+        if (description.includes("high")) {
+          updateContext({ severity: "high" });
+          return "Don't flush again! This could overflow. Do you have a toilet plunger? If so, make sure there's enough water to cover the plunger head for proper suction.";
+        }
+        return "Since the water level is normal, it's safe to try flushing. But first, do you have a toilet plunger ready in case it starts to back up?";
       }
+      if (drainType.includes("shower")) {
+        if (description.includes("hair") || description.includes("debris")) {
+          updateContext({ cause: "debris" });
+          return "Do you have a drain snake or zip-it tool? These are perfect for removing hair clogs. If not, would you like me to suggest some alternatives?";
+        }
+        return "For shower clogs without visible debris, we should check the drain trap. Do you know where your drain trap access panel is located?";
+      }
+    }
+
+    if (stage === 3) {
+      const hasTools = previousAnswers[2]?.toLowerCase().includes("yes");
+      updateContext({ tools: hasTools ? ["plunger"] : [] });
+      
+      if (hasTools) {
+        return "Great! Before we start plunging, let's make sure we're doing it correctly. For sinks/showers, remove any drain covers. For toilets, ensure enough water covers the plunger head. Ready to proceed?";
+      } else {
+        return "No problem. We have a few options: 1) Use a natural solution of baking soda and vinegar, 2) Try a manual drain auger, or 3) Call a professional. Which would you prefer to try first?";
+      }
+    }
+
+    if (stage === 4) {
+      const response = previousAnswers[3]?.toLowerCase() || "";
+      if (response.includes("yes") || response.includes("ready")) {
+        return "Perfect! Place the plunger over the drain, ensuring a good seal. Push down firmly and pull up quickly 5-6 times. Let me know if you notice any change in drainage.";
+      }
+      if (response.includes("baking") || response.includes("vinegar")) {
+        updateContext({ attempted: ["natural solution"] });
+        return "Pour 1/2 cup baking soda down the drain, followed by 1/2 cup vinegar. Cover the drain and wait 15 minutes. Then flush with hot water. Let me know what happens.";
+      }
+      if (response.includes("auger") || response.includes("snake")) {
+        return "A drain auger can be purchased at most hardware stores. Would you like me to explain how to use one, or would you prefer to try something else first?";
+      }
+      if (response.includes("professional")) {
+        return "I'll help you find a reliable plumber. What's your location? Also, would you like some tips on preventing future clogs while we wait for professional help?";
+      }
+    }
+
+    // Continue with more stages based on previous responses...
+    if (stage > 4) {
+      const lastResponse = previousAnswers[stage - 1]?.toLowerCase() || "";
+      
+      if (lastResponse.includes("better") || lastResponse.includes("working")) {
+        return "Excellent! To prevent future clogs, I recommend: 1) Using drain strainers, 2) Regular cleaning with enzyme cleaners, and 3) Avoiding putting problematic items down the drain. Would you like specific details about any of these?";
+      }
+      
+      if (lastResponse.includes("same") || lastResponse.includes("still")) {
+        return "Since the first attempt didn't work, we should try a different approach. Would you like to try another method, or should we discuss professional options?";
+      }
+      
+      if (lastResponse.includes("worse")) {
+        updateContext({ severity: "high" });
+        return "Stop any further attempts - we don't want to risk damage. Given the situation, I recommend calling a professional plumber. Would you like help finding one in your area?";
+      }
+      
+      return "How did that last step work out? Did you notice any improvement in the drainage?";
     }
   }
 
@@ -203,7 +267,7 @@ export const generateNextResponse = (
       return "What's the main issue you're experiencing with your water heater - no hot water, not hot enough, strange noises, or leaking?";
     }
 
-    const issue = previousAnswers[0].toLowerCase();
+    const issue = previousAnswers[0]?.toLowerCase() || "";
     
     if (stage === 1) {
       if (issue.includes("no hot") || issue.includes("not hot")) {
@@ -219,22 +283,32 @@ export const generateNextResponse = (
 
     if (stage === 2) {
       if (issue.includes("no hot")) {
-        return previousAnswers[1].includes("gas") 
+        return previousAnswers[1]?.includes("gas") 
           ? "For gas water heaters, we need to check the pilot light. Can you see if it's lit? If you're not comfortable checking this, don't attempt it - safety first."
           : "For electric water heaters, first check your circuit breaker. Has it tripped? Also, do you know where the reset button is on your water heater?";
       }
       if (issue.includes("leak")) {
-        if (previousAnswers[1].includes("bottom")) {
+        if (previousAnswers[1]?.includes("bottom")) {
           return "A leak from the bottom usually means the tank itself has failed. How old is your water heater? This will help determine if repair or replacement is more cost-effective.";
         }
-        if (previousAnswers[1].includes("top")) {
+        if (previousAnswers[1]?.includes("top")) {
           return "Top leaks are often from the inlet/outlet pipes or the pressure relief valve. Do you see any corrosion around these connections?";
         }
       }
     }
   }
 
-  return "Based on what you've told me, let's try a different approach. Could you describe any changes you've noticed recently?";
+  // If we reach here, we don't have a specific response for this stage
+  // Return a contextual fallback based on the topic
+  const fallbacks = {
+    leak: "How is the leak situation now? Has there been any change since our last step?",
+    clog: "How is the drainage now? Have you noticed any improvement or changes?",
+    water_heater: "How is the water heater performing now? Have you noticed any changes since our last step?",
+    toilet: "Has there been any change in the toilet's behavior since our last step?",
+    unknown: "Could you provide more details about what you're experiencing? This will help me give you better guidance."
+  };
+
+  return fallbacks[topic as keyof typeof fallbacks] || "Could you describe any recent changes you've noticed?";
 };
 
 export const handleEmergency = (setContext: (context: ConversationContext) => void) => {
