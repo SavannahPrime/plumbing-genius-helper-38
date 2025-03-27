@@ -3,7 +3,7 @@ import { useState } from "react";
 import ChatHeader from "@/components/chat/ChatHeader";
 import ChatMessages from "@/components/chat/ChatMessages";
 import ChatInput from "@/components/chat/ChatInput";
-import { Message, ConversationContext } from "@/types/chat";
+import { Message, ConversationContext, OpenAIMessage } from "@/types/chat";
 import { generateNextResponse, identifyProblemType, handleEmergency } from "@/services/chatService";
 import { generateChatGPTResponse, createPlumberPrompt } from "@/services/openaiService";
 import { Button } from "@/components/ui/button";

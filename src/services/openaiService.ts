@@ -1,8 +1,10 @@
 
+import { OpenAIMessage } from "@/types/chat";
+
 const OPENAI_API_ENDPOINT = "https://api.openai.com/v1/chat/completions";
 
 export const generateChatGPTResponse = async (
-  messages: { role: "system" | "user" | "assistant"; content: string }[],
+  messages: OpenAIMessage[],
   apiKey: string
 ) => {
   try {
@@ -34,7 +36,7 @@ export const generateChatGPTResponse = async (
   }
 };
 
-export const createPlumberPrompt = (userMessage: string, conversationHistory: string) => {
+export const createPlumberPrompt = (userMessage: string, conversationHistory: string): OpenAIMessage[] => {
   return [
     {
       role: "system",
