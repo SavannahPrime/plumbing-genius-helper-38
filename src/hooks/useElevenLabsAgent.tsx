@@ -11,11 +11,22 @@ import {
   activateAgent,
   removeAgentElement
 } from "@/utils/elevenlabsAgent";
+import {
+  HTMLElevenLabsConvaiElement,
+  ElevenLabsAgentHook,
+  ElevenLabsAgentState
+} from "@/types/elevenlabs";
 
-export const useElevenLabsAgent = () => {
+export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
   const elevenLabsAgent = useRef<HTMLElevenLabsConvaiElement | null>(null);
-  const [isInitialized, setIsInitialized] = useState(false);
-  const [initAttempted, setInitAttempted] = useState(false);
+  const [state, setState] = useState<ElevenLabsAgentState>({
+    isInitialized: false,
+    isActive: false,
+    isListening: false,
+    isSpeaking: false,
+    error: null,
+    lastResponse: null
+  });
 
   // Initialize the agent when the component mounts
   useEffect(() => {
@@ -31,16 +42,19 @@ export const useElevenLabsAgent = () => {
           
           // Give the element time to initialize
           setTimeout(() => {
-            setIsInitialized(true);
-            setInitAttempted(true);
+            setState(prev => ({ 
+              ...prev, 
+              isInitialized: true 
+            }));
             console.log("ElevenLabs agent initialized");
           }, 2000);
-        } else {
-          setInitAttempted(true);
         }
       } catch (error) {
         console.error("Error initializing agent:", error);
-        setInitAttempted(true);
+        setState(prev => ({ 
+          ...prev, 
+          error: error instanceof Error ? error : new Error(String(error)) 
+        }));
       }
     };
 
@@ -55,23 +69,47 @@ export const useElevenLabsAgent = () => {
     };
   }, []);
 
+  // Reset agent - useful for recovering from errors
+  const resetAgent = () => {
+    if (elevenLabsAgent.current) {
+      removeAgentElement(elevenLabsAgent.current);
+      elevenLabsAgent.current = null;
+    }
+    
+    setState({
+      isInitialized: false,
+      isActive: false,
+      isListening: false,
+      isSpeaking: false,
+      error: null,
+      lastResponse: null
+    });
+    
+    const agentElement = createAgentElement();
+    if (agentElement) {
+      elevenLabsAgent.current = agentElement;
+      
+      setTimeout(() => {
+        setState(prev => ({ ...prev, isInitialized: true }));
+      }, 2000);
+    }
+  };
+
   // Handle microphone button click
   const handleMicClick = () => {
     console.log("Mic button clicked");
     
     // Check if agent is initialized
-    if (!isInitialized) {
-      if (!initAttempted) {
-        console.log("Agent not initialized, creating element");
-        const agentElement = createAgentElement();
-        if (agentElement) {
-          elevenLabsAgent.current = agentElement;
-          
-          setTimeout(() => {
-            setIsInitialized(true);
-            setInitAttempted(true);
-          }, 2000);
-        }
+    if (!state.isInitialized) {
+      console.log("Agent not initialized, creating element");
+      const agentElement = createAgentElement();
+      if (agentElement) {
+        elevenLabsAgent.current = agentElement;
+        
+        setTimeout(() => {
+          setState(prev => ({ ...prev, isInitialized: true }));
+          handleMicClick(); // Try again after initialization
+        }, 2000);
       }
       
       toast({
@@ -85,6 +123,12 @@ export const useElevenLabsAgent = () => {
       if (elevenLabsAgent.current) {
         // Attempt to activate the agent
         activateAgent(elevenLabsAgent.current);
+        
+        setState(prev => ({ 
+          ...prev, 
+          isActive: true,
+          isListening: true 
+        }));
         
         toast({
           title: "Voice Assistant",
@@ -101,28 +145,27 @@ export const useElevenLabsAgent = () => {
     } catch (e) {
       console.error("Error handling mic click:", e);
       
+      const error = e instanceof Error ? e : new Error(String(e));
+      setState(prev => ({ ...prev, error }));
+      
       // Reset the agent if activation fails
-      if (elevenLabsAgent.current) {
-        removeAgentElement(elevenLabsAgent.current);
-      }
-      
-      elevenLabsAgent.current = null;
-      setIsInitialized(false);
-      
-      const agentElement = createAgentElement();
-      if (agentElement) {
-        elevenLabsAgent.current = agentElement;
-      }
+      resetAgent();
       
       toast({
         title: "Voice Assistant Reset",
         description: "Voice assistant has been reset. Please try again in a moment.",
       });
-      
-      // Try again after reset
-      setTimeout(handleMicClick, 2000);
     }
   };
 
-  return { handleMicClick, agentId: ELEVEN_LABS_AGENT_ID };
+  return { 
+    handleMicClick, 
+    agentId: ELEVEN_LABS_AGENT_ID,
+    isInitialized: state.isInitialized,
+    isActive: state.isActive,
+    isListening: state.isListening,
+    isSpeaking: state.isSpeaking,
+    error: state.error,
+    resetAgent
+  };
 };
