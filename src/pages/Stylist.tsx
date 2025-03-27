@@ -2,7 +2,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Home, MessageSquare, Image as ImageIcon, Scissors, ShoppingBag, Palette, Shirt, Heart, TShirt, Brush, Sparkles, Camera } from "lucide-react";
+import { Home, MessageSquare, Image as ImageIcon, Scissors, ShoppingBag, Palette, Shirt, Heart, Shirt as ShirtIcon, Brush, Sparkles, Camera } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import QuickActionCategories from "@/components/shared/QuickActionCategories";
@@ -41,7 +41,7 @@ const Stylist = () => {
       path: "/chat"
     },
     { 
-      icon: <TShirt className="w-5 h-5" />, 
+      icon: <ShirtIcon className="w-5 h-5" />, 
       name: "Body Types", 
       hoverText: "Dress for your shape and proportions",
       emoji: "👗",

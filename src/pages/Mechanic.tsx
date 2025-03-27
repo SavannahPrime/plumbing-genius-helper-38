@@ -1,70 +1,72 @@
 
 import React from "react";
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { MessageSquare, Camera, Settings, Gauge, Oil, Wrench, Sparkles, Battery, Car } from "lucide-react";
-import EveryFixHeader from "@/components/shared/EveryFixHeader";
+import { Button } from "@/components/ui/button";
+import { Home, MessageSquare, Image as ImageIcon, Car, Gauge, Battery, Thermometer, ActivitySquare, AlertTriangle, WrenchIcon, Settings } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { motion } from "framer-motion";
 import QuickActionCategories from "@/components/shared/QuickActionCategories";
 import { QuickActionCategory } from "@/components/shared/QuickActionCategories";
+import EveryFixHeader from "@/components/shared/EveryFixHeader";
 
 const Mechanic = () => {
   const navigate = useNavigate();
 
   const mechanicCategories: QuickActionCategory[] = [
     { 
-      icon: <Gauge className="w-5 h-5" />, 
+      icon: <Car className="w-5 h-5" />, 
       name: "Engine Issues", 
-      hoverText: "Check engine light, strange noises, performance problems",
+      hoverText: "Engine warning lights, strange noises, or performance problems",
       emoji: "🚗",
       path: "/chat"
     },
     { 
-      icon: <Oil className="w-5 h-5" />, 
-      name: "Fluid Leaks", 
-      hoverText: "Oil, coolant, transmission, or brake fluid leaks",
-      emoji: "💧",
+      icon: <WrenchIcon className="w-5 h-5" />, 
+      name: "Maintenance", 
+      hoverText: "Regular service schedules and DIY maintenance tips",
+      emoji: "🔧",
+      path: "/chat"
+    },
+    { 
+      icon: <Gauge className="w-5 h-5" />, 
+      name: "Dashboard Warnings", 
+      hoverText: "Help understanding dashboard warning lights",
+      emoji: "⚠️",
       path: "/chat"
     },
     { 
       icon: <Battery className="w-5 h-5" />, 
-      name: "Electrical", 
-      hoverText: "Battery issues, lights, electrical components",
-      emoji: "⚡",
+      name: "Battery & Electrical", 
+      hoverText: "Battery problems, electrical system issues, and fuses",
+      emoji: "🔋",
       path: "/chat"
     },
     { 
-      icon: <Wrench className="w-5 h-5" />, 
-      name: "Brakes", 
-      hoverText: "Squeaking, grinding, soft pedal, stopping issues",
+      icon: <ActivitySquare className="w-5 h-5" />, 
+      name: "Brakes & Suspension", 
+      hoverText: "Brake noises, handling issues, and suspension problems",
       emoji: "🛑",
       path: "/chat"
     },
     { 
-      icon: <Sparkles className="w-5 h-5" />, 
-      name: "HVAC", 
-      hoverText: "Heating, air conditioning, ventilation problems",
+      icon: <Thermometer className="w-5 h-5" />, 
+      name: "HVAC Issues", 
+      hoverText: "Heating, cooling, and air conditioning problems",
       emoji: "❄️",
       path: "/chat"
     },
     { 
       icon: <Settings className="w-5 h-5" />, 
       name: "Transmission", 
-      hoverText: "Grinding, slipping, delayed shifting",
+      hoverText: "Shifting problems, strange noises, or fluid leaks",
       emoji: "⚙️",
       path: "/chat"
     },
     { 
-      icon: <Car className="w-5 h-5" />, 
-      name: "Suspension", 
-      hoverText: "Bumpy ride, alignment issues, steering problems",
-      emoji: "🔧",
-      path: "/chat"
-    },
-    { 
-      icon: <Settings className="w-5 h-5" />, 
-      name: "Maintenance", 
-      hoverText: "Regular service, oil changes, filter replacements",
-      emoji: "📆",
+      icon: <AlertTriangle className="w-5 h-5" />, 
+      name: "Diagnostics", 
+      hoverText: "Help troubleshooting vehicle problems",
+      emoji: "🔍",
       path: "/chat"
     },
   ];
