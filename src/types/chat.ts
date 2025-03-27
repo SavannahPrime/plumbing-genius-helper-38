@@ -1,7 +1,8 @@
-
 export interface Message {
   text: string;
   isAi: boolean;
+  timestamp: Date;
+  imageUrl?: string;
 }
 
 export interface ConversationContext {

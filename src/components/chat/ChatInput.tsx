@@ -1,88 +1,78 @@
 
+import React, { useState, useRef, ChangeEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Mic, Paperclip, Send } from "lucide-react";
+import { SendHorizontal, Mic, Image, Loader2 } from "lucide-react";
 
 interface ChatInputProps {
   message: string;
-  setMessage: (message: string) => void;
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
   handleSendMessage: () => void;
-  isLoading?: boolean;
-  onMicClick?: () => void;
+  isLoading: boolean;
+  fileInputRef: React.RefObject<HTMLInputElement>;
+  handleImageUpload: (event: ChangeEvent<HTMLInputElement>) => Promise<void>;
+  isUploading: boolean;
 }
 
-const ChatInput = ({ 
-  message, 
-  setMessage, 
-  handleSendMessage, 
-  isLoading = false,
-  onMicClick 
+const ChatInput = ({
+  message,
+  setMessage,
+  handleSendMessage,
+  isLoading,
+  fileInputRef,
+  handleImageUpload,
+  isUploading
 }: ChatInputProps) => {
-  
-  const handleMicButtonClick = (e: React.MouseEvent) => {
-    console.log("Microphone button clicked in ChatInput");
-    e.preventDefault();
-    e.stopPropagation();
-    if (onMicClick) {
-      onMicClick();
-    }
-  };
-  
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && message.trim() && !isLoading) {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && !e.shiftKey && !isLoading) {
       e.preventDefault();
       handleSendMessage();
     }
   };
-  
+
+  const handleUploadClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-3">
-      <div className="container mx-auto max-w-3xl">
-        {/* Voice button now placed above the input field */}
-        <div className="flex justify-center mb-3">
-          <Button 
-            variant="outline" 
-            size="icon" 
-            className="rounded-full h-12 w-12 bg-blue-50 hover:bg-blue-100 shadow-md"
-            onClick={handleMicButtonClick}
-            title="Speak with voice assistant"
-            type="button"
-            tabIndex={0}
-            aria-label="Activate voice assistant"
-          >
-            <Mic className="w-5 h-5 text-blue-600" />
-          </Button>
-        </div>
+    <div className="border-t bg-background p-4">
+      <div className="container mx-auto flex items-center gap-2">
+        <Button
+          variant="outline"
+          size="icon"
+          type="button"
+          onClick={handleUploadClick}
+          disabled={isLoading || isUploading}
+        >
+          {isUploading ? (
+            <Loader2 className="h-5 w-5 animate-spin" />
+          ) : (
+            <Image className="h-5 w-5" />
+          )}
+        </Button>
         
-        <div className="flex items-center gap-2">
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="flex-shrink-0 rounded-full h-9 w-9"
-            type="button"
-          >
-            <Paperclip className="w-4 h-4 text-gray-600" />
-          </Button>
-          <Input
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Describe your plumbing issue..."
-            className="flex-grow text-sm rounded-full"
-            disabled={isLoading}
-            onKeyPress={handleKeyPress}
-          />
-          <Button 
-            className="flex-shrink-0 bg-[#0A2540] rounded-full h-9 w-9 p-0"
-            disabled={!message.trim() || isLoading}
-            onClick={(e) => {
-              e.preventDefault();
-              handleSendMessage();
-            }}
-            type="button"
-          >
-            <Send className="w-4 h-4" />
-          </Button>
-        </div>
+        <Input
+          placeholder="Type a message..."
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
+          disabled={isLoading}
+          className="flex-1"
+        />
+        
+        <Button
+          onClick={handleSendMessage}
+          disabled={!message.trim() || isLoading}
+          size="icon"
+        >
+          {isLoading ? (
+            <Loader2 className="h-5 w-5 animate-spin" />
+          ) : (
+            <SendHorizontal className="h-5 w-5" />
+          )}
+        </Button>
       </div>
     </div>
   );

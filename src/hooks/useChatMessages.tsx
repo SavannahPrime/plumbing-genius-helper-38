@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Message, ConversationContext } from "@/types/chat";
 import { generateNextResponse, identifyProblemType, handleEmergency } from "@/services/chatService";
@@ -77,7 +78,7 @@ export const useChatMessages = (apiKey: string, isUsingChatGPT: boolean) => {
     }
 
     const currentSpecialty = getCurrentAgentSpecialty();
-    console.log("Current agent specialty:", currentSpecialty);
+    console.log("Current agent specialty for response:", currentSpecialty);
 
     if (isUsingChatGPT && apiKey) {
       setIsLoading(true);
@@ -104,6 +105,7 @@ export const useChatMessages = (apiKey: string, isUsingChatGPT: boolean) => {
       }
     }
 
+    // Special case for plumbing domain
     if (currentSpecialty === "plumber") {
       if (userMessage.toLowerCase().includes("overflow") || 
           (userMessage.toLowerCase().includes("water") && userMessage.toLowerCase().includes("everywhere")) ||
@@ -153,7 +155,19 @@ export const useChatMessages = (apiKey: string, isUsingChatGPT: boolean) => {
       );
     }
     
+    // For all other specialties, use a simpler approach
     const agent = specializedAgents[currentSpecialty];
+    console.log(`Using ${agent.name}, a ${agent.specialty} expert for response`);
+    
+    // Check if someone is asking if we're a different profession
+    if (userMessage.toLowerCase().includes("are you a") || 
+        userMessage.toLowerCase().includes("are you an") ||
+        userMessage.toLowerCase().includes("you are a")) {
+      
+      // Be very clear about who we are
+      return `I'm ${agent.name}, a ${agent.specialty} expert. I specialize in ${agent.expertise.join(", ")}. How can I help you with your ${agent.specialty}-related questions today?`;
+    }
+    
     return `${agent.greeting} I'm here to help with all your ${agent.specialty}-related questions. For more detailed assistance, consider adding your OpenAI API key in settings, or check our step-by-step guides by clicking the question mark icon above.`;
   };
 
