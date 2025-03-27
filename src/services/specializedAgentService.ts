@@ -166,6 +166,13 @@ export const getAgentByRoute = (route: string): AgentSpecialty => {
   if (route.includes("cleaning")) return "cleaning";
   if (route.includes("gadget")) return "gadget";
   
+  // Check the searchParams in the route
+  const urlParams = new URLSearchParams(route.split('?')[1]);
+  const specialty = urlParams.get('specialty');
+  if (specialty && Object.keys(specializedAgents).includes(specialty)) {
+    return specialty as AgentSpecialty;
+  }
+  
   // Default to plumber if no matching route
   return "plumber";
 };

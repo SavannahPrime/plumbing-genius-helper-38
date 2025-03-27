@@ -1,35 +1,53 @@
-
-import { useState, useEffect } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { useSearchParams, useLocation } from "react-router-dom";
 import ChatHeader from "@/components/chat/ChatHeader";
 import ChatMessages from "@/components/chat/ChatMessages";
 import ChatInput from "@/components/chat/ChatInput";
-import ApiKeyDialog from "@/components/chat/ApiKeyDialog";
 import ChatSettings from "@/components/chat/ChatSettings";
-import { toast } from "@/hooks/use-toast";
-import { useApiKeyManagement } from "@/hooks/useApiKeyManagement";
 import { useChatMessages } from "@/hooks/useChatMessages";
-import { useElevenLabsWidget } from "@/hooks/useElevenLabsWidget";
-import { motion } from "framer-motion";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { Message } from "@/types/chat";
+import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
 import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
+import { analyzeImageForSpecialty } from "@/services/specializedAgentService";
+import { toast } from "sonner";
 
 const Chat = () => {
-  // Get the specialty from URL query params
+  const [apiKey, setApiKey] = useLocalStorage<string>("openai-api-key", "");
+  const [isUsingChatGPT, setIsUsingChatGPT] = useLocalStorage<boolean>("using-chatgpt", true);
+  const { handleMicClick } = useElevenLabsAgent();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isUploading, setIsUploading] = useState(false);
   const [searchParams] = useSearchParams();
-  const specialtyParam = searchParams.get('specialty') as AgentSpecialty | null;
+  const location = useLocation();
   
-  // API key management - automatically using ChatGPT
-  const {
-    apiKey,
-    setApiKey,
-    isUsingChatGPT,
-    openDialog,
-    setOpenDialog,
-    saveApiKey,
-    toggleChatGPT
-  } = useApiKeyManagement();
+  // Determine agent specialty from URL params or route
+  const getAgentSpecialty = (): AgentSpecialty => {
+    // First check URL params
+    const specialtyParam = searchParams.get('specialty') as AgentSpecialty;
+    if (specialtyParam && Object.keys(specializedAgents).includes(specialtyParam)) {
+      return specialtyParam;
+    }
+    
+    // Otherwise determine from path
+    const path = location.pathname;
+    
+    if (path.includes("electrician")) return "electrician";
+    if (path.includes("handyman")) return "handyman";
+    if (path.includes("mechanic")) return "mechanic";
+    if (path.includes("landscaper")) return "landscaper";
+    if (path.includes("chef")) return "chef";
+    if (path.includes("stylist")) return "stylist";
+    if (path.includes("cleaning")) return "cleaning";
+    if (path.includes("gadget")) return "gadget";
+    
+    // Default to plumber
+    return "plumber";
+  };
+  
+  const currentSpecialty = getAgentSpecialty();
+  console.log("Chat page using specialty:", currentSpecialty);
 
-  // Chat functionality
   const {
     message,
     setMessage,
@@ -38,135 +56,197 @@ const Chat = () => {
     isLoading,
     setIsLoading,
     generatePlumberResponse,
+    context,
     currentAgentSpecialty
   } = useChatMessages(apiKey, isUsingChatGPT);
 
-  // ElevenLabs widget
-  const { handleActivate } = useElevenLabsWidget();
-  
-  // Get problem query from URL if present
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const problemQuery = queryParams.get('problem');
+  const handleSendMessage = async () => {
+    if (message.trim() === "" || isLoading) return;
 
-  // Override agent specialty with the one from URL if present
-  const displaySpecialty = specialtyParam || currentAgentSpecialty;
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      text: message,
+      isAi: false,
+      timestamp: new Date(),
+    };
 
-  // Handle initial problem query if present
-  useEffect(() => {
-    if (problemQuery && messages.length === 1) {
-      handleSendMessage(problemQuery);
-    }
-  }, [problemQuery]);
-
-  // Show welcome toast about ChatGPT connectivity
-  useEffect(() => {
-    if (isUsingChatGPT && apiKey) {
-      toast({
-        title: "Connected to ChatGPT",
-        description: "Enhanced AI responses are enabled for all agents."
-      });
-    }
-  }, []);
-
-  // Get the current agent based on specialty
-  const currentAgent = specializedAgents[displaySpecialty];
-
-  const handleSendMessage = async (customMessage?: string) => {
-    const messageToSend = customMessage || message;
-    if (!messageToSend.trim()) return;
-    
-    setMessages(prev => [...prev, { text: messageToSend, isAi: false }]);
-    const userMessage = messageToSend;
+    setMessages((prev) => [...prev, userMessage]);
     setMessage("");
-    
     setIsLoading(true);
-    
+
     try {
-      const aiResponse = await generatePlumberResponse(userMessage);
-      
-      if (aiResponse === null && isUsingChatGPT) {
-        // Handle ChatGPT error
-        setIsLoading(false);
-        toast({
-          title: "ChatGPT Connection Error",
-          description: "Falling back to built-in assistant.",
-          variant: "destructive"
-        });
-        
-        // Try again with built-in assistant
-        const fallbackResponse = await generatePlumberResponse(userMessage);
-        setMessages(prev => [...prev, {
-          text: fallbackResponse,
-          isAi: true
-        }]);
+      const response = await generatePlumberResponse(message);
+
+      if (response) {
+        const aiMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          text: response,
+          isAi: true,
+          timestamp: new Date(),
+        };
+
+        setMessages((prev) => [...prev, aiMessage]);
       } else {
-        setMessages(prev => [...prev, {
-          text: aiResponse,
-          isAi: true
-        }]);
+        // Handle error case
+        const errorMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          text: "I'm sorry, I couldn't generate a response. Please try again or check your API key settings.",
+          isAi: true,
+          timestamp: new Date(),
+        };
+
+        setMessages((prev) => [...prev, errorMessage]);
       }
     } catch (error) {
       console.error("Error generating response:", error);
-      setMessages(prev => [...prev, {
-        text: "I'm sorry, I'm having trouble processing your request. Please try again.",
-        isAi: true
-      }]);
+      
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: "I apologize, but I encountered an error. Please try again or check your connection.",
+        isAi: true,
+        timestamp: new Date(),
+      };
+
+      setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (!files || files.length === 0) return;
+
+    const file = files[0];
+    if (!file.type.startsWith('image/')) {
+      toast("Please upload an image file");
+      return;
+    }
+
+    setIsUploading(true);
+
+    try {
+      // Create a message to show the image is being uploaded
+      const uploadMessage: Message = {
+        id: Date.now().toString(),
+        text: "I'm uploading an image for analysis...",
+        isAi: false,
+        timestamp: new Date(),
+        imageUrl: URL.createObjectURL(file)
+      };
+
+      setMessages(prev => [...prev, uploadMessage]);
+
+      // Read the file as data URL
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        if (!e.target?.result) return;
+        
+        const imageDataUrl = e.target.result as string;
+        
+        try {
+          // Add a loading message
+          const loadingMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            text: "Analyzing your image...",
+            isAi: true,
+            timestamp: new Date(),
+          };
+          
+          setMessages(prev => [...prev, loadingMessage]);
+          
+          // Analyze the image
+          const analysis = await analyzeImageForSpecialty(
+            imageDataUrl,
+            currentAgentSpecialty,
+            apiKey
+          );
+          
+          // Replace the loading message with the analysis
+          setMessages(prev => prev.map(msg => 
+            msg.id === loadingMessage.id 
+              ? { ...msg, text: analysis } 
+              : msg
+          ));
+        } catch (error) {
+          console.error("Error analyzing image:", error);
+          
+          // Add an error message
+          const errorMessage: Message = {
+            id: (Date.now() + 2).toString(),
+            text: "I'm sorry, I couldn't analyze your image. Please try again or upload a clearer image.",
+            isAi: true,
+            timestamp: new Date(),
+          };
+          
+          setMessages(prev => [...prev, errorMessage]);
+        }
+      };
+      
+      reader.readAsDataURL(file);
+    } catch (error) {
+      console.error("Error processing image:", error);
+      toast("Error processing image. Please try again.");
+    } finally {
+      setIsUploading(false);
+      // Reset the file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
+  // Add a welcome message when the chat starts
+  useEffect(() => {
+    if (messages.length === 0) {
+      const agent = specializedAgents[currentAgentSpecialty];
+      const welcomeMessage: Message = {
+        id: "welcome",
+        text: agent.greeting,
+        isAi: true,
+        timestamp: new Date(),
+      };
+      setMessages([welcomeMessage]);
+    }
+  }, [currentAgentSpecialty]);
+
   return (
-    <div className="min-h-screen bg-[#F5F5F5] relative">
-      <ChatHeader specialty={displaySpecialty}>
+    <div className="flex flex-col h-screen bg-background">
+      <ChatHeader specialty={currentSpecialty}>
         <ChatSettings 
-          onOpenApiKeyDialog={() => setOpenDialog(true)}
-          onToggleChatGPT={toggleChatGPT}
+          apiKey={apiKey} 
+          setApiKey={setApiKey} 
           isUsingChatGPT={isUsingChatGPT}
+          setIsUsingChatGPT={setIsUsingChatGPT}
         />
       </ChatHeader>
       
-      <main className="container mx-auto px-4 py-4">
-        <div className="max-w-3xl mx-auto">
-          {messages.length === 0 && (
-            <motion.div
-              className="mb-8 flex justify-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="text-center">
-                <img 
-                  src="/lovable-uploads/1d4662ea-cc69-4e4f-9c18-078726ebe91e.png" 
-                  alt={`Friendly ${currentAgent.specialty}`} 
-                  className="max-w-[200px] mx-auto mb-4"
-                />
-                <div className="bg-white p-4 rounded-xl shadow-md inline-block">
-                  <p className="font-medium text-gray-800">
-                    "{currentAgent.greeting}"
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          )}
-          <ChatMessages messages={messages} isLoading={isLoading} />
-          <ChatInput 
-            message={message}
-            setMessage={setMessage}
-            handleSendMessage={() => handleSendMessage()}
-            isLoading={isLoading}
-            onMicClick={handleActivate}
-          />
-        </div>
-      </main>
+      <div className="flex-1 overflow-hidden relative">
+        <ChatMessages 
+          messages={messages} 
+          isLoading={isLoading} 
+          context={context}
+          specialty={currentAgentSpecialty}
+        />
+      </div>
       
-      <ApiKeyDialog
-        open={openDialog}
-        onOpenChange={setOpenDialog}
-        apiKey={apiKey}
-        onApiKeyChange={setApiKey}
-        onSave={saveApiKey}
+      <ChatInput
+        message={message}
+        setMessage={setMessage}
+        handleSendMessage={handleSendMessage}
+        isLoading={isLoading}
+        handleMicClick={handleMicClick}
+        fileInputRef={fileInputRef}
+        handleImageUpload={handleImageUpload}
+        isUploading={isUploading}
+      />
+      
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleImageUpload}
+        accept="image/*"
+        className="hidden"
       />
     </div>
   );
