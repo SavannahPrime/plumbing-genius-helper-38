@@ -1,11 +1,12 @@
 
 import React from "react";
-import { Home, Mic } from "lucide-react";
+import { Home, Mic, HelpCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
 import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface DiagnosisHeaderProps {
   specialty?: AgentSpecialty;
@@ -22,12 +23,30 @@ const DiagnosisHeader = ({ specialty = "plumber" }: DiagnosisHeaderProps) => {
           <Home className="w-6 h-6 text-primary" />
         </Link>
         <div className="ml-4 flex-1">
-          <h1 className="font-space-grotesk font-bold text-[22px] text-primary">
-            {agent.name}'s Visual Diagnosis
-          </h1>
+          <div className="flex items-center">
+            <h1 className="font-space-grotesk font-bold text-[22px] text-primary">
+              {agent.name}'s Visual Diagnosis
+            </h1>
+            <Badge variant="outline" className="ml-2 text-xs">by EveryFixAI</Badge>
+            
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link to="/step-by-step" className="ml-2">
+                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0 rounded-full">
+                      <HelpCircle className="h-4 w-4 text-primary" />
+                      <span className="sr-only">Get Step-by-Step Help</span>
+                    </Button>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>View Step-by-Step Guides</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
           <p className="font-dm-sans text-[16px] text-neutrals flex items-center">
             Upload a photo, and our AI {agent.specialty} will analyze the issue.
-            <Badge variant="outline" className="ml-2 text-xs">by EveryFixAI</Badge>
           </p>
         </div>
         <Button 

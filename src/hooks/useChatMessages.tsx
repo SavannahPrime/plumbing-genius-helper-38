@@ -4,12 +4,14 @@ import { Message, ConversationContext } from "@/types/chat";
 import { generateNextResponse, identifyProblemType, handleEmergency } from "@/services/chatService";
 import { generateChatGPTResponse, createAgentPrompt, isPictureRequest } from "@/services/openaiService";
 import { AgentSpecialty, generateSpecializedAgentResponse, specializedAgents } from "@/services/specializedAgentService";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export const useChatMessages = (apiKey: string, isUsingChatGPT: boolean) => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const location = useLocation();
+  const navigate = useNavigate();
   
   const [context, setContext] = useState<ConversationContext>({
     currentTopic: "",
@@ -49,6 +51,25 @@ export const useChatMessages = (apiKey: string, isUsingChatGPT: boolean) => {
   };
 
   const generateResponse = async (userMessage: string) => {
+    // Check if this is a request to see step-by-step guides
+    if (userMessage.toLowerCase().includes("step by step") || 
+        userMessage.toLowerCase().includes("guide") ||
+        userMessage.toLowerCase().includes("how to fix") ||
+        userMessage.toLowerCase().includes("fix it myself") ||
+        userMessage.toLowerCase().includes("diy")) {
+      
+      // Send a message suggesting to check the step-by-step guide
+      setTimeout(() => {
+        toast("Tip: Visit our Step-by-Step guides for detailed DIY instructions", {
+          description: "Click the question mark icon in the header",
+          action: {
+            label: "View Guides",
+            onClick: () => navigate("/step-by-step")
+          }
+        });
+      }, 1000);
+    }
+    
     // First, check if this is a picture request
     if (isPictureRequest(userMessage)) {
       return "Yes, please! Sharing pictures would be extremely helpful for me to better diagnose your issue. You can upload images directly through this chat interface. Clear photos of the problem area will help me give you more accurate advice.";
@@ -133,7 +154,7 @@ export const useChatMessages = (apiKey: string, isUsingChatGPT: boolean) => {
     
     // For other specialties, provide fallback responses
     const agent = specializedAgents[currentSpecialty];
-    return `${agent.greeting} I'm here to help with all your ${agent.specialty}-related questions. For more detailed assistance, consider adding your OpenAI API key in settings.`;
+    return `${agent.greeting} I'm here to help with all your ${agent.specialty}-related questions. For more detailed assistance, consider adding your OpenAI API key in settings, or check our step-by-step guides by clicking the question mark icon above.`;
   };
 
   return {

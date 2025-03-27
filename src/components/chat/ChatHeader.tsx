@@ -1,10 +1,11 @@
 
 import React from "react";
 import { Badge } from "@/components/ui/badge";
-import { Home } from "lucide-react";
+import { Home, HelpCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface ChatHeaderProps {
   children?: React.ReactNode;
@@ -30,6 +31,22 @@ const ChatHeader = ({ children, specialty = "plumber" }: ChatHeaderProps) => {
               {agent.name}'s Chat
             </h1>
             <Badge variant="outline" className="ml-2 text-xs">AI {agent.specialty}</Badge>
+            
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link to="/step-by-step" className="ml-2">
+                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0 rounded-full">
+                      <HelpCircle className="h-4 w-4 text-primary" />
+                      <span className="sr-only">Get Step-by-Step Help</span>
+                    </Button>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>View Step-by-Step Guides</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
           <p className="text-sm text-neutrals">
             Describe your {specialty} issue and get expert help
