@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Wrench, Leaf, Sparkles, Zap, Settings, Smartphone, ChefHat, Scissors, Play, ArrowRight } from "lucide-react";
+import { Wrench, Leaf, Sparkles, Zap, Settings, Smartphone, ChefHat, Scissors, Play, ArrowRight, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -41,8 +41,7 @@ const EveryFixHome = () => {
       avatar: "/lovable-uploads/1d4662ea-cc69-4e4f-9c18-078726ebe91e.png",
       avatarFallback: "🔧",
       bgClass: "bg-blue-50",
-      videoTitle: "Fixing a Sink Leak",
-      placeholderText: "AI Plumber in action"
+      featured: true
     },
     {
       name: "Cleaning Genius",
@@ -54,8 +53,7 @@ const EveryFixHome = () => {
       avatar: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
       avatarFallback: "🧼",
       bgClass: "bg-blue-50",
-      videoTitle: "Stain Removal Techniques",
-      placeholderText: "AI Cleaning Expert in action"
+      featured: false
     },
     {
       name: "Handyman Hero",
@@ -67,8 +65,7 @@ const EveryFixHome = () => {
       avatar: "/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png",
       avatarFallback: "🔨",
       bgClass: "bg-orange-50",
-      videoTitle: "Wall Repair Step-by-Step",
-      placeholderText: "AI Handyman in action"
+      featured: true
     },
     {
       name: "Electrician Genius",
@@ -80,8 +77,7 @@ const EveryFixHome = () => {
       avatar: "/lovable-uploads/3be27937-18fe-451e-a339-37459edc18bb.png",
       avatarFallback: "⚡",
       bgClass: "bg-yellow-50",
-      videoTitle: "Light Fixture Installation",
-      placeholderText: "AI Electrician in action"
+      featured: false
     },
     {
       name: "Landscaper Buddy",
@@ -93,8 +89,7 @@ const EveryFixHome = () => {
       avatar: "/lovable-uploads/3be27937-18fe-451e-a339-37459edc18bb.png",
       avatarFallback: "🌿",
       bgClass: "bg-green-50",
-      videoTitle: "Garden Bed Setup",
-      placeholderText: "AI Landscaper in action"
+      featured: false
     },
     {
       name: "Mechanic Assistant",
@@ -106,8 +101,7 @@ const EveryFixHome = () => {
       avatar: "/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png",
       avatarFallback: "🔩",
       bgClass: "bg-red-50",
-      videoTitle: "Oil Change Tutorial",
-      placeholderText: "AI Mechanic in action"
+      featured: false
     },
     {
       name: "Gadget Fix Genie",
@@ -119,8 +113,7 @@ const EveryFixHome = () => {
       avatar: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
       avatarFallback: "📱",
       bgClass: "bg-purple-50",
-      videoTitle: "Phone Troubleshooting",
-      placeholderText: "AI Tech Expert in action"
+      featured: true
     },
     {
       name: "Chef's Assistant",
@@ -132,8 +125,7 @@ const EveryFixHome = () => {
       avatar: "/lovable-uploads/1d4662ea-cc69-4e4f-9c18-078726ebe91e.png",
       avatarFallback: "👨‍🍳",
       bgClass: "bg-amber-50",
-      videoTitle: "Recipe Rescue Tips",
-      placeholderText: "AI Chef in action"
+      featured: false
     },
     {
       name: "Stylist's Helper",
@@ -145,10 +137,12 @@ const EveryFixHome = () => {
       avatar: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
       avatarFallback: "💇",
       bgClass: "bg-pink-50",
-      videoTitle: "Hair Styling Tutorial",
-      placeholderText: "AI Stylist in action"
+      featured: false
     }
   ];
+
+  // Filter featured products
+  const featuredProducts = products.filter(product => product.featured);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
@@ -172,59 +166,61 @@ const EveryFixHome = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        {/* Featured Video Section */}
+        {/* Featured Helpers Section */}
         <section className="mb-16">
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">Featured Video Tutorials</h2>
+            <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">Featured Helpers</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Watch how our AI assistants can help you tackle common household challenges
+              Our most popular AI assistants ready to solve your home challenges
             </p>
           </div>
           
-          <div className="relative px-10 md:px-16">
-            <Carousel className="w-full">
-              <CarouselContent>
-                {products.slice(0, 4).map((product, index) => (
-                  <CarouselItem key={product.name} className="md:basis-1/2 lg:basis-1/3">
-                    <div className="p-1">
-                      <Card className="overflow-hidden">
-                        <div className="relative aspect-video bg-gray-100 flex items-center justify-center">
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            {/* Placeholder for video - replace with actual video component when available */}
-                            <div className={`w-full h-full ${product.bgClass} flex flex-col items-center justify-center p-4`}>
-                              <div className="w-16 h-16 rounded-full bg-white/30 flex items-center justify-center mb-3">
-                                {createIcon(product.iconType)}
-                              </div>
-                              <p className="text-center text-gray-600">{product.placeholderText}</p>
-                            </div>
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <button className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors">
-                                <Play className="h-6 w-6 text-primary ml-1" />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <CardContent className="p-4">
-                          <h3 className="font-medium text-lg">{product.videoTitle}</h3>
-                          <p className="text-sm text-gray-500">With {product.name}</p>
-                        </CardContent>
-                      </Card>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {featuredProducts.map((product, index) => (
+              <motion.div
+                key={product.name}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="h-full"
+              >
+                <Link to={product.path} className="block h-full no-underline group">
+                  <Card className={`h-full shadow-sm hover:shadow-md transition-all ${product.bgClass} cursor-pointer border border-gray-200 group-hover:border-gray-300 relative overflow-hidden`}>
+                    <div className="absolute top-2 right-2 z-10">
+                      <div className="bg-yellow-300 text-yellow-900 p-1 rounded-full flex items-center">
+                        <Star className="h-3 w-3 fill-yellow-900 mr-1" />
+                        <span className="text-xs font-medium">Featured</span>
+                      </div>
                     </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
-            
-            <div className="flex justify-center mt-4 gap-1">
-              {[0, 1, 2, 3].map((i) => (
-                <div 
-                  key={i} 
-                  className={`w-2 h-2 rounded-full ${activeVideos === i ? 'bg-primary' : 'bg-gray-300'}`}
-                />
-              ))}
-            </div>
+                    <CardHeader className={`${product.color} text-white rounded-t-xl`}>
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <CardTitle className="text-xl font-bold">
+                            {product.emoji} {product.name}
+                          </CardTitle>
+                          <CardDescription className="text-white/90 mt-1">
+                            Your AI Assistant
+                          </CardDescription>
+                        </div>
+                        <Avatar className="h-12 w-12 border-2 border-white">
+                          <AvatarImage src={product.avatar} alt={product.name} />
+                          <AvatarFallback className="text-xl">{product.avatarFallback}</AvatarFallback>
+                        </Avatar>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="pt-4">
+                      <p className="text-gray-700">{product.description}</p>
+                    </CardContent>
+                    <CardFooter className="pt-0">
+                      <Button className="w-full group-hover:bg-primary/90 transition-colors" variant="outline">
+                        Explore {product.name}
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                </Link>
+              </motion.div>
+            ))}
           </div>
         </section>
 
