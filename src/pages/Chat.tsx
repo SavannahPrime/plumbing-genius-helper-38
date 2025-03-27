@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ChatHeader from "@/components/chat/ChatHeader";
 import ChatMessages from "@/components/chat/ChatMessages";
 import ChatInput from "@/components/chat/ChatInput";
@@ -35,6 +35,34 @@ const Chat = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
+
+  useEffect(() => {
+    if (!document.querySelector('script[src="https://elevenlabs.io/convai-widget/index.js"]')) {
+      const script = document.createElement('script');
+      script.src = "https://elevenlabs.io/convai-widget/index.js";
+      script.async = true;
+      script.type = "text/javascript";
+      document.body.appendChild(script);
+      
+      return () => {
+        document.body.removeChild(script);
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!document.querySelector('elevenlabs-convai[agent-id="lX8syHY754gA8SdjQU6n"]')) {
+      const agentElement = document.createElement('elevenlabs-convai');
+      agentElement.setAttribute('agent-id', 'lX8syHY754gA8SdjQU6n');
+      document.body.appendChild(agentElement);
+      
+      return () => {
+        if (document.body.contains(agentElement)) {
+          document.body.removeChild(agentElement);
+        }
+      };
+    }
+  }, []);
 
   const saveApiKey = (key: string) => {
     setApiKey(key);
@@ -171,6 +199,19 @@ const Chat = () => {
     });
   };
 
+  const handleMicClick = () => {
+    const elevenlabsButton = document.querySelector('elevenlabs-convai')?.shadowRoot?.querySelector('button');
+    if (elevenlabsButton) {
+      elevenlabsButton.click();
+    } else {
+      toast({
+        title: "Voice Chat Not Available",
+        description: "The voice chat feature is still loading. Please try again in a moment.",
+        variant: "destructive"
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
       <ChatHeader>
@@ -223,6 +264,7 @@ const Chat = () => {
             setMessage={setMessage}
             handleSendMessage={handleSendMessage}
             isLoading={isLoading}
+            onMicClick={handleMicClick}
           />
         </div>
       </main>

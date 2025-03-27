@@ -8,14 +8,27 @@ interface ChatInputProps {
   setMessage: (message: string) => void;
   handleSendMessage: () => void;
   isLoading?: boolean;
+  onMicClick?: () => void;
 }
 
-const ChatInput = ({ message, setMessage, handleSendMessage, isLoading = false }: ChatInputProps) => {
+const ChatInput = ({ 
+  message, 
+  setMessage, 
+  handleSendMessage, 
+  isLoading = false,
+  onMicClick 
+}: ChatInputProps) => {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-4">
       <div className="container mx-auto max-w-3xl">
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" className="flex-shrink-0">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="flex-shrink-0 hover:bg-blue-50 transition-colors"
+            onClick={onMicClick}
+            title="Speak with voice assistant"
+          >
             <Mic className="w-5 h-5 text-gray-600" />
           </Button>
           <Button variant="ghost" size="icon" className="flex-shrink-0">
