@@ -14,7 +14,8 @@ const ProductCard = ({
   path, 
   color,
   hoverColor,
-  iconColor
+  iconColor,
+  buttonTextColor
 }: { 
   icon: React.ReactNode; 
   emoji: string; 
@@ -24,10 +25,11 @@ const ProductCard = ({
   color: string;
   hoverColor: string;
   iconColor: string;
+  buttonTextColor?: string;
 }) => {
   return (
     <motion.div
-      className={`bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all ${color}`}
+      className={`p-6 rounded-xl shadow-md hover:shadow-lg transition-all ${color}`}
       whileHover={{ y: -5 }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -41,7 +43,7 @@ const ProductCard = ({
       </div>
       <p className="text-sm text-neutrals mb-4">{tagline}</p>
       <Link to={path}>
-        <Button variant="outline" className={`w-full hover:${hoverColor} border-gray-200 hover:border-gray-300 transition-all duration-200`}>
+        <Button variant="outline" className={`w-full hover:${hoverColor} border-gray-200 hover:border-gray-300 transition-all duration-200 ${buttonTextColor || ''}`}>
           Explore
         </Button>
       </Link>
@@ -68,9 +70,10 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           title="Cleaning Genius"
           tagline="The AI that knows how to clean anything — without Googling."
           path="/cleaning"
-          color="bg-blue-50 hover:bg-blue-100"
-          hoverColor="bg-blue-100"
+          color="bg-cyan-50"
+          hoverColor="bg-cyan-100"
           iconColor="bg-cyan-500"
+          buttonTextColor="text-cyan-700 hover:text-cyan-800"
         />
         
         <ProductCard
@@ -79,9 +82,10 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           title="Handyman Hero"
           tagline="Fix furniture, patch walls, hang shelves — no handyman required."
           path="/handyman"
-          color="bg-orange-50 hover:bg-orange-100"
-          hoverColor="bg-orange-100"
-          iconColor="bg-orange-500"
+          color="bg-amber-50"
+          hoverColor="bg-amber-100"
+          iconColor="bg-amber-500"
+          buttonTextColor="text-amber-700 hover:text-amber-800"
         />
         
         <ProductCard
@@ -90,9 +94,10 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           title="Electrician Genius"
           tagline="Flip the switch on electrical problems — safely and smart."
           path="/electrician"
-          color="bg-yellow-50 hover:bg-yellow-100"
+          color="bg-yellow-50"
           hoverColor="bg-yellow-100"
           iconColor="bg-yellow-500"
+          buttonTextColor="text-yellow-700 hover:text-yellow-800"
         />
         
         <ProductCard
@@ -101,9 +106,10 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           title="Landscaper Buddy"
           tagline="Your AI yard partner — from soil to sprinkler."
           path="/landscaper"
-          color="bg-green-50 hover:bg-green-100"
-          hoverColor="bg-green-100"
-          iconColor="bg-green-600"
+          color="bg-emerald-100"
+          hoverColor="bg-emerald-200"
+          iconColor="bg-emerald-600"
+          buttonTextColor="text-emerald-700 hover:text-emerald-800"
         />
         
         <ProductCard
@@ -112,9 +118,10 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           title="Gadget Fix Genie"
           tagline="Troubleshoot phones, tablets, and other electronic devices."
           path="/gadgetfixgenie"
-          color="bg-purple-50 hover:bg-purple-100"
-          hoverColor="bg-purple-100"
-          iconColor="bg-purple-600"
+          color="bg-indigo-50"
+          hoverColor="bg-indigo-100"
+          iconColor="bg-indigo-600"
+          buttonTextColor="text-indigo-700 hover:text-indigo-800"
         />
       </div>
     </section>
