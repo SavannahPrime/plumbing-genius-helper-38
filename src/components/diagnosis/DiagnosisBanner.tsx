@@ -11,7 +11,7 @@ const DiagnosisBanner = () => {
       transition={{ delay: 0.2, duration: 0.5 }}
     >
       <img 
-        src="/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png" 
+        src="/lovable-uploads/3be27937-18fe-451e-a339-37459edc18bb.png" 
         alt="Friendly Plumber" 
         className="w-full max-w-[250px] mx-auto md:mx-0"
       />
