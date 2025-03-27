@@ -206,10 +206,15 @@ export const generateSpecializedAgentResponse = async (
     }
     
     // If no API key, return a fallback response and clearly indicate the issue
+    // This should never happen for Chef since we have a dedicated key
     console.warn(`No OpenAI API key available for ${specialty} response`);
     return `${agent.greeting} I'm here to help with all your ${agent.specialty}-related questions. However, I notice there's an issue with the OpenAI API key connection. Please update your API key in the settings menu (click the gear icon) for more personalized assistance.`;
   } catch (error) {
     console.error(`Error generating ${specialty} response:`, error);
+    if (specialty === "chef") {
+      // Special fallback for chef that doesn't mention API key
+      return `Bonjour! I'm Chef Charlie. I'm having trouble accessing my culinary knowledge right now. Please try again in a moment. What would you like to cook today?`;
+    }
     return `I apologize, but I'm having trouble connecting to my knowledge base right now. As your ${agent.specialty} assistant, I'll try to help with my built-in expertise instead. If this persists, please check your API key settings.`;
   }
 };

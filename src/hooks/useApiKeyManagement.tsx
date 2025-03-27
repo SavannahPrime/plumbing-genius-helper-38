@@ -65,7 +65,7 @@ export const useApiKeyManagement = () => {
     });
   };
 
-  // Set up the key on first load
+  // Set up the key on first load and when specialty changes
   useEffect(() => {
     if (!localStorage.getItem("openai_api_key")) {
       localStorage.setItem("openai_api_key", DEFAULT_API_KEY);

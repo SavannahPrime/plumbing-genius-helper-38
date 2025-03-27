@@ -9,14 +9,21 @@ import { useChatMessages } from "@/hooks/useChatMessages";
 import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
 import { useImageUpload } from "@/hooks/useImageUpload";
 import { useApiKeyNotification } from "@/hooks/useApiKeyNotification";
+import { useApiKeyManagement } from "@/hooks/useApiKeyManagement";
 import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
 
 const Chat = () => {
-  // Load the API key from localStorage with the correct key name
-  const [apiKey, setApiKey] = useLocalStorage<string>("openai_api_key", "");
-  const [isUsingChatGPT, setIsUsingChatGPT] = useLocalStorage<boolean>("using-chatgpt", true);
+  // Get API key management from the hook instead of directly from localStorage
+  const { 
+    apiKey, 
+    setApiKey, 
+    isUsingChatGPT, 
+    setIsUsingChatGPT,
+    saveApiKey,
+    toggleChatGPT
+  } = useApiKeyManagement();
   
-  // Show notification if API key is missing
+  // Show notification if API key is missing (the hook will handle chef special case)
   useApiKeyNotification(apiKey);
   
   const { handleMicClick } = useElevenLabsAgent();

@@ -96,8 +96,8 @@ export const useResponseGenerator = (
 
     console.log("Current agent specialty for response:", currentSpecialty);
 
-    // For API key based response
-    if (isUsingChatGPT && apiKey) {
+    // For Chef specialty or API key based response
+    if ((currentSpecialty === "chef" || isUsingChatGPT) && apiKey) {
       setIsLoading(true);
       try {
         // Define here to avoid circular dependencies

@@ -11,8 +11,13 @@ export const useApiKeyNotification = (apiKey: string) => {
     // Log API key status for debugging
     console.log("API Key Status:", apiKey ? "Key is set" : "No key available");
     
-    // Only show the notification if no API key is available AND not using the chef specialty
-    if (!apiKey && currentSpecialty !== "chef") {
+    // NEVER show the notification for the chef specialty since it has a dedicated key
+    if (currentSpecialty === "chef") {
+      return;
+    }
+    
+    // Only show the notification if no API key is available
+    if (!apiKey) {
       toast("API Key Needed", {
         description: "Please set your OpenAI API key in settings to enable all features",
         action: {
