@@ -82,6 +82,7 @@ export const useApiKeyManagement = () => {
     apiKey,
     setApiKey,
     isUsingChatGPT,
+    setIsUsingChatGPT, // Explicitly include setIsUsingChatGPT in the returned object
     openDialog,
     setOpenDialog,
     saveApiKey,
