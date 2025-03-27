@@ -17,6 +17,8 @@ import EveryFixHome from "./pages/EveryFixHome";
 import Mechanic from "./pages/Mechanic";
 import GadgetFixGenie from "./pages/GadgetFixGenie";
 import GadgetGlossary from "./pages/GadgetGlossary";
+import Chef from "./pages/Chef";
+import Stylist from "./pages/Stylist";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +41,8 @@ const App = () => (
           <Route path="/mechanic" element={<Mechanic />} />
           <Route path="/gadgetfixgenie" element={<GadgetFixGenie />} />
           <Route path="/glossary" element={<GadgetGlossary />} />
+          <Route path="/chef" element={<Chef />} />
+          <Route path="/stylist" element={<Stylist />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

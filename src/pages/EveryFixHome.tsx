@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Wrench, Leaf, Sparkles, Zap, Settings, Smartphone } from "lucide-react";
+import { Wrench, Leaf, Sparkles, Zap, Settings, Smartphone, ChefHat, Scissors } from "lucide-react";
 import { motion } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -85,6 +85,28 @@ const EveryFixHome = () => {
       avatar: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
       avatarFallback: "📱",
       bgClass: "bg-purple-50"
+    },
+    {
+      name: "Chef's Assistant",
+      description: "Your cooking companion — recipes, techniques, and kitchen problem-solving.",
+      icon: <ChefHat className="h-6 w-6 text-white" />,
+      emoji: "👨‍🍳",
+      path: "/chef",
+      color: "bg-gradient-to-r from-amber-400 to-amber-600",
+      avatar: "/lovable-uploads/1d4662ea-cc69-4e4f-9c18-078726ebe91e.png",
+      avatarFallback: "👨‍🍳",
+      bgClass: "bg-amber-50"
+    },
+    {
+      name: "Stylist's Helper",
+      description: "Hair, fashion, and beauty advice from your personal AI stylist.",
+      icon: <Scissors className="h-6 w-6 text-white" />,
+      emoji: "💇",
+      path: "/stylist",
+      color: "bg-gradient-to-r from-pink-400 to-pink-600",
+      avatar: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
+      avatarFallback: "💇",
+      bgClass: "bg-pink-50"
     }
   ];
 

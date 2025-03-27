@@ -3,7 +3,7 @@ import React from "react";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Toilet, Droplet, Bath, Flame, Trash2, Info } from "lucide-react";
+import { ArrowRight, Toilet, Droplet, Bath, Flame, Trash2, Info, ChefHat, Scissors } from "lucide-react";
 
 interface ProblemCategory {
   icon: React.ReactNode;
@@ -76,6 +76,20 @@ const problemCategories: ProblemCategory[] = [
     query: "There's a bad smell coming from my plumbing.",
     hoverText: "Rotten egg smell? Sink odor?",
     emoji: "👃" 
+  },
+  { 
+    icon: <ChefHat className="w-5 h-5" />, 
+    name: "Chef Help", 
+    query: "I need help with cooking or recipes.",
+    hoverText: "Recipe advice? Cooking techniques?",
+    emoji: "👨‍🍳" 
+  },
+  { 
+    icon: <Scissors className="w-5 h-5" />, 
+    name: "Styling Advice", 
+    query: "I need styling or hair advice.",
+    hoverText: "Hair tips? Fashion advice?",
+    emoji: "💇" 
   },
 ];
 
