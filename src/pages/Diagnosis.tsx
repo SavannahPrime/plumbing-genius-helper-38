@@ -1,11 +1,81 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, Camera, Upload } from "lucide-react";
+import { ArrowLeft, Camera, Upload, Image as ImageIcon, X, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useState, useRef } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { analyzeImage } from "@/services/imageAnalysisService";
+import { Input } from "@/components/ui/input";
+import { toast } from "@/hooks/use-toast";
 
 const Diagnosis = () => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState<string | null>(null);
+  const [showDialog, setShowDialog] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setSelectedImage(e.target?.result as string);
+        setShowDialog(true);
+        setAnalysisResult(null);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleCameraClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.accept = "image/*";
+      fileInputRef.current.capture = "environment";
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleUploadClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.accept = "image/*";
+      fileInputRef.current.removeAttribute("capture");
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleCloseDialog = () => {
+    setShowDialog(false);
+    if (!analysisResult) {
+      setSelectedImage(null);
+    }
+  };
+
+  const handleAnalyzeImage = async () => {
+    if (!selectedImage) return;
+
+    try {
+      setIsAnalyzing(true);
+      const result = await analyzeImage(selectedImage);
+      setAnalysisResult(result);
+      toast({
+        title: "Analysis complete",
+        description: "We've analyzed your plumbing issue",
+      });
+    } catch (error) {
+      console.error("Error analyzing image:", error);
+      toast({
+        title: "Analysis failed",
+        description: "There was a problem analyzing your image. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
       {/* Header */}
@@ -67,21 +137,108 @@ const Diagnosis = () => {
                     Take a clear photo of the plumbing issue, and our AI will analyze it for you.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full max-w-xs mx-auto">
-                    <Button className="bg-[#0A2540] w-full">
+                    <Button className="bg-[#0A2540] w-full" onClick={handleCameraClick}>
                       <Camera className="w-5 h-5 mr-2" />
                       Take Photo
                     </Button>
-                    <Button variant="outline" className="w-full">
+                    <Button variant="outline" className="w-full" onClick={handleUploadClick}>
                       <Upload className="w-5 h-5 mr-2" />
                       Upload Image
                     </Button>
+                    <Input
+                      type="file"
+                      ref={fileInputRef}
+                      className="hidden"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                    />
                   </div>
                 </div>
               </div>
             </Card>
           </motion.div>
+
+          {/* Analysis History Section */}
+          {analysisResult && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="mt-10"
+            >
+              <Card className="p-6">
+                <div className="flex flex-col md:flex-row gap-6">
+                  <div className="w-full md:w-1/3">
+                    <div className="relative aspect-square rounded-lg overflow-hidden border border-gray-200">
+                      <img 
+                        src={selectedImage || ''} 
+                        alt="Plumbing issue" 
+                        className="object-cover w-full h-full"
+                      />
+                    </div>
+                  </div>
+                  <div className="w-full md:w-2/3">
+                    <h3 className="font-inter font-semibold text-xl text-[#0A2540] mb-4">
+                      Diagnosis Results
+                    </h3>
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <p className="whitespace-pre-line font-roboto">
+                        {analysisResult}
+                      </p>
+                    </div>
+                    <div className="mt-4 flex justify-end">
+                      <Button className="bg-[#0A2540]" onClick={() => setSelectedImage(null)}>
+                        New Diagnosis
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+          )}
         </div>
       </main>
+
+      {/* Image Preview Dialog */}
+      <Dialog open={showDialog} onOpenChange={setShowDialog}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Photo Preview</DialogTitle>
+          </DialogHeader>
+          <div className="relative aspect-video rounded-lg overflow-hidden border border-gray-200 mt-2">
+            {selectedImage && (
+              <img 
+                src={selectedImage} 
+                alt="Preview" 
+                className="object-contain w-full h-full"
+              />
+            )}
+          </div>
+          <div className="flex justify-end gap-3 mt-4">
+            <Button variant="outline" onClick={handleCloseDialog}>
+              <X className="w-4 h-4 mr-2" />
+              Cancel
+            </Button>
+            <Button 
+              className="bg-[#0A2540]" 
+              onClick={handleAnalyzeImage}
+              disabled={isAnalyzing}
+            >
+              {isAnalyzing ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Analyzing...
+                </>
+              ) : (
+                <>
+                  <ImageIcon className="w-4 h-4 mr-2" />
+                  Analyze Photo
+                </>
+              )}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
