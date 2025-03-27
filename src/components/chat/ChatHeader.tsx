@@ -10,16 +10,16 @@ interface ChatHeaderProps {
 const ChatHeader = ({ children }: ChatHeaderProps) => {
   return (
     <header className="bg-white shadow-sm">
-      <div className="container mx-auto px-4 py-4 flex items-center">
-        <Link to="/" className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-          <ArrowLeft className="w-6 h-6 text-[#0A2540]" />
+      <div className="container mx-auto px-4 py-3 flex items-center">
+        <Link to="/" className="mr-3 text-gray-700 hover:text-gray-900">
+          <ArrowLeft className="w-5 h-5" />
         </Link>
-        <div className="ml-4">
-          <h1 className="font-inter font-bold text-[22px] text-[#0A2540]">
+        <div>
+          <h1 className="font-inter font-semibold text-xl text-[#0A2540]">
             AI Chat Assistant
           </h1>
-          <p className="font-roboto text-[16px] text-gray-600">
-            Expert plumbing advice at your fingertips
+          <p className="text-sm text-gray-500">
+            Expert plumbing advice
           </p>
         </div>
         {children}

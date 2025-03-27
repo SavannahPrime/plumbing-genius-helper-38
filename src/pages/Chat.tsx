@@ -6,10 +6,11 @@ import { Message, ConversationContext, OpenAIMessage } from "@/types/chat";
 import { generateNextResponse, identifyProblemType, handleEmergency } from "@/services/chatService";
 import { generateChatGPTResponse, createPlumberPrompt, isPictureRequest } from "@/services/openaiService";
 import { Button } from "@/components/ui/button";
-import { Settings, X } from "lucide-react";
+import { Settings, X, Mic } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "@/hooks/use-toast";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 const Chat = () => {
   const [message, setMessage] = useState("");
@@ -235,48 +236,26 @@ const Chat = () => {
   return (
     <div className="min-h-screen bg-[#F5F5F5] relative">
       <ChatHeader>
-        <div className="flex items-center ml-auto">
-          <div className="flex items-center mr-4">
-            <span className={`mr-2 text-sm ${isUsingChatGPT ? "text-green-600 font-bold" : "text-gray-500"}`}>
-              {isUsingChatGPT ? "ChatGPT Active" : "Built-in Assistant"}
-            </span>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={toggleChatGPT}
-              className={isUsingChatGPT ? "bg-green-100 hover:bg-green-200" : ""}
-            >
-              {isUsingChatGPT ? "Disable ChatGPT" : "Enable ChatGPT"}
-            </Button>
-          </div>
-          <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-            <DialogTrigger asChild>
+        <div className="ml-auto">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon">
                 <Settings className="h-5 w-5" />
               </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>ChatGPT Settings</DialogTitle>
-              </DialogHeader>
-              <div className="py-4">
-                <label className="block text-sm font-medium mb-2">
-                  OpenAI API Key
-                </label>
-                <Input
-                  type="password"
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                  placeholder="sk-..."
-                  className="mb-4"
-                />
-                <Button onClick={() => saveApiKey(apiKey)}>Save Key</Button>
-              </div>
-            </DialogContent>
-          </Dialog>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={toggleChatGPT}>
+                {isUsingChatGPT ? "Use Built-in Assistant" : "Enable ChatGPT"}
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setOpenDialog(true)}>
+                Configure API Key
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </ChatHeader>
-      <main className="container mx-auto px-4 py-6">
+      
+      <main className="container mx-auto px-4 py-4">
         <div className="max-w-3xl mx-auto">
           <ChatMessages messages={messages} isLoading={isLoading} />
           <ChatInput 
@@ -289,21 +268,48 @@ const Chat = () => {
         </div>
       </main>
       
-      {showVoiceAssistant && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[999]">
-          <div className="absolute top-4 right-4">
-            <Button 
-              onClick={() => setShowVoiceAssistant(false)} 
-              variant="outline" 
-              size="icon" 
-              className="bg-white hover:bg-gray-100"
-            >
-              <X className="h-5 w-5" />
-            </Button>
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>ChatGPT Settings</DialogTitle>
+          </DialogHeader>
+          <div className="py-4">
+            <label className="block text-sm font-medium mb-2">
+              OpenAI API Key
+            </label>
+            <Input
+              type="password"
+              value={apiKey}
+              onChange={(e) => setApiKey(e.target.value)}
+              placeholder="sk-..."
+              className="mb-4"
+            />
+            <Button onClick={() => saveApiKey(apiKey)}>Save Key</Button>
           </div>
-          <div className="bg-white p-4 rounded-lg shadow-lg text-center">
-            <p className="mb-4 text-gray-800">Voice assistant is active</p>
-            <p className="text-sm text-gray-600">Speak with your plumbing assistant</p>
+        </DialogContent>
+      </Dialog>
+      
+      {showVoiceAssistant && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[999]">
+          <div className="bg-white rounded-xl shadow-lg w-80 overflow-hidden">
+            <div className="flex justify-between items-center p-4 border-b">
+              <div className="flex items-center">
+                <Mic className="w-5 h-5 text-blue-500 mr-2" />
+                <h3 className="font-medium">Voice Assistant</h3>
+              </div>
+              <Button 
+                onClick={() => setShowVoiceAssistant(false)} 
+                variant="ghost" 
+                size="icon"
+                className="h-8 w-8"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="p-4 text-center">
+              <p className="text-sm text-gray-600 mb-2">Speak with your plumbing assistant</p>
+              <div className="text-xs text-gray-500">ElevenLabs Conversational AI</div>
+            </div>
           </div>
         </div>
       )}
