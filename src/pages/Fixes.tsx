@@ -4,20 +4,23 @@ import { motion } from "framer-motion";
 import FixesHeader from "@/components/fixes/FixesHeader";
 import CategoryTabs from "@/components/fixes/CategoryTabs";
 import FixItem from "@/components/fixes/FixItem";
-import { plumbingFixes, FixCategory } from "@/constants/plumbingFixes";
+import DifficultyFilter from "@/components/fixes/DifficultyFilter";
+import { plumbingFixes, FixCategory, Difficulty } from "@/constants/plumbingFixes";
 
 const Fixes = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty | "all">("all");
   const [expandedFix, setExpandedFix] = useState<number | null>(null);
   const [completedSteps, setCompletedSteps] = useState<Record<number, number[]>>({});
 
-  // Filter fixes based on search query and selected category
+  // Filter fixes based on search query, selected category, and difficulty
   const filteredFixes = plumbingFixes.filter((fix) => {
     const matchesSearch = fix.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           fix.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === "all" || fix.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    const matchesDifficulty = selectedDifficulty === "all" || fix.difficulty === selectedDifficulty;
+    return matchesSearch && matchesCategory && matchesDifficulty;
   });
 
   const toggleStepCompletion = (fixId: number, stepIndex: number) => {
@@ -49,11 +52,21 @@ const Fixes = () => {
         setSearchQuery={setSearchQuery} 
       />
 
-      {/* Category Tabs */}
-      <CategoryTabs 
-        selectedCategory={selectedCategory} 
-        setSelectedCategory={setSelectedCategory} 
-      />
+      <div className="bg-white border-b">
+        <div className="container mx-auto px-4">
+          {/* Category Tabs */}
+          <CategoryTabs 
+            selectedCategory={selectedCategory} 
+            setSelectedCategory={setSelectedCategory} 
+          />
+          
+          {/* Difficulty Filter */}
+          <DifficultyFilter
+            selectedDifficulty={selectedDifficulty}
+            setSelectedDifficulty={setSelectedDifficulty}
+          />
+        </div>
+      </div>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
