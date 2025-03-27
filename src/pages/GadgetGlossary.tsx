@@ -5,6 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Smartphone } from "lucide-react";
 import EveryFixHeader from "@/components/shared/EveryFixHeader";
 
+interface GadgetGlossaryProps {
+  contextType?: string;
+}
+
 interface GlossaryItem {
   title: string;
   problem: string;
@@ -13,7 +17,7 @@ interface GlossaryItem {
   icon: string;
 }
 
-const GadgetGlossary = () => {
+const GadgetGlossary: React.FC<GadgetGlossaryProps> = ({ contextType = "plumber" }) => {
   const navigate = useNavigate();
   
   const glossaryItems: GlossaryItem[] = [
@@ -85,7 +89,7 @@ const GadgetGlossary = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       <EveryFixHeader 
-        title="Plumbing Glossary" 
+        title={`${contextType.charAt(0).toUpperCase() + contextType.slice(1)} Glossary`}
         icon={<Smartphone className="h-6 w-6 text-white" />} 
         colorClass="w-10 h-10 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 flex items-center justify-center" 
       />
@@ -130,7 +134,7 @@ const GadgetGlossary = () => {
       <footer className="bg-white border-t py-8 mt-12">
         <div className="container mx-auto px-4 text-center text-sm text-gray-500">
           <p>© 2023 EveryFixAI. All rights reserved.</p>
-          <p className="mt-2">For serious issues, always consult a professional plumber.</p>
+          <p className="mt-2">For serious issues, always consult a professional {contextType}.</p>
         </div>
       </footer>
     </div>

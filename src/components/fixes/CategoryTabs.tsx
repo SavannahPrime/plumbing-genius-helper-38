@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { categories } from "@/constants/plumbingFixes";
+import { categories, Category } from "@/constants/plumbingFixes";
 import { useLocation } from "react-router-dom";
 
 interface CategoryTabsProps {

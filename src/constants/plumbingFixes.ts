@@ -1,16 +1,23 @@
 
 export const categories = [
-  { id: 'all', label: 'All', icon: '🏠' },
-  { id: 'leaks', label: 'Leaks', icon: '🚰' },
-  { id: 'toilets', label: 'Toilets', icon: '🚽' },
-  { id: 'drains', label: 'Drains & Pipes', icon: '🛠️' },
-  { id: 'heaters', label: 'Water Heaters', icon: '🔥' },
-  { id: 'sinks', label: 'Sinks & Faucets', icon: '🚿' },
-  { id: 'outdoor', label: 'Outdoor', icon: '🌱' },
+  { id: 'all', label: 'All', icon: '🏠', excludeFrom: [] },
+  { id: 'leaks', label: 'Leaks', icon: '🚰', excludeFrom: [] },
+  { id: 'toilets', label: 'Toilets', icon: '🚽', excludeFrom: [] },
+  { id: 'drains', label: 'Drains & Pipes', icon: '🛠️', excludeFrom: [] },
+  { id: 'heaters', label: 'Water Heaters', icon: '🔥', excludeFrom: ['landscaper', 'stylist'] },
+  { id: 'sinks', label: 'Sinks & Faucets', icon: '🚿', excludeFrom: [] },
+  { id: 'outdoor', label: 'Outdoor', icon: '🌱', excludeFrom: [] },
 ];
 
 export type FixCategory = 'all' | 'leaks' | 'toilets' | 'drains' | 'heaters' | 'sinks' | 'outdoor';
 export type Difficulty = 'Easy' | 'Medium' | 'Hard';
+
+export interface Category {
+  id: string;
+  label: string;
+  icon: string;
+  excludeFrom?: string[];
+}
 
 export interface PlumbingFix {
   id: number;
