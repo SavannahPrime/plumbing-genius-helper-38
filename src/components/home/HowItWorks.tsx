@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Camera, Zap, Tool } from "lucide-react";
+import { Camera, Zap, Wrench } from "lucide-react";
 import { motion } from "framer-motion";
 
 const HowItWorks = () => {
@@ -20,7 +20,7 @@ const HowItWorks = () => {
       color: "bg-secondary"
     },
     {
-      icon: <Tool className="h-8 w-8 text-white" />,
+      icon: <Wrench className="h-8 w-8 text-white" />,
       title: "You solve it",
       description: "Follow the step-by-step guide or get connected to local help",
       number: "3",
