@@ -20,6 +20,7 @@ const ChatInput = ({
 }: ChatInputProps) => {
   
   const handleMicButtonClick = (e: React.MouseEvent) => {
+    console.log("Microphone button clicked in ChatInput");
     e.preventDefault();
     e.stopPropagation();
     if (onMicClick) {
@@ -39,15 +40,16 @@ const ChatInput = ({
       <div className="container mx-auto max-w-3xl">
         <div className="flex items-center gap-2">
           <Button 
-            variant="ghost" 
+            variant="outline" 
             size="icon" 
-            className="flex-shrink-0 rounded-full h-9 w-9"
+            className="flex-shrink-0 rounded-full h-9 w-9 bg-blue-50 hover:bg-blue-100"
             onClick={handleMicButtonClick}
             title="Speak with voice assistant"
             type="button"
             tabIndex={0}
+            aria-label="Activate voice assistant"
           >
-            <Mic className="w-4 h-4 text-gray-600" />
+            <Mic className="w-4 h-4 text-blue-600" />
           </Button>
           <Button 
             variant="ghost" 

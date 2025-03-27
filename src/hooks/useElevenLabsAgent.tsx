@@ -65,31 +65,31 @@ export const useElevenLabsAgent = () => {
         // Create the element
         const agentElement = document.createElement('elevenlabs-convai');
         agentElement.setAttribute('agent-id', ELEVEN_LABS_AGENT_ID);
+        agentElement.setAttribute('auto-open', 'true'); // Add auto-open attribute
         
-        // Add styles to hide the element but keep it functional
+        // Add styles to make element visible and interactive
         const style = document.createElement('style');
         style.textContent = `
           elevenlabs-convai {
             position: fixed;
-            top: -1px;
-            left: -1px;
-            opacity: 0;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            opacity: 0.01; /* Almost invisible but still interactive */
             pointer-events: auto;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
           }
         `;
         document.head.appendChild(style);
         document.body.appendChild(agentElement);
         elevenLabsAgent.current = agentElement;
         
-        console.log("ElevenLabs agent element created");
+        console.log("ElevenLabs agent element created with ID:", ELEVEN_LABS_AGENT_ID);
         
         // Give the element time to initialize
         setTimeout(() => {
           setIsInitialized(true);
-        }, 1000);
+          console.log("ElevenLabs agent initialized");
+        }, 2000); // Increased timeout
       } else {
         elevenLabsAgent.current = existingAgent as HTMLElement;
         console.log("Using existing ElevenLabs agent element");
@@ -109,6 +109,7 @@ export const useElevenLabsAgent = () => {
     console.log("Mic button clicked");
     
     if (!isInitialized) {
+      console.log("Agent not initialized, creating element");
       // If not initialized, try to create the agent again
       createAgentElement();
       toast({
@@ -118,65 +119,57 @@ export const useElevenLabsAgent = () => {
       return;
     }
     
-    // Access the shadow DOM and click the button
+    // Attempt direct activation using custom event first
     try {
       if (elevenLabsAgent.current) {
-        const shadowRoot = elevenLabsAgent.current.shadowRoot;
+        console.log("Dispatching custom activation event");
+        const customEvent = new CustomEvent('activate', { bubbles: true });
+        elevenLabsAgent.current.dispatchEvent(customEvent);
         
-        if (shadowRoot) {
-          // Look for the microphone button in the shadow DOM and properly type it
-          const button = shadowRoot.querySelector('.microphone-button') as HTMLButtonElement || 
-                          shadowRoot.querySelector('button') as HTMLButtonElement ||
-                          shadowRoot.querySelector('[aria-label*="microphone"]') as HTMLButtonElement;
-          
-          console.log("Button found:", button);
-          
-          if (button) {
-            // Ensure we're on the correct route before activating
-            if (window.location.pathname.includes('/chat')) {
-              // Now TypeScript knows this is an HTMLButtonElement with a click method
-              button.click();
-              toast({
-                title: "Voice Assistant",
-                description: "Voice assistant activated. You can speak now.",
-              });
-            } else {
-              toast({
-                title: "Voice Assistant",
-                description: "Please navigate to the chat page to use voice assistant.",
-              });
-            }
-          } else {
-            // Try a different approach - dispatch a custom event
-            const customEvent = new CustomEvent('activateMicrophone', { bubbles: true });
-            elevenLabsAgent.current.dispatchEvent(customEvent);
-            
-            toast({
-              title: "Voice Assistant",
-              description: "Voice assistant activated. You can speak now.",
-            });
-          }
-        } else {
-          // If shadow root is not available, recreate the element
-          document.body.removeChild(elevenLabsAgent.current);
-          elevenLabsAgent.current = null;
-          createAgentElement();
-          
-          setTimeout(() => {
-            handleMicClick(); // Try again after recreation
-          }, 1500);
-        }
-      } else {
-        // Agent not found, create it
-        createAgentElement();
+        // Also try to find and click the button as a fallback
         setTimeout(() => {
-          handleMicClick(); // Try again after creation
-        }, 1500);
+          try {
+            if (elevenLabsAgent.current && elevenLabsAgent.current.shadowRoot) {
+              const shadowRoot = elevenLabsAgent.current.shadowRoot;
+              
+              // Try multiple selector approaches
+              const button = 
+                shadowRoot.querySelector('.microphone-button') as HTMLButtonElement || 
+                shadowRoot.querySelector('button[aria-label*="microphone"]') as HTMLButtonElement ||
+                shadowRoot.querySelector('.convai-microphone-button') as HTMLButtonElement ||
+                shadowRoot.querySelector('button') as HTMLButtonElement;
+              
+              if (button) {
+                console.log("Found button in shadow DOM:", button);
+                button.click();
+                toast({
+                  title: "Voice Assistant",
+                  description: "Voice assistant activated. You can speak now.",
+                });
+              } else {
+                console.log("No button found in shadow DOM");
+                // Try activating by clicking the element itself
+                (elevenLabsAgent.current as HTMLElement).click();
+              }
+            }
+          } catch (e) {
+            console.error("Error accessing shadow DOM:", e);
+          }
+        }, 500);
+        
+        toast({
+          title: "Voice Assistant",
+          description: "Voice assistant activated. You can speak now.",
+        });
+      } else {
+        console.log("Agent element not found, recreating");
+        createAgentElement();
+        setTimeout(handleMicClick, 2000);
       }
     } catch (e) {
-      console.error("Error accessing ElevenLabs agent:", e);
+      console.error("Error activating ElevenLabs agent:", e);
       
-      // Last resort - reload the agent completely
+      // Recreate the agent if activation fails
       if (elevenLabsAgent.current) {
         try {
           document.body.removeChild(elevenLabsAgent.current);
@@ -192,6 +185,9 @@ export const useElevenLabsAgent = () => {
         title: "Voice Assistant Reset",
         description: "Voice assistant has been reset. Please try again in a moment.",
       });
+      
+      // Try again after reset
+      setTimeout(handleMicClick, 2000);
     }
   };
 
