@@ -5,9 +5,10 @@ import { Message } from "@/types/chat";
 
 interface ChatMessagesProps {
   messages: Message[];
+  isLoading?: boolean;
 }
 
-const ChatMessages = ({ messages }: ChatMessagesProps) => {
+const ChatMessages = ({ messages, isLoading = false }: ChatMessagesProps) => {
   return (
     <div className="min-h-[400px] mb-20">
       {messages.map((msg, index) => (
@@ -30,6 +31,22 @@ const ChatMessages = ({ messages }: ChatMessagesProps) => {
           </Card>
         </motion.div>
       ))}
+      
+      {isLoading && (
+        <motion.div 
+          className="mb-4 flex justify-start"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <Card className="p-4 bg-gray-100">
+            <div className="flex space-x-2">
+              <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></div>
+              <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></div>
+              <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }}></div>
+            </div>
+          </Card>
+        </motion.div>
+      )}
     </div>
   );
 };

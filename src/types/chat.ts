@@ -17,5 +17,14 @@ export interface ConversationContext {
     duration?: string;
     attempted?: string[];
     tools?: string[];
+    cause?: string;
+    condition?: string;
+    hasShutoff?: boolean;
+    recentWork?: string;
   };
+}
+
+export interface OpenAIMessage {
+  role: "system" | "user" | "assistant";
+  content: string;
 }
