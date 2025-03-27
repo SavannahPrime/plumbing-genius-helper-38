@@ -1,5 +1,6 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import ChatHeader from "@/components/chat/ChatHeader";
 import ChatMessages from "@/components/chat/ChatMessages";
 import ChatInput from "@/components/chat/ChatInput";
@@ -35,12 +36,25 @@ const Chat = () => {
 
   // ElevenLabs agent
   const { handleMicClick } = useElevenLabsAgent();
+  
+  // Get problem query from URL if present
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const problemQuery = queryParams.get('problem');
 
-  const handleSendMessage = async () => {
-    if (!message.trim()) return;
+  // Handle initial problem query if present
+  useEffect(() => {
+    if (problemQuery && messages.length === 1) {
+      handleSendMessage(problemQuery);
+    }
+  }, [problemQuery]);
+
+  const handleSendMessage = async (customMessage?: string) => {
+    const messageToSend = customMessage || message;
+    if (!messageToSend.trim()) return;
     
-    setMessages(prev => [...prev, { text: message, isAi: false }]);
-    const userMessage = message;
+    setMessages(prev => [...prev, { text: messageToSend, isAi: false }]);
+    const userMessage = messageToSend;
     setMessage("");
     
     setIsLoading(true);
@@ -96,7 +110,7 @@ const Chat = () => {
           <ChatInput 
             message={message}
             setMessage={setMessage}
-            handleSendMessage={handleSendMessage}
+            handleSendMessage={() => handleSendMessage()}
             isLoading={isLoading}
             onMicClick={handleMicClick}
           />

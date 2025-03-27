@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Wrench, MessageSquare, Image as ImageIcon, MoreVertical, Settings } from "lucide-react";
+import { Wrench, MessageSquare, Image as ImageIcon, MoreVertical, Settings, Toilet, Shower, Droplet, Bath, Flame, Trash2, Info, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -24,6 +24,18 @@ const features = [
     description: "Browse guides for frequent plumbing issues",
     link: "/fixes"
   }
+];
+
+const problemCategories = [
+  { icon: <Toilet className="w-5 h-5" />, name: "Toilet", query: "I have a problem with my toilet." },
+  { icon: <Shower className="w-5 h-5" />, name: "Shower", query: "I have an issue with my shower." },
+  { icon: <Droplet className="w-5 h-5" />, name: "Sink", query: "My sink is having problems." },
+  { icon: <Bath className="w-5 h-5" />, name: "Bathtub", query: "I'm having issues with my bathtub." },
+  { icon: <Flame className="w-5 h-5" />, name: "Water Heater", query: "My water heater isn't working properly." },
+  { icon: <Trash2 className="w-5 h-5" />, name: "Garbage Disposal", query: "My garbage disposal is malfunctioning." },
+  { icon: <Droplet className="w-5 h-5" />, name: "Leaking Pipe", query: "I have a leaking pipe." },
+  { icon: <Droplet className="w-5 h-5" />, name: "Low Water Pressure", query: "I'm experiencing low water pressure." },
+  { icon: <Info className="w-5 h-5" />, name: "Smells / Sewer", query: "There's a bad smell coming from my plumbing." },
 ];
 
 const Index = () => {
@@ -67,7 +79,7 @@ const Index = () => {
 
           {/* CTA Buttons */}
           <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -77,7 +89,7 @@ const Index = () => {
                 className="w-full sm:w-auto text-lg py-6 px-8 bg-[#0A2540] hover:bg-[#0A2540]/90 shadow-md active:scale-[0.98] transition-all"
               >
                 <MessageSquare className="w-5 h-5 mr-2" />
-                Start Chat
+                Talk to the AI Plumber
               </Button>
             </Link>
             <Link to="/diagnosis">
@@ -86,9 +98,49 @@ const Index = () => {
                 className="w-full sm:w-auto text-lg py-6 px-8 shadow-md active:scale-[0.98] transition-all"
               >
                 <ImageIcon className="w-5 h-5 mr-2" />
-                Visual Diagnosis
+                Upload a Problem Photo
               </Button>
             </Link>
+          </motion.div>
+          
+          {/* Problem Categories Section */}
+          <motion.div
+            className="mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            <h3 className="font-inter font-semibold text-xl text-gray-800 mb-4">
+              Select Your Plumbing Problem
+            </h3>
+            <div className="overflow-x-auto pb-4">
+              <div className="flex gap-2 justify-start min-w-max mx-auto max-w-full">
+                {problemCategories.map((category, index) => (
+                  <Link 
+                    key={index} 
+                    to={`/chat?problem=${encodeURIComponent(category.query)}`}
+                    className="flex-shrink-0"
+                  >
+                    <Button 
+                      variant="outline" 
+                      className="bg-white hover:bg-gray-50 border-gray-200 py-6 px-4 h-auto flex flex-col gap-2 min-w-[90px]"
+                    >
+                      <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
+                        {category.icon}
+                      </div>
+                      <span className="text-sm font-medium text-gray-800">
+                        {category.name}
+                      </span>
+                    </Button>
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div className="flex justify-center">
+              <Link to="/chat" className="text-blue-600 hover:text-blue-800 text-sm flex items-center gap-1 font-medium">
+                See all plumbing problems <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </motion.div>
         </div>
 
@@ -97,7 +149,7 @@ const Index = () => {
           className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
         >
           {features.map((feature, index) => (
             <Link to={feature.link} key={index}>
@@ -118,6 +170,26 @@ const Index = () => {
               </Card>
             </Link>
           ))}
+        </motion.div>
+        
+        {/* Emergency Call-To-Action */}
+        <motion.div
+          className="max-w-4xl mx-auto mt-16 bg-red-50 border border-red-100 rounded-lg p-6 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1.0 }}
+        >
+          <div className="flex flex-col items-center">
+            <h3 className="font-inter font-semibold text-lg text-red-800 mb-2 flex items-center">
+              <Info className="w-5 h-5 mr-2" /> Emergency Situation?
+            </h3>
+            <p className="text-red-700 mb-4">
+              If water is gushing or pipes are broken, we recommend calling a licensed plumber.
+            </p>
+            <Button variant="outline" className="border-red-300 text-red-700 hover:bg-red-100">
+              Find Local Plumber
+            </Button>
+          </div>
         </motion.div>
       </main>
     </div>
