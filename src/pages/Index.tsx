@@ -136,7 +136,7 @@ const Index = () => {
               </div>
             </div>
             <div className="flex justify-center">
-              <Link to="/chat" className="text-blue-600 hover:text-blue-800 text-sm flex items-center gap-1 font-medium">
+              <Link to="/fixes" className="text-blue-600 hover:text-blue-800 text-sm flex items-center gap-1 font-medium">
                 See all plumbing problems <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
