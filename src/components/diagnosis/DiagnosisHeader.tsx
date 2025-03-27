@@ -1,8 +1,9 @@
 
 import React from "react";
-import { ArrowLeft, Mic } from "lucide-react";
+import { Home, Mic } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
 
 const DiagnosisHeader = () => {
@@ -12,14 +13,15 @@ const DiagnosisHeader = () => {
     <header className="bg-white shadow-sm">
       <div className="container mx-auto px-4 py-4 flex items-center">
         <Link to="/" className="p-2 hover:bg-neutrals-steel/30 rounded-full transition-colors">
-          <ArrowLeft className="w-6 h-6 text-primary" />
+          <Home className="w-6 h-6 text-primary" />
         </Link>
         <div className="ml-4 flex-1">
           <h1 className="font-space-grotesk font-bold text-[22px] text-primary">
             Visual Diagnosis
           </h1>
-          <p className="font-dm-sans text-[16px] text-neutrals">
-            Upload a photo, and our AI will analyze the issue. You can also speak with our plumbing assistant.
+          <p className="font-dm-sans text-[16px] text-neutrals flex items-center">
+            Upload a photo, and our AI will analyze the issue.
+            <Badge variant="outline" className="ml-2 text-xs">by EveryFixAI</Badge>
           </p>
         </div>
         <Button 

@@ -1,9 +1,12 @@
 
 import React, { useState, useEffect } from "react";
 import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
+import { useNavigate } from "react-router-dom";
+import { Home, Wrench, Mic } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 // Import refactored components
-import Header from "@/components/home/Header";
 import Hero from "@/components/home/Hero";
 import ProblemCategories from "@/components/home/ProblemCategories";
 import QuickFixSection from "@/components/home/QuickFixSection";
@@ -22,6 +25,7 @@ const Index = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [plumberPersonality, setPlumberPersonality] = useState("classic");
   const { handleMicClick } = useElevenLabsAgent();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -32,10 +36,51 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-soft font-dm-sans text-primary">
-      <Header 
-        plumberPersonality={plumberPersonality}
-        setPlumberPersonality={setPlumberPersonality}
-      />
+      <header className="bg-white shadow-sm">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" onClick={() => navigate("/")} className="mr-2">
+              <Home className="w-5 h-5" />
+            </Button>
+            <Wrench className="w-7 h-7 text-accent" />
+            <span className="font-space-grotesk font-bold text-xl text-primary">
+              Plumber's Helper
+            </span>
+            <Badge variant="outline" className="ml-2">by EveryFixAI</Badge>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-2 bg-neutrals-steel/50 p-1 rounded-full">
+              <button 
+                onClick={() => setPlumberPersonality("classic")}
+                className={`text-xs px-3 py-1 rounded-full flex items-center gap-1 transition-all ${plumberPersonality === "classic" ? "bg-white shadow-sm" : "hover:bg-neutrals-steel"}`}
+              >
+                🧓 Classic
+              </button>
+              <button 
+                onClick={() => setPlumberPersonality("ai")}
+                className={`text-xs px-3 py-1 rounded-full flex items-center gap-1 transition-all ${plumberPersonality === "ai" ? "bg-white shadow-sm" : "hover:bg-neutrals-steel"}`}
+              >
+                🤖 AI
+              </button>
+              <button 
+                onClick={() => setPlumberPersonality("chill")}
+                className={`text-xs px-3 py-1 rounded-full flex items-center gap-1 transition-all ${plumberPersonality === "chill" ? "bg-white shadow-sm" : "hover:bg-neutrals-steel"}`}
+              >
+                😎 Chill
+              </button>
+            </div>
+            
+            <button 
+              onClick={handleMicClick}
+              className="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center hover:bg-secondary/20 transition-colors"
+              aria-label="Voice assistant"
+            >
+              <Mic className="w-4 h-4 text-secondary" />
+            </button>
+          </div>
+        </div>
+      </header>
 
       <main className="container mx-auto px-4 py-12">
         <Hero 

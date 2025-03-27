@@ -1,8 +1,7 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, MessageSquare, Image as ImageIcon, Wrench, Camera } from "lucide-react";
+import { Home, MessageSquare, Image as ImageIcon, Wrench, Camera } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 
@@ -27,12 +26,13 @@ const HandymanHero = () => {
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <Button variant="ghost" onClick={() => navigate("/")} className="mr-2">
-              <ArrowLeft className="w-5 h-5" />
+              <Home className="w-5 h-5" />
             </Button>
             <Wrench className="w-7 h-7 text-orange-500" />
             <span className="font-space-grotesk font-bold text-xl text-primary">
               Handyman Hero
             </span>
+            <Badge variant="outline" className="ml-2">by EveryFixAI</Badge>
           </div>
         </div>
       </header>

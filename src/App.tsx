@@ -13,6 +13,7 @@ import Cleaning from "./pages/Cleaning";
 import Handyman from "./pages/Handyman";
 import Electrician from "./pages/Electrician";
 import Landscaper from "./pages/Landscaper";
+import EveryFixHome from "./pages/EveryFixHome";
 
 const queryClient = new QueryClient();
 
@@ -23,7 +24,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/plumber" element={<Index />} />
+          <Route path="/" element={<EveryFixHome />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/diagnosis" element={<Diagnosis />} />
           <Route path="/fixes" element={<Fixes />} />
