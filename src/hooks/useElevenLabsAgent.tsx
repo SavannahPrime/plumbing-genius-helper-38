@@ -1,7 +1,8 @@
 
 import { useRef, useEffect, useState, useCallback } from "react";
 import { toast } from "@/hooks/use-toast";
-import { ELEVEN_LABS_AGENT_ID } from "@/constants/elevenlabs";
+import { ELEVEN_LABS_AGENT_ID, ELEVEN_LABS_AGENT_IDS } from "@/constants/elevenlabs";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { 
   loadElevenLabsScript, 
   createAgentElement, 
@@ -17,6 +18,7 @@ import {
   ElevenLabsAgentHook,
   ElevenLabsAgentState
 } from "@/types/elevenlabs";
+import { AgentSpecialty } from "@/services/specializedAgentService";
 
 export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
   const elevenLabsAgent = useRef<HTMLElevenLabsConvaiElement | null>(null);
@@ -29,6 +31,21 @@ export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
     lastResponse: null
   });
 
+  // Get the current agent specialty from URL
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const specialtyParam = searchParams.get('specialty') as AgentSpecialty | null;
+
+  // Determine which agent ID to use based on specialty
+  const getAgentId = useCallback(() => {
+    if (specialtyParam && specialtyParam in ELEVEN_LABS_AGENT_IDS) {
+      return ELEVEN_LABS_AGENT_IDS[specialtyParam as keyof typeof ELEVEN_LABS_AGENT_IDS];
+    }
+    
+    // Fall back to default if no specialty is specified
+    return ELEVEN_LABS_AGENT_ID;
+  }, [specialtyParam]);
+
   // Retry counter for initialization
   const retryCount = useRef(0);
   const MAX_RETRIES = 3;
@@ -40,8 +57,8 @@ export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
         // Load the ElevenLabs script
         await loadElevenLabsScript();
         
-        // Create the agent element
-        const agentElement = createAgentElement();
+        // Create the agent element with the current specialty
+        const agentElement = createAgentElement(getAgentId());
         if (agentElement) {
           elevenLabsAgent.current = agentElement;
           
@@ -52,7 +69,7 @@ export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
               isInitialized: true,
               error: null // Clear any previous errors
             }));
-            console.log("ElevenLabs agent initialized");
+            console.log("ElevenLabs agent initialized with ID:", getAgentId());
           }, 2000);
         }
       } catch (error) {
@@ -94,7 +111,7 @@ export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
         elevenLabsAgent.current = null;
       }
     };
-  }, []);
+  }, [getAgentId]);
 
   // Reset agent - useful for recovering from errors
   const resetAgent = useCallback(() => {
@@ -115,8 +132,8 @@ export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
     });
     
     try {
-      // Try to create a new agent
-      const agentElement = createAgentElement();
+      // Try to create a new agent with current specialty
+      const agentElement = createAgentElement(getAgentId());
       if (agentElement) {
         elevenLabsAgent.current = agentElement;
         
@@ -142,7 +159,7 @@ export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
         error: error instanceof Error ? error : new Error(String(error))
       }));
     }
-  }, []);
+  }, [getAgentId]);
 
   // Handle microphone button click
   const handleMicClick = useCallback(() => {
@@ -158,7 +175,7 @@ export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
       // Try to initialize again
       if (retryCount.current < MAX_RETRIES) {
         retryCount.current += 1;
-        elevenLabsAgent.current = recoverAgent();
+        elevenLabsAgent.current = recoverAgent(getAgentId());
         if (elevenLabsAgent.current) {
           setTimeout(() => {
             setState(prev => ({ ...prev, isInitialized: true }));
@@ -173,7 +190,7 @@ export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
       console.log("Agent not initialized, creating element");
       
       try {
-        const agentElement = createAgentElement();
+        const agentElement = createAgentElement(getAgentId());
         if (agentElement) {
           elevenLabsAgent.current = agentElement;
           
@@ -218,7 +235,7 @@ export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
       } else {
         console.log("Agent element not found, recreating");
         try {
-          const agentElement = createAgentElement();
+          const agentElement = createAgentElement(getAgentId());
           if (agentElement) {
             elevenLabsAgent.current = agentElement;
             setTimeout(handleMicClick, 2000);
@@ -241,7 +258,7 @@ export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
       // Try to recover if this is an activation error
       if (e instanceof ElevenLabsError && e.code === "ACTIVATION_ERROR") {
         // Try to recover automatically
-        elevenLabsAgent.current = recoverAgent();
+        elevenLabsAgent.current = recoverAgent(getAgentId());
         
         if (elevenLabsAgent.current) {
           setTimeout(() => {
@@ -269,11 +286,11 @@ export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
         });
       }
     }
-  }, [state.isInitialized, resetAgent]);
+  }, [state.isInitialized, resetAgent, getAgentId]);
 
   return { 
     handleMicClick, 
-    agentId: ELEVEN_LABS_AGENT_ID,
+    agentId: getAgentId(),
     isInitialized: state.isInitialized,
     isActive: state.isActive,
     isListening: state.isListening,

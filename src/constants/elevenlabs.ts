@@ -5,8 +5,18 @@
 export const SCRIPT_URL = "https://cdn.convai.eleven-labs.com/convai-component.js";
 
 /**
- * ElevenLabs agent ID for the plumbing assistant
- * This needs to be replaced with a valid agent ID from your ElevenLabs dashboard
+ * ElevenLabs agent IDs for different specialists
+ */
+export const ELEVEN_LABS_AGENT_IDS = {
+  plumber: "a97eacfe-ba22-4a4d-abd4-44c24886c50f",
+  electrician: "QSOMLKzFI4NgVfxUTeDL", // User's electrician agent ID
+  gadget: "a97eacfe-ba22-4a4d-abd4-44c24886c50f", // Default ID for now
+  chef: "a97eacfe-ba22-4a4d-abd4-44c24886c50f", // Default ID for now
+  stylist: "a97eacfe-ba22-4a4d-abd4-44c24886c50f" // Default ID for now
+};
+
+/**
+ * Default ElevenLabs agent ID (fallback)
  */
 export const ELEVEN_LABS_AGENT_ID = "a97eacfe-ba22-4a4d-abd4-44c24886c50f";
 

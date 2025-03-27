@@ -77,7 +77,7 @@ export const isElevenLabsReady = (): boolean => {
 /**
  * Creates an ElevenLabs agent element and adds it to the DOM
  */
-export const createAgentElement = (): HTMLElevenLabsConvaiElement | null => {
+export const createAgentElement = (agentId = ELEVEN_LABS_AGENT_ID): HTMLElevenLabsConvaiElement | null => {
   try {
     // Check if the custom element is defined
     if (!customElements.get("elevenlabs-convai")) {
@@ -95,11 +95,11 @@ export const createAgentElement = (): HTMLElevenLabsConvaiElement | null => {
     const agentElement = document.createElement("elevenlabs-convai") as HTMLElevenLabsConvaiElement;
     
     // Verify the agent ID is set
-    if (!ELEVEN_LABS_AGENT_ID) {
+    if (!agentId) {
       throw new ElevenLabsError("Agent ID is not configured", "MISSING_AGENT_ID");
     }
     
-    agentElement.agentId = ELEVEN_LABS_AGENT_ID;
+    agentElement.agentId = agentId;
     agentElement.style.display = "none";
     document.body.appendChild(agentElement);
     
@@ -108,7 +108,7 @@ export const createAgentElement = (): HTMLElevenLabsConvaiElement | null => {
       throw new ElevenLabsError("Failed to attach agent element to DOM", "DOM_ATTACHMENT_FAILED");
     }
     
-    console.log("ElevenLabs agent element created with ID:", ELEVEN_LABS_AGENT_ID);
+    console.log("ElevenLabs agent element created with ID:", agentId);
     return agentElement;
   } catch (error) {
     if (error instanceof ElevenLabsError) {
@@ -214,7 +214,7 @@ export const removeAgentElement = (agentElement: HTMLElevenLabsConvaiElement): v
 /**
  * Try to recover from a failed agent initialization by cleaning up and creating a new agent
  */
-export const recoverAgent = (): HTMLElevenLabsConvaiElement | null => {
+export const recoverAgent = (agentId = ELEVEN_LABS_AGENT_ID): HTMLElevenLabsConvaiElement | null => {
   try {
     // Clean up any existing agent elements
     const existingAgents = document.querySelectorAll("elevenlabs-convai");
@@ -227,7 +227,7 @@ export const recoverAgent = (): HTMLElevenLabsConvaiElement | null => {
     });
     
     // Try to create a new agent
-    return createAgentElement();
+    return createAgentElement(agentId);
   } catch (error) {
     console.error("Agent recovery failed:", error);
     return null;

@@ -1,67 +1,57 @@
 
 import React from "react";
-import { Badge } from "@/components/ui/badge";
-import { Home, HelpCircle } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Home, HelpCircle } from "lucide-react";
+import { specializedAgents, AgentSpecialty } from "@/services/specializedAgentService";
 
 interface ChatHeaderProps {
+  specialty: AgentSpecialty;
   children?: React.ReactNode;
-  specialty?: AgentSpecialty;
 }
 
-const ChatHeader = ({ children, specialty = "plumber" }: ChatHeaderProps) => {
+const ChatHeader = ({ specialty, children }: ChatHeaderProps) => {
+  const navigate = useNavigate();
   const agent = specializedAgents[specialty];
-  
+
   return (
-    <header className="bg-white shadow-sm">
-      <div className="container mx-auto px-4 py-4 flex items-center">
-        <Link to="/" className="p-2 hover:bg-neutrals-steel/30 rounded-full transition-colors">
-          <Home className="w-5 h-5 text-primary" />
-        </Link>
-        
-        <div className="ml-3 flex-1">
-          <div className="flex items-center">
-            <div className="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center mr-2">
-              {agent.avatarImage ? (
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src={agent.avatarImage} alt={agent.name} />
-                  <AvatarFallback>{agent.emoji}</AvatarFallback>
-                </Avatar>
-              ) : (
-                <span className="text-lg">{agent.emoji}</span>
-              )}
+    <header className="bg-white border-b py-4 px-4 sticky top-0 z-10">
+      <div className="container mx-auto flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Button variant="ghost" size="icon" onClick={() => navigate('/')}>
+            <Home className="h-5 w-5" />
+          </Button>
+          
+          <div className="flex items-center gap-2">
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+              specialty === 'plumber' ? 'bg-accent/80' : 
+              specialty === 'electrician' ? 'bg-yellow-500' :
+              specialty === 'gadget' ? 'bg-purple-600' :
+              specialty === 'chef' ? 'bg-amber-600' :
+              specialty === 'stylist' ? 'bg-pink-500' :
+              'bg-blue-500'
+            }`}>
+              <span className="text-lg text-white">{agent.emoji}</span>
             </div>
-            <h1 className="font-space-grotesk font-bold text-xl text-primary">
-              {agent.name}'s Chat
-            </h1>
-            <Badge variant="outline" className="ml-2 text-xs">AI {agent.specialty}</Badge>
-            
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Link to="/step-by-step" className="ml-2">
-                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0 rounded-full">
-                      <HelpCircle className="h-4 w-4 text-primary" />
-                      <span className="sr-only">Get Step-by-Step Help</span>
-                    </Button>
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>View Step-by-Step Guides</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <div>
+              <h1 className="font-medium text-lg">{agent.name}</h1>
+              <p className="text-xs text-muted-foreground">
+                {agent.specialty.charAt(0).toUpperCase() + agent.specialty.slice(1)} Expert
+              </p>
+            </div>
           </div>
-          <p className="text-sm text-neutrals">
-            Describe your {specialty} issue and get expert help
-          </p>
         </div>
         
-        {children}
+        <div className="flex items-center gap-2">
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={() => navigate('/step-by-step')}
+          >
+            <HelpCircle className="h-5 w-5" />
+          </Button>
+          {children}
+        </div>
       </div>
     </header>
   );
