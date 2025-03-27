@@ -1,3 +1,4 @@
+
 import { useRef, useEffect } from "react";
 import { toast } from "@/hooks/use-toast";
 
@@ -28,7 +29,11 @@ export const useElevenLabsAgent = () => {
     return () => {
       // Cleanup function
       if (elevenLabsAgent.current) {
-        document.body.removeChild(elevenLabsAgent.current);
+        try {
+          document.body.removeChild(elevenLabsAgent.current);
+        } catch (e) {
+          console.log("Agent element already removed");
+        }
       }
     };
   }, []);
@@ -61,6 +66,7 @@ export const useElevenLabsAgent = () => {
       console.log("ElevenLabs agent element created");
     } else {
       elevenLabsAgent.current = existingAgent as HTMLElement;
+      console.log("Using existing ElevenLabs agent element");
     }
   };
 
@@ -75,24 +81,48 @@ export const useElevenLabsAgent = () => {
     // Access the shadow DOM and click the button
     setTimeout(() => {
       if (elevenLabsAgent.current) {
-        const shadowRoot = elevenLabsAgent.current.shadowRoot;
-        console.log("Shadow root:", shadowRoot);
-        
-        if (shadowRoot) {
-          const button = shadowRoot.querySelector('button');
-          console.log("Button found:", button);
+        try {
+          const shadowRoot = elevenLabsAgent.current.shadowRoot;
+          console.log("Shadow root:", shadowRoot);
           
-          if (button) {
-            button.click();
-            toast({
-              title: "Voice Assistant",
-              description: "Voice assistant activated. You can speak now.",
-            });
+          if (shadowRoot) {
+            const button = shadowRoot.querySelector('button');
+            console.log("Button found:", button);
+            
+            if (button) {
+              button.click();
+              toast({
+                title: "Voice Assistant",
+                description: "Voice assistant activated. You can speak now.",
+              });
+            } else {
+              // If button not found initially, try again with a longer delay
+              setTimeout(() => {
+                const retryButton = elevenLabsAgent.current?.shadowRoot?.querySelector('button');
+                console.log("Retry button:", retryButton);
+                
+                if (retryButton) {
+                  retryButton.click();
+                  toast({
+                    title: "Voice Assistant",
+                    description: "Voice assistant activated. You can speak now.",
+                  });
+                } else {
+                  toast({
+                    title: "Voice Assistant",
+                    description: "Initializing... Please try again in a moment.",
+                  });
+                }
+              }, 2000);
+            }
           } else {
-            // If button not found initially, try again after a short delay
+            // If shadow root is not available, recreate the element and try again
+            document.body.removeChild(elevenLabsAgent.current);
+            createAgentElement();
+            
             setTimeout(() => {
-              const retryButton = elevenLabsAgent.current?.shadowRoot?.querySelector('button');
-              console.log("Retry button:", retryButton);
+              const newShadowRoot = elevenLabsAgent.current?.shadowRoot;
+              const retryButton = newShadowRoot?.querySelector('button');
               
               if (retryButton) {
                 retryButton.click();
@@ -103,15 +133,22 @@ export const useElevenLabsAgent = () => {
               } else {
                 toast({
                   title: "Voice Assistant Issue",
-                  description: "Could not activate voice assistant. Please refresh the page and try again.",
+                  description: "Please refresh the page and try again.",
                   variant: "destructive"
                 });
               }
-            }, 1000);
+            }, 1500);
           }
+        } catch (e) {
+          console.error("Error accessing ElevenLabs agent:", e);
+          toast({
+            title: "Voice Assistant Issue",
+            description: "Could not activate voice assistant. Please refresh the page.",
+            variant: "destructive"
+          });
         }
       }
-    }, 300); // Increased timeout to ensure the shadow DOM is fully loaded
+    }, 500);
   };
 
   return { handleMicClick };
