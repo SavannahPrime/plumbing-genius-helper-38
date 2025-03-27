@@ -12,6 +12,7 @@ interface ChatInputProps {
   fileInputRef: React.RefObject<HTMLInputElement>;
   handleImageUpload: (event: ChangeEvent<HTMLInputElement>) => Promise<void>;
   isUploading: boolean;
+  handleMicClick?: () => void;
 }
 
 const ChatInput = ({
@@ -21,7 +22,8 @@ const ChatInput = ({
   isLoading,
   fileInputRef,
   handleImageUpload,
-  isUploading
+  isUploading,
+  handleMicClick
 }: ChatInputProps) => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !e.shiftKey && !isLoading) {
@@ -52,6 +54,18 @@ const ChatInput = ({
             <Image className="h-5 w-5" />
           )}
         </Button>
+        
+        {handleMicClick && (
+          <Button
+            variant="outline"
+            size="icon"
+            type="button"
+            onClick={handleMicClick}
+            disabled={isLoading}
+          >
+            <Mic className="h-5 w-5" />
+          </Button>
+        )}
         
         <Input
           placeholder="Type a message..."

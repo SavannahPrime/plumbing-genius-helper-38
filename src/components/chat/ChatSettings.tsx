@@ -5,13 +5,23 @@ import { Settings, Mic, RefreshCw } from "lucide-react";
 import { useElevenLabsWidget } from "@/hooks/useElevenLabsWidget";
 
 interface ChatSettingsProps {
-  onOpenApiKeyDialog: () => void;
-  onToggleChatGPT: () => void;
+  apiKey: string;
+  setApiKey: (value: string) => void;
   isUsingChatGPT: boolean;
+  setIsUsingChatGPT: (value: boolean) => void;
 }
 
-const ChatSettings = ({ onOpenApiKeyDialog, onToggleChatGPT, isUsingChatGPT }: ChatSettingsProps) => {
+const ChatSettings = ({ apiKey, setApiKey, isUsingChatGPT, setIsUsingChatGPT }: ChatSettingsProps) => {
   const { agentId, isInitialized, resetWidget } = useElevenLabsWidget();
+
+  const onOpenApiKeyDialog = () => {
+    // Implementation would go here
+    console.log("Open API key dialog");
+  };
+
+  const onToggleChatGPT = () => {
+    setIsUsingChatGPT(!isUsingChatGPT);
+  };
   
   return (
     <div className="ml-auto">

@@ -1,6 +1,6 @@
 
 import React, { useRef, useEffect } from "react";
-import { Message } from "@/types/chat";
+import { Message, ConversationContext } from "@/types/chat";
 import { Loader2 } from "lucide-react";
 import { Avatar } from "@/components/ui/avatar";
 import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
@@ -9,9 +9,10 @@ interface ChatMessagesProps {
   messages: Message[];
   isLoading: boolean;
   specialty: AgentSpecialty;
+  context?: ConversationContext;
 }
 
-const ChatMessages = ({ messages, isLoading, specialty }: ChatMessagesProps) => {
+const ChatMessages = ({ messages, isLoading, specialty, context }: ChatMessagesProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const agent = specializedAgents[specialty];
 
@@ -27,7 +28,7 @@ const ChatMessages = ({ messages, isLoading, specialty }: ChatMessagesProps) => 
       <div className="flex flex-col space-y-4">
         {messages.map((message, index) => (
           <div 
-            key={index} 
+            key={message.id || index} 
             className={`flex ${message.isAi ? "justify-start" : "justify-end"}`}
           >
             <div 
