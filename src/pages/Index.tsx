@@ -49,9 +49,41 @@ const Index = () => {
       </header>
 
       <main className="container mx-auto px-4 py-12">
-        {/* Hero Section */}
-        <section className="grid grid-cols-1 md:grid-cols-2 items-center gap-10 mb-12">
+        {/* Hero Section with Character on the Left */}
+        <section className="grid grid-cols-1 md:grid-cols-12 items-center gap-10 mb-12">
+          {/* Animated Plumber Character */}
+          <motion.div 
+            className="md:col-span-4 flex justify-center relative order-2 md:order-1"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="relative">
+              <div className="w-44 h-44 md:w-64 md:h-64 rounded-full bg-[#E3F2FD] flex items-center justify-center">
+                <motion.div
+                  animate={{ 
+                    rotate: [0, 15, 0, -15, 0],
+                  }}
+                  transition={{ 
+                    repeat: Infinity, 
+                    duration: 5,
+                    ease: "easeInOut"
+                  }}
+                >
+                  <Wrench className="w-24 h-24 md:w-32 md:h-32 text-[#1D3557]" />
+                </motion.div>
+              </div>
+              
+              {/* Speech Bubble */}
+              <div className="absolute -top-12 -right-16 md:-right-24 bg-white rounded-2xl p-3 shadow-md after:content-[''] after:absolute after:bottom-0 after:left-6 after:w-4 after:h-4 after:bg-white after:rotate-45 after:-mb-2">
+                <p className="text-sm md:text-base font-medium">Let's fix that leaky mess!</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Hero Content */}
           <motion.div
+            className="md:col-span-8 order-1 md:order-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -79,16 +111,6 @@ const Index = () => {
               </Link>
             </div>
             <div className="text-sm text-[#78909C]">Or explore quick help topics below 👇</div>
-          </motion.div>
-          <motion.div 
-            className="flex justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <div className="w-64 h-64 rounded-full bg-[#E3F2FD] flex items-center justify-center animate-bounce-slow">
-              <Wrench className="w-32 h-32 text-[#1D3557]" />
-            </div>
           </motion.div>
         </section>
 
