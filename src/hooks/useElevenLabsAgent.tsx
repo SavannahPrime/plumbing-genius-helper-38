@@ -1,4 +1,3 @@
-
 import { useRef, useEffect, useState, useCallback } from "react";
 import { toast } from "@/hooks/use-toast";
 import { ELEVEN_LABS_AGENT_ID, ELEVEN_LABS_AGENT_IDS } from "@/constants/elevenlabs";
@@ -42,9 +41,21 @@ export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
       return ELEVEN_LABS_AGENT_IDS[specialtyParam as keyof typeof ELEVEN_LABS_AGENT_IDS];
     }
     
-    // Fall back to default if no specialty is specified
-    return ELEVEN_LABS_AGENT_ID;
-  }, [specialtyParam]);
+    // Otherwise determine from path
+    const path = location.pathname;
+    
+    if (path.includes("electrician")) return "electrician";
+    if (path.includes("handyman")) return "handyman";
+    if (path.includes("mechanic")) return "mechanic";
+    if (path.includes("landscaper")) return "landscaper";
+    if (path.includes("chef")) return "chef";
+    if (path.includes("stylist")) return "stylist";
+    if (path.includes("cleaning")) return "cleaning";
+    if (path.includes("gadget")) return "gadget";
+    
+    // Default to plumber
+    return "plumber";
+  };
 
   // Retry counter for initialization
   const retryCount = useRef(0);

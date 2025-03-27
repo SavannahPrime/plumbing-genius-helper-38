@@ -71,7 +71,6 @@ export const useElevenLabsWidget = (): ElevenLabsWidgetHook => {
     if (!widgetElement) {
       widgetElement = document.createElement("elevenlabs-convai");
       widgetElement.setAttribute("agent-id", agentId);
-      widgetElement.style.display = "none"; // Hide visually but keep functional
       document.body.appendChild(widgetElement);
       console.log("Created ElevenLabs widget with agent ID:", agentId);
       return true;
@@ -107,14 +106,11 @@ export const useElevenLabsWidget = (): ElevenLabsWidgetHook => {
       return;
     }
     
-    // Trigger a click on the widget to activate it
-    // The widget script will handle the microphone and voice functionality
+    // The widget handles the microphone activation on its own
     toast({
       title: "Voice Assistant",
       description: "Voice assistant activated. You can speak now.",
     });
-    
-    // The script automatically handles microphone access and voice processing
   }, [isInitialized, ensureWidgetExists]);
   
   // Reset the widget (recreate it)

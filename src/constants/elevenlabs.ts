@@ -10,7 +10,7 @@ export const SCRIPT_URL = "https://elevenlabs.io/convai-widget/index.js";
 export const ELEVEN_LABS_AGENT_IDS = {
   plumber: "QSOMLKzFI4NgVfxUTeDL", // Using the provided agent ID for now
   electrician: "QSOMLKzFI4NgVfxUTeDL", // Using the provided electrician agent ID
-  gadget: "QSOMLKzFI4NgVfxUTeDL", // Using the provided agent ID for now
+  gadget: "QSOMLKzFI4NgVfxUTeDL", // Using the same agent ID but will use correct system prompt
   chef: "QSOMLKzFI4NgVfxUTeDL", // Using the provided agent ID for now
   stylist: "QSOMLKzFI4NgVfxUTeDL" // Using the provided agent ID for now
 };
