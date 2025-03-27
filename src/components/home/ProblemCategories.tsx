@@ -11,6 +11,7 @@ interface ProblemCategory {
   query: string;
   hoverText: string;
   emoji: string;
+  path: string;
 }
 
 const problemCategories: ProblemCategory[] = [
@@ -19,77 +20,88 @@ const problemCategories: ProblemCategory[] = [
     name: "Toilet", 
     query: "I have a problem with my toilet.",
     hoverText: "Flush issues? Running water?",
-    emoji: "🚽" 
+    emoji: "🚽",
+    path: "/glossary"
   },
   { 
     icon: <Droplet className="w-5 h-5" />, 
     name: "Shower", 
     query: "I have an issue with my shower.",
     hoverText: "Low pressure? Dripping?",
-    emoji: "🚿" 
+    emoji: "🚿",
+    path: "/glossary"
   },
   { 
     icon: <Droplet className="w-5 h-5" />, 
     name: "Sink", 
     query: "My sink is having problems.",
     hoverText: "Clogged? Leaking?",
-    emoji: "🚰" 
+    emoji: "🚰",
+    path: "/glossary"
   },
   { 
     icon: <Bath className="w-5 h-5" />, 
     name: "Bathtub", 
     query: "I'm having issues with my bathtub.",
     hoverText: "Drainage problems? Slow drain?",
-    emoji: "🛁" 
+    emoji: "🛁",
+    path: "/glossary"
   },
   { 
     icon: <Flame className="w-5 h-5" />, 
     name: "Water Heater", 
     query: "My water heater isn't working properly.",
     hoverText: "No hot water? Strange noises?",
-    emoji: "🔥" 
+    emoji: "🔥",
+    path: "/glossary"
   },
   { 
     icon: <Trash2 className="w-5 h-5" />, 
     name: "Garbage Disposal", 
     query: "My garbage disposal is malfunctioning.",
     hoverText: "Jammed? Not turning on?",
-    emoji: "🗑️" 
+    emoji: "🗑️",
+    path: "/glossary"
   },
   { 
     icon: <Droplet className="w-5 h-5" />, 
     name: "Leaking Pipe", 
     query: "I have a leaking pipe.",
     hoverText: "Under sink? Visible pipe?",
-    emoji: "💧" 
+    emoji: "💧",
+    path: "/glossary"
   },
   { 
     icon: <Droplet className="w-5 h-5" />, 
     name: "Low Water Pressure", 
     query: "I'm experiencing low water pressure.",
     hoverText: "Sudden drop? Specific fixtures?",
-    emoji: "📉" 
+    emoji: "📉",
+    path: "/glossary"
   },
   { 
     icon: <Info className="w-5 h-5" />, 
     name: "Smells / Sewer", 
     query: "There's a bad smell coming from my plumbing.",
     hoverText: "Rotten egg smell? Sink odor?",
-    emoji: "👃" 
+    emoji: "👃",
+    path: "/glossary"
   },
   { 
     icon: <ChefHat className="w-5 h-5" />, 
     name: "Chef Help", 
     query: "I need help with cooking or recipes.",
     hoverText: "Recipe advice? Cooking techniques?",
-    emoji: "👨‍🍳" 
+    emoji: "👨‍🍳",
+    path: "/chef"
   },
   { 
     icon: <Scissors className="w-5 h-5" />, 
     name: "Styling Advice", 
     query: "I need styling or hair advice.",
     hoverText: "Hair tips? Fashion advice?",
-    emoji: "💇" 
+    emoji: "💇",
+    path: "/stylist"
   },
 ];
 
@@ -107,7 +119,7 @@ const ProblemCategories = () => {
           <HoverCard key={index}>
             <HoverCardTrigger asChild>
               <Link 
-                to="/glossary"
+                to={category.path}
                 className="bg-white rounded-xl shadow-card hover:shadow-card-hover transition-all duration-200 p-4 text-left hover-card-animation"
               >
                 <div className="flex items-center gap-2">

@@ -10,6 +10,10 @@ import EveryFixHeader from "@/components/shared/EveryFixHeader";
 const Stylist = () => {
   const navigate = useNavigate();
 
+  const handleSuggestionClick = (query: string) => {
+    navigate(`/chat?problem=${encodeURIComponent(query)}`);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-50 to-pink-100">
       <EveryFixHeader 
@@ -47,15 +51,19 @@ const Stylist = () => {
                   Get advice on hairstyles, fashion choices, makeup tips, outfit coordination, and more.
                 </p>
                 <div className="space-y-3 mb-6">
-                  <div className="bg-pink-50 p-3 rounded-md text-sm text-gray-700">
-                    "What hairstyle suits my face shape?"
-                  </div>
-                  <div className="bg-pink-50 p-3 rounded-md text-sm text-gray-700">
-                    "How do I style curly hair?"
-                  </div>
-                  <div className="bg-pink-50 p-3 rounded-md text-sm text-gray-700">
+                  {[
+                    "What hairstyle suits my face shape?",
+                    "How do I style curly hair?",
                     "What colors match with this outfit?"
-                  </div>
+                  ].map((suggestion, index) => (
+                    <div 
+                      key={index} 
+                      className="bg-pink-50 p-3 rounded-md text-sm text-gray-700 cursor-pointer hover:bg-pink-100 transition-colors"
+                      onClick={() => handleSuggestionClick(suggestion)}
+                    >
+                      {suggestion}
+                    </div>
+                  ))}
                 </div>
                 <Button 
                   className="w-full bg-gradient-to-r from-pink-400 to-pink-600 hover:from-pink-500 hover:to-pink-700"
@@ -79,7 +87,10 @@ const Stylist = () => {
                 <p className="mb-4 text-gray-700">
                   Share a photo of your hair, outfit, or makeup to get real-time advice and styling suggestions.
                 </p>
-                <div className="bg-pink-50 rounded-md p-4 mb-6 flex flex-col items-center justify-center">
+                <div 
+                  className="bg-pink-50 rounded-md p-4 mb-6 flex flex-col items-center justify-center cursor-pointer hover:bg-pink-100 transition-colors"
+                  onClick={() => navigate("/diagnosis")}
+                >
                   <Upload className="h-10 w-10 text-pink-400 mb-2" />
                   <p className="text-sm text-gray-600 text-center">
                     Upload a photo to get personalized style recommendations
@@ -111,7 +122,11 @@ const Stylist = () => {
                 "Accessory selection",
                 "Personal grooming"
               ].map((item, i) => (
-                <div key={i} className="bg-pink-50 p-3 rounded-md text-sm">
+                <div 
+                  key={i} 
+                  className="bg-pink-50 p-3 rounded-md text-sm cursor-pointer hover:bg-pink-100 transition-colors"
+                  onClick={() => handleSuggestionClick(`I need help with ${item.toLowerCase()}`)}
+                >
                   {item}
                 </div>
               ))}
