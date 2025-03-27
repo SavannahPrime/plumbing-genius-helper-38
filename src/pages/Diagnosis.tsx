@@ -1,10 +1,9 @@
-
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft, Camera, Upload, Image as ImageIcon, X, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { analyzeImage } from "@/services/imageAnalysisService";
 import { Input } from "@/components/ui/input";
@@ -16,6 +15,34 @@ const Diagnosis = () => {
   const [analysisResult, setAnalysisResult] = useState<string | null>(null);
   const [showDialog, setShowDialog] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!document.querySelector('script[src="https://elevenlabs.io/convai-widget/index.js"]')) {
+      const script = document.createElement('script');
+      script.src = "https://elevenlabs.io/convai-widget/index.js";
+      script.async = true;
+      script.type = "text/javascript";
+      document.body.appendChild(script);
+      
+      return () => {
+        document.body.removeChild(script);
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!document.querySelector('elevenlabs-convai[agent-id="lX8syHY754gA8SdjQU6n"]')) {
+      const agentElement = document.createElement('elevenlabs-convai');
+      agentElement.setAttribute('agent-id', 'lX8syHY754gA8SdjQU6n');
+      document.body.appendChild(agentElement);
+      
+      return () => {
+        if (document.body.contains(agentElement)) {
+          document.body.removeChild(agentElement);
+        }
+      };
+    }
+  }, []);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -78,7 +105,6 @@ const Diagnosis = () => {
 
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
-      {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center">
           <Link to="/" className="p-2 hover:bg-gray-100 rounded-full transition-colors">
@@ -89,13 +115,12 @@ const Diagnosis = () => {
               Visual Diagnosis
             </h1>
             <p className="font-roboto text-[16px] text-gray-600">
-              Upload a photo, and our AI will analyze the issue.
+              Upload a photo, and our AI will analyze the issue. You can also speak with our plumbing assistant.
             </p>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
           <motion.div
@@ -104,7 +129,6 @@ const Diagnosis = () => {
             transition={{ duration: 0.5 }}
             className="flex flex-col md:flex-row gap-8 items-center"
           >
-            {/* Plumber Character */}
             <motion.div 
               className="w-full md:w-1/3"
               initial={{ opacity: 0, x: -20 }}
@@ -118,12 +142,11 @@ const Diagnosis = () => {
               />
               <div className="bg-white p-4 rounded-lg mt-4 shadow-sm">
                 <p className="font-inter font-medium text-center md:text-left">
-                  "Hi there! Share a photo of your plumbing issue, and I'll help diagnose the problem."
+                  "Hi there! Share a photo of your plumbing issue, and I'll help diagnose the problem. You can also click the voice chat icon in the bottom right to talk to me!"
                 </p>
               </div>
             </motion.div>
 
-            {/* Upload Card */}
             <Card className="p-8 text-center w-full md:w-2/3">
               <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 cursor-pointer hover:border-[#00AEEF] transition-colors">
                 <div className="flex flex-col items-center gap-4">
@@ -158,7 +181,6 @@ const Diagnosis = () => {
             </Card>
           </motion.div>
 
-          {/* Analysis History Section */}
           {analysisResult && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -199,7 +221,6 @@ const Diagnosis = () => {
         </div>
       </main>
 
-      {/* Image Preview Dialog */}
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
