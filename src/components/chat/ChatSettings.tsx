@@ -6,6 +6,7 @@ import { useElevenLabsWidget } from "@/hooks/useElevenLabsWidget";
 import { useState, useEffect } from "react";
 import ApiKeyDialog from "./ApiKeyDialog";
 import { toast } from "sonner";
+import { useAgentSpecialtyResolver } from "@/hooks/useAgentSpecialtyResolver";
 
 export interface ChatSettingsProps {
   apiKey: string;
@@ -19,6 +20,7 @@ const ChatSettings = ({ apiKey, setApiKey, isUsingChatGPT, setIsUsingChatGPT }: 
   const [openDialog, setOpenDialog] = useState(false);
   const [tempApiKey, setTempApiKey] = useState(apiKey);
   const [hasCustomElementRegistered, setHasCustomElementRegistered] = useState(false);
+  const currentSpecialty = useAgentSpecialtyResolver();
 
   useEffect(() => {
     // Check if the custom element is registered
@@ -42,6 +44,17 @@ const ChatSettings = ({ apiKey, setApiKey, isUsingChatGPT, setIsUsingChatGPT }: 
   };
 
   const onToggleChatGPT = () => {
+    // If it's chef specialty, always force using ChatGPT
+    if (currentSpecialty === "chef") {
+      if (!isUsingChatGPT) {
+        setIsUsingChatGPT(true);
+        toast("Using ChatGPT", {
+          description: "Chef's Assistant works best with ChatGPT enabled"
+        });
+      }
+      return;
+    }
+    
     setIsUsingChatGPT(!isUsingChatGPT);
   };
 
@@ -69,9 +82,11 @@ const ChatSettings = ({ apiKey, setApiKey, isUsingChatGPT, setIsUsingChatGPT }: 
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={onToggleChatGPT}>
-            {isUsingChatGPT ? "Use Built-in Assistant" : "Enable ChatGPT"}
-          </DropdownMenuItem>
+          {currentSpecialty !== "chef" && (
+            <DropdownMenuItem onClick={onToggleChatGPT}>
+              {isUsingChatGPT ? "Use Built-in Assistant" : "Enable ChatGPT"}
+            </DropdownMenuItem>
+          )}
           <DropdownMenuItem onClick={onOpenApiKeyDialog}>
             Update API Key
           </DropdownMenuItem>
