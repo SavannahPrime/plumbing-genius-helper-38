@@ -1,3 +1,4 @@
+
 import { ConversationContext } from "@/types/chat";
 
 export const identifyProblemType = (message: string) => {
@@ -52,6 +53,21 @@ export const generateNextResponse = (
   problemDetails: any,
   updateContext: (newDetails: any) => void
 ) => {
+  // Check for picture sharing questions
+  const checkForPictureQuestion = (message: string) => {
+    const lowerMessage = message.toLowerCase();
+    return lowerMessage.includes("picture") || 
+           lowerMessage.includes("photo") || 
+           lowerMessage.includes("image") || 
+           lowerMessage.includes("share pic") || 
+           lowerMessage.includes("upload");
+  };
+
+  // Handle picture questions before any other logic
+  if (previousAnswers.length > 0 && checkForPictureQuestion(previousAnswers[previousAnswers.length - 1])) {
+    return "Yes, please! Sharing pictures would be extremely helpful for me to better diagnose your plumbing issue. You can upload images directly through this chat interface. Clear photos of the problem area will help me give you more accurate advice.";
+  }
+
   const progress = Math.min((stage / 40) * 100, 100);
   
   // Leak troubleshooting flow

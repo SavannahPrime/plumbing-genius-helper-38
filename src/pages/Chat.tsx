@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import ChatHeader from "@/components/chat/ChatHeader";
 import ChatMessages from "@/components/chat/ChatMessages";
@@ -56,16 +55,23 @@ const Chat = () => {
   };
 
   const generatePlumberResponse = async (userMessage: string) => {
-    // If using ChatGPT and API key is available, use OpenAI
+    const lowerMessage = userMessage.toLowerCase();
+    
+    if (lowerMessage.includes("picture") || 
+        lowerMessage.includes("photo") || 
+        lowerMessage.includes("image") || 
+        lowerMessage.includes("share pic") || 
+        lowerMessage.includes("upload")) {
+      return "Yes, please! Sharing pictures would be extremely helpful for me to better diagnose your plumbing issue. You can upload images directly through this chat interface. Clear photos of the problem area will help me give you more accurate advice.";
+    }
+
     if (isUsingChatGPT && apiKey) {
       setIsLoading(true);
       try {
-        // Create a string representation of conversation history
         const conversationHistory = messages
           .map(msg => `${msg.isAi ? "Plumber" : "User"}: ${msg.text}`)
           .join("\n");
         
-        // Get response from ChatGPT
         const prompt = createPlumberPrompt(userMessage, conversationHistory);
         const response = await generateChatGPTResponse(prompt, apiKey);
         setIsLoading(false);
@@ -73,27 +79,21 @@ const Chat = () => {
       } catch (error) {
         console.error("Error with ChatGPT:", error);
         setIsLoading(false);
-        setIsUsingChatGPT(false); // Fall back to built-in logic
+        setIsUsingChatGPT(false);
         toast({
           title: "ChatGPT Connection Error",
           description: "Falling back to built-in plumber assistant.",
           variant: "destructive"
         });
-        // Continue with built-in logic below
       }
     }
 
-    // Built-in logic (existing code)
-    const lowerMessage = userMessage.toLowerCase();
-    
-    // Check for emergency situations
     if (lowerMessage.includes("overflow") || 
         (lowerMessage.includes("water") && lowerMessage.includes("everywhere")) ||
         (lowerMessage.includes("ceiling") && lowerMessage.includes("drip"))) {
       return handleEmergency(setContext);
     }
 
-    // Continue existing conversation
     if (context.currentTopic) {
       const newAnswers = [...context.previousAnswers, userMessage];
       const nextStage = context.stage + 1;
@@ -114,7 +114,6 @@ const Chat = () => {
       );
     }
 
-    // Start new conversation
     const problemType = identifyProblemType(userMessage);
     
     setContext({
@@ -144,7 +143,6 @@ const Chat = () => {
     const userMessage = message;
     setMessage("");
     
-    // Show loading indicator
     setIsLoading(true);
     
     try {
