@@ -187,9 +187,7 @@ export const generateSpecializedAgentResponse = async (
   const specialty = getAgentByRoute(route);
   const agent = specializedAgents[specialty];
   
-  // Generate response logic here (similar to existing plumber response logic)
-  // This would call the OpenAI API with the appropriate prompt
-  // For now, return a simple response based on the agent's specialty
+  console.log(`Generating response for ${agent.name} (${specialty}) with API key: ${apiKey ? "Key available" : "No key available"}`);
   
   try {
     // Generate prompt
@@ -207,11 +205,12 @@ export const generateSpecializedAgentResponse = async (
       return await generateChatGPTResponse(prompt, apiKey);
     }
     
-    // If no API key, return a fallback response
-    return `${agent.greeting} I'm here to help with all your ${agent.specialty}-related questions. For the best assistance, consider adding your OpenAI API key in the settings.`;
+    // If no API key, return a fallback response and clearly indicate the issue
+    console.warn(`No OpenAI API key available for ${specialty} response`);
+    return `${agent.greeting} I'm here to help with all your ${agent.specialty}-related questions. However, I notice there's an issue with the OpenAI API key connection. Please update your API key in the settings menu (click the gear icon) for more personalized assistance.`;
   } catch (error) {
     console.error(`Error generating ${specialty} response:`, error);
-    return `I apologize, but I'm having trouble connecting to my knowledge base right now. As your ${agent.specialty} assistant, I'll try to help with my built-in expertise instead.`;
+    return `I apologize, but I'm having trouble connecting to my knowledge base right now. As your ${agent.specialty} assistant, I'll try to help with my built-in expertise instead. If this persists, please check your API key settings.`;
   }
 };
 
@@ -223,6 +222,8 @@ export const analyzeImageForSpecialty = async (
 ): Promise<string> => {
   try {
     const agent = specializedAgents[specialty];
+    
+    console.log(`Analyzing image for ${specialty} with API key: ${apiKey ? "Key available" : "No key available"}`);
     
     // For demo purposes, if there's no OpenAI API key available, return a mock response
     if (!apiKey) {
@@ -272,7 +273,7 @@ export const analyzeImageForSpecialty = async (
     return data.choices[0].message.content;
   } catch (error) {
     console.error(`Error analyzing image for ${specialty}:`, error);
-    throw new Error("Failed to analyze the image. Please try again.");
+    throw new Error("Failed to analyze the image. Please try again or check your API key settings.");
   }
 };
 

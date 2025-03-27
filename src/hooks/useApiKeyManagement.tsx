@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 
 // Predefined API key
 const DEFAULT_API_KEY = "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";

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { useSearchParams, useLocation } from "react-router-dom";
 import ChatHeader from "@/components/chat/ChatHeader";
@@ -13,8 +14,26 @@ import { analyzeImageForSpecialty } from "@/services/specializedAgentService";
 import { toast } from "sonner";
 
 const Chat = () => {
-  const [apiKey, setApiKey] = useLocalStorage<string>("openai-api-key", "");
+  // Load the API key from localStorage with the correct key name
+  const [apiKey, setApiKey] = useLocalStorage<string>("openai_api_key", "");
   const [isUsingChatGPT, setIsUsingChatGPT] = useLocalStorage<boolean>("using-chatgpt", true);
+  
+  useEffect(() => {
+    // Log API key status for debugging
+    console.log("API Key Status:", apiKey ? "Key is set" : "No key available");
+    
+    // Check if API key is missing or empty
+    if (!apiKey) {
+      toast("API Key Needed", {
+        description: "Please set your OpenAI API key in settings to enable all features",
+        action: {
+          label: "Settings",
+          onClick: () => document.querySelector('.settings-button')?.click()
+        }
+      });
+    }
+  }, [apiKey]);
+  
   const { handleMicClick } = useElevenLabsAgent();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -202,13 +221,15 @@ const Chat = () => {
       const agent = specializedAgents[currentAgentSpecialty];
       const welcomeMessage: Message = {
         id: "welcome",
-        text: agent.greeting,
+        text: apiKey 
+          ? agent.greeting 
+          : `${agent.greeting} To get the most personalized responses, please set your OpenAI API key in the settings menu (click the gear icon).`,
         isAi: true,
         timestamp: new Date(),
       };
       setMessages([welcomeMessage]);
     }
-  }, [currentAgentSpecialty]);
+  }, [currentAgentSpecialty, apiKey]);
 
   return (
     <div className="flex flex-col h-screen bg-background">
