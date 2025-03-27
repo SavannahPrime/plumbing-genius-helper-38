@@ -5,6 +5,12 @@
 export interface HTMLElevenLabsConvaiElement extends HTMLElement {
   setAttribute(name: string, value: string): void;
   getAttribute(name: string): string | null;
+  
+  // Properties needed for ElevenLabs agent functionality
+  agentId?: string;
+  activate?: () => void;
+  deactivate?: () => void;
+  apiKey?: string;
 }
 
 /**

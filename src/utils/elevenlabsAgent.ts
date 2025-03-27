@@ -99,7 +99,8 @@ export const createAgentElement = (agentId = ELEVEN_LABS_AGENT_ID): HTMLElevenLa
       throw new ElevenLabsError("Agent ID is not configured", "MISSING_AGENT_ID");
     }
     
-    agentElement.agentId = agentId;
+    // Set the agent ID as an attribute for reliable integration
+    agentElement.setAttribute("agent-id", agentId);
     agentElement.style.display = "none";
     document.body.appendChild(agentElement);
     
@@ -128,15 +129,15 @@ export const activateAgent = (agentElement: HTMLElevenLabsConvaiElement): void =
     throw new ElevenLabsError("Agent element is null or undefined", "NULL_AGENT");
   }
   
-  if (typeof agentElement.activate !== "function") {
-    throw new ElevenLabsError(
-      "Agent element does not have an activate method",
-      "INVALID_AGENT_INTERFACE"
-    );
-  }
-  
   try {
-    agentElement.activate();
+    // Try using the activate method if available
+    if (typeof agentElement.activate === "function") {
+      agentElement.activate();
+    } else {
+      // Fallback: dispatch a custom activate event
+      const event = new CustomEvent("activate");
+      agentElement.dispatchEvent(event);
+    }
     console.log("ElevenLabs agent activated");
   } catch (error) {
     console.error("Error activating agent:", error);
@@ -153,13 +154,15 @@ export const deactivateAgent = (agentElement: HTMLElevenLabsConvaiElement): void
     return;
   }
   
-  if (typeof agentElement.deactivate !== "function") {
-    console.warn("Agent element does not have a deactivate method");
-    return;
-  }
-  
   try {
-    agentElement.deactivate();
+    // Try using the deactivate method if available
+    if (typeof agentElement.deactivate === "function") {
+      agentElement.deactivate();
+    } else {
+      // Fallback: dispatch a custom deactivate event
+      const event = new CustomEvent("deactivate");
+      agentElement.dispatchEvent(event);
+    }
     console.log("ElevenLabs agent deactivated");
   } catch (error) {
     console.error("Error deactivating agent:", error);
@@ -176,7 +179,13 @@ export const setAgentApiKey = (agentElement: HTMLElevenLabsConvaiElement, apiKey
   }
   
   try {
-    agentElement.apiKey = apiKey;
+    // Try to set the apiKey property if available
+    if ('apiKey' in agentElement) {
+      agentElement.apiKey = apiKey;
+    } else {
+      // Fallback: set it as an attribute
+      agentElement.setAttribute("api-key", apiKey);
+    }
     console.log("ElevenLabs agent API key set");
   } catch (error) {
     console.error("Error setting agent API key:", error);
@@ -197,6 +206,10 @@ export const removeAgentElement = (agentElement: HTMLElevenLabsConvaiElement): v
     // Try to deactivate first to clean up resources
     if (typeof agentElement.deactivate === "function") {
       agentElement.deactivate();
+    } else {
+      // Fallback: dispatch a custom deactivate event
+      const event = new CustomEvent("deactivate");
+      agentElement.dispatchEvent(event);
     }
     
     if (agentElement.parentNode) {

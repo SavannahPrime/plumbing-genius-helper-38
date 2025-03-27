@@ -1,4 +1,3 @@
-
 import { useRef, useEffect, useState, useCallback } from "react";
 import { toast } from "@/hooks/use-toast";
 import { ELEVEN_LABS_AGENT_ID, ELEVEN_LABS_AGENT_IDS } from "@/constants/elevenlabs";
@@ -38,25 +37,53 @@ export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
 
   // Determine which agent ID to use based on specialty
   const getAgentId = useCallback(() => {
+    // First try to get from URL specialty parameter
     if (specialtyParam && specialtyParam in ELEVEN_LABS_AGENT_IDS) {
-      return ELEVEN_LABS_AGENT_IDS[specialtyParam as keyof typeof ELEVEN_LABS_AGENT_IDS];
+      const agentId = ELEVEN_LABS_AGENT_IDS[specialtyParam as keyof typeof ELEVEN_LABS_AGENT_IDS];
+      console.log(`Using agent ID from URL specialty param (${specialtyParam}):`, agentId);
+      return agentId;
     }
     
     // Otherwise determine from path
     const path = location.pathname;
     
-    if (path.includes("electrician")) return "electrician";
-    if (path.includes("handyman")) return "handyman";
-    if (path.includes("mechanic")) return "mechanic";
-    if (path.includes("landscaper")) return "landscaper";
-    if (path.includes("chef")) return "chef";
-    if (path.includes("stylist")) return "stylist";
-    if (path.includes("cleaning")) return "cleaning";
-    if (path.includes("gadget")) return "gadget";
+    if (path.includes("electrician")) {
+      console.log("Using electrician agent ID");
+      return ELEVEN_LABS_AGENT_IDS.electrician;
+    }
+    if (path.includes("handyman")) {
+      console.log("Using handyman agent ID");
+      return ELEVEN_LABS_AGENT_IDS.handyman;
+    }
+    if (path.includes("mechanic")) {
+      console.log("Using mechanic agent ID");
+      return ELEVEN_LABS_AGENT_IDS.mechanic;
+    }
+    if (path.includes("landscaper")) {
+      console.log("Using landscaper agent ID");
+      return ELEVEN_LABS_AGENT_IDS.landscaper;
+    }
+    if (path.includes("chef")) {
+      console.log("Using chef agent ID");
+      return ELEVEN_LABS_AGENT_IDS.chef;
+    }
+    if (path.includes("stylist")) {
+      console.log("Using stylist agent ID");
+      return ELEVEN_LABS_AGENT_IDS.stylist;
+    }
+    if (path.includes("cleaning")) {
+      console.log("Using cleaning agent ID");
+      return ELEVEN_LABS_AGENT_IDS.cleaning;
+    }
+    if (path.includes("gadget")) {
+      console.log("Using gadget agent ID");
+      return ELEVEN_LABS_AGENT_IDS.gadget;
+    }
     
     // Default to plumber
-    return "plumber";
-  }, [location.pathname, specialtyParam]); // Fixed: Added proper dependency array and removed semicolon
+    console.log("Using default plumber agent ID");
+    return ELEVEN_LABS_AGENT_IDS.plumber;
+  }, [location.pathname, specialtyParam]);
 
   // Retry counter for initialization
   const retryCount = useRef(0);
@@ -70,7 +97,10 @@ export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
         await loadElevenLabsScript();
         
         // Create the agent element with the current specialty
-        const agentElement = createAgentElement(getAgentId());
+        const currentAgentId = getAgentId();
+        console.log("Creating agent with ID:", currentAgentId);
+        const agentElement = createAgentElement(currentAgentId);
+        
         if (agentElement) {
           elevenLabsAgent.current = agentElement;
           
@@ -81,7 +111,7 @@ export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
               isInitialized: true,
               error: null // Clear any previous errors
             }));
-            console.log("ElevenLabs agent initialized with ID:", getAgentId());
+            console.log("ElevenLabs agent initialized with ID:", currentAgentId);
           }, 2000);
         }
       } catch (error) {

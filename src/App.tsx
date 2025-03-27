@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, useSearchParams } from "react-router-dom";
 import Index from "./pages/Index";
 import Chat from "./pages/Chat";
 import Diagnosis from "./pages/Diagnosis";
@@ -25,8 +25,12 @@ import { SCRIPT_URL, ELEVEN_LABS_AGENT_ID } from "@/constants/elevenlabs";
 
 const queryClient = new QueryClient();
 
-const App = () => {
-  // Initialize ElevenLabs widget on app load
+// Widget initializer component that can access route information
+const ElevenLabsWidgetInitializer = () => {
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const specialtyParam = searchParams.get('specialty');
+  
   useEffect(() => {
     // Load the script if it's not already loaded
     if (!document.querySelector(`script[src="${SCRIPT_URL}"]`)) {
@@ -36,37 +40,17 @@ const App = () => {
       script.type = "text/javascript";
       document.head.appendChild(script);
       
-      // Once script is loaded, create the initial widget
-      script.onload = () => {
-        // Add the widget element to the page with the default agent ID
-        if (!document.querySelector("elevenlabs-convai")) {
-          const widget = document.createElement("elevenlabs-convai");
-          widget.setAttribute("agent-id", ELEVEN_LABS_AGENT_ID);
-          widget.style.display = "none"; // Hide the widget
-          document.body.appendChild(widget);
-          console.log("ElevenLabs widget initialized");
-        }
-      };
-    } else {
-      // If script is already loaded, create the widget if it doesn't exist
-      if (!document.querySelector("elevenlabs-convai")) {
-        const widget = document.createElement("elevenlabs-convai");
-        widget.setAttribute("agent-id", ELEVEN_LABS_AGENT_ID);
-        widget.style.display = "none"; // Hide the widget
-        document.body.appendChild(widget);
-        console.log("ElevenLabs widget initialized");
-      }
+      console.log("ElevenLabs script loaded");
     }
     
-    // Cleanup on app unmount (probably won't happen much)
-    return () => {
-      const widget = document.querySelector("elevenlabs-convai");
-      if (widget) {
-        widget.remove();
-      }
-    };
+    // We don't create the widget here - we'll let the useElevenLabsAgent hook handle that
+    // This ensures proper agent ID selection based on the current route
   }, []);
+  
+  return null;
+};
 
+const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -103,6 +87,7 @@ const App = () => {
             <Route path="/step-by-step" element={<StepByStepGlossary />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <ElevenLabsWidgetInitializer />
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

@@ -1,40 +1,25 @@
 
 /**
- * URL for loading the ElevenLabs Conversational AI widget script
+ * ElevenLabs script URL
  */
-export const SCRIPT_URL = "https://elevenlabs.io/convai-widget/index.js";
+export const SCRIPT_URL = "https://projects.elevenlabs.io/widgetkit";
 
 /**
- * ElevenLabs agent IDs for different specialists 
+ * Default ElevenLabs agent ID
+ */
+export const ELEVEN_LABS_AGENT_ID = "afbe7265-adf7-4103-a2fc-8bb6dd0fe26c"; // Plumber agent ID
+
+/**
+ * Specialized agent IDs for each domain expert
  */
 export const ELEVEN_LABS_AGENT_IDS = {
-  plumber: "QSOMLKzFI4NgVfxUTeDL", // Using the provided agent ID for now
-  electrician: "QSOMLKzFI4NgVfxUTeDL", // Using the provided electrician agent ID
-  gadget: "QSOMLKzFI4NgVfxUTeDL", // Using the same agent ID but will use correct system prompt
-  chef: "QSOMLKzFI4NgVfxUTeDL", // Using the provided agent ID for now
-  stylist: "QSOMLKzFI4NgVfxUTeDL" // Using the provided agent ID for now
-};
-
-/**
- * Default ElevenLabs agent ID (fallback)
- */
-export const ELEVEN_LABS_AGENT_ID = "QSOMLKzFI4NgVfxUTeDL";
-
-/**
- * Available voice options from ElevenLabs
- */
-export const VOICE_OPTIONS = {
-  ROGER: "CwhRBWXzGAHq8TQ4Fs17",
-  SARAH: "EXAVITQu4vr4xnSDxMaL",
-  BRIAN: "nPczCjzI2devNBz1zQrb",
-  JESSICA: "cgSgspJ2msm6clMCkdW9"
-};
-
-/**
- * Available model options from ElevenLabs
- */
-export const MODEL_OPTIONS = {
-  MULTILINGUAL_V2: "eleven_multilingual_v2",
-  TURBO_V2: "eleven_turbo_v2",
-  TURBO_V2_5: "eleven_turbo_v2_5"
+  plumber: "afbe7265-adf7-4103-a2fc-8bb6dd0fe26c",
+  electrician: "d1c68055-4cdf-42ef-9d3f-bf8345105d0a",
+  handyman: "3c977cb0-bf9f-4010-847d-f2b3a4c52673",
+  mechanic: "d51c913e-5fc9-4ded-8173-b53dbf90d8ba",
+  landscaper: "7b91c00a-4c11-495a-8169-c102b9cacdbc",
+  chef: "0ed63455-0bef-430f-9e13-fad9a1f00a35",
+  stylist: "fa8a16b8-69dd-4e0c-9a14-cda94ec88a9a",
+  cleaning: "24c32a77-7853-48ce-b753-86a977bf488a",
+  gadget: "e33fef2c-08c4-4f3a-a51e-76f5703f5fa9"
 };
