@@ -2,20 +2,73 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, MessageSquare, Image as ImageIcon, Zap, AlertTriangle } from "lucide-react";
+import { Home, MessageSquare, Image as ImageIcon, Zap, Lightbulb, Plug, Cable, Power, ScanLine, AlertTriangle, Wrench, PlugZap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
+import QuickActionCategories from "@/components/shared/QuickActionCategories";
+import { QuickActionCategory } from "@/components/shared/QuickActionCategories";
 
-const ElectricianGenius = () => {
+const Electrician = () => {
   const navigate = useNavigate();
 
-  const handleChatStart = () => {
-    navigate("/chat");
-  };
-
-  const handlePhotoClick = () => {
-    navigate("/diagnosis");
-  };
+  const electricianCategories: QuickActionCategory[] = [
+    { 
+      icon: <Lightbulb className="w-5 h-5" />, 
+      name: "Lighting Issues", 
+      hoverText: "Flickering lights, bulb replacements, fixture questions",
+      emoji: "💡",
+      path: "/chat"
+    },
+    { 
+      icon: <Plug className="w-5 h-5" />, 
+      name: "Outlet Problems", 
+      hoverText: "Dead outlets, loose plugs, GFCI issues",
+      emoji: "🔌",
+      path: "/chat"
+    },
+    { 
+      icon: <Power className="w-5 h-5" />, 
+      name: "Circuit Breakers", 
+      hoverText: "Tripping breakers, panel questions, labeling help",
+      emoji: "⚡",
+      path: "/chat"
+    },
+    { 
+      icon: <ScanLine className="w-5 h-5" />, 
+      name: "Appliance Issues", 
+      hoverText: "Troubleshooting electrical problems with appliances",
+      emoji: "🧰",
+      path: "/chat"
+    },
+    { 
+      icon: <Cable className="w-5 h-5" />, 
+      name: "Wiring Help", 
+      hoverText: "Basic wiring questions and safety information",
+      emoji: "🔌",
+      path: "/chat"
+    },
+    { 
+      icon: <PlugZap className="w-5 h-5" />, 
+      name: "Smart Devices", 
+      hoverText: "Setup and troubleshooting for smart electrical devices",
+      emoji: "📱",
+      path: "/chat"
+    },
+    { 
+      icon: <AlertTriangle className="w-5 h-5" />, 
+      name: "Safety Checks", 
+      hoverText: "Identifying potential electrical hazards",
+      emoji: "⚠️",
+      path: "/chat"
+    },
+    { 
+      icon: <Wrench className="w-5 h-5" />, 
+      name: "DIY Guidance", 
+      hoverText: "Safe DIY electrical repairs and when to call a pro",
+      emoji: "🔧",
+      path: "/chat"
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-yellow-50 font-dm-sans text-primary">
@@ -23,25 +76,18 @@ const ElectricianGenius = () => {
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <Button variant="ghost" onClick={() => navigate("/")} className="mr-2">
-              <ArrowLeft className="w-5 h-5" />
+              <Home className="w-5 h-5" />
             </Button>
             <Zap className="w-7 h-7 text-yellow-500" />
             <span className="font-space-grotesk font-bold text-xl text-primary">
               Electrician Genius
             </span>
+            <Badge variant="outline" className="ml-2">by EveryFixAI</Badge>
           </div>
         </div>
       </header>
 
       <main className="container mx-auto px-4 py-12">
-        <div className="bg-red-50 border border-red-200 p-4 rounded-lg mb-6 flex items-start">
-          <AlertTriangle className="w-5 h-5 text-red-500 mt-1 mr-3 flex-shrink-0" />
-          <div>
-            <p className="font-medium text-red-700">Safety First</p>
-            <p className="text-sm text-red-600">Always turn off power at the breaker before attempting any electrical work. If you feel unsafe at any point, call a licensed professional.</p>
-          </div>
-        </div>
-        
         <section className="grid grid-cols-1 md:grid-cols-12 items-center gap-10 mb-12">
           <motion.div 
             className="md:col-span-4 flex justify-center relative order-2 md:order-1"
@@ -66,7 +112,7 @@ const ElectricianGenius = () => {
               </div>
               
               <div className="absolute -top-12 -right-16 md:-right-24 bg-white rounded-2xl p-3 shadow-card after:content-[''] after:absolute after:bottom-0 after:left-6 after:w-4 after:h-4 after:bg-white after:rotate-45 after:-mb-2">
-                <p className="text-sm md:text-base font-medium">Let's fix that electrical issue safely!</p>
+                <p className="text-sm md:text-base font-medium">Let's solve your electrical issues safely!</p>
               </div>
             </div>
           </motion.div>
@@ -77,45 +123,37 @@ const ElectricianGenius = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-space-grotesk">Your AI-Powered Electrical Assistant</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-space-grotesk">Your AI Electrical Assistant</h2>
             
             <p className="mb-6 text-lg text-primary/80">
               Flip the switch on electrical problems — safely and smart.
-              <Badge className="ml-2 bg-yellow-100 text-primary">💡 Safety first, always.</Badge>
+              <Badge className="ml-2 bg-yellow-100 text-primary">💡 Safety first!</Badge>
             </p>
             
             <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
-              <p className="font-medium mb-3">Safety Checklist</p>
-              <div className="space-y-2">
-                <div className="flex items-center space-x-3">
-                  <div className="h-5 w-5 rounded-full border border-yellow-500 flex items-center justify-center text-xs font-bold">1</div>
-                  <p>Turn off power at breaker panel</p>
+              <div className="flex items-center space-x-2 mb-3">
+                <div className="rounded-full bg-yellow-100 p-2">
+                  <AlertTriangle className="w-4 h-4 text-yellow-600" />
                 </div>
-                <div className="flex items-center space-x-3">
-                  <div className="h-5 w-5 rounded-full border border-yellow-500 flex items-center justify-center text-xs font-bold">2</div>
-                  <p>Test to confirm power is off</p>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="h-5 w-5 rounded-full border border-yellow-500 flex items-center justify-center text-xs font-bold">3</div>
-                  <p>If unsure at any point, call a professional</p>
-                </div>
+                <p className="font-medium">Safety Notice</p>
               </div>
+              <p className="text-sm text-gray-600 mb-3">For serious electrical issues, always consult a licensed electrician. Turn off power at the breaker before attempting any DIY electrical work.</p>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
               <Button 
                 className="w-full sm:w-auto text-lg py-6 px-8 bg-yellow-600 hover:bg-yellow-700 shadow-md active:scale-[0.98] transition-all rounded-xl"
-                onClick={handleChatStart}
+                onClick={() => navigate("/chat")}
               >
                 <MessageSquare className="w-5 h-5 mr-2" />
-                Start Chat
+                Chat with AI Electrician
               </Button>
               <Button 
                 className="w-full sm:w-auto text-lg py-6 px-8 bg-yellow-800 hover:bg-yellow-900 text-white shadow-md active:scale-[0.98] transition-all rounded-xl"
-                onClick={handlePhotoClick}
+                onClick={() => navigate("/diagnosis")}
               >
                 <ImageIcon className="w-5 h-5 mr-2" />
-                Photo Diagnosis
+                Upload Photo
               </Button>
             </div>
             
@@ -123,21 +161,26 @@ const ElectricianGenius = () => {
               <p className="text-sm font-medium mb-2">Try asking:</p>
               <div className="space-y-2">
                 <div className="bg-yellow-50 p-2 rounded">
-                  "Why do my lights flicker when I microwave something?"
+                  "Why do my lights flicker when I use the microwave?"
                 </div>
                 <div className="bg-yellow-50 p-2 rounded">
-                  "This switch shocks me sometimes"
+                  "How do I replace a light switch?"
                 </div>
                 <div className="bg-yellow-50 p-2 rounded">
-                  "What is this wire in my wall?"
+                  "My outlet doesn't work anymore"
                 </div>
               </div>
             </div>
           </motion.div>
         </section>
+
+        <QuickActionCategories 
+          title="⚡ Electrical Solutions" 
+          categories={electricianCategories} 
+        />
       </main>
     </div>
   );
 };
 
-export default ElectricianGenius;
+export default Electrician;

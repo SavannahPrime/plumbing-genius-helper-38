@@ -1,9 +1,12 @@
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Home, MessageSquare, Image as ImageIcon, Wrench, Camera } from "lucide-react";
+import { Home, MessageSquare, Image as ImageIcon, Wrench, Camera, Hammer, Drill, PaintBucket, Ruler, ScrewdriverIcon, Stethoscope, Lightbulb, Shield } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
+import QuickActionCategories from "@/components/shared/QuickActionCategories";
+import { QuickActionCategory } from "@/components/shared/QuickActionCategories";
 
 const HandymanHero = () => {
   const navigate = useNavigate();
@@ -19,6 +22,65 @@ const HandymanHero = () => {
   const handleToolPhotoClick = () => {
     navigate("/diagnosis");
   };
+
+  const handymanCategories: QuickActionCategory[] = [
+    { 
+      icon: <Drill className="w-5 h-5" />, 
+      name: "Wall Repairs", 
+      hoverText: "Holes, cracks, dents, and painting touch-ups",
+      emoji: "🧱",
+      path: "/chat"
+    },
+    { 
+      icon: <ScrewdriverIcon className="w-5 h-5" />, 
+      name: "Furniture", 
+      hoverText: "Assembly, repairs, and adjustments",
+      emoji: "🪑",
+      path: "/chat"
+    },
+    { 
+      icon: <PaintBucket className="w-5 h-5" />, 
+      name: "Painting", 
+      hoverText: "Preparation, techniques, and finishing",
+      emoji: "🎨",
+      path: "/chat"
+    },
+    { 
+      icon: <Hammer className="w-5 h-5" />, 
+      name: "Mounting", 
+      hoverText: "TVs, shelves, artwork, and heavy items",
+      emoji: "📺",
+      path: "/chat"
+    },
+    { 
+      icon: <Wrench className="w-5 h-5" />, 
+      name: "Door Issues", 
+      hoverText: "Squeaky hinges, sticking doors, knob problems",
+      emoji: "🚪",
+      path: "/chat"
+    },
+    { 
+      icon: <Ruler className="w-5 h-5" />, 
+      name: "Flooring", 
+      hoverText: "Small repairs for wood, tile, laminate, and carpet",
+      emoji: "🪵",
+      path: "/chat"
+    },
+    { 
+      icon: <Stethoscope className="w-5 h-5" />, 
+      name: "Diagnostics", 
+      hoverText: "Identify issues with furniture and fixtures",
+      emoji: "🔍",
+      path: "/chat"
+    },
+    { 
+      icon: <Shield className="w-5 h-5" />, 
+      name: "Safety", 
+      hoverText: "Childproofing, securing furniture, safety checks",
+      emoji: "🛡️",
+      path: "/chat"
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-orange-50 font-dm-sans text-primary">
@@ -126,6 +188,11 @@ const HandymanHero = () => {
             </div>
           </motion.div>
         </section>
+
+        <QuickActionCategories 
+          title="🔨 DIY Solutions" 
+          categories={handymanCategories} 
+        />
       </main>
     </div>
   );

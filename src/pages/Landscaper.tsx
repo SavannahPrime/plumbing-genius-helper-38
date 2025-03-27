@@ -2,9 +2,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, MessageSquare, Image as ImageIcon, Leaf, Calendar, Home } from "lucide-react";
+import { ArrowLeft, MessageSquare, Image as ImageIcon, Leaf, Calendar, Home, Droplet, Cloud, Sun, FlowerIcon, Bug, Shovel, Tractor, Flower2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
+import QuickActionCategories from "@/components/shared/QuickActionCategories";
+import { QuickActionCategory } from "@/components/shared/QuickActionCategories";
 
 const LandscaperBuddy = () => {
   const navigate = useNavigate();
@@ -20,6 +22,65 @@ const LandscaperBuddy = () => {
   const handlePlanCalendar = () => {
     navigate("/chat");
   };
+
+  const landscaperCategories: QuickActionCategory[] = [
+    { 
+      icon: <Flower2 className="w-5 h-5" />, 
+      name: "Plants & Flowers", 
+      hoverText: "Plant identification, care guides, and troubleshooting",
+      emoji: "🌷",
+      path: "/chat"
+    },
+    { 
+      icon: <Droplet className="w-5 h-5" />, 
+      name: "Irrigation", 
+      hoverText: "Watering systems, drainage issues, water conservation",
+      emoji: "💧",
+      path: "/chat"
+    },
+    { 
+      icon: <Shovel className="w-5 h-5" />, 
+      name: "Soil & Mulch", 
+      hoverText: "Soil types, amendments, mulching techniques",
+      emoji: "🌱",
+      path: "/chat"
+    },
+    { 
+      icon: <Bug className="w-5 h-5" />, 
+      name: "Pests & Diseases", 
+      hoverText: "Identify and treat common garden pests and plant diseases",
+      emoji: "🐛",
+      path: "/chat"
+    },
+    { 
+      icon: <Tractor className="w-5 h-5" />, 
+      name: "Lawn Care", 
+      hoverText: "Mowing, fertilizing, aeration, and lawn repair",
+      emoji: "🌿",
+      path: "/chat"
+    },
+    { 
+      icon: <Calendar className="w-5 h-5" />, 
+      name: "Seasonal Tasks", 
+      hoverText: "Monthly garden calendar and seasonal maintenance",
+      emoji: "📆",
+      path: "/chat"
+    },
+    { 
+      icon: <Sun className="w-5 h-5" />, 
+      name: "Climate Advice", 
+      hoverText: "Plant selection and care based on your climate zone",
+      emoji: "☀️",
+      path: "/chat"
+    },
+    { 
+      icon: <FlowerIcon className="w-5 h-5" />, 
+      name: "Garden Design", 
+      hoverText: "Layout planning, color schemes, and plant combinations",
+      emoji: "🏡",
+      path: "/chat"
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-green-50 font-dm-sans text-primary">
@@ -125,6 +186,11 @@ const LandscaperBuddy = () => {
             </div>
           </motion.div>
         </section>
+
+        <QuickActionCategories 
+          title="🌱 Garden Solutions" 
+          categories={landscaperCategories} 
+        />
       </main>
     </div>
   );

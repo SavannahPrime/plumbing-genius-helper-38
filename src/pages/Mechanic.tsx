@@ -2,11 +2,72 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { MessageSquare, Camera, Settings } from "lucide-react";
+import { MessageSquare, Camera, Settings, Gauge, Oil, Wrench, Sparkles, Battery, Car } from "lucide-react";
 import EveryFixHeader from "@/components/shared/EveryFixHeader";
+import QuickActionCategories from "@/components/shared/QuickActionCategories";
+import { QuickActionCategory } from "@/components/shared/QuickActionCategories";
 
 const Mechanic = () => {
   const navigate = useNavigate();
+
+  const mechanicCategories: QuickActionCategory[] = [
+    { 
+      icon: <Gauge className="w-5 h-5" />, 
+      name: "Engine Issues", 
+      hoverText: "Check engine light, strange noises, performance problems",
+      emoji: "🚗",
+      path: "/chat"
+    },
+    { 
+      icon: <Oil className="w-5 h-5" />, 
+      name: "Fluid Leaks", 
+      hoverText: "Oil, coolant, transmission, or brake fluid leaks",
+      emoji: "💧",
+      path: "/chat"
+    },
+    { 
+      icon: <Battery className="w-5 h-5" />, 
+      name: "Electrical", 
+      hoverText: "Battery issues, lights, electrical components",
+      emoji: "⚡",
+      path: "/chat"
+    },
+    { 
+      icon: <Wrench className="w-5 h-5" />, 
+      name: "Brakes", 
+      hoverText: "Squeaking, grinding, soft pedal, stopping issues",
+      emoji: "🛑",
+      path: "/chat"
+    },
+    { 
+      icon: <Sparkles className="w-5 h-5" />, 
+      name: "HVAC", 
+      hoverText: "Heating, air conditioning, ventilation problems",
+      emoji: "❄️",
+      path: "/chat"
+    },
+    { 
+      icon: <Settings className="w-5 h-5" />, 
+      name: "Transmission", 
+      hoverText: "Grinding, slipping, delayed shifting",
+      emoji: "⚙️",
+      path: "/chat"
+    },
+    { 
+      icon: <Car className="w-5 h-5" />, 
+      name: "Suspension", 
+      hoverText: "Bumpy ride, alignment issues, steering problems",
+      emoji: "🔧",
+      path: "/chat"
+    },
+    { 
+      icon: <Settings className="w-5 h-5" />, 
+      name: "Maintenance", 
+      hoverText: "Regular service, oil changes, filter replacements",
+      emoji: "📆",
+      path: "/chat"
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
@@ -57,7 +118,12 @@ const Mechanic = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <QuickActionCategories 
+          title="🔧 Common Car Issues" 
+          categories={mechanicCategories} 
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto mt-16">
           <div className="bg-white p-6 rounded-xl shadow-md">
             <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
               <span className="text-2xl">🚘</span>
