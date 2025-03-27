@@ -116,20 +116,41 @@ const problemCategories: ProblemCategory[] = [
 const ProblemCategories = () => {
   const location = useLocation();
   
+  // Get the current context from the path
+  const getCurrentContext = () => {
+    const path = location.pathname;
+    if (path.includes("/landscaper")) return "landscaper";
+    if (path.includes("/chef")) return "chef";
+    if (path.includes("/stylist")) return "stylist";
+    if (path.includes("/electrician")) return "electrician";
+    if (path.includes("/handyman")) return "handyman";
+    if (path.includes("/mechanic")) return "mechanic";
+    if (path.includes("/plumber")) return "plumber";
+    if (path.includes("/cleaning")) return "cleaning";
+    if (path.includes("/gadgetfixgenie")) return "gadget";
+    
+    return "default";
+  };
+  
+  const currentContext = getCurrentContext();
+  
   // Determine which glossary to link to based on current path
   const getContextSpecificPath = (defaultPath: string) => {
-    const currentPath = location.pathname;
+    // Ensure we're passing the current context to the glossary
+    if (defaultPath === "/glossary" || defaultPath.includes("/glossary")) {
+      return `/${currentContext}/glossary`;
+    }
     
     // Map paths to their specific glossary pages
-    if (currentPath.includes("/landscaper")) return "/landscaper/glossary";
-    if (currentPath.includes("/chef")) return "/chef/glossary";
-    if (currentPath.includes("/stylist")) return "/stylist/glossary";
-    if (currentPath.includes("/electrician")) return "/electrician/glossary";
-    if (currentPath.includes("/handyman")) return "/handyman/glossary";
-    if (currentPath.includes("/mechanic")) return "/mechanic/glossary";
-    if (currentPath.includes("/plumber")) return "/plumber/glossary";
-    if (currentPath.includes("/cleaning")) return "/cleaning/glossary";
-    if (currentPath.includes("/gadgetfixgenie")) return "/gadget/glossary";
+    if (currentContext === "landscaper") return "/landscaper/glossary";
+    if (currentContext === "chef") return "/chef/glossary";
+    if (currentContext === "stylist") return "/stylist/glossary";
+    if (currentContext === "electrician") return "/electrician/glossary";
+    if (currentContext === "handyman") return "/handyman/glossary";
+    if (currentContext === "mechanic") return "/mechanic/glossary";
+    if (currentContext === "plumber") return "/plumber/glossary";
+    if (currentContext === "cleaning") return "/cleaning/glossary";
+    if (currentContext === "gadget") return "/gadget/glossary";
     
     // Default fallback
     return defaultPath;

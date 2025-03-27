@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { motion } from "framer-motion";
 
@@ -19,6 +19,36 @@ interface QuickActionCategoriesProps {
 }
 
 const QuickActionCategories = ({ title, categories, className = "" }: QuickActionCategoriesProps) => {
+  const location = useLocation();
+  
+  // Get the current context from the path
+  const getCurrentContext = () => {
+    const path = location.pathname;
+    if (path.includes("/landscaper")) return "landscaper";
+    if (path.includes("/chef")) return "chef";
+    if (path.includes("/stylist")) return "stylist";
+    if (path.includes("/electrician")) return "electrician";
+    if (path.includes("/handyman")) return "handyman";
+    if (path.includes("/mechanic")) return "mechanic";
+    if (path.includes("/plumber")) return "plumber";
+    if (path.includes("/cleaning")) return "cleaning";
+    if (path.includes("/gadgetfixgenie")) return "gadget";
+    
+    return "default";
+  };
+  
+  const currentContext = getCurrentContext();
+  
+  // Determine which glossary to link to based on current context
+  const getContextSpecificPath = (defaultPath: string) => {
+    // If the path is a glossary path, ensure we're using the current context
+    if (defaultPath === "/glossary" || defaultPath.includes("/glossary")) {
+      return `/${currentContext}/glossary`;
+    }
+    
+    return defaultPath;
+  };
+
   return (
     <motion.section
       className={`mt-12 ${className}`}
@@ -32,7 +62,7 @@ const QuickActionCategories = ({ title, categories, className = "" }: QuickActio
           <HoverCard key={index}>
             <HoverCardTrigger asChild>
               <Link 
-                to={category.path}
+                to={getContextSpecificPath(category.path)}
                 className="bg-white rounded-xl shadow-card hover:shadow-card-hover transition-all duration-200 p-4 text-left hover-card-animation"
               >
                 <div className="flex items-center gap-2">
