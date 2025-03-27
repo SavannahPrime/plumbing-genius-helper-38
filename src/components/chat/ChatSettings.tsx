@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Settings, Mic, RefreshCw } from "lucide-react";
 import { useElevenLabsWidget } from "@/hooks/useElevenLabsWidget";
 
-interface ChatSettingsProps {
+export interface ChatSettingsProps {
   apiKey: string;
   setApiKey: (value: string) => void;
   isUsingChatGPT: boolean;

@@ -2,7 +2,7 @@
 import { useCallback } from "react";
 import { toast } from "@/hooks/use-toast";
 import { removeAgentElement, createAgentElement } from "@/utils/elevenlabsAgent";
-import { ElevenLabsAgentState } from "@/types/elevenlabs";
+import { ElevenLabsAgentState, HTMLElevenLabsConvaiElement } from "@/types/elevenlabs";
 
 export const useAgentReset = (
   elevenLabsAgent: React.MutableRefObject<HTMLElevenLabsConvaiElement | null>,

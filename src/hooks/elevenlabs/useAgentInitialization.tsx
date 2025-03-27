@@ -1,9 +1,8 @@
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { createAgentElement, loadElevenLabsScript, isElevenLabsReady } from "@/utils/elevenlabsAgent";
+import { ElevenLabsAgentState, HTMLElevenLabsConvaiElement } from "@/types/elevenlabs";
 import { toast } from "@/hooks/use-toast";
-import { loadElevenLabsScript, createAgentElement } from "@/utils/elevenlabsAgent";
-import { ElevenLabsError } from "@/utils/elevenlabsAgent";
-import { ElevenLabsAgentState } from "@/types/elevenlabs";
 
 export const useAgentInitialization = (getAgentId: () => string) => {
   const [state, setState] = useState<ElevenLabsAgentState>({
@@ -11,72 +10,69 @@ export const useAgentInitialization = (getAgentId: () => string) => {
     isActive: false,
     isListening: false,
     isSpeaking: false,
-    error: null,
-    lastResponse: null
+    error: null
   });
   
   const elevenLabsAgent = useRef<HTMLElevenLabsConvaiElement | null>(null);
-  const retryCount = useRef(0);
+  const retryCount = useRef<number>(0);
   const MAX_RETRIES = 3;
-
+  
   const initializeAgent = useCallback(async () => {
+    if (state.isInitialized || elevenLabsAgent.current) return;
+    
     try {
-      // Load the ElevenLabs script
-      await loadElevenLabsScript();
+      // Load ElevenLabs script if not already loaded
+      if (!isElevenLabsReady()) {
+        await loadElevenLabsScript();
+      }
       
-      // Create the agent element with the current specialty
-      const currentAgentId = getAgentId();
-      console.log("Creating agent with ID:", currentAgentId);
-      const agentElement = createAgentElement(currentAgentId);
+      const agentId = getAgentId();
+      console.log("Initializing ElevenLabs agent with ID:", agentId);
       
+      // Create agent element
+      const agentElement = createAgentElement(agentId);
       if (agentElement) {
         elevenLabsAgent.current = agentElement;
         
-        // Give the element time to initialize
+        // Give time for initialization to complete
         setTimeout(() => {
-          setState(prev => ({ 
-            ...prev, 
-            isInitialized: true,
-            error: null // Clear any previous errors
-          }));
-          console.log("ElevenLabs agent initialized with ID:", currentAgentId);
+          setState(prev => ({ ...prev, isInitialized: true }));
+          console.log("ElevenLabs agent initialized successfully");
         }, 2000);
+      } else {
+        throw new Error("Failed to create agent element");
       }
     } catch (error) {
-      console.error("Error initializing agent:", error);
+      console.error("Error initializing ElevenLabs agent:", error);
       
-      const errorMessage = error instanceof ElevenLabsError 
-        ? `[${error.code}] ${error.message}`
-        : String(error);
-        
-      setState(prev => ({ 
-        ...prev, 
-        error: error instanceof Error ? error : new Error(errorMessage)
-      }));
-      
-      // Try to recover automatically if we haven't exceeded retries
       if (retryCount.current < MAX_RETRIES) {
         retryCount.current += 1;
-        console.log(`Retrying initialization (${retryCount.current}/${MAX_RETRIES})...`);
+        console.log(`Retrying agent initialization (${retryCount.current}/${MAX_RETRIES})...`);
         
-        // Wait a bit before retrying
-        setTimeout(initializeAgent, 2000);
+        setTimeout(() => {
+          initializeAgent();
+        }, 2000);
       } else {
+        setState(prev => ({ 
+          ...prev, 
+          error: error instanceof Error ? error : new Error(String(error)) 
+        }));
+        
         toast({
-          title: "Voice Assistant Error",
-          description: "Failed to initialize voice assistant after multiple attempts. Please try again later.",
+          title: "Voice Assistant Initialization Failed",
+          description: "Unable to initialize voice assistant. Please try again later.",
           variant: "destructive"
         });
       }
     }
-  }, [getAgentId]);
-
-  return {
-    state,
-    setState,
-    elevenLabsAgent,
-    retryCount,
+  }, [state.isInitialized, getAgentId]);
+  
+  return { 
+    state, 
+    setState, 
+    elevenLabsAgent, 
+    retryCount, 
     MAX_RETRIES,
-    initializeAgent
+    initializeAgent 
   };
 };
