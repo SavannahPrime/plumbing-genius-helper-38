@@ -1,8 +1,7 @@
 
 import React from "react";
-import { Wrench, Mic } from "lucide-react";
+import { Wrench } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useElevenLabsWidget } from "@/hooks/useElevenLabsWidget";
 
 interface HeaderProps {
   plumberPersonality: string;
@@ -10,8 +9,6 @@ interface HeaderProps {
 }
 
 const Header = ({ plumberPersonality, setPlumberPersonality }: HeaderProps) => {
-  const { handleActivate } = useElevenLabsWidget();
-
   return (
     <header className="bg-white shadow-sm">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -43,14 +40,6 @@ const Header = ({ plumberPersonality, setPlumberPersonality }: HeaderProps) => {
               😎 Chill
             </button>
           </div>
-          
-          <button 
-            onClick={handleActivate}
-            className="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center hover:bg-secondary/20 transition-colors"
-            aria-label="Voice assistant"
-          >
-            <Mic className="w-4 h-4 text-secondary" />
-          </button>
           
           <nav className="text-sm text-neutrals hidden md:block">
             <Link to="/fixes" className="mr-4 hover:underline">Find a Real Plumber</Link>

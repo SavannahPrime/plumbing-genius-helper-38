@@ -6,7 +6,6 @@ import ChatSettings from "@/components/chat/ChatSettings";
 import ChatContent from "@/components/chat/ChatContent";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useChatMessages } from "@/hooks/useChatMessages";
-import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
 import { useImageUpload } from "@/hooks/useImageUpload";
 import { useApiKeyNotification } from "@/hooks/useApiKeyNotification";
 import { useApiKeyManagement } from "@/hooks/useApiKeyManagement";
@@ -25,8 +24,6 @@ const Chat = () => {
   
   // Show notification if API key is missing (the hook will handle chef special case)
   useApiKeyNotification(apiKey);
-  
-  const { handleMicClick } = useElevenLabsAgent();
   
   const {
     message,
@@ -121,7 +118,6 @@ const Chat = () => {
         fileInputRef={fileInputRef}
         handleImageUpload={handleImageUpload}
         isUploading={isUploading}
-        handleMicClick={handleMicClick}
         context={context}
         currentAgentSpecialty={currentAgentSpecialty}
         apiKey={apiKey}

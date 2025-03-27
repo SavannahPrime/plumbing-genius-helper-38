@@ -1,9 +1,8 @@
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { Settings, Mic, RefreshCw, AlertTriangle } from "lucide-react";
-import { useElevenLabsWidget } from "@/hooks/useElevenLabsWidget";
-import { useState, useEffect } from "react";
+import { Settings } from "lucide-react";
+import { useState } from "react";
 import ApiKeyDialog from "./ApiKeyDialog";
 import { toast } from "sonner";
 import { useAgentSpecialtyResolver } from "@/hooks/useAgentSpecialtyResolver";
@@ -16,27 +15,9 @@ export interface ChatSettingsProps {
 }
 
 const ChatSettings = ({ apiKey, setApiKey, isUsingChatGPT, setIsUsingChatGPT }: ChatSettingsProps) => {
-  const { agentId, isInitialized, resetWidget } = useElevenLabsWidget();
   const [openDialog, setOpenDialog] = useState(false);
   const [tempApiKey, setTempApiKey] = useState(apiKey);
-  const [hasCustomElementRegistered, setHasCustomElementRegistered] = useState(false);
   const currentSpecialty = useAgentSpecialtyResolver();
-
-  useEffect(() => {
-    // Check if the custom element is registered
-    const customElementRegistered = !!customElements.get("elevenlabs-convai");
-    setHasCustomElementRegistered(customElementRegistered);
-    
-    // Set up a periodic check for the custom element registration
-    const checkInterval = setInterval(() => {
-      const nowRegistered = !!customElements.get("elevenlabs-convai");
-      if (nowRegistered !== hasCustomElementRegistered) {
-        setHasCustomElementRegistered(nowRegistered);
-      }
-    }, 2000);
-    
-    return () => clearInterval(checkInterval);
-  }, [hasCustomElementRegistered]);
 
   const onOpenApiKeyDialog = () => {
     setTempApiKey(apiKey);
@@ -56,6 +37,11 @@ const ChatSettings = ({ apiKey, setApiKey, isUsingChatGPT, setIsUsingChatGPT }: 
     }
     
     setIsUsingChatGPT(!isUsingChatGPT);
+    toast(isUsingChatGPT ? "Using Built-in Assistant" : "Using ChatGPT", {
+      description: isUsingChatGPT 
+        ? "Switched to built-in assistant" 
+        : "Connected to ChatGPT for enhanced responses"
+    });
   };
 
   const onSaveApiKey = (key: string) => {
@@ -63,13 +49,6 @@ const ChatSettings = ({ apiKey, setApiKey, isUsingChatGPT, setIsUsingChatGPT }: 
     setOpenDialog(false);
     toast("API Key Updated", {
       description: "Your OpenAI API key has been updated successfully."
-    });
-  };
-  
-  const handleResetVoiceAssistant = () => {
-    resetWidget();
-    toast("Voice Assistant Reset", {
-      description: "Voice assistant has been reset. Please try again."
     });
   };
   
@@ -89,24 +68,6 @@ const ChatSettings = ({ apiKey, setApiKey, isUsingChatGPT, setIsUsingChatGPT }: 
           )}
           <DropdownMenuItem onClick={onOpenApiKeyDialog}>
             Update API Key
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem 
-            className="text-xs text-muted-foreground flex items-center gap-1"
-            onClick={handleResetVoiceAssistant}
-          >
-            <Mic className="h-3 w-3" /> 
-            {isInitialized ? (
-              <>
-                Agent ID: {agentId.substring(0, 8)}...
-                <RefreshCw className="h-3 w-3 ml-auto" />
-              </>
-            ) : (
-              <>
-                Voice Assistant {hasCustomElementRegistered ? "Initializing" : "Not Available"}
-                <AlertTriangle className="h-3 w-3 ml-auto text-amber-500" />
-              </>
-            )}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

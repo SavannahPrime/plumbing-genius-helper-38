@@ -4,11 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { Wrench, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
 import { specializedAgents, AgentSpecialty } from "@/services/specializedAgentService";
 
 const QuickFixSection = () => {
-  const { handleMicClick } = useElevenLabsAgent();
   const location = useLocation();
   
   // Determine which specialized agent to use based on the current route
@@ -71,22 +69,6 @@ const QuickFixSection = () => {
             <p className="text-sm text-neutrals">Upload for better results</p>
           </div>
         </Link>
-        
-        <ArrowRight className="w-5 h-5 text-neutrals-steel hidden md:block" />
-        
-        <div 
-          className="w-full max-w-xs cursor-pointer"
-          onClick={handleMicClick}
-        >
-          <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors">
-            <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2 relative">
-              <span className="text-xl">📞</span>
-              <div className="absolute inset-0 rounded-full border-2 border-mint voice-ring"></div>
-            </div>
-            <h4 className="font-medium mb-1 font-space-grotesk">Want voice assistance?</h4>
-            <p className="text-sm text-neutrals">Talk to {agent.name}, your {agent.specialty} AI</p>
-          </div>
-        </div>
         
         <ArrowRight className="w-5 h-5 text-neutrals-steel hidden md:block" />
         

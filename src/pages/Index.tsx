@@ -1,8 +1,7 @@
 
 import React, { useState, useEffect } from "react";
-import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
 import { useNavigate } from "react-router-dom";
-import { Home, Wrench, Mic } from "lucide-react";
+import { Home, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -24,7 +23,6 @@ const typingTexts = [
 const Index = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [plumberPersonality, setPlumberPersonality] = useState("classic");
-  const { handleMicClick } = useElevenLabsAgent();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -70,14 +68,6 @@ const Index = () => {
                 😎 Chill
               </button>
             </div>
-            
-            <button 
-              onClick={handleMicClick}
-              className="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center hover:bg-secondary/20 transition-colors"
-              aria-label="Voice assistant"
-            >
-              <Mic className="w-4 h-4 text-secondary" />
-            </button>
           </div>
         </div>
       </header>
