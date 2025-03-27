@@ -2,11 +2,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Home, MessageSquare, Image as ImageIcon, Wrench, Camera, Hammer, Drill, PaintBucket, Ruler, Tool, Stethoscope, Lightbulb, Shield } from "lucide-react";
+import { Home, MessageSquare, Image as ImageIcon, Wrench, Camera, Hammer, Drill, PaintBucket, Ruler, Shield, Stethoscope } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import QuickActionCategories from "@/components/shared/QuickActionCategories";
 import { QuickActionCategory } from "@/components/shared/QuickActionCategories";
+import EveryFixHeader from "@/components/shared/EveryFixHeader";
 
 const HandymanHero = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const HandymanHero = () => {
       path: "/chat"
     },
     { 
-      icon: <Tool className="w-5 h-5" />, 
+      icon: <Wrench className="w-5 h-5" />, 
       name: "Furniture", 
       hoverText: "Assembly, repairs, and adjustments",
       emoji: "🪑",
@@ -84,20 +85,11 @@ const HandymanHero = () => {
 
   return (
     <div className="min-h-screen bg-orange-50 font-dm-sans text-primary">
-      <header className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" onClick={() => navigate("/")} className="mr-2">
-              <Home className="w-5 h-5" />
-            </Button>
-            <Wrench className="w-7 h-7 text-orange-500" />
-            <span className="font-space-grotesk font-bold text-xl text-primary">
-              Handyman Hero
-            </span>
-            <Badge variant="outline" className="ml-2">by EveryFixAI</Badge>
-          </div>
-        </div>
-      </header>
+      <EveryFixHeader 
+        title="Handyman Hero" 
+        icon={<Hammer className="h-6 w-6 text-white" />} 
+        colorClass="w-10 h-10 rounded-full bg-gradient-to-r from-orange-400 to-orange-600 flex items-center justify-center" 
+      />
 
       <main className="container mx-auto px-4 py-12">
         <section className="grid grid-cols-1 md:grid-cols-12 items-center gap-10 mb-12">
