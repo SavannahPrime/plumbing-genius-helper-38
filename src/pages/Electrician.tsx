@@ -143,7 +143,7 @@ const Electrician = () => {
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
               <Button 
                 className="w-full sm:w-auto text-lg py-6 px-8 bg-yellow-600 hover:bg-yellow-700 shadow-md active:scale-[0.98] transition-all rounded-xl"
-                onClick={() => navigate("/chat")}
+                onClick={() => navigate("/chat?specialty=electrician")}
               >
                 <MessageSquare className="w-5 h-5 mr-2" />
                 Chat with AI Electrician
