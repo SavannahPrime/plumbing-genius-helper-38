@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ChatHeader from "@/components/chat/ChatHeader";
@@ -107,7 +106,7 @@ const Chat = () => {
       
       <main className="container mx-auto px-4 py-4">
         <div className="max-w-3xl mx-auto">
-          {messages.length <= 1 && (
+          {messages.length === 0 && (
             <motion.div
               className="mb-8 flex justify-center"
               initial={{ opacity: 0, y: 20 }}
@@ -116,7 +115,7 @@ const Chat = () => {
             >
               <div className="text-center">
                 <img 
-                  src="/lovable-uploads/3be27937-18fe-451e-a339-37459edc18bb.png" 
+                  src="/lovable-uploads/1d4662ea-cc69-4e4f-9c18-078726ebe91e.png" 
                   alt="Friendly Plumber" 
                   className="max-w-[200px] mx-auto mb-4"
                 />

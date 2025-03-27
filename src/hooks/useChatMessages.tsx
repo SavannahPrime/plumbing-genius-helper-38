@@ -6,12 +6,7 @@ import { generateChatGPTResponse, createPlumberPrompt, isPictureRequest } from "
 
 export const useChatMessages = (apiKey: string, isUsingChatGPT: boolean) => {
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      text: "Hi there! I'm your experienced plumbing assistant with over 30 years of hands-on experience. Whether you're dealing with a leaky faucet, clogged drain, or water pressure issues, I'm here to help. What plumbing problem can I assist you with today?",
-      isAi: true
-    }
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   
   const [context, setContext] = useState<ConversationContext>({
     currentTopic: "",
