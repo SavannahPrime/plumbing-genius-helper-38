@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Wrench, Leaf, Sparkles, Zap } from "lucide-react";
+import { Wrench, Leaf, Sparkles, Zap, Settings } from "lucide-react";
 import { motion } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -63,6 +63,17 @@ const EveryFixHome = () => {
       avatar: "/lovable-uploads/3be27937-18fe-451e-a339-37459edc18bb.png",
       avatarFallback: "🌿",
       bgClass: "bg-green-50"
+    },
+    {
+      name: "Mechanic Assistant",
+      description: "Your virtual auto mechanic — diagnose car problems and get repair guidance.",
+      icon: <Settings className="h-6 w-6 text-white" />,
+      emoji: "🔩",
+      path: "/mechanic",
+      color: "bg-gradient-to-r from-red-400 to-red-600",
+      avatar: "/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png",
+      avatarFallback: "🔩",
+      bgClass: "bg-red-50"
     }
   ];
 
