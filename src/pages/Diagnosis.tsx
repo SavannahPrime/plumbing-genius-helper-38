@@ -1,13 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, Camera, Upload, Image as ImageIcon, X, Loader2 } from "lucide-react";
+import { ArrowLeft, Camera, Upload, Image as ImageIcon, X, Loader2, Mic } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { analyzeImage } from "@/services/imageAnalysisService";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
+import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
 
 const Diagnosis = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -15,34 +16,7 @@ const Diagnosis = () => {
   const [analysisResult, setAnalysisResult] = useState<string | null>(null);
   const [showDialog, setShowDialog] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (!document.querySelector('script[src="https://elevenlabs.io/convai-widget/index.js"]')) {
-      const script = document.createElement('script');
-      script.src = "https://elevenlabs.io/convai-widget/index.js";
-      script.async = true;
-      script.type = "text/javascript";
-      document.body.appendChild(script);
-      
-      return () => {
-        document.body.removeChild(script);
-      };
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!document.querySelector('elevenlabs-convai[agent-id="lX8syHY754gA8SdjQU6n"]')) {
-      const agentElement = document.createElement('elevenlabs-convai');
-      agentElement.setAttribute('agent-id', 'lX8syHY754gA8SdjQU6n');
-      document.body.appendChild(agentElement);
-      
-      return () => {
-        if (document.body.contains(agentElement)) {
-          document.body.removeChild(agentElement);
-        }
-      };
-    }
-  }, []);
+  const { handleMicClick } = useElevenLabsAgent();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -110,7 +84,7 @@ const Diagnosis = () => {
           <Link to="/" className="p-2 hover:bg-gray-100 rounded-full transition-colors">
             <ArrowLeft className="w-6 h-6 text-[#0A2540]" />
           </Link>
-          <div className="ml-4">
+          <div className="ml-4 flex-1">
             <h1 className="font-inter font-bold text-[22px] text-[#0A2540]">
               Visual Diagnosis
             </h1>
@@ -118,6 +92,14 @@ const Diagnosis = () => {
               Upload a photo, and our AI will analyze the issue. You can also speak with our plumbing assistant.
             </p>
           </div>
+          <Button 
+            variant="outline" 
+            size="icon" 
+            className="rounded-full bg-white hover:bg-gray-100" 
+            onClick={handleMicClick}
+          >
+            <Mic className="w-5 h-5 text-[#0A2540]" />
+          </Button>
         </div>
       </header>
 
