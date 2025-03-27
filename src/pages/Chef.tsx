@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -13,6 +12,7 @@ import { motion } from "framer-motion";
 
 const Chef = () => {
   const navigate = useNavigate();
+  const chefCartoonImage = "/lovable-uploads/80a47f92-8528-46f2-9f22-cdfb4785713c.png";
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-100 to-amber-200 overflow-x-hidden">
@@ -60,7 +60,7 @@ const Chef = () => {
             >
               <div className="absolute inset-0 bg-gradient-to-br from-amber-300/30 to-amber-500/30 rounded-full blur-2xl"></div>
               <img 
-                src="/lovable-uploads/dbe43f04-5614-4eef-afdc-5014e05988f0.png" 
+                src={chefCartoonImage} 
                 alt="Chef Charlie" 
                 className="w-full h-full object-contain z-10 relative"
               />

@@ -39,9 +39,16 @@ const ChatContent: React.FC<ChatContentProps> = ({
   useEffect(() => {
     if (messages.length === 0) {
       const agent = specializedAgents[currentAgentSpecialty];
+      let greeting = agent.greeting;
+      
+      // Custom greeting for the chef with cartoon image
+      if (currentAgentSpecialty === 'chef') {
+        greeting = "Bonjour! I'm Chef Charlie at your service! What delicious dish are you looking to create today? I can help with recipes, cooking techniques, ingredient substitutions, or any kitchen dilemmas you're facing!";
+      }
+      
       const welcomeMessage: Message = {
         id: "welcome",
-        text: agent.greeting,
+        text: greeting,
         isAi: true,
         timestamp: new Date(),
       };

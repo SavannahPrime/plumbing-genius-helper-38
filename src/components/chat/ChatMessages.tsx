@@ -15,6 +15,10 @@ interface ChatMessagesProps {
 const ChatMessages = ({ messages, isLoading, specialty, context }: ChatMessagesProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const agent = specializedAgents[specialty];
+  
+  // Use new cartoon chef image for chef specialty
+  const useCartoonChef = specialty === 'chef';
+  const chefCartoonImage = "/lovable-uploads/80a47f92-8528-46f2-9f22-cdfb4785713c.png";
 
   // Auto-scroll to bottom of messages
   useEffect(() => {
@@ -38,7 +42,11 @@ const ChatMessages = ({ messages, isLoading, specialty, context }: ChatMessagesP
             >
               {message.isAi && (
                 <div className="mr-2 mt-1">
-                  {agent.avatarImage ? (
+                  {useCartoonChef ? (
+                    <Avatar className="h-8 w-8 overflow-hidden">
+                      <img src={chefCartoonImage} alt={agent.name} className="w-full h-full object-cover" />
+                    </Avatar>
+                  ) : agent.avatarImage ? (
                     <Avatar className="h-8 w-8 overflow-hidden">
                       <img src={agent.avatarImage} alt={agent.name} className="w-full h-full object-cover" />
                     </Avatar>

@@ -13,6 +13,10 @@ interface ChatHeaderProps {
 const ChatHeader = ({ specialty, children }: ChatHeaderProps) => {
   const navigate = useNavigate();
   const agent = specializedAgents[specialty];
+  
+  // Use new cartoon chef image for chef specialty
+  const useCartoonChef = specialty === 'chef';
+  const chefCartoonImage = "/lovable-uploads/80a47f92-8528-46f2-9f22-cdfb4785713c.png";
 
   return (
     <header className="bg-gradient-to-r from-amber-50/80 to-amber-100/80 border-b border-amber-200/50 py-4 px-4 sticky top-0 z-10 backdrop-blur-md">
@@ -23,7 +27,15 @@ const ChatHeader = ({ specialty, children }: ChatHeaderProps) => {
           </Button>
           
           <div className="flex items-center gap-2">
-            {agent.avatarImage ? (
+            {useCartoonChef ? (
+              <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-amber-300 shadow-md">
+                <img 
+                  src={chefCartoonImage} 
+                  alt={agent.name} 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ) : agent.avatarImage ? (
               <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-amber-300 shadow-md">
                 <img 
                   src={agent.avatarImage} 
