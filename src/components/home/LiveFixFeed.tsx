@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
+import { AgentSpecialty } from "@/services/specializedAgentService";
 
 interface Fix {
   emoji: string;
@@ -10,11 +11,15 @@ interface Fix {
   timeAgo: string;
 }
 
-const LiveFixFeed = () => {
+interface LiveFixFeedProps {
+  specialty?: AgentSpecialty;
+}
+
+const LiveFixFeed: React.FC<LiveFixFeedProps> = ({ specialty = "plumber" }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const controls = useAnimation();
 
-  // Sample fix data
+  // Sample fix data - could be customized per specialty in a real app
   const fixes: Fix[] = [
     { emoji: "🚽", name: "Jess", problem: "unclogged a toilet", location: "Venice Beach", timeAgo: "2 mins ago" },
     { emoji: "⚡", name: "Alan", problem: "fixed a tripped breaker", location: "Santa Monica", timeAgo: "5 mins ago" },

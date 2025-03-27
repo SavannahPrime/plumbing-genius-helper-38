@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Home, Wrench, Search, MessageSquare, Play, ArrowRight } from "lucide-react";
@@ -201,10 +202,10 @@ const Index = () => {
         </section>
 
         {/* How It Works Section */}
-        <HowItWorks />
+        <HowItWorks specialty="plumber" />
 
-        {/* Live Fix Feed */}
-        <LiveFixFeed />
+        {/* Live Fix Feed - Now we're using the LiveFixFeed component */}
+        <LiveFixFeed specialty="plumber" />
         
         {/* Common Issues Categories */}
         <ProblemCategories />

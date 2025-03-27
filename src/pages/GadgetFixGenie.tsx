@@ -1,108 +1,88 @@
 
 import React from "react";
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { MessageSquare, Camera, Smartphone } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import EveryFixHeader from "@/components/shared/EveryFixHeader";
+import HowItWorks from "@/components/home/HowItWorks";
+import LiveFixFeed from "@/components/home/LiveFixFeed";
+import Footer from "@/components/home/Footer";
+import QuickActionCategories from "@/components/shared/QuickActionCategories";
 
 const GadgetFixGenie = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
-      <EveryFixHeader 
-        title="Gadget Fix Genie" 
-        icon={<Smartphone className="h-6 w-6 text-white" />} 
-        colorClass="w-10 h-10 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 flex items-center justify-center" 
-      />
-
-      <main className="container mx-auto px-4 py-12">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h1 className="text-3xl md:text-4xl font-bold mb-6">
-            <span className="text-4xl">📱</span> Your Electronics Troubleshooting Expert
-          </h1>
-          <p className="text-xl text-gray-600 mb-8">
-            Expert help for phones, tablets, routers, and other electronic devices that aren't working correctly.
-          </p>
-          
-          <div className="p-6 bg-purple-50 rounded-xl text-left mb-8 border border-purple-100">
-            <h2 className="text-xl font-semibold mb-2">Common Issue: "My iPad won't charge"</h2>
-            <p className="text-gray-700">
-              We can help identify if it's a port issue, cable problem, or power adapter fault - then guide you through the fix.
+    <div className="min-h-screen bg-gray-50">
+      <EveryFixHeader specialty="gadget" />
+      
+      <main className="container mx-auto px-4 py-8">
+        <section className="mb-12">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold mb-4">Gadget Fix Genie</h1>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Troubleshoot and fix smartphones, tablets, computers, smart home devices, and other electronics.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
-            <Button 
-              size="lg" 
-              className="h-auto py-6 px-4 bg-purple-600 hover:bg-purple-700"
-              onClick={() => navigate("/chat?specialty=gadget")}
-            >
-              <div className="flex flex-col items-center">
-                <MessageSquare className="h-8 w-8 mb-2" />
-                <span className="text-lg font-medium">Start Chat</span>
-                <span className="text-sm font-normal mt-1">
-                  Describe your device issue in detail
-                </span>
-              </div>
-            </Button>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <Card className="bg-white shadow-sm hover:shadow-md transition-shadow">
+              <CardHeader>
+                <CardTitle>Chat with Gadget Fix Genie</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Describe tech issues and get personalized troubleshooting steps from our AI expert.</p>
+              </CardContent>
+              <CardFooter>
+                <Button onClick={() => navigate("/chat?specialty=gadget")} className="w-full">
+                  Start Chat
+                </Button>
+              </CardFooter>
+            </Card>
             
-            <Button 
-              variant="secondary" 
-              size="lg" 
-              className="h-auto py-6 px-4 bg-purple-200 text-purple-900 hover:bg-purple-300"
-              onClick={() => navigate("/diagnosis?specialty=gadget")}
-            >
-              <div className="flex flex-col items-center">
-                <Camera className="h-8 w-8 mb-2" />
-                <span className="text-lg font-medium">Visual Analysis</span>
-                <span className="text-sm font-normal mt-1">
-                  Upload photos of your device or error message
-                </span>
-              </div>
-            </Button>
+            <Card className="bg-white shadow-sm hover:shadow-md transition-shadow">
+              <CardHeader>
+                <CardTitle>Visual Diagnosis</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Upload photos of device issues, error messages, or damaged components for instant help.</p>
+              </CardContent>
+              <CardFooter>
+                <Button onClick={() => navigate("/diagnosis?specialty=gadget")} variant="outline" className="w-full">
+                  Upload Photo
+                </Button>
+              </CardFooter>
+            </Card>
+            
+            <Card className="bg-white shadow-sm hover:shadow-md transition-shadow">
+              <CardHeader>
+                <CardTitle>Tech Repair Guides</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Browse our library of step-by-step guides for fixing common tech problems.</p>
+              </CardContent>
+              <CardFooter>
+                <Button onClick={() => navigate("/gadget/glossary")} variant="outline" className="w-full">
+                  View Guides
+                </Button>
+              </CardFooter>
+            </Card>
           </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <div className="bg-white p-6 rounded-xl shadow-md">
-            <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-4">
-              <span className="text-2xl">📱</span>
-            </div>
-            <h3 className="font-medium text-lg mb-2">Phone & Tablet Issues</h3>
-            <p className="text-gray-600">
-              Charging problems, screen issues, app crashes, connectivity troubleshooting and more.
-            </p>
-          </div>
-          
-          <div className="bg-white p-6 rounded-xl shadow-md">
-            <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-4">
-              <span className="text-2xl">🔌</span>
-            </div>
-            <h3 className="font-medium text-lg mb-2">Router & Internet</h3>
-            <p className="text-gray-600">
-              Wi-Fi connectivity issues, router setup, network optimization, and troubleshooting.
-            </p>
-          </div>
-          
-          <div className="bg-white p-6 rounded-xl shadow-md">
-            <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-4">
-              <span className="text-2xl">🖥️</span>
-            </div>
-            <h3 className="font-medium text-lg mb-2">Other Electronics</h3>
-            <p className="text-gray-600">
-              Smart home devices, remotes, peripherals, and other everyday electronic gadgets.
-            </p>
-          </div>
-        </div>
+        </section>
+        
+        <section className="mb-12">
+          <HowItWorks specialty="gadget" />
+        </section>
+        
+        <LiveFixFeed specialty="gadget" />
+        
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold mb-6">Quick Tech Solutions</h2>
+          <QuickActionCategories specialty="gadget" />
+        </section>
       </main>
-
-      <footer className="bg-white border-t py-8">
-        <div className="container mx-auto px-4 text-center text-sm text-gray-500">
-          <p>© 2023 EveryFixAI. All rights reserved.</p>
-          <p className="mt-2">For serious hardware damage or internal component issues, please consult a professional repair service.</p>
-        </div>
-      </footer>
+      
+      <Footer />
     </div>
   );
 };

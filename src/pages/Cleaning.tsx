@@ -1,148 +1,90 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Home, MessageSquare, Image as ImageIcon, Sparkles, Mic } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { motion } from "framer-motion";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import EveryFixHeader from "@/components/shared/EveryFixHeader";
+import HowItWorks from "@/components/home/HowItWorks";
+import LiveFixFeed from "@/components/home/LiveFixFeed";
+import Footer from "@/components/home/Footer";
+import QuickActionCategories from "@/components/shared/QuickActionCategories";
 
-const CleaningGenius = () => {
+const Cleaning = () => {
   const navigate = useNavigate();
-  const [style, setStyle] = useState<string>("eco");
-
-  const handleChatStart = () => {
-    navigate("/chat?specialty=cleaning");
-  };
-
-  const handlePhotoClick = () => {
-    navigate("/diagnosis?specialty=cleaning");
-  };
 
   return (
-    <div className="min-h-screen bg-blue-50 font-dm-sans text-primary">
-      <header className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" onClick={() => navigate("/")} className="mr-2">
-              <Home className="w-5 h-5" />
-            </Button>
-            <Sparkles className="w-7 h-7 text-blue-500" />
-            <span className="font-space-grotesk font-bold text-xl text-primary">
-              Cleaning Genius
-            </span>
-            <Badge variant="outline" className="ml-2">by EveryFixAI</Badge>
-          </div>
-        </div>
-      </header>
-
-      <main className="container mx-auto px-4 py-12">
-        <section className="grid grid-cols-1 md:grid-cols-12 items-center gap-10 mb-12">
-          <motion.div 
-            className="md:col-span-4 flex justify-center relative order-2 md:order-1"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="relative">
-              <div className="w-48 h-48 md:w-72 md:h-72 rounded-full bg-blue-200 flex items-center justify-center">
-                <motion.div
-                  animate={{ 
-                    y: [0, -10, 0],
-                  }}
-                  transition={{ 
-                    repeat: Infinity, 
-                    duration: 3,
-                    ease: "easeInOut"
-                  }}
-                >
-                  <div className="text-8xl">🧼</div>
-                </motion.div>
-              </div>
-              
-              <div className="absolute -top-12 -right-16 md:-right-24 bg-white rounded-2xl p-3 shadow-card after:content-[''] after:absolute after:bottom-0 after:left-6 after:w-4 after:h-4 after:bg-white after:rotate-45 after:-mb-2">
-                <p className="text-sm md:text-base font-medium">Let's make that mess disappear!</p>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="md:col-span-8 order-1 md:order-2"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-space-grotesk">Your AI-Powered Cleaning Assistant</h2>
-            
-            <p className="mb-6 text-lg text-primary/80">
-              The AI that knows how to clean anything — without Googling.
-              <Badge variant="outline" className="ml-2 bg-blue-100 text-primary">💡 Stains. Spots. Solutions.</Badge>
+    <div className="min-h-screen bg-gray-50">
+      <EveryFixHeader specialty="cleaning" />
+      
+      <main className="container mx-auto px-4 py-8">
+        <section className="mb-12">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold mb-4">Cleaning Genius</h1>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Get expert advice on removing stains, deep cleaning, organizing, and maintaining every surface in your home.
             </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <Card className="bg-white shadow-sm hover:shadow-md transition-shadow">
+              <CardHeader>
+                <CardTitle>Chat with Cleaning Genius</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Ask questions, share photos, and get personalized cleaning advice from our AI expert.</p>
+              </CardContent>
+              <CardFooter>
+                <Button onClick={() => navigate("/chat?specialty=cleaning")} className="w-full">
+                  Start Chat
+                </Button>
+              </CardFooter>
+            </Card>
             
-            <div className="flex flex-col space-y-3 mb-6">
-              <div className="bg-white rounded-lg p-4 shadow-sm">
-                <p className="font-medium">Choose your cleaning style:</p>
-                <div className="mt-3 flex space-x-3">
-                  <Button 
-                    variant={style === "eco" ? "default" : "outline"}
-                    onClick={() => setStyle("eco")}
-                    className={style === "eco" ? "bg-green-500" : ""}
-                  >
-                    🧪 Eco-Friendly
-                  </Button>
-                  <Button 
-                    variant={style === "deep" ? "default" : "outline"}
-                    onClick={() => setStyle("deep")}
-                    className={style === "deep" ? "bg-blue-600" : ""}
-                  >
-                    🧼 Deep Clean
-                  </Button>
-                  <Button 
-                    variant={style === "quick" ? "default" : "outline"}
-                    onClick={() => setStyle("quick")}
-                    className={style === "quick" ? "bg-orange-500" : ""}
-                  >
-                    🧹 Quick Fix
-                  </Button>
-                </div>
-              </div>
-            </div>
+            <Card className="bg-white shadow-sm hover:shadow-md transition-shadow">
+              <CardHeader>
+                <CardTitle>Visual Diagnosis</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Upload photos of stains, mold, or dirty surfaces and get instant cleaning solutions.</p>
+              </CardContent>
+              <CardFooter>
+                <Button onClick={() => navigate("/diagnosis?specialty=cleaning")} variant="outline" className="w-full">
+                  Upload Photo
+                </Button>
+              </CardFooter>
+            </Card>
             
-            <div className="flex flex-col sm:flex-row gap-4 mb-6">
-              <Button 
-                className="w-full sm:w-auto text-lg py-6 px-8 bg-blue-600 hover:bg-blue-700 shadow-md active:scale-[0.98] transition-all rounded-xl"
-                onClick={handleChatStart}
-              >
-                <MessageSquare className="w-5 h-5 mr-2" />
-                Start Chat
-              </Button>
-              <Button 
-                className="w-full sm:w-auto text-lg py-6 px-8 bg-blue-800 hover:bg-blue-900 text-white shadow-md active:scale-[0.98] transition-all rounded-xl"
-                onClick={handlePhotoClick}
-              >
-                <ImageIcon className="w-5 h-5 mr-2" />
-                Photo Diagnosis
-              </Button>
-            </div>
-            
-            <div className="bg-white p-4 rounded-lg shadow-sm">
-              <p className="text-sm font-medium mb-2">Try asking:</p>
-              <div className="space-y-2">
-                <div className="bg-blue-50 p-2 rounded">
-                  "How do I get spaghetti sauce out of a white couch?"
-                </div>
-                <div className="bg-blue-50 p-2 rounded">
-                  "This whiteboard has marker smudges"
-                </div>
-                <div className="bg-blue-50 p-2 rounded">
-                  "My stovetop is greasy and gross"
-                </div>
-              </div>
-            </div>
-          </motion.div>
+            <Card className="bg-white shadow-sm hover:shadow-md transition-shadow">
+              <CardHeader>
+                <CardTitle>Cleaning Guides</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Browse our library of step-by-step cleaning guides for every room and surface.</p>
+              </CardContent>
+              <CardFooter>
+                <Button onClick={() => navigate("/cleaning/glossary")} variant="outline" className="w-full">
+                  View Guides
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+        </section>
+        
+        <section className="mb-12">
+          <HowItWorks specialty="cleaning" />
+        </section>
+        
+        <LiveFixFeed specialty="cleaning" />
+        
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold mb-6">Quick Cleaning Solutions</h2>
+          <QuickActionCategories specialty="cleaning" />
         </section>
       </main>
+      
+      <Footer />
     </div>
   );
 };
 
-export default CleaningGenius;
+export default Cleaning;
