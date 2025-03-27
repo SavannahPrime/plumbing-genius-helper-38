@@ -1,7 +1,13 @@
 
 import { ConversationContext } from "@/types/chat";
+import { isPictureRequest } from "./openaiService";
 
 export const identifyProblemType = (message: string) => {
+  // First check if this is a picture sharing request
+  if (isPictureRequest(message)) {
+    return "picture_sharing";
+  }
+  
   const lowerMessage = message.toLowerCase();
   
   // Emergency keywords
@@ -53,18 +59,13 @@ export const generateNextResponse = (
   problemDetails: any,
   updateContext: (newDetails: any) => void
 ) => {
-  // Check for picture sharing questions
-  const checkForPictureQuestion = (message: string) => {
-    const lowerMessage = message.toLowerCase();
-    return lowerMessage.includes("picture") || 
-           lowerMessage.includes("photo") || 
-           lowerMessage.includes("image") || 
-           lowerMessage.includes("share pic") || 
-           lowerMessage.includes("upload");
-  };
+  // Handle picture sharing as a top priority
+  if (topic === "picture_sharing") {
+    return "Yes, please! Sharing pictures would be extremely helpful for me to better diagnose your plumbing issue. You can upload images directly through this chat interface. Clear photos of the problem area will help me give you more accurate advice.";
+  }
 
-  // Handle picture questions before any other logic
-  if (previousAnswers.length > 0 && checkForPictureQuestion(previousAnswers[previousAnswers.length - 1])) {
+  // Check for picture sharing questions in previous answers
+  if (previousAnswers.length > 0 && isPictureRequest(previousAnswers[previousAnswers.length - 1])) {
     return "Yes, please! Sharing pictures would be extremely helpful for me to better diagnose your plumbing issue. You can upload images directly through this chat interface. Clear photos of the problem area will help me give you more accurate advice.";
   }
 
@@ -321,6 +322,7 @@ export const generateNextResponse = (
     clog: "How is the drainage now? Have you noticed any improvement or changes?",
     water_heater: "How is the water heater performing now? Have you noticed any changes since our last step?",
     toilet: "Has there been any change in the toilet's behavior since our last step?",
+    picture_sharing: "Yes, please! Sharing pictures would be extremely helpful for me to better diagnose your plumbing issue. You can upload images directly through this chat interface. Clear photos of the problem area will help me give you more accurate advice.",
     unknown: "Could you provide more details about what you're experiencing? This will help me give you better guidance."
   };
 

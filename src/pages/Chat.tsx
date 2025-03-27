@@ -4,7 +4,7 @@ import ChatMessages from "@/components/chat/ChatMessages";
 import ChatInput from "@/components/chat/ChatInput";
 import { Message, ConversationContext, OpenAIMessage } from "@/types/chat";
 import { generateNextResponse, identifyProblemType, handleEmergency } from "@/services/chatService";
-import { generateChatGPTResponse, createPlumberPrompt } from "@/services/openaiService";
+import { generateChatGPTResponse, createPlumberPrompt, isPictureRequest } from "@/services/openaiService";
 import { Button } from "@/components/ui/button";
 import { Settings } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -55,13 +55,7 @@ const Chat = () => {
   };
 
   const generatePlumberResponse = async (userMessage: string) => {
-    const lowerMessage = userMessage.toLowerCase();
-    
-    if (lowerMessage.includes("picture") || 
-        lowerMessage.includes("photo") || 
-        lowerMessage.includes("image") || 
-        lowerMessage.includes("share pic") || 
-        lowerMessage.includes("upload")) {
+    if (isPictureRequest(userMessage)) {
       return "Yes, please! Sharing pictures would be extremely helpful for me to better diagnose your plumbing issue. You can upload images directly through this chat interface. Clear photos of the problem area will help me give you more accurate advice.";
     }
 
@@ -88,9 +82,9 @@ const Chat = () => {
       }
     }
 
-    if (lowerMessage.includes("overflow") || 
-        (lowerMessage.includes("water") && lowerMessage.includes("everywhere")) ||
-        (lowerMessage.includes("ceiling") && lowerMessage.includes("drip"))) {
+    if (userMessage.toLowerCase().includes("overflow") || 
+        (userMessage.toLowerCase().includes("water") && userMessage.toLowerCase().includes("everywhere")) ||
+        (userMessage.toLowerCase().includes("ceiling") && userMessage.toLowerCase().includes("drip"))) {
       return handleEmergency(setContext);
     }
 

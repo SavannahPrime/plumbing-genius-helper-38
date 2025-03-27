@@ -37,6 +37,24 @@ export const generateChatGPTResponse = async (
 };
 
 export const createPlumberPrompt = (userMessage: string, conversationHistory: string): OpenAIMessage[] => {
+  // First check if this is a picture sharing request
+  if (isPictureRequest(userMessage)) {
+    return [
+      {
+        role: "system",
+        content: "You are a plumbing assistant. The user is asking about sharing pictures."
+      },
+      {
+        role: "user",
+        content: userMessage
+      },
+      {
+        role: "assistant",
+        content: "Yes, please! Sharing pictures would be extremely helpful for me to better diagnose your plumbing issue. You can upload images directly through this chat interface. Clear photos of the problem area will help me give you more accurate advice."
+      }
+    ];
+  }
+
   return [
     {
       role: "system",
@@ -48,4 +66,21 @@ export const createPlumberPrompt = (userMessage: string, conversationHistory: st
       content: `Conversation history: ${conversationHistory}\n\nUser's latest question: ${userMessage}`,
     },
   ];
+};
+
+// Helper function to detect picture sharing requests
+export const isPictureRequest = (message: string): boolean => {
+  const lowerMessage = message.toLowerCase();
+  return lowerMessage.includes("picture") || 
+         lowerMessage.includes("photo") || 
+         lowerMessage.includes("image") || 
+         lowerMessage.includes("pic") ||
+         lowerMessage.includes("share") ||
+         lowerMessage.includes("upload") ||
+         lowerMessage.includes("send") && (
+           lowerMessage.includes("picture") || 
+           lowerMessage.includes("photo") || 
+           lowerMessage.includes("image") || 
+           lowerMessage.includes("pic")
+         );
 };
