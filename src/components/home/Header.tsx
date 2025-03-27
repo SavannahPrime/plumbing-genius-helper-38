@@ -1,7 +1,9 @@
 
 import React from "react";
-import { Wrench } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Wrench, Home } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 interface HeaderProps {
   plumberPersonality: string;
@@ -9,14 +11,20 @@ interface HeaderProps {
 }
 
 const Header = ({ plumberPersonality, setPlumberPersonality }: HeaderProps) => {
+  const navigate = useNavigate();
+  
   return (
     <header className="bg-white shadow-sm">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center gap-2">
+          <Button variant="ghost" onClick={() => navigate("/")} className="mr-2">
+            <Home className="w-5 h-5" />
+          </Button>
           <Wrench className="w-7 h-7 text-accent" />
           <span className="font-space-grotesk font-bold text-xl text-primary">
             Plumber's Helper
           </span>
+          <Badge variant="outline" className="ml-2">by EveryFixAI</Badge>
         </div>
         
         <div className="flex items-center gap-4">
@@ -41,9 +49,13 @@ const Header = ({ plumberPersonality, setPlumberPersonality }: HeaderProps) => {
             </button>
           </div>
           
-          <nav className="text-sm text-neutrals hidden md:block">
-            <Link to="/fixes" className="mr-4 hover:underline">Find a Real Plumber</Link>
-            <Link to="/fixes" className="hover:underline">Privacy</Link>
+          <nav className="text-sm text-neutrals hidden md:flex items-center space-x-6">
+            <Link to="/fixes" className="hover:text-primary transition-colors">Find a Pro</Link>
+            <Link to="/step-by-step" className="hover:text-primary transition-colors">Guides</Link>
+            <Link to="/chat" className="hover:text-primary transition-colors">Chat</Link>
+            <Button size="sm" variant="outline" onClick={() => navigate("/")}>
+              All Products
+            </Button>
           </nav>
         </div>
       </div>
