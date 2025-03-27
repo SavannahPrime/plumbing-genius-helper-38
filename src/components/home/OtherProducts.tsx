@@ -12,7 +12,9 @@ const ProductCard = ({
   title, 
   tagline, 
   path, 
-  color 
+  color,
+  hoverColor,
+  iconColor
 }: { 
   icon: React.ReactNode; 
   emoji: string; 
@@ -20,6 +22,8 @@ const ProductCard = ({
   tagline: string; 
   path: string;
   color: string;
+  hoverColor: string;
+  iconColor: string;
 }) => {
   return (
     <motion.div
@@ -30,14 +34,14 @@ const ProductCard = ({
       transition={{ duration: 0.5 }}
     >
       <div className="flex items-center gap-3 mb-3">
-        <div className={`w-10 h-10 rounded-full ${color} flex items-center justify-center`}>
+        <div className={`w-10 h-10 rounded-full ${iconColor} flex items-center justify-center`}>
           {icon}
         </div>
         <h3 className="font-space-grotesk font-bold text-lg">{emoji} {title}</h3>
       </div>
       <p className="text-sm text-neutrals mb-4">{tagline}</p>
       <Link to={path}>
-        <Button variant="outline" className="w-full">
+        <Button variant="outline" className={`w-full hover:${hoverColor} border-gray-200 hover:border-gray-300 transition-all duration-200`}>
           Explore
         </Button>
       </Link>
@@ -64,7 +68,9 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           title="Cleaning Genius"
           tagline="The AI that knows how to clean anything — without Googling."
           path="/cleaning"
-          color="bg-blue-50"
+          color="bg-blue-50 hover:bg-blue-100"
+          hoverColor="bg-blue-100"
+          iconColor="bg-cyan-500"
         />
         
         <ProductCard
@@ -73,7 +79,9 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           title="Handyman Hero"
           tagline="Fix furniture, patch walls, hang shelves — no handyman required."
           path="/handyman"
-          color="bg-orange-50"
+          color="bg-orange-50 hover:bg-orange-100"
+          hoverColor="bg-orange-100"
+          iconColor="bg-orange-500"
         />
         
         <ProductCard
@@ -82,7 +90,9 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           title="Electrician Genius"
           tagline="Flip the switch on electrical problems — safely and smart."
           path="/electrician"
-          color="bg-yellow-50"
+          color="bg-yellow-50 hover:bg-yellow-100"
+          hoverColor="bg-yellow-100"
+          iconColor="bg-yellow-500"
         />
         
         <ProductCard
@@ -91,7 +101,9 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           title="Landscaper Buddy"
           tagline="Your AI yard partner — from soil to sprinkler."
           path="/landscaper"
-          color="bg-green-50"
+          color="bg-green-50 hover:bg-green-100"
+          hoverColor="bg-green-100"
+          iconColor="bg-green-600"
         />
         
         <ProductCard
@@ -100,7 +112,9 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           title="Gadget Fix Genie"
           tagline="Troubleshoot phones, tablets, and other electronic devices."
           path="/gadgetfixgenie"
-          color="bg-purple-50"
+          color="bg-purple-50 hover:bg-purple-100"
+          hoverColor="bg-purple-100"
+          iconColor="bg-purple-600"
         />
       </div>
     </section>
