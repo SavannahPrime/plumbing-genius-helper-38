@@ -1,11 +1,10 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Wrench, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
-import { useLocation } from "react-router-dom";
 import { specializedAgents, AgentSpecialty } from "@/services/specializedAgentService";
 
 const QuickFixSection = () => {
@@ -29,6 +28,12 @@ const QuickFixSection = () => {
     return "plumber";
   };
   
+  // Get context-specific glossary path
+  const getGlossaryPath = () => {
+    const currentSpecialty = getCurrentAgentSpecialty();
+    return `/${currentSpecialty}/glossary`;
+  };
+  
   const currentSpecialty = getCurrentAgentSpecialty();
   const agent = specializedAgents[currentSpecialty];
   
@@ -45,7 +50,7 @@ const QuickFixSection = () => {
       </h3>
       
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-        <Link to="/step-by-step" className="w-full max-w-xs">
+        <Link to={getGlossaryPath()} className="w-full max-w-xs">
           <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
             <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
               <span className="text-xl">🛠️</span>

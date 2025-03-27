@@ -41,7 +41,19 @@ const App = () => (
           <Route path="/landscaper" element={<Landscaper />} />
           <Route path="/mechanic" element={<Mechanic />} />
           <Route path="/gadgetfixgenie" element={<GadgetFixGenie />} />
+          
+          {/* Context-specific glossary routes */}
           <Route path="/glossary" element={<GadgetGlossary />} />
+          <Route path="/plumber/glossary" element={<GadgetGlossary contextType="plumber" />} />
+          <Route path="/landscaper/glossary" element={<GadgetGlossary contextType="landscaper" />} />
+          <Route path="/chef/glossary" element={<GadgetGlossary contextType="chef" />} />
+          <Route path="/stylist/glossary" element={<GadgetGlossary contextType="stylist" />} />
+          <Route path="/electrician/glossary" element={<GadgetGlossary contextType="electrician" />} />
+          <Route path="/handyman/glossary" element={<GadgetGlossary contextType="handyman" />} />
+          <Route path="/mechanic/glossary" element={<GadgetGlossary contextType="mechanic" />} />
+          <Route path="/cleaning/glossary" element={<GadgetGlossary contextType="cleaning" />} />
+          <Route path="/gadget/glossary" element={<GadgetGlossary contextType="gadget" />} />
+          
           <Route path="/chef" element={<Chef />} />
           <Route path="/stylist" element={<Stylist />} />
           <Route path="/step-by-step" element={<StepByStepGlossary />} />

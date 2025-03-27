@@ -2,7 +2,7 @@
 import React from "react";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ArrowRight, Toilet, Droplet, Bath, Flame, Trash2, Info, ChefHat, Scissors, Search } from "lucide-react";
 
 interface ProblemCategory {
@@ -114,6 +114,27 @@ const problemCategories: ProblemCategory[] = [
 ];
 
 const ProblemCategories = () => {
+  const location = useLocation();
+  
+  // Determine which glossary to link to based on current path
+  const getContextSpecificPath = (defaultPath: string) => {
+    const currentPath = location.pathname;
+    
+    // Map paths to their specific glossary pages
+    if (currentPath.includes("/landscaper")) return "/landscaper/glossary";
+    if (currentPath.includes("/chef")) return "/chef/glossary";
+    if (currentPath.includes("/stylist")) return "/stylist/glossary";
+    if (currentPath.includes("/electrician")) return "/electrician/glossary";
+    if (currentPath.includes("/handyman")) return "/handyman/glossary";
+    if (currentPath.includes("/mechanic")) return "/mechanic/glossary";
+    if (currentPath.includes("/plumber")) return "/plumber/glossary";
+    if (currentPath.includes("/cleaning")) return "/cleaning/glossary";
+    if (currentPath.includes("/gadgetfixgenie")) return "/gadget/glossary";
+    
+    // Default fallback
+    return defaultPath;
+  };
+
   return (
     <motion.section
       className="mt-12"
@@ -127,7 +148,7 @@ const ProblemCategories = () => {
           <HoverCard key={index}>
             <HoverCardTrigger asChild>
               <Link 
-                to={category.path}
+                to={getContextSpecificPath(category.path)}
                 className="bg-white rounded-xl shadow-card hover:shadow-card-hover transition-all duration-200 p-4 text-left hover-card-animation"
               >
                 <div className="flex items-center gap-2">
@@ -145,7 +166,7 @@ const ProblemCategories = () => {
         ))}
       </div>
       <div className="flex justify-center mt-6">
-        <Link to="/step-by-step" className="text-secondary hover:text-secondary/80 text-sm flex items-center gap-1 font-medium">
+        <Link to={getContextSpecificPath("/step-by-step")} className="text-secondary hover:text-secondary/80 text-sm flex items-center gap-1 font-medium">
           Browse all step-by-step guides <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
