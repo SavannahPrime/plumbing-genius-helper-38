@@ -18,7 +18,7 @@ const Chat = () => {
   const [searchParams] = useSearchParams();
   const specialtyParam = searchParams.get('specialty') as AgentSpecialty | null;
   
-  // API key management
+  // API key management - automatically using ChatGPT
   const {
     apiKey,
     setApiKey,
@@ -58,6 +58,16 @@ const Chat = () => {
       handleSendMessage(problemQuery);
     }
   }, [problemQuery]);
+
+  // Show welcome toast about ChatGPT connectivity
+  useEffect(() => {
+    if (isUsingChatGPT && apiKey) {
+      toast({
+        title: "Connected to ChatGPT",
+        description: "Enhanced AI responses are enabled for all agents."
+      });
+    }
+  }, []);
 
   // Get the current agent based on specialty
   const currentAgent = specializedAgents[displaySpecialty];

@@ -26,7 +26,7 @@ const ChatSettings = ({ onOpenApiKeyDialog, onToggleChatGPT, isUsingChatGPT }: C
             {isUsingChatGPT ? "Use Built-in Assistant" : "Enable ChatGPT"}
           </DropdownMenuItem>
           <DropdownMenuItem onClick={onOpenApiKeyDialog}>
-            Configure API Key
+            Update API Key
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem 
