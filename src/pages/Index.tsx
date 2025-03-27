@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -22,7 +21,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
 
-// Updated problem categories with hover text
 const problemCategories = [
   { 
     icon: <Toilet className="w-5 h-5" />, 
@@ -89,7 +87,6 @@ const problemCategories = [
   },
 ];
 
-// Typing animation text options
 const typingTexts = [
   "Fixing toilets...",
   "Unclogging showers...",
@@ -103,7 +100,6 @@ const Index = () => {
   const [plumberPersonality, setPlumberPersonality] = useState("classic");
   const { handleMicClick } = useElevenLabsAgent();
 
-  // Change typing text every few seconds
   useState(() => {
     const interval = setInterval(() => {
       setCurrentTextIndex((prevIndex) => (prevIndex + 1) % typingTexts.length);
@@ -113,7 +109,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] font-sans text-[#1D3557]">
-      {/* Header with voice toggle */}
       <header className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
@@ -124,7 +119,6 @@ const Index = () => {
           </div>
           
           <div className="flex items-center gap-4">
-            {/* Voice Toggle Section */}
             <div className="hidden md:flex items-center gap-2 bg-gray-100 p-1 rounded-full">
               <button 
                 onClick={() => setPlumberPersonality("classic")}
@@ -163,9 +157,7 @@ const Index = () => {
       </header>
 
       <main className="container mx-auto px-4 py-12">
-        {/* Hero Section with Character on the Left */}
         <section className="grid grid-cols-1 md:grid-cols-12 items-center gap-10 mb-12">
-          {/* Animated Plumber Character */}
           <motion.div 
             className="md:col-span-4 flex justify-center relative order-2 md:order-1"
             initial={{ opacity: 0, y: 20 }}
@@ -192,14 +184,12 @@ const Index = () => {
                 </motion.div>
               </div>
               
-              {/* Speech Bubble */}
               <div className="absolute -top-12 -right-16 md:-right-24 bg-white rounded-2xl p-3 shadow-md after:content-[''] after:absolute after:bottom-0 after:left-6 after:w-4 after:h-4 after:bg-white after:rotate-45 after:-mb-2">
                 <p className="text-sm md:text-base font-medium">Let's fix that leaky mess!</p>
               </div>
             </div>
           </motion.div>
 
-          {/* Hero Content */}
           <motion.div
             className="md:col-span-8 order-1 md:order-2"
             initial={{ opacity: 0, y: 20 }}
@@ -208,7 +198,6 @@ const Index = () => {
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4 font-inter">Your AI-Powered Plumbing Assistant</h2>
             
-            {/* Animated typing text */}
             <motion.p
               key={currentTextIndex}
               initial={{ opacity: 0, y: 5 }}
@@ -247,7 +236,6 @@ const Index = () => {
           </motion.div>
         </section>
 
-        {/* Quick Help Buttons */}
         <motion.section
           className="mt-12"
           initial={{ opacity: 0, y: 20 }}
@@ -284,7 +272,6 @@ const Index = () => {
           </div>
         </motion.section>
 
-        {/* "Fix it now" Wizard */}
         <motion.section
           className="mt-20 p-6 bg-white rounded-xl shadow-sm"
           initial={{ opacity: 0, y: 20 }}
@@ -297,43 +284,54 @@ const Index = () => {
           </h3>
           
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex flex-col items-center text-center max-w-xs">
-              <div className="w-12 h-12 rounded-full bg-[#E3F2FD] flex items-center justify-center mb-2">
-                <span className="text-xl">🛠️</span>
+            <Link to="/chat" className="w-full max-w-xs">
+              <div className="flex flex-col items-center text-center p-4 hover:bg-[#E3F2FD] rounded-lg transition-colors cursor-pointer">
+                <div className="w-12 h-12 rounded-full bg-[#E3F2FD] flex items-center justify-center mb-2">
+                  <span className="text-xl">🛠️</span>
+                </div>
+                <h4 className="font-medium mb-1">What's the problem?</h4>
+                <p className="text-sm text-gray-500">Select from options above</p>
               </div>
-              <h4 className="font-medium mb-1">What's the problem?</h4>
-              <p className="text-sm text-gray-500">Select from options above</p>
+            </Link>
+            
+            <ArrowRight className="w-5 h-5 text-gray-400 hidden md:block" />
+            
+            <Link to="/diagnosis" className="w-full max-w-xs">
+              <div className="flex flex-col items-center text-center p-4 hover:bg-[#E3F2FD] rounded-lg transition-colors cursor-pointer">
+                <div className="w-12 h-12 rounded-full bg-[#E3F2FD] flex items-center justify-center mb-2">
+                  <span className="text-xl">📷</span>
+                </div>
+                <h4 className="font-medium mb-1">Got a pic?</h4>
+                <p className="text-sm text-gray-500">Upload for better results</p>
+              </div>
+            </Link>
+            
+            <ArrowRight className="w-5 h-5 text-gray-400 hidden md:block" />
+            
+            <div 
+              className="w-full max-w-xs"
+              onClick={handleMicClick}
+            >
+              <div className="flex flex-col items-center text-center p-4 hover:bg-[#E3F2FD] rounded-lg transition-colors cursor-pointer">
+                <div className="w-12 h-12 rounded-full bg-[#E3F2FD] flex items-center justify-center mb-2">
+                  <span className="text-xl">📞</span>
+                </div>
+                <h4 className="font-medium mb-1">Want voice assistance?</h4>
+                <p className="text-sm text-gray-500">Talk to AI plumber</p>
+              </div>
             </div>
             
             <ArrowRight className="w-5 h-5 text-gray-400 hidden md:block" />
             
-            <div className="flex flex-col items-center text-center max-w-xs">
-              <div className="w-12 h-12 rounded-full bg-[#E3F2FD] flex items-center justify-center mb-2">
-                <span className="text-xl">📷</span>
+            <Link to="/chat" className="w-full max-w-xs">
+              <div className="flex flex-col items-center text-center p-4 hover:bg-[#E3F2FD] rounded-lg transition-colors cursor-pointer">
+                <div className="w-12 h-12 rounded-full bg-[#E3F2FD] flex items-center justify-center mb-2">
+                  <span className="text-xl">✅</span>
+                </div>
+                <h4 className="font-medium mb-1">Here's your fix!</h4>
+                <p className="text-sm text-gray-500">Step-by-step solutions</p>
               </div>
-              <h4 className="font-medium mb-1">Got a pic?</h4>
-              <p className="text-sm text-gray-500">Upload for better results</p>
-            </div>
-            
-            <ArrowRight className="w-5 h-5 text-gray-400 hidden md:block" />
-            
-            <div className="flex flex-col items-center text-center max-w-xs">
-              <div className="w-12 h-12 rounded-full bg-[#E3F2FD] flex items-center justify-center mb-2">
-                <span className="text-xl">📞</span>
-              </div>
-              <h4 className="font-medium mb-1">Want voice assistance?</h4>
-              <p className="text-sm text-gray-500">Talk to AI plumber</p>
-            </div>
-            
-            <ArrowRight className="w-5 h-5 text-gray-400 hidden md:block" />
-            
-            <div className="flex flex-col items-center text-center max-w-xs">
-              <div className="w-12 h-12 rounded-full bg-[#E3F2FD] flex items-center justify-center mb-2">
-                <span className="text-xl">✅</span>
-              </div>
-              <h4 className="font-medium mb-1">Here's your fix!</h4>
-              <p className="text-sm text-gray-500">Step-by-step solutions</p>
-            </div>
+            </Link>
           </div>
           
           <div className="mt-6 flex justify-center">
@@ -346,7 +344,6 @@ const Index = () => {
           </div>
         </motion.section>
 
-        {/* Footer */}
         <motion.footer 
           className="mt-20 border-t pt-6 text-sm text-[#90A4AE] flex justify-between items-center"
           initial={{ opacity: 0 }}
