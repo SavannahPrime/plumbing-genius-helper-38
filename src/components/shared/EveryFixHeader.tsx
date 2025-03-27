@@ -1,33 +1,34 @@
 
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Home } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { useMobile } from "@/hooks/use-mobile";
 
-interface EveryFixHeaderProps {
-  title: string;
-  icon: React.ReactNode;
-  colorClass: string;
+export interface EveryFixHeaderProps {
+  specialty?: string;
 }
 
-const EveryFixHeader = ({ title, icon, colorClass }: EveryFixHeaderProps) => {
-  const navigate = useNavigate();
-
+const EveryFixHeader: React.FC<EveryFixHeaderProps> = ({ specialty }) => {
+  const isMobile = useMobile();
+  
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-white border-b border-gray-200">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <Button variant="ghost" onClick={() => navigate("/")} className="mr-2" aria-label="Home">
-            <Home className="w-5 h-5" />
+          <Link to="/" className="font-bold text-xl text-primary flex items-center">
+            EveryFixAI
+          </Link>
+        </div>
+        
+        <div className="flex items-center gap-2">
+          {!isMobile && (
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/fixes">Fixes</Link>
+            </Button>
+          )}
+          <Button size="sm" asChild>
+            <Link to={specialty ? `/chat?specialty=${specialty}` : "/chat"}>Start Chat</Link>
           </Button>
-          <div className={colorClass}>
-            {icon}
-          </div>
-          <span className="font-space-grotesk font-bold text-xl text-primary">
-            {title}
-          </span>
-          <Badge variant="outline" className="ml-2">by EveryFixAI</Badge>
         </div>
       </div>
     </header>
