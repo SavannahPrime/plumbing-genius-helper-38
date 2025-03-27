@@ -1,8 +1,7 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Home, MessageSquare, Image as ImageIcon, Car, Gauge, Battery, Thermometer, ActivitySquare, AlertTriangle, WrenchIcon, Settings } from "lucide-react";
+import { Home, MessageSquare, Image as ImageIcon, Car, Gauge, Battery, Thermometer, ActivitySquare, AlertTriangle, Wrench, Settings, Camera } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import QuickActionCategories from "@/components/shared/QuickActionCategories";
@@ -21,7 +20,7 @@ const Mechanic = () => {
       path: "/chat"
     },
     { 
-      icon: <WrenchIcon className="w-5 h-5" />, 
+      icon: <Wrench className="w-5 h-5" />, 
       name: "Maintenance", 
       hoverText: "Regular service schedules and DIY maintenance tips",
       emoji: "🔧",

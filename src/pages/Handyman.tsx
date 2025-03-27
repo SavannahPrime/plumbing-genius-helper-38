@@ -1,7 +1,8 @@
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Home, MessageSquare, Image as ImageIcon, Wrench, Camera, Hammer, Drill, PaintBucket, Ruler, Screwdriver, Stethoscope, Lightbulb, Shield } from "lucide-react";
+import { Home, MessageSquare, Image as ImageIcon, Wrench, Camera, Hammer, Drill, PaintBucket, Ruler, Tool, Stethoscope, Lightbulb, Shield } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import QuickActionCategories from "@/components/shared/QuickActionCategories";
@@ -31,7 +32,7 @@ const HandymanHero = () => {
       path: "/chat"
     },
     { 
-      icon: <Screwdriver className="w-5 h-5" />, 
+      icon: <Tool className="w-5 h-5" />, 
       name: "Furniture", 
       hoverText: "Assembly, repairs, and adjustments",
       emoji: "🪑",
