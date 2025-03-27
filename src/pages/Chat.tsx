@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useSearchParams, useLocation } from "react-router-dom";
 import ChatHeader from "@/components/chat/ChatHeader";
@@ -8,7 +9,7 @@ import { useChatMessages } from "@/hooks/useChatMessages";
 import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
 import { useImageUpload } from "@/hooks/useImageUpload";
 import { useApiKeyNotification } from "@/hooks/useApiKeyNotification";
-import { AgentSpecialty } from "@/services/specializedAgentService";
+import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
 
 const Chat = () => {
   // Load the API key from localStorage with the correct key name
@@ -19,36 +20,7 @@ const Chat = () => {
   useApiKeyNotification(apiKey);
   
   const { handleMicClick } = useElevenLabsAgent();
-  const [searchParams] = useSearchParams();
-  const location = useLocation();
   
-  // Determine agent specialty from URL params or route
-  const getAgentSpecialty = (): AgentSpecialty => {
-    // First check URL params
-    const specialtyParam = searchParams.get('specialty') as AgentSpecialty;
-    if (specialtyParam && Object.keys(specializedAgents).includes(specialtyParam)) {
-      return specialtyParam;
-    }
-    
-    // Otherwise determine from path
-    const path = location.pathname;
-    
-    if (path.includes("electrician")) return "electrician";
-    if (path.includes("handyman")) return "handyman";
-    if (path.includes("mechanic")) return "mechanic";
-    if (path.includes("landscaper")) return "landscaper";
-    if (path.includes("chef")) return "chef";
-    if (path.includes("stylist")) return "stylist";
-    if (path.includes("cleaning")) return "cleaning";
-    if (path.includes("gadget")) return "gadget";
-    
-    // Default to plumber
-    return "plumber";
-  };
-  
-  const currentSpecialty = getAgentSpecialty();
-  console.log("Chat page using specialty:", currentSpecialty);
-
   const {
     message,
     setMessage,
@@ -123,7 +95,7 @@ const Chat = () => {
 
   return (
     <div className="flex flex-col h-screen bg-background">
-      <ChatHeader specialty={currentSpecialty}>
+      <ChatHeader specialty={currentAgentSpecialty}>
         <ChatSettings 
           apiKey={apiKey} 
           setApiKey={setApiKey} 
