@@ -38,19 +38,23 @@ const ChatInput = ({
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-3">
       <div className="container mx-auto max-w-3xl">
-        <div className="flex items-center gap-2">
+        {/* Voice button now placed above the input field */}
+        <div className="flex justify-center mb-3">
           <Button 
             variant="outline" 
             size="icon" 
-            className="flex-shrink-0 rounded-full h-9 w-9 bg-blue-50 hover:bg-blue-100"
+            className="rounded-full h-12 w-12 bg-blue-50 hover:bg-blue-100 shadow-md"
             onClick={handleMicButtonClick}
             title="Speak with voice assistant"
             type="button"
             tabIndex={0}
             aria-label="Activate voice assistant"
           >
-            <Mic className="w-4 h-4 text-blue-600" />
+            <Mic className="w-5 h-5 text-blue-600" />
           </Button>
+        </div>
+        
+        <div className="flex items-center gap-2">
           <Button 
             variant="ghost" 
             size="icon" 
