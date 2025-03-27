@@ -59,18 +59,22 @@ const Index = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="relative">
-              <div className="w-44 h-44 md:w-64 md:h-64 rounded-full bg-[#E3F2FD] flex items-center justify-center">
+              <div className="w-48 h-48 md:w-72 md:h-72 rounded-full bg-[#E3F2FD] flex items-center justify-center">
                 <motion.div
                   animate={{ 
-                    rotate: [0, 15, 0, -15, 0],
+                    y: [0, -10, 0],
                   }}
                   transition={{ 
                     repeat: Infinity, 
-                    duration: 5,
+                    duration: 3,
                     ease: "easeInOut"
                   }}
                 >
-                  <Wrench className="w-24 h-24 md:w-32 md:h-32 text-[#1D3557]" />
+                  <img 
+                    src="/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png" 
+                    alt="Friendly Plumber" 
+                    className="w-40 md:w-56 h-auto"
+                  />
                 </motion.div>
               </div>
               
