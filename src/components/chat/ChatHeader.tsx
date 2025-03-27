@@ -1,30 +1,41 @@
 
-import { ArrowLeft, Home } from "lucide-react";
-import { Link } from "react-router-dom";
-import { ReactNode } from "react";
-import { Button } from "@/components/ui/button";
+import React from "react";
 import { Badge } from "@/components/ui/badge";
+import { Home } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
 
 interface ChatHeaderProps {
-  children?: ReactNode;
+  children?: React.ReactNode;
+  specialty?: AgentSpecialty;
 }
 
-const ChatHeader = ({ children }: ChatHeaderProps) => {
+const ChatHeader = ({ children, specialty = "plumber" }: ChatHeaderProps) => {
+  const agent = specializedAgents[specialty];
+  
   return (
     <header className="bg-white shadow-sm">
-      <div className="container mx-auto px-4 py-3 flex items-center">
-        <Link to="/" className="mr-3 text-gray-700 hover:text-gray-900">
-          <Home className="w-5 h-5" />
+      <div className="container mx-auto px-4 py-4 flex items-center">
+        <Link to="/" className="p-2 hover:bg-neutrals-steel/30 rounded-full transition-colors">
+          <Home className="w-5 h-5 text-primary" />
         </Link>
-        <div className="flex-1">
-          <h1 className="font-inter font-semibold text-xl text-[#0A2540]">
-            AI Chat Assistant
-          </h1>
-          <p className="text-sm text-gray-500 flex items-center">
-            Expert home solutions advice
-            <Badge variant="outline" className="ml-2 text-xs">by EveryFixAI</Badge>
+        
+        <div className="ml-3 flex-1">
+          <div className="flex items-center">
+            <div className="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center mr-2">
+              <span className="text-lg">{agent.emoji}</span>
+            </div>
+            <h1 className="font-space-grotesk font-bold text-xl text-primary">
+              {agent.name}'s Chat
+            </h1>
+            <Badge variant="outline" className="ml-2 text-xs">AI {agent.specialty}</Badge>
+          </div>
+          <p className="text-sm text-neutrals">
+            Describe your {specialty} issue and get expert help
           </p>
         </div>
+        
         {children}
       </div>
     </header>

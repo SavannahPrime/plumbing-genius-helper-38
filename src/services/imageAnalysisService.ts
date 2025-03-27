@@ -1,14 +1,15 @@
 
 import { generateChatGPTResponse } from "./openaiService";
+import { AgentSpecialty } from "./specializedAgentService";
 
 // This function encodes the image as a base64 string that can be sent to OpenAI
-const getBase64EncodedImage = (dataUrl: string): string => {
+export const getBase64EncodedImage = (dataUrl: string): string => {
   // Extract the base64 part from the data URL
   const base64Data = dataUrl.split(',')[1];
   return base64Data;
 };
 
-export const analyzeImage = async (imageDataUrl: string): Promise<string> => {
+export const analyzeImage = async (imageDataUrl: string, specialty?: AgentSpecialty): Promise<string> => {
   try {
     // For demo purposes, if there's no OpenAI API key available, return a mock response
     const apiKey = localStorage.getItem('openai_api_key');
@@ -16,6 +17,12 @@ export const analyzeImage = async (imageDataUrl: string): Promise<string> => {
     if (!apiKey) {
       console.log("No OpenAI API key found, using mock response");
       return mockAnalyzeImage(imageDataUrl);
+    }
+
+    // If specialty is provided, use the specialized agent analysis
+    if (specialty) {
+      const { analyzeImageForSpecialty } = await import("./specializedAgentService");
+      return await analyzeImageForSpecialty(imageDataUrl, specialty, apiKey);
     }
 
     const base64Image = getBase64EncodedImage(imageDataUrl);

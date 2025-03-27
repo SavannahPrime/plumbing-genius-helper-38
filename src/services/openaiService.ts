@@ -1,5 +1,5 @@
-
 import { OpenAIMessage } from "@/types/chat";
+import { AgentSpecialty, createSpecializedAgentPrompt } from "./specializedAgentService";
 
 const OPENAI_API_ENDPOINT = "https://api.openai.com/v1/chat/completions";
 
@@ -36,13 +36,17 @@ export const generateChatGPTResponse = async (
   }
 };
 
-export const createPlumberPrompt = (userMessage: string, conversationHistory: string): OpenAIMessage[] => {
+export const createAgentPrompt = (
+  userMessage: string, 
+  conversationHistory: string, 
+  specialty: AgentSpecialty = "plumber"
+): OpenAIMessage[] => {
   // First check if this is a picture sharing request
   if (isPictureRequest(userMessage)) {
     return [
       {
         role: "system",
-        content: "You are a plumbing assistant. The user is asking about sharing pictures."
+        content: `You are a ${specialty} assistant. The user is asking about sharing pictures.`
       },
       {
         role: "user",
@@ -50,22 +54,18 @@ export const createPlumberPrompt = (userMessage: string, conversationHistory: st
       },
       {
         role: "assistant",
-        content: "Yes, please! Sharing pictures would be extremely helpful for me to better diagnose your plumbing issue. You can upload images directly through this chat interface. Clear photos of the problem area will help me give you more accurate advice."
+        content: "Yes, please! Sharing pictures would be extremely helpful for me to better diagnose your issue. You can upload images directly through this chat interface. Clear photos of the problem area will help me give you more accurate advice."
       }
     ];
   }
 
-  return [
-    {
-      role: "system",
-      content:
-        "You are an experienced plumber with 30+ years of hands-on experience. You're helpful, friendly, and provide practical advice for plumbing problems. Focus on DIY solutions when safe, but recommend professional help for complex or dangerous issues. Use plain language and avoid technical jargon unless explaining a concept. If you're unsure about something, be honest and err on the side of safety. If the user asks about sharing pictures or photos, enthusiastically encourage them to do so as visual information is extremely helpful for diagnosing plumbing issues. Mention that they can use the chat interface to upload and share images.",
-    },
-    {
-      role: "user",
-      content: `Conversation history: ${conversationHistory}\n\nUser's latest question: ${userMessage}`,
-    },
-  ];
+  // Use the specialized agent prompt creator
+  return createSpecializedAgentPrompt(specialty, userMessage, conversationHistory);
+};
+
+// Keeping the original plumber prompt creator for backward compatibility
+export const createPlumberPrompt = (userMessage: string, conversationHistory: string): OpenAIMessage[] => {
+  return createAgentPrompt(userMessage, conversationHistory, "plumber");
 };
 
 // Helper function to detect picture sharing requests

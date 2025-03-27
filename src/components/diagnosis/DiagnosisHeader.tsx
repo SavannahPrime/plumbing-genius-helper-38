@@ -5,9 +5,15 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
+import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
 
-const DiagnosisHeader = () => {
+interface DiagnosisHeaderProps {
+  specialty?: AgentSpecialty;
+}
+
+const DiagnosisHeader = ({ specialty = "plumber" }: DiagnosisHeaderProps) => {
   const { handleMicClick } = useElevenLabsAgent();
+  const agent = specializedAgents[specialty];
 
   return (
     <header className="bg-white shadow-sm">
@@ -17,10 +23,10 @@ const DiagnosisHeader = () => {
         </Link>
         <div className="ml-4 flex-1">
           <h1 className="font-space-grotesk font-bold text-[22px] text-primary">
-            Visual Diagnosis
+            {agent.name}'s Visual Diagnosis
           </h1>
           <p className="font-dm-sans text-[16px] text-neutrals flex items-center">
-            Upload a photo, and our AI will analyze the issue.
+            Upload a photo, and our AI {agent.specialty} will analyze the issue.
             <Badge variant="outline" className="ml-2 text-xs">by EveryFixAI</Badge>
           </p>
         </div>

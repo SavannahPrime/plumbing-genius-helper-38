@@ -5,10 +5,33 @@ import { Link } from "react-router-dom";
 import { Wrench, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
+import { useLocation } from "react-router-dom";
+import { specializedAgents, AgentSpecialty } from "@/services/specializedAgentService";
 
 const QuickFixSection = () => {
   const { handleMicClick } = useElevenLabsAgent();
-
+  const location = useLocation();
+  
+  // Determine which specialized agent to use based on the current route
+  const getCurrentAgentSpecialty = (): AgentSpecialty => {
+    const path = location.pathname;
+    
+    if (path.includes("electrician")) return "electrician";
+    if (path.includes("handyman")) return "handyman";
+    if (path.includes("mechanic")) return "mechanic";
+    if (path.includes("landscaper")) return "landscaper";
+    if (path.includes("chef")) return "chef";
+    if (path.includes("stylist")) return "stylist";
+    if (path.includes("cleaning")) return "cleaning";
+    if (path.includes("gadget")) return "gadget";
+    
+    // Default to plumber
+    return "plumber";
+  };
+  
+  const currentSpecialty = getCurrentAgentSpecialty();
+  const agent = specializedAgents[currentSpecialty];
+  
   return (
     <motion.section
       className="mt-20 p-6 bg-white rounded-2xl shadow-card"
@@ -56,7 +79,7 @@ const QuickFixSection = () => {
               <div className="absolute inset-0 rounded-full border-2 border-mint voice-ring"></div>
             </div>
             <h4 className="font-medium mb-1 font-space-grotesk">Want voice assistance?</h4>
-            <p className="text-sm text-neutrals">Talk to AI plumber</p>
+            <p className="text-sm text-neutrals">Talk to {agent.name}, your {agent.specialty} AI</p>
           </div>
         </div>
         

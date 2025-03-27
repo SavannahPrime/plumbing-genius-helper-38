@@ -1,8 +1,9 @@
 
 import React from "react";
-import { X, Loader2, Image as ImageIcon } from "lucide-react";
+import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
 
 interface ImagePreviewDialogProps {
   showDialog: boolean;
@@ -11,6 +12,7 @@ interface ImagePreviewDialogProps {
   handleCloseDialog: () => void;
   handleAnalyzeImage: () => void;
   isAnalyzing: boolean;
+  specialty?: AgentSpecialty;
 }
 
 const ImagePreviewDialog = ({
@@ -20,45 +22,56 @@ const ImagePreviewDialog = ({
   handleCloseDialog,
   handleAnalyzeImage,
   isAnalyzing,
+  specialty = "plumber"
 }: ImagePreviewDialogProps) => {
+  const agent = specializedAgents[specialty];
+  
   return (
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
-      <DialogContent className="sm:max-w-lg rounded-2xl bg-white">
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="font-space-grotesk">Photo Preview</DialogTitle>
-        </DialogHeader>
-        <div className="relative aspect-video rounded-xl overflow-hidden border border-neutrals-steel mt-2">
-          {selectedImage && (
-            <img 
-              src={selectedImage} 
-              alt="Preview" 
-              className="object-contain w-full h-full"
-            />
-          )}
-        </div>
-        <div className="flex justify-end gap-3 mt-4">
-          <Button variant="outline" className="rounded-xl" onClick={handleCloseDialog}>
-            <X className="w-4 h-4 mr-2" />
-            Cancel
+          <DialogTitle>Preview and Analyze Image</DialogTitle>
+          <Button
+            className="absolute right-4 top-4"
+            variant="ghost"
+            size="icon"
+            onClick={handleCloseDialog}
+          >
+            <X className="w-4 h-4" />
           </Button>
-          <Button 
-            className="bg-primary hover:bg-primary/90 rounded-xl" 
-            onClick={handleAnalyzeImage}
+        </DialogHeader>
+
+        {selectedImage && (
+          <div className="flex flex-col gap-4">
+            <div className="border rounded-md overflow-hidden">
+              <img
+                src={selectedImage}
+                alt="Preview"
+                className="w-full h-auto object-contain max-h-[300px]"
+              />
+            </div>
+            <p className="text-sm text-center text-muted-foreground">
+              Press "Analyze" to let {agent.name} examine the image and provide insights on your {specialty} issue.
+            </p>
+          </div>
+        )}
+
+        <DialogFooter>
+          <Button
+            variant="outline"
+            onClick={handleCloseDialog}
             disabled={isAnalyzing}
           >
-            {isAnalyzing ? (
-              <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Analyzing...
-              </>
-            ) : (
-              <>
-                <ImageIcon className="w-4 h-4 mr-2" />
-                Analyze Photo
-              </>
-            )}
+            Cancel
           </Button>
-        </div>
+          <Button
+            onClick={handleAnalyzeImage}
+            disabled={isAnalyzing || !selectedImage}
+            className="bg-primary hover:bg-primary/90"
+          >
+            {isAnalyzing ? "Analyzing..." : "Analyze Image"}
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

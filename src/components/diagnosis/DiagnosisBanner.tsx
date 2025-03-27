@@ -1,26 +1,41 @@
 
 import React from "react";
-import { motion } from "framer-motion";
+import { Lightbulb } from "lucide-react";
+import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
 
-const DiagnosisBanner = () => {
+interface DiagnosisBannerProps {
+  specialty?: AgentSpecialty;
+}
+
+const DiagnosisBanner = ({ specialty = "plumber" }: DiagnosisBannerProps) => {
+  const agent = specializedAgents[specialty];
+  
   return (
-    <motion.div 
-      className="w-full md:w-1/3"
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: 0.2, duration: 0.5 }}
-    >
-      <img 
-        src="/lovable-uploads/3be27937-18fe-451e-a339-37459edc18bb.png" 
-        alt="Friendly Plumber" 
-        className="w-full max-w-[250px] mx-auto md:mx-0"
-      />
-      <div className="bg-white p-4 rounded-xl shadow-card mt-4">
-        <p className="font-dm-sans font-medium text-center md:text-left">
-          "Hi there! Share a photo of your plumbing issue, and I'll help diagnose the problem. You can also click the voice chat icon to talk to me!"
-        </p>
+    <div className="bg-primary/5 rounded-2xl p-6 max-w-xs">
+      <div className="flex items-center mb-3">
+        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+          <Lightbulb className="w-5 h-5 text-primary" />
+        </div>
+        <h2 className="font-space-grotesk font-semibold text-lg">Visual Analysis</h2>
       </div>
-    </motion.div>
+      <p className="text-neutrals text-sm mb-4">
+        Take a clear photo of your {specialty} issue, and {agent.name} will provide a detailed diagnosis with possible solutions.
+      </p>
+      <div className="space-y-2">
+        <div className="flex items-center text-xs text-neutrals">
+          <div className="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center mr-2 text-accent">1</div>
+          <p>Upload a clear photo</p>
+        </div>
+        <div className="flex items-center text-xs text-neutrals">
+          <div className="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center mr-2 text-accent">2</div>
+          <p>AI analyzes the issue</p>
+        </div>
+        <div className="flex items-center text-xs text-neutrals">
+          <div className="w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center mr-2 text-accent">3</div>
+          <p>Get step-by-step solutions</p>
+        </div>
+      </div>
+    </div>
   );
 };
 

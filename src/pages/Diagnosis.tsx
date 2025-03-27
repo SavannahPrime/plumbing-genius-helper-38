@@ -3,6 +3,8 @@ import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { toast } from "@/hooks/use-toast";
 import { analyzeImage } from "@/services/imageAnalysisService";
+import { useLocation } from "react-router-dom";
+import { AgentSpecialty, getAgentByRoute } from "@/services/specializedAgentService";
 
 // Import refactored components
 import DiagnosisHeader from "@/components/diagnosis/DiagnosisHeader";
@@ -17,6 +19,10 @@ const Diagnosis = () => {
   const [analysisResult, setAnalysisResult] = useState<string | null>(null);
   const [showDialog, setShowDialog] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const location = useLocation();
+
+  // Get the current agent specialty based on route
+  const currentSpecialty: AgentSpecialty = getAgentByRoute(location.pathname);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -59,12 +65,13 @@ const Diagnosis = () => {
 
     try {
       setIsAnalyzing(true);
-      const result = await analyzeImage(selectedImage);
+      // Pass the current specialty for specialized analysis
+      const result = await analyzeImage(selectedImage, currentSpecialty);
       setAnalysisResult(result);
       setShowDialog(false);
       toast({
         title: "Analysis complete",
-        description: "We've analyzed your plumbing issue",
+        description: `We've analyzed your ${currentSpecialty} issue`,
       });
     } catch (error) {
       console.error("Error analyzing image:", error);
@@ -85,7 +92,7 @@ const Diagnosis = () => {
 
   return (
     <div className="min-h-screen bg-soft">
-      <DiagnosisHeader />
+      <DiagnosisHeader specialty={currentSpecialty} />
 
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
@@ -95,13 +102,14 @@ const Diagnosis = () => {
             transition={{ duration: 0.5 }}
             className="flex flex-col md:flex-row gap-8 items-center"
           >
-            <DiagnosisBanner />
+            <DiagnosisBanner specialty={currentSpecialty} />
 
             <UploadCard
               handleFileChange={handleFileChange}
               handleCameraClick={handleCameraClick}
               handleUploadClick={handleUploadClick}
               fileInputRef={fileInputRef}
+              specialty={currentSpecialty}
             />
           </motion.div>
 
@@ -122,6 +130,7 @@ const Diagnosis = () => {
         handleCloseDialog={handleCloseDialog}
         handleAnalyzeImage={handleAnalyzeImage}
         isAnalyzing={isAnalyzing}
+        specialty={currentSpecialty}
       />
     </div>
   );

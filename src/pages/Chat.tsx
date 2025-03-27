@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ChatHeader from "@/components/chat/ChatHeader";
@@ -10,6 +11,7 @@ import { useApiKeyManagement } from "@/hooks/useApiKeyManagement";
 import { useChatMessages } from "@/hooks/useChatMessages";
 import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
 import { motion } from "framer-motion";
+import { specializedAgents } from "@/services/specializedAgentService";
 
 const Chat = () => {
   // API key management
@@ -31,7 +33,8 @@ const Chat = () => {
     setMessages,
     isLoading,
     setIsLoading,
-    generatePlumberResponse
+    generatePlumberResponse,
+    currentAgentSpecialty
   } = useChatMessages(apiKey, isUsingChatGPT);
 
   // ElevenLabs agent
@@ -48,6 +51,9 @@ const Chat = () => {
       handleSendMessage(problemQuery);
     }
   }, [problemQuery]);
+
+  // Get the current agent based on specialty
+  const currentAgent = specializedAgents[currentAgentSpecialty];
 
   const handleSendMessage = async (customMessage?: string) => {
     const messageToSend = customMessage || message;
@@ -67,7 +73,7 @@ const Chat = () => {
         setIsLoading(false);
         toast({
           title: "ChatGPT Connection Error",
-          description: "Falling back to built-in plumber assistant.",
+          description: "Falling back to built-in assistant.",
           variant: "destructive"
         });
         
@@ -96,7 +102,7 @@ const Chat = () => {
 
   return (
     <div className="min-h-screen bg-[#F5F5F5] relative">
-      <ChatHeader>
+      <ChatHeader specialty={currentAgentSpecialty}>
         <ChatSettings 
           onOpenApiKeyDialog={() => setOpenDialog(true)}
           onToggleChatGPT={toggleChatGPT}
@@ -116,12 +122,12 @@ const Chat = () => {
               <div className="text-center">
                 <img 
                   src="/lovable-uploads/1d4662ea-cc69-4e4f-9c18-078726ebe91e.png" 
-                  alt="Friendly Plumber" 
+                  alt={`Friendly ${currentAgent.specialty}`} 
                   className="max-w-[200px] mx-auto mb-4"
                 />
                 <div className="bg-white p-4 rounded-xl shadow-md inline-block">
                   <p className="font-medium text-gray-800">
-                    "Hi there! I'm your experienced plumbing assistant. What plumbing problem can I help you with today?"
+                    "{currentAgent.greeting}"
                   </p>
                 </div>
               </div>
