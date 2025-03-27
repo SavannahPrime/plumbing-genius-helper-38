@@ -10,6 +10,7 @@ import { toast } from "@/hooks/use-toast";
 import { useApiKeyManagement } from "@/hooks/useApiKeyManagement";
 import { useChatMessages } from "@/hooks/useChatMessages";
 import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
+import { motion } from "framer-motion";
 
 const Chat = () => {
   // API key management
@@ -106,6 +107,27 @@ const Chat = () => {
       
       <main className="container mx-auto px-4 py-4">
         <div className="max-w-3xl mx-auto">
+          {messages.length <= 1 && (
+            <motion.div
+              className="mb-8 flex justify-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="text-center">
+                <img 
+                  src="/lovable-uploads/3be27937-18fe-451e-a339-37459edc18bb.png" 
+                  alt="Friendly Plumber" 
+                  className="max-w-[200px] mx-auto mb-4"
+                />
+                <div className="bg-white p-4 rounded-xl shadow-md inline-block">
+                  <p className="font-medium text-gray-800">
+                    "Hi there! I'm your experienced plumbing assistant. What plumbing problem can I help you with today?"
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          )}
           <ChatMessages messages={messages} isLoading={isLoading} />
           <ChatInput 
             message={message}
