@@ -17,56 +17,56 @@ const Electrician = () => {
       name: "Lighting Issues", 
       hoverText: "Flickering lights, bulb replacements, fixture questions",
       emoji: "💡",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Plug className="w-5 h-5" />, 
       name: "Outlet Problems", 
       hoverText: "Dead outlets, loose plugs, GFCI issues",
       emoji: "🔌",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Power className="w-5 h-5" />, 
       name: "Circuit Breakers", 
       hoverText: "Tripping breakers, panel questions, labeling help",
       emoji: "⚡",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <ScanLine className="w-5 h-5" />, 
       name: "Appliance Issues", 
       hoverText: "Troubleshooting electrical problems with appliances",
       emoji: "🧰",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Cable className="w-5 h-5" />, 
       name: "Wiring Help", 
       hoverText: "Basic wiring questions and safety information",
       emoji: "🔌",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <PlugZap className="w-5 h-5" />, 
       name: "Smart Devices", 
       hoverText: "Setup and troubleshooting for smart electrical devices",
       emoji: "📱",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <AlertTriangle className="w-5 h-5" />, 
       name: "Safety Checks", 
       hoverText: "Identifying potential electrical hazards",
       emoji: "⚠️",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Wrench className="w-5 h-5" />, 
       name: "DIY Guidance", 
       hoverText: "Safe DIY electrical repairs and when to call a pro",
       emoji: "🔧",
-      path: "/chat"
+      path: "/glossary"
     },
   ];
 

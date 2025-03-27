@@ -17,56 +17,56 @@ const Chef = () => {
       name: "Cooking Techniques", 
       hoverText: "Learn essential cooking methods and skills",
       emoji: "🍳",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Cake className="w-5 h-5" />, 
       name: "Baking", 
       hoverText: "Recipes and tips for cakes, breads, and pastries",
       emoji: "🍰",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Pizza className="w-5 h-5" />, 
       name: "Meal Ideas", 
       hoverText: "Quick and creative meal suggestions",
       emoji: "🍕",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Apple className="w-5 h-5" />, 
       name: "Ingredient Subs", 
       hoverText: "Find alternatives for missing ingredients",
       emoji: "🥑",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Soup className="w-5 h-5" />, 
       name: "Troubleshooting", 
       hoverText: "Fix cooking mistakes and recipe problems",
       emoji: "🥘",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Coffee className="w-5 h-5" />, 
       name: "Beverages", 
       hoverText: "Cocktails, mocktails, coffee, and tea recipes",
       emoji: "🍹",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Timer className="w-5 h-5" />, 
       name: "Meal Prep", 
       hoverText: "Time-saving tips and batch cooking ideas",
       emoji: "⏱️",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Wheat className="w-5 h-5" />, 
       name: "Dietary Needs", 
       hoverText: "Vegan, gluten-free, keto, and other special diets",
       emoji: "🌱",
-      path: "/chat"
+      path: "/glossary"
     },
   ];
 

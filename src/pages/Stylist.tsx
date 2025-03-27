@@ -17,56 +17,56 @@ const Stylist = () => {
       name: "Hair Advice", 
       hoverText: "Styles, cuts, color ideas, and hair care",
       emoji: "💇",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Shirt className="w-5 h-5" />, 
       name: "Outfit Ideas", 
       hoverText: "Styling tips and outfit combinations",
       emoji: "👚",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <ShoppingBag className="w-5 h-5" />, 
       name: "Shopping Help", 
       hoverText: "Finding the right pieces for your wardrobe",
       emoji: "🛍️",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Palette className="w-5 h-5" />, 
       name: "Color Analysis", 
       hoverText: "Find your best colors and seasonal palette",
       emoji: "🎨",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <ShirtIcon className="w-5 h-5" />, 
       name: "Body Types", 
       hoverText: "Dress for your shape and proportions",
       emoji: "👗",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Brush className="w-5 h-5" />, 
       name: "Makeup Tips", 
       hoverText: "Techniques, product recommendations, and looks",
       emoji: "💄",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Sparkles className="w-5 h-5" />, 
       name: "Special Events", 
       hoverText: "Styling for weddings, interviews, and occasions",
       emoji: "✨",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Heart className="w-5 h-5" />, 
       name: "Personal Style", 
       hoverText: "Develop your signature look and aesthetic",
       emoji: "💖",
-      path: "/chat"
+      path: "/glossary"
     },
   ];
 

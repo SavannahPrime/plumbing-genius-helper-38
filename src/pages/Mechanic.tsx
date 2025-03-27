@@ -18,56 +18,56 @@ const Mechanic = () => {
       name: "Engine Issues", 
       hoverText: "Engine warning lights, strange noises, or performance problems",
       emoji: "🚗",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Wrench className="w-5 h-5" />, 
       name: "Maintenance", 
       hoverText: "Regular service schedules and DIY maintenance tips",
       emoji: "🔧",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Gauge className="w-5 h-5" />, 
       name: "Dashboard Warnings", 
       hoverText: "Help understanding dashboard warning lights",
       emoji: "⚠️",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Battery className="w-5 h-5" />, 
       name: "Battery & Electrical", 
       hoverText: "Battery problems, electrical system issues, and fuses",
       emoji: "🔋",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <ActivitySquare className="w-5 h-5" />, 
       name: "Brakes & Suspension", 
       hoverText: "Brake noises, handling issues, and suspension problems",
       emoji: "🛑",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Thermometer className="w-5 h-5" />, 
       name: "HVAC Issues", 
       hoverText: "Heating, cooling, and air conditioning problems",
       emoji: "❄️",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Settings className="w-5 h-5" />, 
       name: "Transmission", 
       hoverText: "Shifting problems, strange noises, or fluid leaks",
       emoji: "⚙️",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <AlertTriangle className="w-5 h-5" />, 
       name: "Diagnostics", 
       hoverText: "Help troubleshooting vehicle problems",
       emoji: "🔍",
-      path: "/chat"
+      path: "/glossary"
     },
   ];
 

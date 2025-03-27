@@ -22,7 +22,7 @@ const QuickFixSection = () => {
       </h3>
       
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-        <Link to="/chat" className="w-full max-w-xs">
+        <Link to="/glossary" className="w-full max-w-xs">
           <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
             <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
               <span className="text-xl">🛠️</span>
@@ -62,7 +62,7 @@ const QuickFixSection = () => {
         
         <ArrowRight className="w-5 h-5 text-neutrals-steel hidden md:block" />
         
-        <Link to="/chat" className="w-full max-w-xs">
+        <Link to="/glossary" className="w-full max-w-xs">
           <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
             <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
               <span className="text-xl">✅</span>
@@ -74,7 +74,7 @@ const QuickFixSection = () => {
       </div>
       
       <div className="mt-6 flex justify-center">
-        <Link to="/chat">
+        <Link to="/glossary">
           <Button className="bg-primary hover:bg-primary/90 rounded-xl">
             Get Started
             <ArrowRight className="w-4 h-4 ml-1" />

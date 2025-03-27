@@ -30,56 +30,56 @@ const HandymanHero = () => {
       name: "Wall Repairs", 
       hoverText: "Holes, cracks, dents, and painting touch-ups",
       emoji: "🧱",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Wrench className="w-5 h-5" />, 
       name: "Furniture", 
       hoverText: "Assembly, repairs, and adjustments",
       emoji: "🪑",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <PaintBucket className="w-5 h-5" />, 
       name: "Painting", 
       hoverText: "Preparation, techniques, and finishing",
       emoji: "🎨",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Hammer className="w-5 h-5" />, 
       name: "Mounting", 
       hoverText: "TVs, shelves, artwork, and heavy items",
       emoji: "📺",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Wrench className="w-5 h-5" />, 
       name: "Door Issues", 
       hoverText: "Squeaky hinges, sticking doors, knob problems",
       emoji: "🚪",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Ruler className="w-5 h-5" />, 
       name: "Flooring", 
       hoverText: "Small repairs for wood, tile, laminate, and carpet",
       emoji: "🪵",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Stethoscope className="w-5 h-5" />, 
       name: "Diagnostics", 
       hoverText: "Identify issues with furniture and fixtures",
       emoji: "🔍",
-      path: "/chat"
+      path: "/glossary"
     },
     { 
       icon: <Shield className="w-5 h-5" />, 
       name: "Safety", 
       hoverText: "Childproofing, securing furniture, safety checks",
       emoji: "🛡️",
-      path: "/chat"
+      path: "/glossary"
     },
   ];
 
