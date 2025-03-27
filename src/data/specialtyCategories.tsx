@@ -1,17 +1,6 @@
 
-import React from "react";
-import { 
-  ChefHat, 
-  Wrench, 
-  Scissors, 
-  Zap, 
-  Smartphone, 
-  Droplet, 
-  Car, 
-  Hammer, 
-  Bath
-} from "lucide-react";
 import { QuickActionCategory } from "@/components/shared/QuickActionCategory";
+import { createIcon } from "@/utils/iconUtils";
 
 // Category data for different specialties
 export const specialtyCategories: Record<string, { title: string, categories: QuickActionCategory[] }> = {
@@ -19,28 +8,32 @@ export const specialtyCategories: Record<string, { title: string, categories: Qu
     title: "Quick Cooking Solutions",
     categories: [
       {
-        icon: <ChefHat className="h-4 w-4 text-primary" />,
+        iconType: "chef",
+        icon: createIcon("chef"),
         name: "Recipe Fixes",
         hoverText: "Solutions for common cooking mistakes and recipe adjustments",
         emoji: "🍳",
         path: "/chef/glossary"
       },
       {
-        icon: <ChefHat className="h-4 w-4 text-primary" />,
+        iconType: "chef",
+        icon: createIcon("chef"),
         name: "Substitutions",
         hoverText: "Find ingredient substitutions when you're missing something",
         emoji: "🥄",
         path: "/chef/glossary"
       },
       {
-        icon: <ChefHat className="h-4 w-4 text-primary" />,
+        iconType: "chef",
+        icon: createIcon("chef"),
         name: "Kitchen Tools",
         hoverText: "Tips for using and maintaining kitchen equipment",
         emoji: "🔪",
         path: "/chef/glossary"
       },
       {
-        icon: <ChefHat className="h-4 w-4 text-primary" />,
+        iconType: "chef",
+        icon: createIcon("chef"),
         name: "Food Storage",
         hoverText: "Best practices for storing and preserving food",
         emoji: "🧊",
@@ -52,28 +45,32 @@ export const specialtyCategories: Record<string, { title: string, categories: Qu
     title: "Quick Repair Solutions",
     categories: [
       {
-        icon: <Hammer className="h-4 w-4 text-primary" />,
+        iconType: "hammer",
+        icon: createIcon("hammer"),
         name: "Furniture Fixes",
         hoverText: "Quick solutions for wobbly chairs, stuck drawers and more",
         emoji: "🪑",
         path: "/handyman/glossary"
       },
       {
-        icon: <Hammer className="h-4 w-4 text-primary" />,
+        iconType: "hammer",
+        icon: createIcon("hammer"),
         name: "Wall Repairs",
         hoverText: "Fix holes, cracks and other wall damage",
         emoji: "🧱",
         path: "/handyman/glossary"
       },
       {
-        icon: <Hammer className="h-4 w-4 text-primary" />,
+        iconType: "hammer",
+        icon: createIcon("hammer"),
         name: "Door & Windows",
         hoverText: "Solutions for sticking doors, window problems and hardware issues",
         emoji: "🚪",
         path: "/handyman/glossary"
       },
       {
-        icon: <Hammer className="h-4 w-4 text-primary" />,
+        iconType: "hammer",
+        icon: createIcon("hammer"),
         name: "Floor Repairs",
         hoverText: "Fixes for scratched wood, cracked tile and carpet issues",
         emoji: "🪵",
@@ -85,28 +82,32 @@ export const specialtyCategories: Record<string, { title: string, categories: Qu
     title: "Quick Style Solutions",
     categories: [
       {
-        icon: <Scissors className="h-4 w-4 text-primary" />,
+        iconType: "scissors",
+        icon: createIcon("scissors"),
         name: "Hair Fixes",
         hoverText: "Quick solutions for common hair problems and styling issues",
         emoji: "💇‍♀️",
         path: "/stylist/glossary"
       },
       {
-        icon: <Scissors className="h-4 w-4 text-primary" />,
+        iconType: "scissors",
+        icon: createIcon("scissors"),
         name: "Makeup Tips",
         hoverText: "Quick makeup fixes and application techniques",
         emoji: "💄",
         path: "/stylist/glossary"
       },
       {
-        icon: <Scissors className="h-4 w-4 text-primary" />,
+        iconType: "scissors",
+        icon: createIcon("scissors"),
         name: "Fashion Help",
         hoverText: "Outfit combinations and wardrobe solutions",
         emoji: "👚",
         path: "/stylist/glossary"
       },
       {
-        icon: <Scissors className="h-4 w-4 text-primary" />,
+        iconType: "scissors",
+        icon: createIcon("scissors"),
         name: "Accessories",
         hoverText: "Tips for selecting and styling accessories",
         emoji: "👜",
@@ -118,28 +119,32 @@ export const specialtyCategories: Record<string, { title: string, categories: Qu
     title: "Quick Electrical Solutions",
     categories: [
       {
-        icon: <Zap className="h-4 w-4 text-primary" />,
+        iconType: "zap",
+        icon: createIcon("zap"),
         name: "Light Fixtures",
         hoverText: "Solutions for lighting problems and installations",
         emoji: "💡",
         path: "/electrician/glossary"
       },
       {
-        icon: <Zap className="h-4 w-4 text-primary" />,
+        iconType: "zap",
+        icon: createIcon("zap"),
         name: "Outlet Issues",
         hoverText: "Fixes for non-working outlets and electrical connections",
         emoji: "🔌",
         path: "/electrician/glossary"
       },
       {
-        icon: <Zap className="h-4 w-4 text-primary" />,
+        iconType: "zap",
+        icon: createIcon("zap"),
         name: "Switches",
         hoverText: "Troubleshooting and replacing problematic switches",
         emoji: "🔄",
         path: "/electrician/glossary"
       },
       {
-        icon: <Zap className="h-4 w-4 text-primary" />,
+        iconType: "zap",
+        icon: createIcon("zap"),
         name: "Smart Devices",
         hoverText: "Help with smart home electrical installations",
         emoji: "🏠",
@@ -151,28 +156,32 @@ export const specialtyCategories: Record<string, { title: string, categories: Qu
     title: "Quick Landscaping Solutions",
     categories: [
       {
-        icon: <Wrench className="h-4 w-4 text-primary" />,
+        iconType: "wrench",
+        icon: createIcon("wrench"),
         name: "Lawn Care",
         hoverText: "Solutions for common lawn problems and maintenance",
         emoji: "🌱",
         path: "/landscaper/glossary"
       },
       {
-        icon: <Wrench className="h-4 w-4 text-primary" />,
+        iconType: "wrench",
+        icon: createIcon("wrench"),
         name: "Plant Health",
         hoverText: "Diagnose and treat plant diseases and issues",
         emoji: "🌿",
         path: "/landscaper/glossary"
       },
       {
-        icon: <Wrench className="h-4 w-4 text-primary" />,
+        iconType: "wrench",
+        icon: createIcon("wrench"),
         name: "Garden Design",
         hoverText: "Tips for planning and arranging garden layouts",
         emoji: "🌷",
         path: "/landscaper/glossary"
       },
       {
-        icon: <Wrench className="h-4 w-4 text-primary" />,
+        iconType: "wrench",
+        icon: createIcon("wrench"),
         name: "Irrigation",
         hoverText: "Help with watering systems and water management",
         emoji: "💧",
@@ -184,28 +193,32 @@ export const specialtyCategories: Record<string, { title: string, categories: Qu
     title: "Quick Auto Solutions",
     categories: [
       {
-        icon: <Car className="h-4 w-4 text-primary" />,
+        iconType: "car",
+        icon: createIcon("car"),
         name: "Engine Issues",
         hoverText: "Diagnosing and fixing common engine problems",
         emoji: "🔧",
         path: "/mechanic/glossary"
       },
       {
-        icon: <Car className="h-4 w-4 text-primary" />,
+        iconType: "car",
+        icon: createIcon("car"),
         name: "Fluid Checks",
         hoverText: "How to check and replace automotive fluids",
         emoji: "🛢️",
         path: "/mechanic/glossary"
       },
       {
-        icon: <Car className="h-4 w-4 text-primary" />,
+        iconType: "car",
+        icon: createIcon("car"),
         name: "Tire Care",
         hoverText: "Tire maintenance, pressure checks and replacements",
         emoji: "🛞",
         path: "/mechanic/glossary"
       },
       {
-        icon: <Car className="h-4 w-4 text-primary" />,
+        iconType: "car",
+        icon: createIcon("car"),
         name: "Battery Help",
         hoverText: "Troubleshooting battery issues and replacements",
         emoji: "🔋",
@@ -217,28 +230,32 @@ export const specialtyCategories: Record<string, { title: string, categories: Qu
     title: "Quick Cleaning Solutions",
     categories: [
       {
-        icon: <Bath className="h-4 w-4 text-primary" />,
+        iconType: "bath",
+        icon: createIcon("bath"),
         name: "Stain Removal",
         hoverText: "Solutions for removing common stains from various surfaces",
         emoji: "🧴",
         path: "/cleaning/glossary"
       },
       {
-        icon: <Bath className="h-4 w-4 text-primary" />,
+        iconType: "bath",
+        icon: createIcon("bath"),
         name: "Deep Cleaning",
         hoverText: "Tips for thorough cleaning of heavily soiled areas",
         emoji: "🧽",
         path: "/cleaning/glossary"
       },
       {
-        icon: <Bath className="h-4 w-4 text-primary" />,
+        iconType: "bath",
+        icon: createIcon("bath"),
         name: "Quick Tidying",
         hoverText: "Fast methods to tidy and organize spaces",
         emoji: "🧹",
         path: "/cleaning/glossary"
       },
       {
-        icon: <Bath className="h-4 w-4 text-primary" />,
+        iconType: "bath",
+        icon: createIcon("bath"),
         name: "Cleaning Tools",
         hoverText: "Advice on selecting and using cleaning equipment",
         emoji: "🧼",
@@ -250,28 +267,32 @@ export const specialtyCategories: Record<string, { title: string, categories: Qu
     title: "Quick Tech Solutions",
     categories: [
       {
-        icon: <Smartphone className="h-4 w-4 text-primary" />,
+        iconType: "smartphone",
+        icon: createIcon("smartphone"),
         name: "Smartphone Fixes",
         hoverText: "Solutions for common smartphone issues and performance problems",
         emoji: "📱",
         path: "/gadget/glossary"
       },
       {
-        icon: <Smartphone className="h-4 w-4 text-primary" />,
+        iconType: "smartphone",
+        icon: createIcon("smartphone"),
         name: "Computer Help",
         hoverText: "Troubleshooting computer problems and maintenance tips",
         emoji: "💻",
         path: "/gadget/glossary"
       },
       {
-        icon: <Smartphone className="h-4 w-4 text-primary" />,
+        iconType: "smartphone",
+        icon: createIcon("smartphone"),
         name: "Smart Home",
         hoverText: "Setup and fix issues with smart home devices",
         emoji: "🏠",
         path: "/gadget/glossary"
       },
       {
-        icon: <Smartphone className="h-4 w-4 text-primary" />,
+        iconType: "smartphone",
+        icon: createIcon("smartphone"),
         name: "Connectivity",
         hoverText: "Solutions for WiFi, Bluetooth and network problems",
         emoji: "📶",
@@ -283,28 +304,32 @@ export const specialtyCategories: Record<string, { title: string, categories: Qu
     title: "Quick Plumbing Solutions",
     categories: [
       {
-        icon: <Droplet className="h-4 w-4 text-primary" />,
+        iconType: "droplet",
+        icon: createIcon("droplet"),
         name: "Clogged Drains",
         hoverText: "Solutions for clearing blockages in sinks, tubs and toilets",
         emoji: "🚿",
         path: "/plumber/glossary"
       },
       {
-        icon: <Droplet className="h-4 w-4 text-primary" />,
+        iconType: "droplet",
+        icon: createIcon("droplet"),
         name: "Leak Fixes",
         hoverText: "How to identify and repair common plumbing leaks",
         emoji: "💧",
         path: "/plumber/glossary"
       },
       {
-        icon: <Droplet className="h-4 w-4 text-primary" />,
+        iconType: "droplet",
+        icon: createIcon("droplet"),
         name: "Toilet Trouble",
         hoverText: "Fixes for running toilets, weak flushes and other issues",
         emoji: "🚽",
         path: "/plumber/glossary"
       },
       {
-        icon: <Droplet className="h-4 w-4 text-primary" />,
+        iconType: "droplet",
+        icon: createIcon("droplet"),
         name: "Faucet Repair",
         hoverText: "Solutions for dripping, squeaking or stuck faucets",
         emoji: "🚰",

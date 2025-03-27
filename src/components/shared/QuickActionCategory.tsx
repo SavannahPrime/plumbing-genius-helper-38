@@ -3,8 +3,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { getContextSpecificPath } from "@/utils/pathUtils";
+import { IconType } from "@/utils/iconUtils";
 
 export interface QuickActionCategory {
+  iconType: IconType;
   icon: React.ReactNode;
   name: string;
   hoverText: string;
