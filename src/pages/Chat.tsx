@@ -13,6 +13,7 @@ import { toast } from "@/hooks/use-toast";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 const ELEVEN_LABS_AGENT_URL = "https://elevenlabs.io/app/talk-to?agent_id=lX8syHY754gA8SdjQU6n";
+const ELEVEN_LABS_AGENT_ID = "lX8syHY754gA8SdjQU6n";
 
 const Chat = () => {
   const [message, setMessage] = useState("");
@@ -38,6 +39,20 @@ const Chat = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
+
+  useEffect(() => {
+    // Load the ElevenLabs script only once
+    if (!window.elevenlabsAgentLoaded) {
+      const script = document.createElement('script');
+      script.src = "https://elevenlabs.io/convai-widget/index.js";
+      script.async = true;
+      script.onload = () => {
+        window.elevenlabsAgentLoaded = true;
+        console.log("ElevenLabs script loaded");
+      };
+      document.body.appendChild(script);
+    }
+  }, []);
 
   const saveApiKey = (key: string) => {
     setApiKey(key);
@@ -175,7 +190,53 @@ const Chat = () => {
   };
 
   const handleMicClick = () => {
-    window.open(ELEVEN_LABS_AGENT_URL, '_blank', 'noopener,noreferrer');
+    let agentElement = document.querySelector(`elevenlabs-convai[agent-id="${ELEVEN_LABS_AGENT_ID}"]`);
+    
+    if (!agentElement) {
+      agentElement = document.createElement('elevenlabs-convai');
+      agentElement.setAttribute('agent-id', ELEVEN_LABS_AGENT_ID);
+      
+      const style = document.createElement('style');
+      style.textContent = `
+        elevenlabs-convai {
+          position: fixed;
+          top: -1000px;
+          left: -1000px;
+          opacity: 0;
+          pointer-events: auto;
+          z-index: -1;
+        }
+      `;
+      document.head.appendChild(style);
+      document.body.appendChild(agentElement);
+    }
+
+    setTimeout(() => {
+      const shadowRoot = agentElement?.shadowRoot;
+      const button = shadowRoot?.querySelector('button');
+      
+      if (button) {
+        button.click();
+        console.log("Voice assistant activated");
+      } else {
+        toast({
+          title: "Voice Assistant",
+          description: "Starting voice assistant...",
+        });
+        setTimeout(() => {
+          const retryButton = agentElement?.shadowRoot?.querySelector('button');
+          if (retryButton) {
+            retryButton.click();
+          } else {
+            toast({
+              title: "Voice Assistant Issue",
+              description: "Please try again in a moment.",
+              variant: "destructive"
+            });
+          }
+        }, 1000);
+      }
+    }, 100);
   };
 
   return (

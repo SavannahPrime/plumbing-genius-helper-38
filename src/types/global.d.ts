@@ -1,0 +1,4 @@
+
+interface Window {
+  elevenlabsAgentLoaded?: boolean;
+}
