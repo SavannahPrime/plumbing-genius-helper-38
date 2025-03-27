@@ -106,10 +106,10 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           title="Landscaper Buddy"
           tagline="Your AI yard partner — from soil to sprinkler."
           path="/landscaper"
-          color="bg-emerald-100"
-          hoverColor="bg-emerald-200"
-          iconColor="bg-emerald-600"
-          buttonTextColor="text-emerald-700 hover:text-emerald-800"
+          color="bg-green-100"
+          hoverColor="bg-green-200"
+          iconColor="bg-green-600"
+          buttonTextColor="text-green-700 hover:text-green-800"
         />
         
         <ProductCard
