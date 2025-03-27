@@ -3,6 +3,9 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Button } from "@/components/ui/button";
 import { Settings, Mic, RefreshCw } from "lucide-react";
 import { useElevenLabsWidget } from "@/hooks/useElevenLabsWidget";
+import { useState } from "react";
+import ApiKeyDialog from "./ApiKeyDialog";
+import { toast } from "sonner";
 
 export interface ChatSettingsProps {
   apiKey: string;
@@ -13,14 +16,24 @@ export interface ChatSettingsProps {
 
 const ChatSettings = ({ apiKey, setApiKey, isUsingChatGPT, setIsUsingChatGPT }: ChatSettingsProps) => {
   const { agentId, isInitialized, resetWidget } = useElevenLabsWidget();
+  const [openDialog, setOpenDialog] = useState(false);
+  const [tempApiKey, setTempApiKey] = useState(apiKey);
 
   const onOpenApiKeyDialog = () => {
-    // Implementation would go here
-    console.log("Open API key dialog");
+    setTempApiKey(apiKey);
+    setOpenDialog(true);
   };
 
   const onToggleChatGPT = () => {
     setIsUsingChatGPT(!isUsingChatGPT);
+  };
+
+  const onSaveApiKey = (key: string) => {
+    setApiKey(key);
+    setOpenDialog(false);
+    toast("API Key Updated", {
+      description: "Your OpenAI API key has been updated successfully."
+    });
   };
   
   return (
@@ -51,6 +64,14 @@ const ChatSettings = ({ apiKey, setApiKey, isUsingChatGPT, setIsUsingChatGPT }: 
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+
+      <ApiKeyDialog
+        open={openDialog}
+        onOpenChange={setOpenDialog}
+        apiKey={tempApiKey}
+        onApiKeyChange={setTempApiKey}
+        onSave={onSaveApiKey}
+      />
     </div>
   );
 };
