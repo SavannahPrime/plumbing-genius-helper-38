@@ -1,29 +1,21 @@
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Wrench, MessageSquare, Image as ImageIcon, MoreVertical, Settings, Toilet, Droplet, Bath, Flame, Trash2, Info, ArrowRight } from "lucide-react";
+import { 
+  Wrench, 
+  MessageSquare, 
+  Image as ImageIcon, 
+  Settings, 
+  Toilet, 
+  Droplet, 
+  Bath, 
+  Flame, 
+  Trash2, 
+  Info, 
+  ArrowRight 
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-
-const features = [
-  {
-    icon: <MessageSquare className="w-6 h-6 text-secondary" />,
-    title: "AI Chat Assistant",
-    description: "Get instant help from our AI plumbing expert",
-    link: "/chat"
-  },
-  {
-    icon: <ImageIcon className="w-6 h-6 text-secondary" />,
-    title: "Visual Diagnosis",
-    description: "Upload photos for AI-powered problem identification",
-    link: "/diagnosis"
-  },
-  {
-    icon: <Settings className="w-6 h-6 text-secondary" />,
-    title: "Common Problems",
-    description: "Browse guides for frequent plumbing issues",
-    link: "/fixes"
-  }
-];
 
 const problemCategories = [
   { icon: <Toilet className="w-5 h-5" />, name: "Toilet", query: "I have a problem with my toilet." },
@@ -39,157 +31,108 @@ const problemCategories = [
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-[#F5F5F5]">
+    <div className="min-h-screen bg-[#F8F9FA] font-sans text-[#1D3557]">
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <Wrench className="w-7 h-7 text-[#0A2540]" />
-            <span className="font-inter font-bold text-xl text-[#0A2540]">
+            <Wrench className="w-7 h-7 text-[#1D3557]" />
+            <span className="font-inter font-bold text-xl text-[#1D3557]">
               Plumber's Helper
             </span>
           </div>
-          <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-            <MoreVertical className="w-6 h-6 text-gray-600" />
-          </button>
+          <nav className="text-sm text-[#607D8B] hidden md:block">
+            <Link to="/fixes" className="mr-4 hover:underline">Find a Real Plumber</Link>
+            <Link to="/fixes" className="hover:underline">Privacy</Link>
+          </nav>
         </div>
       </header>
 
       <main className="container mx-auto px-4 py-12">
         {/* Hero Section */}
-        <div className="max-w-2xl mx-auto text-center mb-12">
-          <motion.h1 
-            className="font-inter font-bold text-[28px] md:text-[32px] text-[#0A2540] mb-4"
+        <section className="grid grid-cols-1 md:grid-cols-2 items-center gap-10 mb-12">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            Your AI-Powered Plumbing Assistant
-          </motion.h1>
-          <motion.h2 
-            className="font-roboto text-base md:text-lg text-gray-700 mb-8"
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Your AI-Powered Plumbing Assistant</h2>
+            <p className="mb-6 text-lg text-[#37474F]">
+              Talk to our AI plumber, upload photos, and get step-by-step help — instantly.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 mb-6">
+              <Link to="/chat">
+                <Button 
+                  className="w-full sm:w-auto text-lg py-6 px-8 bg-[#1D3557] hover:bg-[#1D3557]/90 shadow-md active:scale-[0.98] transition-all"
+                >
+                  <MessageSquare className="w-5 h-5 mr-2" />
+                  Start Chat
+                </Button>
+              </Link>
+              <Link to="/diagnosis">
+                <Button 
+                  className="w-full sm:w-auto text-lg py-6 px-8 bg-[#4FC3F7] hover:bg-[#03A9F4] text-white shadow-md active:scale-[0.98] transition-all"
+                >
+                  <ImageIcon className="w-5 h-5 mr-2" />
+                  Visual Diagnosis
+                </Button>
+              </Link>
+            </div>
+            <div className="text-sm text-[#78909C]">Or explore quick help topics below 👇</div>
+          </motion.div>
+          <motion.div 
+            className="flex justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Get instant solutions for your plumbing problems with our intelligent assistant. 
-            Upload photos, follow guides, and solve issues quickly.
-          </motion.h2>
-
-          {/* CTA Buttons */}
-          <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <Link to="/chat">
-              <Button 
-                className="w-full sm:w-auto text-lg py-6 px-8 bg-[#0A2540] hover:bg-[#0A2540]/90 shadow-md active:scale-[0.98] transition-all"
-              >
-                <MessageSquare className="w-5 h-5 mr-2" />
-                Talk to the AI Plumber
-              </Button>
-            </Link>
-            <Link to="/diagnosis">
-              <Button 
-                variant="secondary"
-                className="w-full sm:w-auto text-lg py-6 px-8 shadow-md active:scale-[0.98] transition-all"
-              >
-                <ImageIcon className="w-5 h-5 mr-2" />
-                Upload a Problem Photo
-              </Button>
-            </Link>
-          </motion.div>
-          
-          {/* Problem Categories Section */}
-          <motion.div
-            className="mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-          >
-            <h3 className="font-inter font-semibold text-xl text-gray-800 mb-4">
-              Select Your Plumbing Problem
-            </h3>
-            <div className="overflow-x-auto pb-4">
-              <div className="flex gap-2 justify-start min-w-max mx-auto max-w-full">
-                {problemCategories.map((category, index) => (
-                  <Link 
-                    key={index} 
-                    to={`/chat?problem=${encodeURIComponent(category.query)}`}
-                    className="flex-shrink-0"
-                  >
-                    <Button 
-                      variant="outline" 
-                      className="bg-white hover:bg-gray-50 border-gray-200 py-6 px-4 h-auto flex flex-col gap-2 min-w-[90px]"
-                    >
-                      <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
-                        {category.icon}
-                      </div>
-                      <span className="text-sm font-medium text-gray-800">
-                        {category.name}
-                      </span>
-                    </Button>
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <Link to="/fixes" className="text-blue-600 hover:text-blue-800 text-sm flex items-center gap-1 font-medium">
-                See all plumbing problems <ArrowRight className="w-4 h-4" />
-              </Link>
+            <div className="w-64 h-64 rounded-full bg-[#E3F2FD] flex items-center justify-center animate-bounce-slow">
+              <Wrench className="w-32 h-32 text-[#1D3557]" />
             </div>
           </motion.div>
-        </div>
+        </section>
 
-        {/* Feature Cards */}
-        <motion.div 
-          className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto"
+        {/* Quick Help Buttons */}
+        <motion.section
+          className="mt-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
         >
-          {features.map((feature, index) => (
-            <Link to={feature.link} key={index}>
-              <Card className="p-6 hover:shadow-lg transition-shadow duration-200">
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 rounded-full bg-[#00AEEF]/10 flex items-center justify-center flex-shrink-0">
-                    {feature.icon}
+          <h3 className="text-xl font-semibold mb-4">🧰 Common Issues</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {problemCategories.map((category, index) => (
+              <Link 
+                key={index} 
+                to={`/chat?problem=${encodeURIComponent(category.query)}`}
+                className="bg-white rounded-xl shadow-md p-4 text-left hover:shadow-lg transition-shadow"
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
+                    {category.icon}
                   </div>
-                  <div>
-                    <h3 className="font-inter font-bold text-lg text-gray-900 mb-2">
-                      {feature.title}
-                    </h3>
-                    <p className="font-roboto text-base text-gray-700">
-                      {feature.description}
-                    </p>
-                  </div>
+                  <span>{category.name}</span>
                 </div>
-              </Card>
-            </Link>
-          ))}
-        </motion.div>
-        
-        {/* Emergency Call-To-Action */}
-        <motion.div
-          className="max-w-4xl mx-auto mt-16 bg-red-50 border border-red-100 rounded-lg p-6 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.0 }}
-        >
-          <div className="flex flex-col items-center">
-            <h3 className="font-inter font-semibold text-lg text-red-800 mb-2 flex items-center">
-              <Info className="w-5 h-5 mr-2" /> Emergency Situation?
-            </h3>
-            <p className="text-red-700 mb-4">
-              If water is gushing or pipes are broken, we recommend calling a licensed plumber.
-            </p>
-            <Button variant="outline" className="border-red-300 text-red-700 hover:bg-red-100">
-              Find Local Plumber
-            </Button>
+              </Link>
+            ))}
           </div>
-        </motion.div>
+          <div className="flex justify-center mt-6">
+            <Link to="/fixes" className="text-blue-600 hover:text-blue-800 text-sm flex items-center gap-1 font-medium">
+              See all plumbing problems <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </motion.section>
+
+        {/* Footer */}
+        <motion.footer 
+          className="mt-20 border-t pt-6 text-sm text-[#90A4AE] flex justify-between items-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
+          <p>&copy; {new Date().getFullYear()} Plumber's Helper. All rights reserved.</p>
+          <Wrench className="w-6 h-6 text-[#90A4AE]" />
+        </motion.footer>
       </main>
     </div>
   );

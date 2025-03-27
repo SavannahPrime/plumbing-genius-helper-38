@@ -47,3 +47,12 @@
     @apply backdrop-blur-lg bg-white/90 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-200;
   }
 }
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s infinite;
+}
