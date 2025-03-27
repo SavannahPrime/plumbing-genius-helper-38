@@ -36,7 +36,7 @@ const GadgetFixGenie = () => {
             <Button 
               size="lg" 
               className="h-auto py-6 px-4 bg-purple-600 hover:bg-purple-700"
-              onClick={() => navigate("/chat")}
+              onClick={() => navigate("/chat?specialty=gadget")}
             >
               <div className="flex flex-col items-center">
                 <MessageSquare className="h-8 w-8 mb-2" />
@@ -51,7 +51,7 @@ const GadgetFixGenie = () => {
               variant="secondary" 
               size="lg" 
               className="h-auto py-6 px-4 bg-purple-200 text-purple-900 hover:bg-purple-300"
-              onClick={() => navigate("/diagnosis")}
+              onClick={() => navigate("/diagnosis?specialty=gadget")}
             >
               <div className="flex flex-col items-center">
                 <Camera className="h-8 w-8 mb-2" />

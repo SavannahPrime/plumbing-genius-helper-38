@@ -141,7 +141,7 @@ const Chef = () => {
               <Button 
                 variant="outline" 
                 className="w-full border-amber-200 hover:bg-amber-50"
-                onClick={() => navigate("/chat")}
+                onClick={() => navigate("/chat?specialty=chef")}
               >
                 Find Recipes with Your Ingredients
               </Button>
@@ -150,14 +150,14 @@ const Chef = () => {
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
               <Button 
                 className="w-full sm:w-auto text-lg py-6 px-8 bg-amber-600 hover:bg-amber-700 shadow-md active:scale-[0.98] transition-all rounded-xl"
-                onClick={() => navigate("/chat")}
+                onClick={() => navigate("/chat?specialty=chef")}
               >
                 <MessageSquare className="w-5 h-5 mr-2" />
                 Ask Chef
               </Button>
               <Button 
                 className="w-full sm:w-auto text-lg py-6 px-8 bg-amber-800 hover:bg-amber-900 text-white shadow-md active:scale-[0.98] transition-all rounded-xl"
-                onClick={() => navigate("/diagnosis")}
+                onClick={() => navigate("/diagnosis?specialty=chef")}
               >
                 <ImageIcon className="w-5 h-5 mr-2" />
                 Analyze Food Photo

@@ -141,7 +141,7 @@ const Stylist = () => {
               <Button 
                 variant="outline" 
                 className="w-full border-pink-200 hover:bg-pink-50"
-                onClick={() => navigate("/diagnosis")}
+                onClick={() => navigate("/diagnosis?specialty=stylist")}
               >
                 Upload Style Photo
               </Button>
@@ -150,14 +150,14 @@ const Stylist = () => {
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
               <Button 
                 className="w-full sm:w-auto text-lg py-6 px-8 bg-pink-500 hover:bg-pink-600 shadow-md active:scale-[0.98] transition-all rounded-xl"
-                onClick={() => navigate("/chat")}
+                onClick={() => navigate("/chat?specialty=stylist")}
               >
                 <MessageSquare className="w-5 h-5 mr-2" />
                 Ask Stylist
               </Button>
               <Button 
                 className="w-full sm:w-auto text-lg py-6 px-8 bg-pink-700 hover:bg-pink-800 text-white shadow-md active:scale-[0.98] transition-all rounded-xl"
-                onClick={() => navigate("/diagnosis")}
+                onClick={() => navigate("/diagnosis?specialty=stylist")}
               >
                 <ImageIcon className="w-5 h-5 mr-2" />
                 Photo Advice
