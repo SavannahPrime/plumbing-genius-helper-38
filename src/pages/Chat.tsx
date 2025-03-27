@@ -1,46 +1,24 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { useSearchParams, useLocation } from "react-router-dom";
 import ChatHeader from "@/components/chat/ChatHeader";
-import ChatMessages from "@/components/chat/ChatMessages";
-import ChatInput from "@/components/chat/ChatInput";
 import ChatSettings from "@/components/chat/ChatSettings";
-import { useChatMessages } from "@/hooks/useChatMessages";
+import ChatContent from "@/components/chat/ChatContent";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { Message } from "@/types/chat";
+import { useChatMessages } from "@/hooks/useChatMessages";
 import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
-import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
-import { analyzeImageForSpecialty } from "@/services/specializedAgentService";
-import { toast } from "sonner";
+import { useImageUpload } from "@/hooks/useImageUpload";
+import { useApiKeyNotification } from "@/hooks/useApiKeyNotification";
+import { AgentSpecialty } from "@/services/specializedAgentService";
 
 const Chat = () => {
   // Load the API key from localStorage with the correct key name
   const [apiKey, setApiKey] = useLocalStorage<string>("openai_api_key", "");
   const [isUsingChatGPT, setIsUsingChatGPT] = useLocalStorage<boolean>("using-chatgpt", true);
   
-  useEffect(() => {
-    // Log API key status for debugging
-    console.log("API Key Status:", apiKey ? "Key is set" : "No key available");
-    
-    // Check if API key is missing or empty
-    if (!apiKey) {
-      toast("API Key Needed", {
-        description: "Please set your OpenAI API key in settings to enable all features",
-        action: {
-          label: "Settings",
-          onClick: () => {
-            const settingsButton = document.querySelector('.settings-button');
-            if (settingsButton instanceof HTMLElement) {
-              settingsButton.click();
-            }
-          }
-        }
-      });
-    }
-  }, [apiKey]);
+  // Show notification if API key is missing
+  useApiKeyNotification(apiKey);
   
   const { handleMicClick } = useElevenLabsAgent();
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [isUploading, setIsUploading] = useState(false);
   const [searchParams] = useSearchParams();
   const location = useLocation();
   
@@ -83,10 +61,17 @@ const Chat = () => {
     currentAgentSpecialty
   } = useChatMessages(apiKey, isUsingChatGPT);
 
+  // Use the image upload hook
+  const { fileInputRef, isUploading, handleImageUpload } = useImageUpload(
+    apiKey,
+    setMessages,
+    currentAgentSpecialty
+  );
+
   const handleSendMessage = async () => {
     if (message.trim() === "" || isLoading) return;
 
-    const userMessage: Message = {
+    const userMessage = {
       id: Date.now().toString(),
       text: message,
       isAi: false,
@@ -101,7 +86,7 @@ const Chat = () => {
       const response = await generatePlumberResponse(message);
 
       if (response) {
-        const aiMessage: Message = {
+        const aiMessage = {
           id: (Date.now() + 1).toString(),
           text: response,
           isAi: true,
@@ -111,7 +96,7 @@ const Chat = () => {
         setMessages((prev) => [...prev, aiMessage]);
       } else {
         // Handle error case
-        const errorMessage: Message = {
+        const errorMessage = {
           id: (Date.now() + 1).toString(),
           text: "I'm sorry, I couldn't generate a response. Please try again or check your API key settings.",
           isAi: true,
@@ -123,7 +108,7 @@ const Chat = () => {
     } catch (error) {
       console.error("Error generating response:", error);
       
-      const errorMessage: Message = {
+      const errorMessage = {
         id: (Date.now() + 1).toString(),
         text: "I apologize, but I encountered an error. Please try again or check your connection.",
         isAi: true,
@@ -136,105 +121,6 @@ const Chat = () => {
     }
   };
 
-  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (!files || files.length === 0) return;
-
-    const file = files[0];
-    if (!file.type.startsWith('image/')) {
-      toast("Please upload an image file");
-      return;
-    }
-
-    setIsUploading(true);
-
-    try {
-      // Create a message to show the image is being uploaded
-      const uploadMessage: Message = {
-        id: Date.now().toString(),
-        text: "I'm uploading an image for analysis...",
-        isAi: false,
-        timestamp: new Date(),
-        imageUrl: URL.createObjectURL(file)
-      };
-
-      setMessages(prev => [...prev, uploadMessage]);
-
-      // Read the file as data URL
-      const reader = new FileReader();
-      reader.onload = async (e) => {
-        if (!e.target?.result) return;
-        
-        const imageDataUrl = e.target.result as string;
-        
-        try {
-          // Add a loading message
-          const loadingMessage: Message = {
-            id: (Date.now() + 1).toString(),
-            text: "Analyzing your image...",
-            isAi: true,
-            timestamp: new Date(),
-          };
-          
-          setMessages(prev => [...prev, loadingMessage]);
-          
-          // Analyze the image
-          const analysis = await analyzeImageForSpecialty(
-            imageDataUrl,
-            currentAgentSpecialty,
-            apiKey
-          );
-          
-          // Replace the loading message with the analysis
-          setMessages(prev => prev.map(msg => 
-            msg.id === loadingMessage.id 
-              ? { ...msg, text: analysis } 
-              : msg
-          ));
-        } catch (error) {
-          console.error("Error analyzing image:", error);
-          
-          // Add an error message
-          const errorMessage: Message = {
-            id: (Date.now() + 2).toString(),
-            text: "I'm sorry, I couldn't analyze your image. Please try again or upload a clearer image.",
-            isAi: true,
-            timestamp: new Date(),
-          };
-          
-          setMessages(prev => [...prev, errorMessage]);
-        }
-      };
-      
-      reader.readAsDataURL(file);
-    } catch (error) {
-      console.error("Error processing image:", error);
-      toast("Error processing image. Please try again.");
-    } finally {
-      setIsUploading(false);
-      // Reset the file input
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-    }
-  };
-
-  // Add a welcome message when the chat starts
-  useEffect(() => {
-    if (messages.length === 0) {
-      const agent = specializedAgents[currentAgentSpecialty];
-      const welcomeMessage: Message = {
-        id: "welcome",
-        text: apiKey 
-          ? agent.greeting 
-          : `${agent.greeting} To get the most personalized responses, please set your OpenAI API key in the settings menu (click the gear icon).`,
-        isAi: true,
-        timestamp: new Date(),
-      };
-      setMessages([welcomeMessage]);
-    }
-  }, [currentAgentSpecialty, apiKey]);
-
   return (
     <div className="flex flex-col h-screen bg-background">
       <ChatHeader specialty={currentSpecialty}>
@@ -246,32 +132,20 @@ const Chat = () => {
         />
       </ChatHeader>
       
-      <div className="flex-1 overflow-hidden relative">
-        <ChatMessages 
-          messages={messages} 
-          isLoading={isLoading} 
-          context={context}
-          specialty={currentAgentSpecialty}
-        />
-      </div>
-      
-      <ChatInput
+      <ChatContent
+        messages={messages}
+        setMessages={setMessages}
         message={message}
         setMessage={setMessage}
         handleSendMessage={handleSendMessage}
         isLoading={isLoading}
-        handleMicClick={handleMicClick}
         fileInputRef={fileInputRef}
         handleImageUpload={handleImageUpload}
         isUploading={isUploading}
-      />
-      
-      <input
-        type="file"
-        ref={fileInputRef}
-        onChange={handleImageUpload}
-        accept="image/*"
-        className="hidden"
+        handleMicClick={handleMicClick}
+        context={context}
+        currentAgentSpecialty={currentAgentSpecialty}
+        apiKey={apiKey}
       />
     </div>
   );
