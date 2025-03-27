@@ -28,6 +28,7 @@ const ChatInput = ({
             className="flex-shrink-0 rounded-full h-9 w-9"
             onClick={onMicClick}
             title="Speak with voice assistant"
+            type="button"
           >
             <Mic className="w-4 h-4 text-gray-600" />
           </Button>
@@ -35,6 +36,7 @@ const ChatInput = ({
             variant="ghost" 
             size="icon" 
             className="flex-shrink-0 rounded-full h-9 w-9"
+            type="button"
           >
             <Paperclip className="w-4 h-4 text-gray-600" />
           </Button>
@@ -54,6 +56,7 @@ const ChatInput = ({
             className="flex-shrink-0 bg-[#0A2540] rounded-full h-9 w-9 p-0"
             disabled={!message.trim() || isLoading}
             onClick={handleSendMessage}
+            type="button"
           >
             <Send className="w-4 h-4" />
           </Button>

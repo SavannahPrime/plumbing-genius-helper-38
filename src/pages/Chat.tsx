@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ChatHeader from "@/components/chat/ChatHeader";
 import ChatMessages from "@/components/chat/ChatMessages";
 import ChatInput from "@/components/chat/ChatInput";
@@ -39,6 +39,7 @@ const Chat = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
+  const elevenLabsAgent = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     // Load the ElevenLabs script only once
@@ -49,10 +50,54 @@ const Chat = () => {
       script.onload = () => {
         window.elevenlabsAgentLoaded = true;
         console.log("ElevenLabs script loaded");
+        
+        // Create the agent element after script loads
+        createAgentElement();
       };
       document.body.appendChild(script);
+    } else {
+      // If script is already loaded, create the agent element
+      createAgentElement();
     }
+
+    return () => {
+      // Cleanup function
+      if (elevenLabsAgent.current) {
+        document.body.removeChild(elevenLabsAgent.current);
+      }
+    };
   }, []);
+
+  const createAgentElement = () => {
+    // Check if element already exists
+    let existingAgent = document.querySelector(`elevenlabs-convai[agent-id="${ELEVEN_LABS_AGENT_ID}"]`);
+    
+    if (!existingAgent) {
+      // Create the element
+      const agentElement = document.createElement('elevenlabs-convai');
+      agentElement.setAttribute('agent-id', ELEVEN_LABS_AGENT_ID);
+      
+      // Add styles to hide the element but keep it functional
+      const style = document.createElement('style');
+      style.textContent = `
+        elevenlabs-convai {
+          position: fixed;
+          top: -1000px;
+          left: -1000px;
+          opacity: 0;
+          pointer-events: auto;
+          z-index: -1;
+        }
+      `;
+      document.head.appendChild(style);
+      document.body.appendChild(agentElement);
+      elevenLabsAgent.current = agentElement;
+      
+      console.log("ElevenLabs agent element created");
+    } else {
+      elevenLabsAgent.current = existingAgent as HTMLElement;
+    }
+  };
 
   const saveApiKey = (key: string) => {
     setApiKey(key);
@@ -190,53 +235,53 @@ const Chat = () => {
   };
 
   const handleMicClick = () => {
-    let agentElement = document.querySelector(`elevenlabs-convai[agent-id="${ELEVEN_LABS_AGENT_ID}"]`);
+    console.log("Mic button clicked");
     
-    if (!agentElement) {
-      agentElement = document.createElement('elevenlabs-convai');
-      agentElement.setAttribute('agent-id', ELEVEN_LABS_AGENT_ID);
-      
-      const style = document.createElement('style');
-      style.textContent = `
-        elevenlabs-convai {
-          position: fixed;
-          top: -1000px;
-          left: -1000px;
-          opacity: 0;
-          pointer-events: auto;
-          z-index: -1;
-        }
-      `;
-      document.head.appendChild(style);
-      document.body.appendChild(agentElement);
+    // Make sure agent element exists
+    if (!elevenLabsAgent.current) {
+      createAgentElement();
     }
-
+    
+    // Access the shadow DOM and click the button
     setTimeout(() => {
-      const shadowRoot = agentElement?.shadowRoot;
-      const button = shadowRoot?.querySelector('button');
-      
-      if (button) {
-        button.click();
-        console.log("Voice assistant activated");
-      } else {
-        toast({
-          title: "Voice Assistant",
-          description: "Starting voice assistant...",
-        });
-        setTimeout(() => {
-          const retryButton = agentElement?.shadowRoot?.querySelector('button');
-          if (retryButton) {
-            retryButton.click();
-          } else {
+      if (elevenLabsAgent.current) {
+        const shadowRoot = elevenLabsAgent.current.shadowRoot;
+        console.log("Shadow root:", shadowRoot);
+        
+        if (shadowRoot) {
+          const button = shadowRoot.querySelector('button');
+          console.log("Button found:", button);
+          
+          if (button) {
+            button.click();
             toast({
-              title: "Voice Assistant Issue",
-              description: "Please try again in a moment.",
-              variant: "destructive"
+              title: "Voice Assistant",
+              description: "Voice assistant activated. You can speak now.",
             });
+          } else {
+            // If button not found initially, try again after a short delay
+            setTimeout(() => {
+              const retryButton = elevenLabsAgent.current?.shadowRoot?.querySelector('button');
+              console.log("Retry button:", retryButton);
+              
+              if (retryButton) {
+                retryButton.click();
+                toast({
+                  title: "Voice Assistant",
+                  description: "Voice assistant activated. You can speak now.",
+                });
+              } else {
+                toast({
+                  title: "Voice Assistant Issue",
+                  description: "Could not activate voice assistant. Please refresh the page and try again.",
+                  variant: "destructive"
+                });
+              }
+            }, 1000);
           }
-        }, 1000);
+        }
       }
-    }, 100);
+    }, 300); // Increased timeout to ensure the shadow DOM is fully loaded
   };
 
   return (
