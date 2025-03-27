@@ -13,7 +13,7 @@ const Chef = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-orange-50 to-orange-100">
       <EveryFixHeader specialty="chef" />
       
       <main className="container mx-auto px-4 py-8">
@@ -26,7 +26,7 @@ const Chef = () => {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <Card className="bg-white shadow-sm hover:shadow-md transition-shadow">
+            <Card className="bg-orange-50/80 backdrop-blur-md border border-orange-100 shadow-sm hover:shadow-md transition-shadow">
               <CardHeader>
                 <CardTitle>Chat with Chef's Assistant</CardTitle>
               </CardHeader>
@@ -34,13 +34,13 @@ const Chef = () => {
                 <p>Ask cooking questions and get personalized culinary advice from our AI chef.</p>
               </CardContent>
               <CardFooter>
-                <Button onClick={() => navigate("/chat?specialty=chef")} className="w-full">
+                <Button onClick={() => navigate("/chat?specialty=chef")} className="w-full bg-orange-500 hover:bg-orange-600">
                   Start Chat
                 </Button>
               </CardFooter>
             </Card>
             
-            <Card className="bg-white shadow-sm hover:shadow-md transition-shadow">
+            <Card className="bg-orange-50/80 backdrop-blur-md border border-orange-100 shadow-sm hover:shadow-md transition-shadow">
               <CardHeader>
                 <CardTitle>Food Diagnosis</CardTitle>
               </CardHeader>
@@ -48,13 +48,13 @@ const Chef = () => {
                 <p>Upload photos of dishes, ingredients, or kitchen issues for expert analysis and suggestions.</p>
               </CardContent>
               <CardFooter>
-                <Button onClick={() => navigate("/diagnosis?specialty=chef")} variant="outline" className="w-full">
+                <Button onClick={() => navigate("/diagnosis?specialty=chef")} variant="outline" className="w-full border-orange-200 text-orange-700 hover:bg-orange-100">
                   Upload Photo
                 </Button>
               </CardFooter>
             </Card>
             
-            <Card className="bg-white shadow-sm hover:shadow-md transition-shadow">
+            <Card className="bg-orange-50/80 backdrop-blur-md border border-orange-100 shadow-sm hover:shadow-md transition-shadow">
               <CardHeader>
                 <CardTitle>Cooking Guides</CardTitle>
               </CardHeader>
@@ -62,7 +62,7 @@ const Chef = () => {
                 <p>Browse our library of recipes, cooking techniques, and kitchen troubleshooting guides.</p>
               </CardContent>
               <CardFooter>
-                <Button onClick={() => navigate("/chef/glossary")} variant="outline" className="w-full">
+                <Button onClick={() => navigate("/chef/glossary")} variant="outline" className="w-full border-orange-200 text-orange-700 hover:bg-orange-100">
                   View Guides
                 </Button>
               </CardFooter>
@@ -70,13 +70,15 @@ const Chef = () => {
           </div>
         </section>
         
-        <section className="mb-12">
+        <section className="mb-12 p-6 bg-orange-100/60 backdrop-blur-md rounded-xl border border-orange-200/50">
           <HowItWorks specialty="chef" />
         </section>
         
-        <LiveFixFeed specialty="chef" />
+        <section className="mb-12 p-6 bg-orange-50/70 backdrop-blur-md rounded-xl border border-orange-100/50">
+          <LiveFixFeed specialty="chef" />
+        </section>
         
-        <section className="mb-12">
+        <section className="mb-12 p-6 bg-orange-100/60 backdrop-blur-md rounded-xl border border-orange-200/50">
           <h2 className="text-2xl font-bold mb-6">Quick Cooking Solutions</h2>
           <QuickActionCategories specialty="chef" />
         </section>

@@ -14,7 +14,7 @@ const Handyman = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-amber-100">
       <EveryFixHeader specialty="handyman" />
       
       <main>
@@ -26,7 +26,7 @@ const Handyman = () => {
           placeholderText="What needs fixing around your home?"
         />
         
-        <section className="py-10 bg-white">
+        <section className="py-10 bg-amber-50/70 backdrop-blur-lg border-y border-amber-100">
           <div className="container mx-auto px-4">
             <EveryFixHowItWorks specialty="handyman" />
           </div>
@@ -36,7 +36,7 @@ const Handyman = () => {
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-6">Quick Repair Solutions</h2>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <Card className="bg-white shadow-sm hover:shadow-md transition-shadow">
+              <Card className="bg-amber-50/80 backdrop-blur-md border border-amber-100 shadow-sm hover:shadow-md transition-shadow">
                 <CardHeader>
                   <CardTitle>Chat with Handyman Hero</CardTitle>
                 </CardHeader>
@@ -44,13 +44,13 @@ const Handyman = () => {
                   <p>Describe your repair needs and get personalized DIY guidance from our AI expert.</p>
                 </CardContent>
                 <CardFooter>
-                  <Button onClick={() => navigate("/chat?specialty=handyman")} className="w-full">
+                  <Button onClick={() => navigate("/chat?specialty=handyman")} className="w-full bg-amber-500 hover:bg-amber-600">
                     Start Chat
                   </Button>
                 </CardFooter>
               </Card>
               
-              <Card className="bg-white shadow-sm hover:shadow-md transition-shadow">
+              <Card className="bg-amber-50/80 backdrop-blur-md border border-amber-100 shadow-sm hover:shadow-md transition-shadow">
                 <CardHeader>
                   <CardTitle>Visual Diagnosis</CardTitle>
                 </CardHeader>
@@ -58,13 +58,13 @@ const Handyman = () => {
                   <p>Upload photos of broken furniture, wall damage, or other issues for instant solutions.</p>
                 </CardContent>
                 <CardFooter>
-                  <Button onClick={() => navigate("/diagnosis?specialty=handyman")} variant="outline" className="w-full">
+                  <Button onClick={() => navigate("/diagnosis?specialty=handyman")} variant="outline" className="w-full border-amber-200 text-amber-700 hover:bg-amber-100">
                     Upload Photo
                   </Button>
                 </CardFooter>
               </Card>
               
-              <Card className="bg-white shadow-sm hover:shadow-md transition-shadow">
+              <Card className="bg-amber-50/80 backdrop-blur-md border border-amber-100 shadow-sm hover:shadow-md transition-shadow">
                 <CardHeader>
                   <CardTitle>Repair Guides</CardTitle>
                 </CardHeader>
@@ -72,7 +72,7 @@ const Handyman = () => {
                   <p>Browse our library of step-by-step repair guides for common household problems.</p>
                 </CardContent>
                 <CardFooter>
-                  <Button onClick={() => navigate("/handyman/glossary")} variant="outline" className="w-full">
+                  <Button onClick={() => navigate("/handyman/glossary")} variant="outline" className="w-full border-amber-200 text-amber-700 hover:bg-amber-100">
                     View Guides
                   </Button>
                 </CardFooter>
@@ -81,7 +81,7 @@ const Handyman = () => {
           </div>
         </section>
         
-        <section className="py-10 bg-gray-100">
+        <section className="py-10 bg-amber-100/70 backdrop-blur-lg border-y border-amber-200/50">
           <div className="container mx-auto px-4">
             <LiveFixFeed specialty="handyman" />
           </div>

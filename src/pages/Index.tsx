@@ -33,7 +33,7 @@ const Index = () => {
   }, [typingTexts.length]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100">
       <Header 
         plumberPersonality={plumberPersonality}
         setPlumberPersonality={setPlumberPersonality}
@@ -48,33 +48,33 @@ const Index = () => {
           placeholderText="What's leaking, squeaking, or not working?"
         />
 
-        <section className="py-10 bg-white/80 backdrop-blur-lg border-y border-gray-100">
+        <section className="py-10 bg-blue-50/70 backdrop-blur-lg border-y border-blue-100">
           <div className="container mx-auto px-4">
             <EveryFixHowItWorks specialty="plumber" />
           </div>
         </section>
 
         <section className="py-10 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-50/30 to-white/30 -z-10 blur-xl"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-50/50 to-blue-100/50 -z-10 blur-xl"></div>
           <div className="container mx-auto px-4">
             <QuickFixSection />
           </div>
         </section>
 
-        <section className="py-10 bg-gray-100/80 backdrop-blur-lg border-y border-gray-200/50">
+        <section className="py-10 bg-blue-100/70 backdrop-blur-lg border-y border-blue-200/50">
           <div className="container mx-auto px-4">
             <ProblemCategories />
           </div>
         </section>
 
         <section className="py-10 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-50/30 to-white/30 -z-10 blur-xl"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-50/50 to-blue-100/50 -z-10 blur-xl"></div>
           <div className="container mx-auto px-4">
             <LiveFixFeed specialty="plumber" />
           </div>
         </section>
 
-        <section className="py-10 bg-gray-100/80 backdrop-blur-lg border-y border-gray-200/50">
+        <section className="py-10 bg-blue-100/70 backdrop-blur-lg border-y border-blue-200/50">
           <div className="container mx-auto px-4">
             <OtherProducts />
           </div>

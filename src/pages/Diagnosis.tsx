@@ -90,8 +90,24 @@ const Diagnosis = () => {
     setAnalysisResult(null);
   };
 
+  // Get background color based on specialty
+  const getBgColorClass = () => {
+    switch (currentSpecialty) {
+      case "plumber": return "bg-gradient-to-b from-blue-50 to-blue-100";
+      case "chef": return "bg-gradient-to-b from-orange-50 to-orange-100";
+      case "cleaning": return "bg-gradient-to-b from-cyan-50 to-cyan-100";
+      case "electrician": return "bg-gradient-to-b from-yellow-50 to-yellow-100";
+      case "handyman": return "bg-gradient-to-b from-amber-50 to-amber-100";
+      case "landscaper": return "bg-gradient-to-b from-green-50 to-green-100";
+      case "mechanic": return "bg-gradient-to-b from-gray-100 to-gray-200";
+      case "gadget": return "bg-gradient-to-b from-indigo-50 to-indigo-100";
+      case "stylist": return "bg-gradient-to-b from-pink-50 to-pink-100";
+      default: return "bg-gradient-to-b from-blue-50 to-blue-100";
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-soft">
+    <div className={`min-h-screen ${getBgColorClass()}`}>
       <DiagnosisHeader specialty={currentSpecialty} />
 
       <main className="container mx-auto px-4 py-8">

@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -171,9 +172,25 @@ const GadgetGlossary: React.FC<GadgetGlossaryProps> = ({ contextType = "plumber"
   };
 
   const currentItems = glossaryItems[contextType] || glossaryItems.default;
+  
+  // Get background color based on context type
+  const getBgColorClass = () => {
+    switch (contextType) {
+      case "plumber": return "bg-gradient-to-b from-blue-50 to-blue-100";
+      case "chef": return "bg-gradient-to-b from-orange-50 to-orange-100";
+      case "cleaning": return "bg-gradient-to-b from-cyan-50 to-cyan-100";
+      case "electrician": return "bg-gradient-to-b from-yellow-50 to-yellow-100";
+      case "handyman": return "bg-gradient-to-b from-amber-50 to-amber-100";
+      case "landscaper": return "bg-gradient-to-b from-green-50 to-green-100";
+      case "mechanic": return "bg-gradient-to-b from-gray-100 to-gray-200";
+      case "gadget": return "bg-gradient-to-b from-indigo-50 to-indigo-100";
+      case "stylist": return "bg-gradient-to-b from-pink-50 to-pink-100";
+      default: return "bg-gradient-to-b from-blue-50 to-blue-100";
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+    <div className={`min-h-screen ${getBgColorClass()}`}>
       <EveryFixHeader 
         title={`${contextType.charAt(0).toUpperCase() + contextType.slice(1)} Glossary`}
         icon={<Smartphone className="h-6 w-6 text-white" />} 
@@ -195,7 +212,7 @@ const GadgetGlossary: React.FC<GadgetGlossaryProps> = ({ contextType = "plumber"
 
         <div className="grid gap-6">
           {currentItems.map((item, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md p-6">
+            <div key={index} className="bg-white/20 backdrop-blur-md rounded-lg shadow-md p-6 border border-white/30">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-xl">
                   {item.icon}
@@ -217,8 +234,8 @@ const GadgetGlossary: React.FC<GadgetGlossaryProps> = ({ contextType = "plumber"
         </div>
       </main>
 
-      <footer className="bg-white border-t py-8 mt-12">
-        <div className="container mx-auto px-4 text-center text-sm text-gray-500">
+      <footer className="border-t py-8 mt-12 backdrop-blur-md bg-white/10 border-white/20">
+        <div className="container mx-auto px-4 text-center text-sm text-gray-600">
           <p>© 2023 EveryFixAI. All rights reserved.</p>
           <p className="mt-2">For serious issues, always consult a professional {contextType}.</p>
         </div>

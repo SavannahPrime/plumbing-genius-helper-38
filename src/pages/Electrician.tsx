@@ -13,7 +13,7 @@ const Electrician = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-yellow-50 to-yellow-100">
       <EveryFixHeader specialty="electrician" />
       
       <main className="container mx-auto px-4 py-8">
@@ -26,7 +26,7 @@ const Electrician = () => {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <Card className="bg-white shadow-sm hover:shadow-md transition-shadow">
+            <Card className="bg-yellow-50/80 backdrop-blur-md border border-yellow-100 shadow-sm hover:shadow-md transition-shadow">
               <CardHeader>
                 <CardTitle>Chat with Electrician Genius</CardTitle>
               </CardHeader>
@@ -34,13 +34,13 @@ const Electrician = () => {
                 <p>Describe your electrical problem and get safe, step-by-step guidance from our AI expert.</p>
               </CardContent>
               <CardFooter>
-                <Button onClick={() => navigate("/chat?specialty=electrician")} className="w-full">
+                <Button onClick={() => navigate("/chat?specialty=electrician")} className="w-full bg-yellow-500 hover:bg-yellow-600">
                   Start Chat
                 </Button>
               </CardFooter>
             </Card>
             
-            <Card className="bg-white shadow-sm hover:shadow-md transition-shadow">
+            <Card className="bg-yellow-50/80 backdrop-blur-md border border-yellow-100 shadow-sm hover:shadow-md transition-shadow">
               <CardHeader>
                 <CardTitle>Visual Diagnosis</CardTitle>
               </CardHeader>
@@ -48,13 +48,13 @@ const Electrician = () => {
                 <p>Upload photos of electrical issues and get instant, safe troubleshooting advice.</p>
               </CardContent>
               <CardFooter>
-                <Button onClick={() => navigate("/diagnosis?specialty=electrician")} variant="outline" className="w-full">
+                <Button onClick={() => navigate("/diagnosis?specialty=electrician")} variant="outline" className="w-full border-yellow-200 text-yellow-700 hover:bg-yellow-100">
                   Upload Photo
                 </Button>
               </CardFooter>
             </Card>
             
-            <Card className="bg-white shadow-sm hover:shadow-md transition-shadow">
+            <Card className="bg-yellow-50/80 backdrop-blur-md border border-yellow-100 shadow-sm hover:shadow-md transition-shadow">
               <CardHeader>
                 <CardTitle>Electrical Guides</CardTitle>
               </CardHeader>
@@ -62,7 +62,7 @@ const Electrician = () => {
                 <p>Browse our library of step-by-step electrical guides for common household problems.</p>
               </CardContent>
               <CardFooter>
-                <Button onClick={() => navigate("/electrician/glossary")} variant="outline" className="w-full">
+                <Button onClick={() => navigate("/electrician/glossary")} variant="outline" className="w-full border-yellow-200 text-yellow-700 hover:bg-yellow-100">
                   View Guides
                 </Button>
               </CardFooter>
@@ -70,13 +70,15 @@ const Electrician = () => {
           </div>
         </section>
         
-        <section className="mb-12">
+        <section className="mb-12 p-6 bg-yellow-100/60 backdrop-blur-md rounded-xl border border-yellow-200/50">
           <HowItWorks specialty="electrician" />
         </section>
         
-        <LiveFixFeed specialty="electrician" />
+        <section className="mb-12 p-6 bg-yellow-50/70 backdrop-blur-md rounded-xl border border-yellow-100/50">
+          <LiveFixFeed specialty="electrician" />
+        </section>
         
-        <section className="mb-12">
+        <section className="mb-12 p-6 bg-yellow-100/60 backdrop-blur-md rounded-xl border border-yellow-200/50">
           <h2 className="text-2xl font-bold mb-6">Quick Electrical Solutions</h2>
           <QuickActionCategories specialty="electrician" />
         </section>

@@ -45,14 +45,14 @@ const Fixes = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F5F5]">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100">
       {/* Header with search */}
       <FixesHeader 
         searchQuery={searchQuery} 
         setSearchQuery={setSearchQuery} 
       />
 
-      <div className="bg-white border-b">
+      <div className="bg-blue-50/80 backdrop-blur-md border-b border-blue-100">
         <div className="container mx-auto px-4">
           {/* Category Tabs */}
           <CategoryTabs 

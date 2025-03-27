@@ -58,7 +58,7 @@ interface OtherProductsProps {
 const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" }) => {
   return (
     <section className="my-16 relative">
-      <div className="absolute inset-0 bg-gradient-to-r from-gray-100/40 to-white/40 rounded-3xl -z-10 blur-xl"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-100/60 to-blue-50/60 rounded-3xl -z-10 blur-xl"></div>
       
       <div className="text-center mb-10">
         <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-4">{title}</h2>
@@ -72,8 +72,8 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           title="Cleaning Genius"
           tagline="The AI that knows how to clean anything — without Googling."
           path="/cleaning"
-          color="bg-cyan-50/80"
-          hoverColor="bg-cyan-100/90"
+          color="bg-cyan-100/80"
+          hoverColor="bg-cyan-200/90"
           iconColor="bg-gradient-to-br from-cyan-400 to-cyan-600"
           buttonTextColor="text-cyan-700 hover:text-cyan-800"
         />
@@ -84,8 +84,8 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           title="Handyman Hero"
           tagline="Fix furniture, patch walls, hang shelves — no handyman required."
           path="/handyman"
-          color="bg-amber-50/80"
-          hoverColor="bg-amber-100/90"
+          color="bg-amber-100/80"
+          hoverColor="bg-amber-200/90"
           iconColor="bg-gradient-to-br from-amber-400 to-amber-600"
           buttonTextColor="text-amber-700 hover:text-amber-800"
         />
@@ -96,8 +96,8 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           title="Electrician Genius"
           tagline="Flip the switch on electrical problems — safely and smart."
           path="/electrician"
-          color="bg-yellow-50/80"
-          hoverColor="bg-yellow-100/90"
+          color="bg-yellow-100/80"
+          hoverColor="bg-yellow-200/90"
           iconColor="bg-gradient-to-br from-yellow-400 to-yellow-600"
           buttonTextColor="text-yellow-700 hover:text-yellow-800"
         />
@@ -108,8 +108,8 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           title="Landscaper Buddy"
           tagline="Your AI yard partner — from soil to sprinkler."
           path="/landscaper"
-          color="bg-green-50/80"
-          hoverColor="bg-green-100/90"
+          color="bg-green-100/80"
+          hoverColor="bg-green-200/90"
           iconColor="bg-gradient-to-br from-green-400 to-green-600"
           buttonTextColor="text-green-700 hover:text-green-800"
         />
@@ -120,8 +120,8 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           title="Gadget Fix Genie"
           tagline="Troubleshoot phones, tablets, and other electronic devices."
           path="/gadgetfixgenie"
-          color="bg-indigo-50/80"
-          hoverColor="bg-indigo-100/90"
+          color="bg-indigo-100/80"
+          hoverColor="bg-indigo-200/90"
           iconColor="bg-gradient-to-br from-indigo-400 to-indigo-600"
           buttonTextColor="text-indigo-700 hover:text-indigo-800"
         />
