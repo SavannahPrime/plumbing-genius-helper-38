@@ -2,7 +2,7 @@
 import React from "react";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { motion } from "framer-motion";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ArrowRight, Toilet, Droplet, Bath, Flame, Trash2, Info, ChefHat, Scissors, Search } from "lucide-react";
 
 interface ProblemCategory {
@@ -115,6 +115,7 @@ const problemCategories: ProblemCategory[] = [
 
 const ProblemCategories = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   
   // Get the current context from the path
   const getCurrentContext = () => {

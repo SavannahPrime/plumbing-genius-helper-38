@@ -15,6 +15,8 @@ import EveryFixHowItWorks from "@/components/home/EveryFixHowItWorks";
 const Index = () => {
   const navigate = useNavigate();
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [plumberPersonality, setPlumberPersonality] = useState("classic");
+  
   const typingTexts = [
     "Get step-by-step guidance to fix anything plumbing-related.",
     "No more searching through confusing forum posts for answers.",
@@ -32,7 +34,10 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
+      <Header 
+        plumberPersonality={plumberPersonality}
+        setPlumberPersonality={setPlumberPersonality}
+      />
       
       <main>
         <ModernHero 
@@ -57,7 +62,7 @@ const Index = () => {
 
         <section className="py-10 bg-gray-100">
           <div className="container mx-auto px-4">
-            <ProblemCategories navigate={navigate} />
+            <ProblemCategories />
           </div>
         </section>
 
@@ -69,7 +74,7 @@ const Index = () => {
 
         <section className="py-10 bg-gray-100">
           <div className="container mx-auto px-4">
-            <OtherProducts title="Need help in other areas?" />
+            <OtherProducts />
           </div>
         </section>
       </main>

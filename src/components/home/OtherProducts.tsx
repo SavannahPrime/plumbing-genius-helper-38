@@ -45,11 +45,15 @@ const ProductCard = ({
   );
 };
 
-const OtherProducts = () => {
+interface OtherProductsProps {
+  title?: string;
+}
+
+const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" }) => {
   return (
     <section className="my-16">
       <div className="text-center mb-10">
-        <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-4">Other Products</h2>
+        <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-4">{title}</h2>
         <p className="text-neutrals">Discover our suite of AI-powered home assistants</p>
       </div>
       
