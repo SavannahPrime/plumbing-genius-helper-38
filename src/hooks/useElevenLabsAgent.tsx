@@ -1,3 +1,4 @@
+
 import { useRef, useEffect, useState, useCallback } from "react";
 import { toast } from "@/hooks/use-toast";
 import { ELEVEN_LABS_AGENT_ID, ELEVEN_LABS_AGENT_IDS } from "@/constants/elevenlabs";
@@ -55,7 +56,7 @@ export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
     
     // Default to plumber
     return "plumber";
-  };
+  }, [location.pathname, specialtyParam]); // Fixed: Added proper dependency array and removed semicolon
 
   // Retry counter for initialization
   const retryCount = useRef(0);
