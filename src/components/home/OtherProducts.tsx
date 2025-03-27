@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, Wrench, Zap, Leaf } from "lucide-react";
+import { Sparkles, Wrench, Zap, Leaf, Smartphone } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -53,7 +53,7 @@ const OtherProducts = () => {
         <p className="text-neutrals">Discover our suite of AI-powered home assistants</p>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         <ProductCard
           icon={<Sparkles className="w-5 h-5 text-white" />}
           emoji="🧼"
@@ -88,6 +88,15 @@ const OtherProducts = () => {
           tagline="Your AI yard partner — from soil to sprinkler."
           path="/landscaper"
           color="bg-green-50"
+        />
+        
+        <ProductCard
+          icon={<Smartphone className="w-5 h-5 text-white" />}
+          emoji="📱"
+          title="Gadget Fix Genie"
+          tagline="Troubleshoot phones, tablets, and other electronic devices."
+          path="/gadgetfixgenie"
+          color="bg-purple-50"
         />
       </div>
     </section>

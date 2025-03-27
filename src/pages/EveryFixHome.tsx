@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Wrench, Leaf, Sparkles, Zap, Settings } from "lucide-react";
+import { Wrench, Leaf, Sparkles, Zap, Settings, Smartphone } from "lucide-react";
 import { motion } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -74,6 +74,17 @@ const EveryFixHome = () => {
       avatar: "/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png",
       avatarFallback: "🔩",
       bgClass: "bg-red-50"
+    },
+    {
+      name: "Gadget Fix Genie",
+      description: "Troubleshoot phones, tablets, routers, remotes and other electronic devices.",
+      icon: <Smartphone className="h-6 w-6 text-white" />,
+      emoji: "📱",
+      path: "/gadgetfixgenie",
+      color: "bg-gradient-to-r from-purple-400 to-purple-600",
+      avatar: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
+      avatarFallback: "📱",
+      bgClass: "bg-purple-50"
     }
   ];
 
