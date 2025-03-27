@@ -3,6 +3,7 @@ import React from "react";
 import { ArrowRight, Clock, Wrench } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
+import { Progress } from "@/components/ui/progress";
 import FixSteps from "./FixSteps";
 import { PlumbingFix } from "@/constants/plumbingFixes";
 
@@ -21,6 +22,11 @@ const FixItem = ({
   completedSteps, 
   toggleStepCompletion
 }: FixItemProps) => {
+  // Calculate progress percentage
+  const progressPercentage = fix.steps.length > 0
+    ? (completedSteps.length / fix.steps.length) * 100
+    : 0;
+
   return (
     <Collapsible 
       open={expandedFix === fix.id}
@@ -38,11 +44,19 @@ const FixItem = ({
                   {fix.title}
                 </h3>
                 <p className="text-gray-600 text-sm mb-2">{fix.description}</p>
-                <div className="flex items-center gap-2 text-sm text-gray-500">
+                <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
                   <Clock className="w-4 h-4" />
                   <span>{fix.time}</span>
                   <span className="px-2 py-1 bg-gray-100 rounded-full text-xs">
                     {fix.difficulty}
+                  </span>
+                </div>
+                
+                {/* Progress bar */}
+                <div className="flex items-center gap-2 mt-1">
+                  <Progress value={progressPercentage} className="h-2" />
+                  <span className="text-xs text-gray-500 whitespace-nowrap">
+                    {completedSteps.length}/{fix.steps.length}
                   </span>
                 </div>
               </div>
