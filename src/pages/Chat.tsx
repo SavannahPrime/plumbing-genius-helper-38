@@ -6,7 +6,7 @@ import { Message, ConversationContext, OpenAIMessage } from "@/types/chat";
 import { generateNextResponse, identifyProblemType, handleEmergency } from "@/services/chatService";
 import { generateChatGPTResponse, createPlumberPrompt, isPictureRequest } from "@/services/openaiService";
 import { Button } from "@/components/ui/button";
-import { Settings } from "lucide-react";
+import { Settings, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "@/hooks/use-toast";
@@ -35,6 +35,7 @@ const Chat = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
+  const [showVoiceAssistant, setShowVoiceAssistant] = useState(false);
 
   useEffect(() => {
     if (!document.querySelector('script[src="https://elevenlabs.io/convai-widget/index.js"]')) {
@@ -51,18 +52,33 @@ const Chat = () => {
   }, []);
 
   useEffect(() => {
-    if (!document.querySelector('elevenlabs-convai[agent-id="lX8syHY754gA8SdjQU6n"]')) {
+    if (showVoiceAssistant && !document.querySelector('elevenlabs-convai[agent-id="lX8syHY754gA8SdjQU6n"]')) {
       const agentElement = document.createElement('elevenlabs-convai');
       agentElement.setAttribute('agent-id', 'lX8syHY754gA8SdjQU6n');
       document.body.appendChild(agentElement);
+      
+      const styleElement = document.createElement('style');
+      styleElement.id = 'elevenlabs-convai-styles';
+      styleElement.innerHTML = `
+        elevenlabs-convai {
+          position: fixed !important;
+          top: 50% !important;
+          left: 50% !important;
+          transform: translate(-50%, -50%) !important;
+          z-index: 1000 !important;
+        }
+      `;
+      document.head.appendChild(styleElement);
       
       return () => {
         if (document.body.contains(agentElement)) {
           document.body.removeChild(agentElement);
         }
+        const styleEl = document.getElementById('elevenlabs-convai-styles');
+        if (styleEl) styleEl.remove();
       };
     }
-  }, []);
+  }, [showVoiceAssistant]);
 
   const saveApiKey = (key: string) => {
     setApiKey(key);
@@ -200,20 +216,24 @@ const Chat = () => {
   };
 
   const handleMicClick = () => {
-    const elevenlabsButton = document.querySelector('elevenlabs-convai')?.shadowRoot?.querySelector('button');
-    if (elevenlabsButton) {
-      elevenlabsButton.click();
-    } else {
-      toast({
-        title: "Voice Chat Not Available",
-        description: "The voice chat feature is still loading. Please try again in a moment.",
-        variant: "destructive"
-      });
-    }
+    setShowVoiceAssistant(true);
+    
+    setTimeout(() => {
+      const elevenlabsButton = document.querySelector('elevenlabs-convai')?.shadowRoot?.querySelector('button');
+      if (elevenlabsButton) {
+        elevenlabsButton.click();
+      } else {
+        toast({
+          title: "Voice Chat Not Available",
+          description: "The voice chat feature is still loading. Please try again in a moment.",
+          variant: "destructive"
+        });
+      }
+    }, 300);
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F5F5]">
+    <div className="min-h-screen bg-[#F5F5F5] relative">
       <ChatHeader>
         <div className="flex items-center ml-auto">
           <div className="flex items-center mr-4">
@@ -268,6 +288,25 @@ const Chat = () => {
           />
         </div>
       </main>
+      
+      {showVoiceAssistant && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[999]">
+          <div className="absolute top-4 right-4">
+            <Button 
+              onClick={() => setShowVoiceAssistant(false)} 
+              variant="outline" 
+              size="icon" 
+              className="bg-white hover:bg-gray-100"
+            >
+              <X className="h-5 w-5" />
+            </Button>
+          </div>
+          <div className="bg-white p-4 rounded-lg shadow-lg text-center">
+            <p className="mb-4 text-gray-800">Voice assistant is active</p>
+            <p className="text-sm text-gray-600">Speak with your plumbing assistant</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
