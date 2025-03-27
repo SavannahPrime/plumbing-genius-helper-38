@@ -12,6 +12,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { toast } from "@/hooks/use-toast";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
+const ELEVEN_LABS_AGENT_URL = "https://elevenlabs.io/app/talk-to?agent_id=lX8syHY754gA8SdjQU6n";
+
 const Chat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([
@@ -36,50 +38,6 @@ const Chat = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
-  const [showVoiceAssistant, setShowVoiceAssistant] = useState(false);
-
-  useEffect(() => {
-    if (!document.querySelector('script[src="https://elevenlabs.io/convai-widget/index.js"]')) {
-      const script = document.createElement('script');
-      script.src = "https://elevenlabs.io/convai-widget/index.js";
-      script.async = true;
-      script.type = "text/javascript";
-      document.body.appendChild(script);
-      
-      return () => {
-        document.body.removeChild(script);
-      };
-    }
-  }, []);
-
-  useEffect(() => {
-    if (showVoiceAssistant && !document.querySelector('elevenlabs-convai[agent-id="lX8syHY754gA8SdjQU6n"]')) {
-      const agentElement = document.createElement('elevenlabs-convai');
-      agentElement.setAttribute('agent-id', 'lX8syHY754gA8SdjQU6n');
-      document.body.appendChild(agentElement);
-      
-      const styleElement = document.createElement('style');
-      styleElement.id = 'elevenlabs-convai-styles';
-      styleElement.innerHTML = `
-        elevenlabs-convai {
-          position: fixed !important;
-          top: 50% !important;
-          left: 50% !important;
-          transform: translate(-50%, -50%) !important;
-          z-index: 1000 !important;
-        }
-      `;
-      document.head.appendChild(styleElement);
-      
-      return () => {
-        if (document.body.contains(agentElement)) {
-          document.body.removeChild(agentElement);
-        }
-        const styleEl = document.getElementById('elevenlabs-convai-styles');
-        if (styleEl) styleEl.remove();
-      };
-    }
-  }, [showVoiceAssistant]);
 
   const saveApiKey = (key: string) => {
     setApiKey(key);
@@ -217,20 +175,7 @@ const Chat = () => {
   };
 
   const handleMicClick = () => {
-    setShowVoiceAssistant(true);
-    
-    setTimeout(() => {
-      const elevenlabsButton = document.querySelector('elevenlabs-convai')?.shadowRoot?.querySelector('button');
-      if (elevenlabsButton) {
-        elevenlabsButton.click();
-      } else {
-        toast({
-          title: "Voice Chat Not Available",
-          description: "The voice chat feature is still loading. Please try again in a moment.",
-          variant: "destructive"
-        });
-      }
-    }, 300);
+    window.open(ELEVEN_LABS_AGENT_URL, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -288,31 +233,6 @@ const Chat = () => {
           </div>
         </DialogContent>
       </Dialog>
-      
-      {showVoiceAssistant && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[999]">
-          <div className="bg-white rounded-xl shadow-lg w-80 overflow-hidden">
-            <div className="flex justify-between items-center p-4 border-b">
-              <div className="flex items-center">
-                <Mic className="w-5 h-5 text-blue-500 mr-2" />
-                <h3 className="font-medium">Voice Assistant</h3>
-              </div>
-              <Button 
-                onClick={() => setShowVoiceAssistant(false)} 
-                variant="ghost" 
-                size="icon"
-                className="h-8 w-8"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-            <div className="p-4 text-center">
-              <p className="text-sm text-gray-600 mb-2">Speak with your plumbing assistant</p>
-              <div className="text-xs text-gray-500">ElevenLabs Conversational AI</div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
