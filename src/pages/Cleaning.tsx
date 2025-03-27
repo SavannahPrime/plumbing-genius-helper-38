@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -10,11 +11,11 @@ const CleaningGenius = () => {
   const [style, setStyle] = useState<string>("eco");
 
   const handleChatStart = () => {
-    navigate("/chat");
+    navigate("/chat?specialty=cleaning");
   };
 
   const handlePhotoClick = () => {
-    navigate("/diagnosis");
+    navigate("/diagnosis?specialty=cleaning");
   };
 
   return (
