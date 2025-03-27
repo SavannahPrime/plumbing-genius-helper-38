@@ -2,7 +2,7 @@
 import React from "react";
 import { Wrench, Mic } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
+import { useElevenLabsWidget } from "@/hooks/useElevenLabsWidget";
 
 interface HeaderProps {
   plumberPersonality: string;
@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 
 const Header = ({ plumberPersonality, setPlumberPersonality }: HeaderProps) => {
-  const { handleMicClick } = useElevenLabsAgent();
+  const { handleActivate } = useElevenLabsWidget();
 
   return (
     <header className="bg-white shadow-sm">
@@ -45,7 +45,7 @@ const Header = ({ plumberPersonality, setPlumberPersonality }: HeaderProps) => {
           </div>
           
           <button 
-            onClick={handleMicClick}
+            onClick={handleActivate}
             className="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center hover:bg-secondary/20 transition-colors"
             aria-label="Voice assistant"
           >

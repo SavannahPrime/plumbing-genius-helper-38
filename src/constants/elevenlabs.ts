@@ -1,24 +1,24 @@
 
 /**
- * URL for loading the ElevenLabs Conversational AI script
+ * URL for loading the ElevenLabs Conversational AI widget script
  */
-export const SCRIPT_URL = "https://cdn.convai.eleven-labs.com/convai-component.js";
+export const SCRIPT_URL = "https://elevenlabs.io/convai-widget/index.js";
 
 /**
- * ElevenLabs agent IDs for different specialists
+ * ElevenLabs agent IDs for different specialists 
  */
 export const ELEVEN_LABS_AGENT_IDS = {
-  plumber: "a97eacfe-ba22-4a4d-abd4-44c24886c50f",
-  electrician: "QSOMLKzFI4NgVfxUTeDL", // User's electrician agent ID
-  gadget: "a97eacfe-ba22-4a4d-abd4-44c24886c50f", // Default ID for now
-  chef: "a97eacfe-ba22-4a4d-abd4-44c24886c50f", // Default ID for now
-  stylist: "a97eacfe-ba22-4a4d-abd4-44c24886c50f" // Default ID for now
+  plumber: "QSOMLKzFI4NgVfxUTeDL", // Using the provided agent ID for now
+  electrician: "QSOMLKzFI4NgVfxUTeDL", // Using the provided electrician agent ID
+  gadget: "QSOMLKzFI4NgVfxUTeDL", // Using the provided agent ID for now
+  chef: "QSOMLKzFI4NgVfxUTeDL", // Using the provided agent ID for now
+  stylist: "QSOMLKzFI4NgVfxUTeDL" // Using the provided agent ID for now
 };
 
 /**
  * Default ElevenLabs agent ID (fallback)
  */
-export const ELEVEN_LABS_AGENT_ID = "a97eacfe-ba22-4a4d-abd4-44c24886c50f";
+export const ELEVEN_LABS_AGENT_ID = "QSOMLKzFI4NgVfxUTeDL";
 
 /**
  * Available voice options from ElevenLabs

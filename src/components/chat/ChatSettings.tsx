@@ -2,7 +2,7 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Settings, Mic, RefreshCw } from "lucide-react";
-import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
+import { useElevenLabsWidget } from "@/hooks/useElevenLabsWidget";
 
 interface ChatSettingsProps {
   onOpenApiKeyDialog: () => void;
@@ -11,7 +11,7 @@ interface ChatSettingsProps {
 }
 
 const ChatSettings = ({ onOpenApiKeyDialog, onToggleChatGPT, isUsingChatGPT }: ChatSettingsProps) => {
-  const { agentId, isInitialized, resetAgent } = useElevenLabsAgent();
+  const { agentId, isInitialized, resetWidget } = useElevenLabsWidget();
   
   return (
     <div className="ml-auto">
@@ -32,7 +32,7 @@ const ChatSettings = ({ onOpenApiKeyDialog, onToggleChatGPT, isUsingChatGPT }: C
           <DropdownMenuItem 
             className="text-xs text-muted-foreground flex items-center gap-1"
             disabled={!isInitialized}
-            onClick={resetAgent}
+            onClick={resetWidget}
           >
             <Mic className="h-3 w-3" /> Agent ID: {agentId}
             {isInitialized && (

@@ -9,7 +9,7 @@ import ChatSettings from "@/components/chat/ChatSettings";
 import { toast } from "@/hooks/use-toast";
 import { useApiKeyManagement } from "@/hooks/useApiKeyManagement";
 import { useChatMessages } from "@/hooks/useChatMessages";
-import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
+import { useElevenLabsWidget } from "@/hooks/useElevenLabsWidget";
 import { motion } from "framer-motion";
 import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
 
@@ -41,8 +41,8 @@ const Chat = () => {
     currentAgentSpecialty
   } = useChatMessages(apiKey, isUsingChatGPT);
 
-  // ElevenLabs agent
-  const { handleMicClick } = useElevenLabsAgent();
+  // ElevenLabs widget
+  const { handleActivate } = useElevenLabsWidget();
   
   // Get problem query from URL if present
   const location = useLocation();
@@ -156,7 +156,7 @@ const Chat = () => {
             setMessage={setMessage}
             handleSendMessage={() => handleSendMessage()}
             isLoading={isLoading}
-            onMicClick={handleMicClick}
+            onMicClick={handleActivate}
           />
         </div>
       </main>
