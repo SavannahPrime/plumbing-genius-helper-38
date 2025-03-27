@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { useSearchParams, useLocation } from "react-router-dom";
 import ChatHeader from "@/components/chat/ChatHeader";
@@ -28,7 +27,12 @@ const Chat = () => {
         description: "Please set your OpenAI API key in settings to enable all features",
         action: {
           label: "Settings",
-          onClick: () => document.querySelector('.settings-button')?.click()
+          onClick: () => {
+            const settingsButton = document.querySelector('.settings-button');
+            if (settingsButton instanceof HTMLElement) {
+              settingsButton.click();
+            }
+          }
         }
       });
     }

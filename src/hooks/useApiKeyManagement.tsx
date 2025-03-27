@@ -20,8 +20,7 @@ export const useApiKeyManagement = () => {
   const saveApiKey = (key: string) => {
     setApiKey(key);
     localStorage.setItem("openai_api_key", key);
-    toast({
-      title: "API Key Saved",
+    toast("API Key Saved", {
       description: "Your OpenAI API key has been saved successfully."
     });
     setOpenDialog(false);
@@ -30,8 +29,7 @@ export const useApiKeyManagement = () => {
   // Toggle between built-in assistant and ChatGPT
   const toggleChatGPT = () => {
     setIsUsingChatGPT(!isUsingChatGPT);
-    toast({
-      title: isUsingChatGPT ? "Using Built-in Assistant" : "Using ChatGPT",
+    toast(isUsingChatGPT ? "Using Built-in Assistant" : "Using ChatGPT", {
       description: isUsingChatGPT 
         ? "Switched to built-in assistant" 
         : "Connected to ChatGPT for enhanced responses"

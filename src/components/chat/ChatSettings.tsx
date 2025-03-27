@@ -40,7 +40,7 @@ const ChatSettings = ({ apiKey, setApiKey, isUsingChatGPT, setIsUsingChatGPT }: 
     <div className="ml-auto">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" className="settings-button">
             <Settings className="h-5 w-5" />
           </Button>
         </DropdownMenuTrigger>
