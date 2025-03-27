@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -12,7 +11,7 @@ const LandscaperBuddy = () => {
   const navigate = useNavigate();
 
   const handleChatStart = () => {
-    navigate("/chat");
+    navigate("/chat?specialty=landscaper");
   };
 
   const handlePhotoClick = () => {
@@ -20,7 +19,7 @@ const LandscaperBuddy = () => {
   };
   
   const handlePlanCalendar = () => {
-    navigate("/chat");
+    navigate("/chat?specialty=landscaper");
   };
 
   const landscaperCategories: QuickActionCategory[] = [

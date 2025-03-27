@@ -96,7 +96,7 @@ const Mechanic = () => {
                 <Button 
                   size="lg" 
                   className="h-auto py-6 px-4"
-                  onClick={() => navigate("/chat")}
+                  onClick={() => navigate("/chat?specialty=mechanic")}
                 >
                   <div className="flex flex-col items-center">
                     <MessageSquare className="h-8 w-8 mb-2" />

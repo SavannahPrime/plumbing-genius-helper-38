@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import ChatHeader from "@/components/chat/ChatHeader";
 import ChatMessages from "@/components/chat/ChatMessages";
 import ChatInput from "@/components/chat/ChatInput";
@@ -11,9 +11,13 @@ import { useApiKeyManagement } from "@/hooks/useApiKeyManagement";
 import { useChatMessages } from "@/hooks/useChatMessages";
 import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
 import { motion } from "framer-motion";
-import { specializedAgents } from "@/services/specializedAgentService";
+import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
 
 const Chat = () => {
+  // Get the specialty from URL query params
+  const [searchParams] = useSearchParams();
+  const specialtyParam = searchParams.get('specialty') as AgentSpecialty | null;
+  
   // API key management
   const {
     apiKey,
@@ -45,6 +49,9 @@ const Chat = () => {
   const queryParams = new URLSearchParams(location.search);
   const problemQuery = queryParams.get('problem');
 
+  // Override agent specialty with the one from URL if present
+  const displaySpecialty = specialtyParam || currentAgentSpecialty;
+
   // Handle initial problem query if present
   useEffect(() => {
     if (problemQuery && messages.length === 1) {
@@ -53,7 +60,7 @@ const Chat = () => {
   }, [problemQuery]);
 
   // Get the current agent based on specialty
-  const currentAgent = specializedAgents[currentAgentSpecialty];
+  const currentAgent = specializedAgents[displaySpecialty];
 
   const handleSendMessage = async (customMessage?: string) => {
     const messageToSend = customMessage || message;
@@ -102,7 +109,7 @@ const Chat = () => {
 
   return (
     <div className="min-h-screen bg-[#F5F5F5] relative">
-      <ChatHeader specialty={currentAgentSpecialty}>
+      <ChatHeader specialty={displaySpecialty}>
         <ChatSettings 
           onOpenApiKeyDialog={() => setOpenDialog(true)}
           onToggleChatGPT={toggleChatGPT}

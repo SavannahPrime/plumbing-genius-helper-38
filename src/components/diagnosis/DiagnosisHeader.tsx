@@ -46,11 +46,15 @@ const DiagnosisHeader = ({ specialty = "plumber" }: DiagnosisHeaderProps) => {
               </Tooltip>
             </TooltipProvider>
             
-            {agent.avatarImage && (
+            {agent.avatarImage ? (
               <Avatar className="ml-2 h-8 w-8">
                 <AvatarImage src={agent.avatarImage} alt={agent.name} />
                 <AvatarFallback>{agent.emoji}</AvatarFallback>
               </Avatar>
+            ) : (
+              <div className="ml-2 h-8 w-8 rounded-full bg-secondary/10 flex items-center justify-center">
+                <span>{agent.emoji}</span>
+              </div>
             )}
           </div>
           <p className="font-dm-sans text-[16px] text-neutrals flex items-center">

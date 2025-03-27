@@ -1,10 +1,9 @@
-
 import { useState } from "react";
 import { Message, ConversationContext } from "@/types/chat";
 import { generateNextResponse, identifyProblemType, handleEmergency } from "@/services/chatService";
 import { generateChatGPTResponse, createAgentPrompt, isPictureRequest } from "@/services/openaiService";
 import { AgentSpecialty, generateSpecializedAgentResponse, specializedAgents } from "@/services/specializedAgentService";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 
 export const useChatMessages = (apiKey: string, isUsingChatGPT: boolean) => {
@@ -12,6 +11,7 @@ export const useChatMessages = (apiKey: string, isUsingChatGPT: boolean) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const location = useLocation();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   
   const [context, setContext] = useState<ConversationContext>({
     currentTopic: "",
@@ -25,8 +25,15 @@ export const useChatMessages = (apiKey: string, isUsingChatGPT: boolean) => {
   
   const [isLoading, setIsLoading] = useState(false);
 
-  // Determine which specialized agent to use based on the current route
+  // Check for the specialty in the URL first, then fall back to determining from path
   const getCurrentAgentSpecialty = (): AgentSpecialty => {
+    // First check if specialty was explicitly passed in URL
+    const specialtyParam = searchParams.get('specialty') as AgentSpecialty;
+    if (specialtyParam && Object.keys(specializedAgents).includes(specialtyParam)) {
+      return specialtyParam;
+    }
+    
+    // Otherwise determine from path
     const path = location.pathname;
     
     if (path.includes("electrician")) return "electrician";

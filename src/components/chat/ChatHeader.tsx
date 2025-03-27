@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface ChatHeaderProps {
   children?: React.ReactNode;
@@ -25,7 +26,14 @@ const ChatHeader = ({ children, specialty = "plumber" }: ChatHeaderProps) => {
         <div className="ml-3 flex-1">
           <div className="flex items-center">
             <div className="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center mr-2">
-              <span className="text-lg">{agent.emoji}</span>
+              {agent.avatarImage ? (
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src={agent.avatarImage} alt={agent.name} />
+                  <AvatarFallback>{agent.emoji}</AvatarFallback>
+                </Avatar>
+              ) : (
+                <span className="text-lg">{agent.emoji}</span>
+              )}
             </div>
             <h1 className="font-space-grotesk font-bold text-xl text-primary">
               {agent.name}'s Chat

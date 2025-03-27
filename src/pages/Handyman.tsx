@@ -13,7 +13,7 @@ const HandymanHero = () => {
   const navigate = useNavigate();
 
   const handleChatStart = () => {
-    navigate("/chat");
+    navigate("/chat?specialty=handyman");
   };
 
   const handlePhotoClick = () => {
