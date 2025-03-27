@@ -2,21 +2,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export interface EveryFixHeaderProps {
   specialty?: string;
+  title?: string;
+  icon?: React.ReactNode;
+  colorClass?: string;
 }
 
-const EveryFixHeader: React.FC<EveryFixHeaderProps> = ({ specialty }) => {
-  const isMobile = useMobile();
+const EveryFixHeader: React.FC<EveryFixHeaderProps> = ({ 
+  specialty,
+  title,
+  icon,
+  colorClass
+}) => {
+  const isMobile = useIsMobile();
   
   return (
     <header className="bg-white border-b border-gray-200">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center gap-2">
+          {icon && colorClass && (
+            <div className={colorClass}>
+              {icon}
+            </div>
+          )}
           <Link to="/" className="font-bold text-xl text-primary flex items-center">
-            EveryFixAI
+            {title ? title : "EveryFixAI"}
           </Link>
         </div>
         
