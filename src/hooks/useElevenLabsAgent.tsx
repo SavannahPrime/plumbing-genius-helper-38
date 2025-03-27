@@ -1,3 +1,4 @@
+
 import { useRef, useEffect, useState } from "react";
 import { toast } from "@/hooks/use-toast";
 
@@ -123,16 +124,17 @@ export const useElevenLabsAgent = () => {
         const shadowRoot = elevenLabsAgent.current.shadowRoot;
         
         if (shadowRoot) {
-          // Look for the microphone button in the shadow DOM
-          const button = shadowRoot.querySelector('.microphone-button') || 
-                          shadowRoot.querySelector('button') ||
-                          shadowRoot.querySelector('[aria-label*="microphone"]');
+          // Look for the microphone button in the shadow DOM and properly type it
+          const button = shadowRoot.querySelector('.microphone-button') as HTMLButtonElement || 
+                          shadowRoot.querySelector('button') as HTMLButtonElement ||
+                          shadowRoot.querySelector('[aria-label*="microphone"]') as HTMLButtonElement;
           
           console.log("Button found:", button);
           
           if (button) {
             // Ensure we're on the correct route before activating
             if (window.location.pathname.includes('/chat')) {
+              // Now TypeScript knows this is an HTMLButtonElement with a click method
               button.click();
               toast({
                 title: "Voice Assistant",
