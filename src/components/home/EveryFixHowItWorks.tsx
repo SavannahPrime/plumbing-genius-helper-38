@@ -1,7 +1,6 @@
 
 import React from "react";
 import { Camera, Zap, Wrench } from "lucide-react";
-import { motion } from "framer-motion";
 
 const EveryFixHowItWorks = () => {
   return (

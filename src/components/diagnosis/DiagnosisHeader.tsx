@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
 import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface DiagnosisHeaderProps {
@@ -30,21 +30,19 @@ const DiagnosisHeader = ({ specialty = "plumber" }: DiagnosisHeaderProps) => {
             </h1>
             <Badge variant="outline" className="ml-2 text-xs">by EveryFixAI</Badge>
             
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Link to="/step-by-step" className="ml-2">
-                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0 rounded-full">
-                      <HelpCircle className="h-4 w-4 text-primary" />
-                      <span className="sr-only">Get Step-by-Step Help</span>
-                    </Button>
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>View Step-by-Step Guides</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link to="/step-by-step" className="ml-2">
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 rounded-full">
+                    <HelpCircle className="h-4 w-4 text-primary" />
+                    <span className="sr-only">Get Step-by-Step Help</span>
+                  </Button>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>View Step-by-Step Guides</p>
+              </TooltipContent>
+            </Tooltip>
             
             {agent.avatarImage ? (
               <Avatar className="ml-2 h-8 w-8">
