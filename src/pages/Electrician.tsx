@@ -9,6 +9,14 @@ import { motion } from "framer-motion";
 const ElectricianGenius = () => {
   const navigate = useNavigate();
 
+  const handleChatStart = () => {
+    navigate("/chat");
+  };
+
+  const handlePhotoClick = () => {
+    navigate("/diagnosis");
+  };
+
   return (
     <div className="min-h-screen bg-yellow-50 font-dm-sans text-primary">
       <header className="bg-white shadow-sm">
@@ -73,7 +81,7 @@ const ElectricianGenius = () => {
             
             <p className="mb-6 text-lg text-primary/80">
               Flip the switch on electrical problems — safely and smart.
-              <Badge variant="outline" className="ml-2 bg-yellow-100 text-primary">💡 Safety first, always.</Badge>
+              <Badge className="ml-2 bg-yellow-100 text-primary">💡 Safety first, always.</Badge>
             </p>
             
             <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
@@ -97,12 +105,14 @@ const ElectricianGenius = () => {
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
               <Button 
                 className="w-full sm:w-auto text-lg py-6 px-8 bg-yellow-600 hover:bg-yellow-700 shadow-md active:scale-[0.98] transition-all rounded-xl"
+                onClick={handleChatStart}
               >
                 <MessageSquare className="w-5 h-5 mr-2" />
                 Start Chat
               </Button>
               <Button 
                 className="w-full sm:w-auto text-lg py-6 px-8 bg-yellow-800 hover:bg-yellow-900 text-white shadow-md active:scale-[0.98] transition-all rounded-xl"
+                onClick={handlePhotoClick}
               >
                 <ImageIcon className="w-5 h-5 mr-2" />
                 Photo Diagnosis

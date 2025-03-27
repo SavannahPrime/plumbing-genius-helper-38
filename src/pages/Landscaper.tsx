@@ -9,6 +9,18 @@ import { motion } from "framer-motion";
 const LandscaperBuddy = () => {
   const navigate = useNavigate();
 
+  const handleChatStart = () => {
+    navigate("/chat");
+  };
+
+  const handlePhotoClick = () => {
+    navigate("/diagnosis");
+  };
+  
+  const handlePlanCalendar = () => {
+    navigate("/chat");
+  };
+
   return (
     <div className="min-h-screen bg-green-50 font-dm-sans text-primary">
       <header className="bg-white shadow-sm">
@@ -65,7 +77,7 @@ const LandscaperBuddy = () => {
             
             <p className="mb-6 text-lg text-primary/80">
               Your AI yard partner — from soil to sprinkler.
-              <Badge variant="outline" className="ml-2 bg-green-100 text-primary">💡 Plants. Soil. Solutions.</Badge>
+              <Badge className="ml-2 bg-green-100 text-primary">💡 Plants. Soil. Solutions.</Badge>
             </p>
             
             <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
@@ -74,7 +86,7 @@ const LandscaperBuddy = () => {
                 <p className="font-medium">Seasonal Planning</p>
               </div>
               <p className="text-sm text-gray-600 mb-3">Get personalized recommendations for what to plant this season based on your location and climate</p>
-              <Button variant="outline" className="w-full border-green-200 hover:bg-green-50">
+              <Button variant="outline" className="w-full border-green-200 hover:bg-green-50" onClick={handlePlanCalendar}>
                 Create Seasonal Plant Calendar
               </Button>
             </div>
@@ -82,12 +94,14 @@ const LandscaperBuddy = () => {
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
               <Button 
                 className="w-full sm:w-auto text-lg py-6 px-8 bg-green-600 hover:bg-green-700 shadow-md active:scale-[0.98] transition-all rounded-xl"
+                onClick={handleChatStart}
               >
                 <MessageSquare className="w-5 h-5 mr-2" />
                 Start Chat
               </Button>
               <Button 
                 className="w-full sm:w-auto text-lg py-6 px-8 bg-green-800 hover:bg-green-900 text-white shadow-md active:scale-[0.98] transition-all rounded-xl"
+                onClick={handlePhotoClick}
               >
                 <ImageIcon className="w-5 h-5 mr-2" />
                 Plant Diagnosis

@@ -9,6 +9,18 @@ import { motion } from "framer-motion";
 const HandymanHero = () => {
   const navigate = useNavigate();
 
+  const handleChatStart = () => {
+    navigate("/chat");
+  };
+
+  const handlePhotoClick = () => {
+    navigate("/diagnosis");
+  };
+
+  const handleToolPhotoClick = () => {
+    navigate("/diagnosis");
+  };
+
   return (
     <div className="min-h-screen bg-orange-50 font-dm-sans text-primary">
       <header className="bg-white shadow-sm">
@@ -76,7 +88,7 @@ const HandymanHero = () => {
                 <p className="font-medium">Tool Matcher</p>
               </div>
               <p className="text-sm text-gray-600 mb-3">Upload a photo of a tool or hardware and I'll identify it for you</p>
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="w-full" onClick={handleToolPhotoClick}>
                 Upload a Tool Photo
               </Button>
             </div>
@@ -84,12 +96,14 @@ const HandymanHero = () => {
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
               <Button 
                 className="w-full sm:w-auto text-lg py-6 px-8 bg-orange-600 hover:bg-orange-700 shadow-md active:scale-[0.98] transition-all rounded-xl"
+                onClick={handleChatStart}
               >
                 <MessageSquare className="w-5 h-5 mr-2" />
                 Start Chat
               </Button>
               <Button 
                 className="w-full sm:w-auto text-lg py-6 px-8 bg-orange-800 hover:bg-orange-900 text-white shadow-md active:scale-[0.98] transition-all rounded-xl"
+                onClick={handlePhotoClick}
               >
                 <ImageIcon className="w-5 h-5 mr-2" />
                 Photo Diagnosis
