@@ -15,7 +15,7 @@ const ChatHeader = ({ specialty, children }: ChatHeaderProps) => {
   const agent = specializedAgents[specialty];
 
   return (
-    <header className="bg-white border-b py-4 px-4 sticky top-0 z-10">
+    <header className="bg-gradient-to-r from-amber-50/80 to-amber-100/80 border-b border-amber-200/50 py-4 px-4 sticky top-0 z-10 backdrop-blur-md">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Button variant="ghost" size="icon" onClick={() => navigate('/')}>
@@ -23,19 +23,29 @@ const ChatHeader = ({ specialty, children }: ChatHeaderProps) => {
           </Button>
           
           <div className="flex items-center gap-2">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-              specialty === 'plumber' ? 'bg-accent/80' : 
-              specialty === 'electrician' ? 'bg-yellow-500' :
-              specialty === 'gadget' ? 'bg-purple-600' :
-              specialty === 'chef' ? 'bg-amber-600' :
-              specialty === 'stylist' ? 'bg-pink-500' :
-              'bg-blue-500'
-            }`}>
-              <span className="text-lg text-white">{agent.emoji}</span>
-            </div>
+            {agent.avatarImage ? (
+              <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-amber-300 shadow-md">
+                <img 
+                  src={agent.avatarImage} 
+                  alt={agent.name} 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ) : (
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                specialty === 'plumber' ? 'bg-accent/80' : 
+                specialty === 'electrician' ? 'bg-yellow-500' :
+                specialty === 'gadget' ? 'bg-purple-600' :
+                specialty === 'chef' ? 'bg-amber-600' :
+                specialty === 'stylist' ? 'bg-pink-500' :
+                'bg-blue-500'
+              }`}>
+                <span className="text-lg text-white">{agent.emoji}</span>
+              </div>
+            )}
             <div>
-              <h1 className="font-medium text-lg">{agent.name}</h1>
-              <p className="text-xs text-muted-foreground">
+              <h1 className="font-medium text-lg text-amber-900">{agent.name}</h1>
+              <p className="text-xs text-amber-700">
                 {agent.specialty.charAt(0).toUpperCase() + agent.specialty.slice(1)} Expert
               </p>
             </div>
@@ -47,6 +57,7 @@ const ChatHeader = ({ specialty, children }: ChatHeaderProps) => {
             variant="ghost" 
             size="icon"
             onClick={() => navigate('/step-by-step')}
+            className="text-amber-700 hover:text-amber-900 hover:bg-amber-100/60"
           >
             <HelpCircle className="h-5 w-5" />
           </Button>

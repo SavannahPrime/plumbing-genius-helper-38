@@ -1,4 +1,3 @@
-
 import { OpenAIMessage } from "@/types/chat";
 import { isPictureRequest } from "./openaiService";
 
@@ -79,7 +78,9 @@ export const specializedAgents: Record<AgentSpecialty, SpecializedAgent> = {
     emoji: "👨‍🍳",
     expertise: ["Recipes", "Cooking Techniques", "Ingredient Substitutions", "Kitchen Equipment", "Meal Planning"],
     personality: "friendly",
-    greeting: "Bonjour! I'm Chef Charlie, ready to help with all your culinary questions. What are we cooking up today?"
+    greeting: "Bonjour! I'm Chef Charlie, ready to help with all your culinary questions. What are we cooking up today?",
+    avatarImage: "/lovable-uploads/dbe43f04-5614-4eef-afdc-5014e05988f0.png",
+    actionImage: "/lovable-uploads/dbe43f04-5614-4eef-afdc-5014e05988f0.png"
   },
   stylist: {
     specialty: "stylist",

@@ -38,28 +38,34 @@ const ChatMessages = ({ messages, isLoading, specialty, context }: ChatMessagesP
             >
               {message.isAi && (
                 <div className="mr-2 mt-1">
-                  <Avatar className={`h-8 w-8 ${
-                    specialty === 'plumber' ? 'bg-accent/80' : 
-                    specialty === 'electrician' ? 'bg-yellow-500' :
-                    specialty === 'gadget' ? 'bg-purple-600' :
-                    specialty === 'chef' ? 'bg-amber-600' :
-                    specialty === 'stylist' ? 'bg-pink-500' :
-                    specialty === 'handyman' ? 'bg-orange-500' :
-                    specialty === 'mechanic' ? 'bg-blue-600' :
-                    specialty === 'landscaper' ? 'bg-green-600' :
-                    specialty === 'cleaning' ? 'bg-cyan-500' :
-                    'bg-blue-500'
-                  }`}>
-                    <span className="text-white text-xs">{agent.emoji}</span>
-                  </Avatar>
+                  {agent.avatarImage ? (
+                    <Avatar className="h-8 w-8 overflow-hidden">
+                      <img src={agent.avatarImage} alt={agent.name} className="w-full h-full object-cover" />
+                    </Avatar>
+                  ) : (
+                    <Avatar className={`h-8 w-8 ${
+                      specialty === 'plumber' ? 'bg-accent/80' : 
+                      specialty === 'electrician' ? 'bg-yellow-500' :
+                      specialty === 'gadget' ? 'bg-purple-600' :
+                      specialty === 'chef' ? 'bg-amber-600' :
+                      specialty === 'stylist' ? 'bg-pink-500' :
+                      specialty === 'handyman' ? 'bg-orange-500' :
+                      specialty === 'mechanic' ? 'bg-blue-600' :
+                      specialty === 'landscaper' ? 'bg-green-600' :
+                      specialty === 'cleaning' ? 'bg-cyan-500' :
+                      'bg-blue-500'
+                    }`}>
+                      <span className="text-white text-xs">{agent.emoji}</span>
+                    </Avatar>
+                  )}
                 </div>
               )}
               
               <div 
                 className={`rounded-lg p-3 ${
                   message.isAi 
-                    ? "bg-secondary text-secondary-foreground" 
-                    : "bg-primary text-primary-foreground"
+                    ? "bg-gradient-to-br from-amber-100/90 to-amber-200/90 backdrop-blur-md text-amber-900 border border-amber-200/50" 
+                    : "bg-gradient-to-br from-amber-500/90 to-amber-600/90 backdrop-blur-md text-white border border-amber-400/50"
                 }`}
               >
                 {message.imageUrl ? (
@@ -81,9 +87,9 @@ const ChatMessages = ({ messages, isLoading, specialty, context }: ChatMessagesP
         
         {isLoading && (
           <div className="flex justify-start">
-            <div className="rounded-lg bg-secondary p-3 flex items-center space-x-2">
-              <Loader2 className="h-4 w-4 animate-spin text-primary" />
-              <span className="text-secondary-foreground">Thinking...</span>
+            <div className="rounded-lg bg-gradient-to-br from-amber-100/90 to-amber-200/90 backdrop-blur-md p-3 flex items-center space-x-2 border border-amber-200/50">
+              <Loader2 className="h-4 w-4 animate-spin text-amber-600" />
+              <span className="text-amber-900">Chef is cooking up a response...</span>
             </div>
           </div>
         )}
