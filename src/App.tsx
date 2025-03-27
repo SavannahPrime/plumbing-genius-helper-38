@@ -16,6 +16,7 @@ import Landscaper from "./pages/Landscaper";
 import EveryFixHome from "./pages/EveryFixHome";
 import Mechanic from "./pages/Mechanic";
 import GadgetFixGenie from "./pages/GadgetFixGenie";
+import GadgetGlossary from "./pages/GadgetGlossary";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/landscaper" element={<Landscaper />} />
           <Route path="/mechanic" element={<Mechanic />} />
           <Route path="/gadgetfixgenie" element={<GadgetFixGenie />} />
+          <Route path="/glossary" element={<GadgetGlossary />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -93,7 +93,7 @@ const ProblemCategories = () => {
           <HoverCard key={index}>
             <HoverCardTrigger asChild>
               <Link 
-                to={`/chat?problem=${encodeURIComponent(category.query)}`}
+                to="/glossary"
                 className="bg-white rounded-xl shadow-card hover:shadow-card-hover transition-all duration-200 p-4 text-left hover-card-animation"
               >
                 <div className="flex items-center gap-2">
@@ -111,7 +111,7 @@ const ProblemCategories = () => {
         ))}
       </div>
       <div className="flex justify-center mt-6">
-        <Link to="/fixes" className="text-secondary hover:text-secondary/80 text-sm flex items-center gap-1 font-medium">
+        <Link to="/glossary" className="text-secondary hover:text-secondary/80 text-sm flex items-center gap-1 font-medium">
           See all plumbing problems <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
