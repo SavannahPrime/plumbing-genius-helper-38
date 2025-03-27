@@ -3,7 +3,7 @@ import React from "react";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Toilet, Droplet, Bath, Flame, Trash2, Info, ChefHat, Scissors } from "lucide-react";
+import { ArrowRight, Toilet, Droplet, Bath, Flame, Trash2, Info, ChefHat, Scissors, Search } from "lucide-react";
 
 interface ProblemCategory {
   icon: React.ReactNode;
@@ -103,6 +103,14 @@ const problemCategories: ProblemCategory[] = [
     emoji: "💇",
     path: "/stylist"
   },
+  { 
+    icon: <Search className="w-5 h-5" />, 
+    name: "Step-by-Step Guides", 
+    query: "I need detailed step-by-step instructions.",
+    hoverText: "Comprehensive DIY guides for all services",
+    emoji: "📚",
+    path: "/step-by-step"
+  },
 ];
 
 const ProblemCategories = () => {
@@ -137,8 +145,8 @@ const ProblemCategories = () => {
         ))}
       </div>
       <div className="flex justify-center mt-6">
-        <Link to="/glossary" className="text-secondary hover:text-secondary/80 text-sm flex items-center gap-1 font-medium">
-          See all plumbing problems <ArrowRight className="w-4 h-4" />
+        <Link to="/step-by-step" className="text-secondary hover:text-secondary/80 text-sm flex items-center gap-1 font-medium">
+          Browse all step-by-step guides <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
     </motion.section>

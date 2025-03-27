@@ -19,6 +19,7 @@ import GadgetFixGenie from "./pages/GadgetFixGenie";
 import GadgetGlossary from "./pages/GadgetGlossary";
 import Chef from "./pages/Chef";
 import Stylist from "./pages/Stylist";
+import StepByStepGlossary from "./pages/StepByStepGlossary";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,7 @@ const App = () => (
           <Route path="/glossary" element={<GadgetGlossary />} />
           <Route path="/chef" element={<Chef />} />
           <Route path="/stylist" element={<Stylist />} />
+          <Route path="/step-by-step" element={<StepByStepGlossary />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
