@@ -14,7 +14,7 @@ const EveryFixHome = () => {
       description: "Your AI plumbing expert. Fix leaks, clogs, and more without calling a plumber.",
       icon: <Wrench className="h-6 w-6 text-white" />,
       emoji: "🔧",
-      path: "/",
+      path: "/plumber",
       color: "bg-gradient-to-r from-blue-400 to-blue-600",
       avatar: "/lovable-uploads/1d4662ea-cc69-4e4f-9c18-078726ebe91e.png",
       avatarFallback: "🔧",
@@ -92,8 +92,8 @@ const EveryFixHome = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Link to={product.path} className="block h-full">
-                <Card className={`h-full shadow-md hover:shadow-lg transition-all ${product.bgClass}`}>
+              <Link to={product.path} className="block h-full no-underline">
+                <Card className={`h-full shadow-md hover:shadow-lg transition-all ${product.bgClass} cursor-pointer`}>
                   <CardHeader className={`${product.color} text-white rounded-t-xl`}>
                     <div className="flex justify-between items-center">
                       <div>
