@@ -25,6 +25,8 @@ export interface SpecializedAgent {
   expertise: string[];
   personality: AgentPersonality;
   greeting: string;
+  avatarImage?: string;
+  actionImage?: string;
 }
 
 // Create specialized agents information
@@ -59,7 +61,9 @@ export const specializedAgents: Record<AgentSpecialty, SpecializedAgent> = {
     emoji: "🔧",
     expertise: ["Engine Diagnostics", "Brakes", "Transmissions", "Electrical Systems", "Maintenance"],
     personality: "technical",
-    greeting: "Hi, I'm Mia, your automotive expert. I can help with diagnostics, repairs, and maintenance questions. What's going on with your vehicle?"
+    greeting: "Hi, I'm Mia, your automotive expert. I can help with diagnostics, repairs, and maintenance questions. What's going on with your vehicle?",
+    avatarImage: "/lovable-uploads/a0d78b55-8203-4c95-b8e1-1d962c51f2ae.png",
+    actionImage: "/lovable-uploads/fbd8ec5e-9ada-4ef8-83c3-da5352cfacc6.png"
   },
   landscaper: {
     specialty: "landscaper",

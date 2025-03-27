@@ -41,6 +41,11 @@ const QuickActionCategories = ({ title, categories, className = "" }: QuickActio
   
   // Determine which glossary to link to based on current context
   const getContextSpecificPath = (defaultPath: string) => {
+    // If the path already contains the context, return it as is
+    if (defaultPath.includes(`/${currentContext}/`)) {
+      return defaultPath;
+    }
+    
     // If the path is a glossary path, ensure we're using the current context
     if (defaultPath === "/glossary" || defaultPath.includes("/glossary")) {
       return `/${currentContext}/glossary`;

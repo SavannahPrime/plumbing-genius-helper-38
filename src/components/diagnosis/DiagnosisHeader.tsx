@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
 import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface DiagnosisHeaderProps {
   specialty?: AgentSpecialty;
@@ -44,6 +45,13 @@ const DiagnosisHeader = ({ specialty = "plumber" }: DiagnosisHeaderProps) => {
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
+            
+            {agent.avatarImage && (
+              <Avatar className="ml-2 h-8 w-8">
+                <AvatarImage src={agent.avatarImage} alt={agent.name} />
+                <AvatarFallback>{agent.emoji}</AvatarFallback>
+              </Avatar>
+            )}
           </div>
           <p className="font-dm-sans text-[16px] text-neutrals flex items-center">
             Upload a photo, and our AI {agent.specialty} will analyze the issue.
