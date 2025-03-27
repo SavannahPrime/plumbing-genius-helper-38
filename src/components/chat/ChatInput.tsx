@@ -18,6 +18,22 @@ const ChatInput = ({
   isLoading = false,
   onMicClick 
 }: ChatInputProps) => {
+  
+  const handleMicButtonClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onMicClick) {
+      onMicClick();
+    }
+  };
+  
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && message.trim() && !isLoading) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+  
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-3">
       <div className="container mx-auto max-w-3xl">
@@ -26,9 +42,10 @@ const ChatInput = ({
             variant="ghost" 
             size="icon" 
             className="flex-shrink-0 rounded-full h-9 w-9"
-            onClick={onMicClick}
+            onClick={handleMicButtonClick}
             title="Speak with voice assistant"
             type="button"
+            tabIndex={0}
           >
             <Mic className="w-4 h-4 text-gray-600" />
           </Button>
@@ -46,16 +63,15 @@ const ChatInput = ({
             placeholder="Describe your plumbing issue..."
             className="flex-grow text-sm rounded-full"
             disabled={isLoading}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter' && message.trim() && !isLoading) {
-                handleSendMessage();
-              }
-            }}
+            onKeyPress={handleKeyPress}
           />
           <Button 
             className="flex-shrink-0 bg-[#0A2540] rounded-full h-9 w-9 p-0"
             disabled={!message.trim() || isLoading}
-            onClick={handleSendMessage}
+            onClick={(e) => {
+              e.preventDefault();
+              handleSendMessage();
+            }}
             type="button"
           >
             <Send className="w-4 h-4" />

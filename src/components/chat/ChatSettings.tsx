@@ -2,6 +2,7 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Settings, Mic } from "lucide-react";
+import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
 
 interface ChatSettingsProps {
   onOpenApiKeyDialog: () => void;
@@ -10,6 +11,8 @@ interface ChatSettingsProps {
 }
 
 const ChatSettings = ({ onOpenApiKeyDialog, onToggleChatGPT, isUsingChatGPT }: ChatSettingsProps) => {
+  const { agentId } = useElevenLabsAgent();
+  
   return (
     <div className="ml-auto">
       <DropdownMenu>
@@ -26,8 +29,8 @@ const ChatSettings = ({ onOpenApiKeyDialog, onToggleChatGPT, isUsingChatGPT }: C
             Configure API Key
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="text-xs text-muted-foreground">
-            <Mic className="h-3 w-3 mr-1" /> Agent ID: lX8syHY754gA8SdjQU6n
+          <DropdownMenuItem className="text-xs text-muted-foreground flex items-center gap-1">
+            <Mic className="h-3 w-3" /> Agent ID: {agentId}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
