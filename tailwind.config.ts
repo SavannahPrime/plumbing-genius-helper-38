@@ -22,6 +22,8 @@ export default {
       fontFamily: {
         inter: ["Inter", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
+        'space-grotesk': ["Space Grotesk", "sans-serif"],
+        'dm-sans': ["DM Sans", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -34,7 +36,7 @@ export default {
           foreground: "#ffffff",
         },
         secondary: {
-          DEFAULT: "#00AEEF",
+          DEFAULT: "#4FC3F7",  // More vibrant teal/blue
           foreground: "#ffffff",
         },
         accent: {
@@ -79,10 +81,19 @@ export default {
             transform: "translateY(0)",
           },
         },
+        "pulse-light": {
+          "0%, 100%": {
+            opacity: "1",
+          },
+          "50%": {
+            opacity: "0.7",
+          },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.5s ease-out",
         "fade-down": "fade-down 0.5s ease-out",
+        "pulse-light": "pulse-light 2s ease-in-out infinite",
       },
     },
   },
