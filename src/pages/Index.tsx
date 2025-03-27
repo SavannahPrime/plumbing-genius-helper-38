@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -108,33 +109,33 @@ const Index = () => {
   });
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] font-sans text-[#1D3557]">
+    <div className="min-h-screen bg-soft font-dm-sans text-primary">
       <header className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <Wrench className="w-7 h-7 text-[#1D3557]" />
-            <span className="font-inter font-bold text-xl text-[#1D3557]">
+            <Wrench className="w-7 h-7 text-accent" />
+            <span className="font-space-grotesk font-bold text-xl text-primary">
               Plumber's Helper
             </span>
           </div>
           
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-2 bg-gray-100 p-1 rounded-full">
+            <div className="hidden md:flex items-center gap-2 bg-neutrals-steel/50 p-1 rounded-full">
               <button 
                 onClick={() => setPlumberPersonality("classic")}
-                className={`text-xs px-3 py-1 rounded-full flex items-center gap-1 transition-all ${plumberPersonality === "classic" ? "bg-white shadow-sm" : "hover:bg-gray-200"}`}
+                className={`text-xs px-3 py-1 rounded-full flex items-center gap-1 transition-all ${plumberPersonality === "classic" ? "bg-white shadow-sm" : "hover:bg-neutrals-steel"}`}
               >
                 🧓 Classic
               </button>
               <button 
                 onClick={() => setPlumberPersonality("ai")}
-                className={`text-xs px-3 py-1 rounded-full flex items-center gap-1 transition-all ${plumberPersonality === "ai" ? "bg-white shadow-sm" : "hover:bg-gray-200"}`}
+                className={`text-xs px-3 py-1 rounded-full flex items-center gap-1 transition-all ${plumberPersonality === "ai" ? "bg-white shadow-sm" : "hover:bg-neutrals-steel"}`}
               >
                 🤖 AI
               </button>
               <button 
                 onClick={() => setPlumberPersonality("chill")}
-                className={`text-xs px-3 py-1 rounded-full flex items-center gap-1 transition-all ${plumberPersonality === "chill" ? "bg-white shadow-sm" : "hover:bg-gray-200"}`}
+                className={`text-xs px-3 py-1 rounded-full flex items-center gap-1 transition-all ${plumberPersonality === "chill" ? "bg-white shadow-sm" : "hover:bg-neutrals-steel"}`}
               >
                 😎 Chill
               </button>
@@ -142,13 +143,13 @@ const Index = () => {
             
             <button 
               onClick={handleMicClick}
-              className="w-8 h-8 rounded-full bg-[#E3F2FD] flex items-center justify-center hover:bg-[#B3E5FC] transition-colors"
+              className="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center hover:bg-secondary/20 transition-colors"
               aria-label="Voice assistant"
             >
-              <Mic className="w-4 h-4 text-[#1D3557]" />
+              <Mic className="w-4 h-4 text-secondary" />
             </button>
             
-            <nav className="text-sm text-[#607D8B] hidden md:block">
+            <nav className="text-sm text-neutrals hidden md:block">
               <Link to="/fixes" className="mr-4 hover:underline">Find a Real Plumber</Link>
               <Link to="/fixes" className="hover:underline">Privacy</Link>
             </nav>
@@ -165,7 +166,7 @@ const Index = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="relative">
-              <div className="w-48 h-48 md:w-72 md:h-72 rounded-full bg-[#E3F2FD] flex items-center justify-center">
+              <div className="w-48 h-48 md:w-72 md:h-72 rounded-full bg-secondary/10 flex items-center justify-center">
                 <motion.div
                   animate={{ 
                     y: [0, -10, 0],
@@ -184,7 +185,7 @@ const Index = () => {
                 </motion.div>
               </div>
               
-              <div className="absolute -top-12 -right-16 md:-right-24 bg-white rounded-2xl p-3 shadow-md after:content-[''] after:absolute after:bottom-0 after:left-6 after:w-4 after:h-4 after:bg-white after:rotate-45 after:-mb-2">
+              <div className="absolute -top-12 -right-16 md:-right-24 bg-white rounded-2xl p-3 shadow-card after:content-[''] after:absolute after:bottom-0 after:left-6 after:w-4 after:h-4 after:bg-white after:rotate-45 after:-mb-2">
                 <p className="text-sm md:text-base font-medium">Let's fix that leaky mess!</p>
               </div>
             </div>
@@ -196,7 +197,7 @@ const Index = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-inter">Your AI-Powered Plumbing Assistant</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-space-grotesk">Your AI-Powered Plumbing Assistant</h2>
             
             <motion.p
               key={currentTextIndex}
@@ -204,20 +205,20 @@ const Index = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -5 }}
               transition={{ duration: 0.3 }}
-              className="mb-6 text-lg text-[#37474F] font-medium"
+              className="mb-6 text-lg text-primary/80 font-medium typing-animation"
             >
               {typingTexts[currentTextIndex]}
             </motion.p>
             
-            <p className="mb-6 text-lg text-[#37474F]">
+            <p className="mb-6 text-lg text-primary/80">
               Snap a pic. Talk to your AI plumber. Get unstuck, fast.
-              <Badge variant="outline" className="ml-2 bg-[#E3F2FD] text-[#1D3557]">💡 No appointments. Just answers.</Badge>
+              <Badge variant="outline" className="ml-2 bg-mint/20 text-primary">💡 No appointments. Just answers.</Badge>
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
               <Link to="/chat">
                 <Button 
-                  className="w-full sm:w-auto text-lg py-6 px-8 bg-[#1D3557] hover:bg-[#1D3557]/90 shadow-md active:scale-[0.98] transition-all"
+                  className="w-full sm:w-auto text-lg py-6 px-8 bg-primary hover:bg-primary/90 shadow-md active:scale-[0.98] transition-all rounded-xl"
                 >
                   <MessageSquare className="w-5 h-5 mr-2" />
                   Start Chat
@@ -225,14 +226,14 @@ const Index = () => {
               </Link>
               <Link to="/diagnosis">
                 <Button 
-                  className="w-full sm:w-auto text-lg py-6 px-8 bg-[#4FC3F7] hover:bg-[#03A9F4] text-white shadow-md active:scale-[0.98] transition-all"
+                  className="w-full sm:w-auto text-lg py-6 px-8 bg-secondary hover:bg-secondary/90 text-white shadow-md active:scale-[0.98] transition-all rounded-xl"
                 >
                   <ImageIcon className="w-5 h-5 mr-2" />
                   Visual Diagnosis
                 </Button>
               </Link>
             </div>
-            <div className="text-sm text-[#78909C]">Or explore quick help topics below 👇</div>
+            <div className="text-sm text-neutrals">Or explore quick help topics below 👇</div>
           </motion.div>
         </section>
 
@@ -242,101 +243,102 @@ const Index = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <h3 className="text-xl font-semibold mb-4">🧰 Common Issues</h3>
+          <h3 className="text-xl font-semibold mb-4 font-space-grotesk">🧰 Common Issues</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {problemCategories.map((category, index) => (
               <HoverCard key={index}>
                 <HoverCardTrigger asChild>
                   <Link 
                     to={`/chat?problem=${encodeURIComponent(category.query)}`}
-                    className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-4 text-left hover:shadow-lg hover:-translate-y-1"
+                    className="bg-white rounded-xl shadow-card hover:shadow-card-hover transition-all duration-200 p-4 text-left hover-card-animation"
                   >
                     <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center">
                         {category.icon}
                       </div>
                       <span>{category.name} <span className="text-xs opacity-70">{category.emoji}</span></span>
                     </div>
                   </Link>
                 </HoverCardTrigger>
-                <HoverCardContent className="w-auto p-3">
+                <HoverCardContent className="w-auto p-3 bg-white shadow-md border border-neutrals-steel/30 z-50">
                   <p className="text-sm">{category.hoverText}</p>
                 </HoverCardContent>
               </HoverCard>
             ))}
           </div>
           <div className="flex justify-center mt-6">
-            <Link to="/fixes" className="text-blue-600 hover:text-blue-800 text-sm flex items-center gap-1 font-medium">
+            <Link to="/fixes" className="text-secondary hover:text-secondary/80 text-sm flex items-center gap-1 font-medium">
               See all plumbing problems <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </motion.section>
 
         <motion.section
-          className="mt-20 p-6 bg-white rounded-xl shadow-sm"
+          className="mt-20 p-6 bg-white rounded-2xl shadow-card"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <h3 className="text-xl font-semibold mb-4 flex items-center">
-            <Wrench className="w-5 h-5 mr-2 text-[#1D3557]" />
+          <h3 className="text-xl font-semibold mb-4 flex items-center font-space-grotesk">
+            <Wrench className="w-5 h-5 mr-2 text-accent" />
             Fix it now
           </h3>
           
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <Link to="/chat" className="w-full max-w-xs">
-              <div className="flex flex-col items-center text-center p-4 hover:bg-[#E3F2FD] rounded-lg transition-colors cursor-pointer">
-                <div className="w-12 h-12 rounded-full bg-[#E3F2FD] flex items-center justify-center mb-2">
+              <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
+                <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
                   <span className="text-xl">🛠️</span>
                 </div>
-                <h4 className="font-medium mb-1">What's the problem?</h4>
-                <p className="text-sm text-gray-500">Select from options above</p>
+                <h4 className="font-medium mb-1 font-space-grotesk">What's the problem?</h4>
+                <p className="text-sm text-neutrals">Select from options above</p>
               </div>
             </Link>
             
-            <ArrowRight className="w-5 h-5 text-gray-400 hidden md:block" />
+            <ArrowRight className="w-5 h-5 text-neutrals-steel hidden md:block" />
             
             <Link to="/diagnosis" className="w-full max-w-xs">
-              <div className="flex flex-col items-center text-center p-4 hover:bg-[#E3F2FD] rounded-lg transition-colors cursor-pointer">
-                <div className="w-12 h-12 rounded-full bg-[#E3F2FD] flex items-center justify-center mb-2">
+              <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
+                <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
                   <span className="text-xl">📷</span>
                 </div>
-                <h4 className="font-medium mb-1">Got a pic?</h4>
-                <p className="text-sm text-gray-500">Upload for better results</p>
+                <h4 className="font-medium mb-1 font-space-grotesk">Got a pic?</h4>
+                <p className="text-sm text-neutrals">Upload for better results</p>
               </div>
             </Link>
             
-            <ArrowRight className="w-5 h-5 text-gray-400 hidden md:block" />
+            <ArrowRight className="w-5 h-5 text-neutrals-steel hidden md:block" />
             
             <div 
-              className="w-full max-w-xs"
+              className="w-full max-w-xs cursor-pointer"
               onClick={handleMicClick}
             >
-              <div className="flex flex-col items-center text-center p-4 hover:bg-[#E3F2FD] rounded-lg transition-colors cursor-pointer">
-                <div className="w-12 h-12 rounded-full bg-[#E3F2FD] flex items-center justify-center mb-2">
+              <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors">
+                <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2 relative">
                   <span className="text-xl">📞</span>
+                  <div className="absolute inset-0 rounded-full border-2 border-mint voice-ring"></div>
                 </div>
-                <h4 className="font-medium mb-1">Want voice assistance?</h4>
-                <p className="text-sm text-gray-500">Talk to AI plumber</p>
+                <h4 className="font-medium mb-1 font-space-grotesk">Want voice assistance?</h4>
+                <p className="text-sm text-neutrals">Talk to AI plumber</p>
               </div>
             </div>
             
-            <ArrowRight className="w-5 h-5 text-gray-400 hidden md:block" />
+            <ArrowRight className="w-5 h-5 text-neutrals-steel hidden md:block" />
             
             <Link to="/chat" className="w-full max-w-xs">
-              <div className="flex flex-col items-center text-center p-4 hover:bg-[#E3F2FD] rounded-lg transition-colors cursor-pointer">
-                <div className="w-12 h-12 rounded-full bg-[#E3F2FD] flex items-center justify-center mb-2">
+              <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
+                <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
                   <span className="text-xl">✅</span>
                 </div>
-                <h4 className="font-medium mb-1">Here's your fix!</h4>
-                <p className="text-sm text-gray-500">Step-by-step solutions</p>
+                <h4 className="font-medium mb-1 font-space-grotesk">Here's your fix!</h4>
+                <p className="text-sm text-neutrals">Step-by-step solutions</p>
               </div>
             </Link>
           </div>
           
           <div className="mt-6 flex justify-center">
             <Link to="/chat">
-              <Button className="bg-[#1D3557]">
+              <Button className="bg-primary hover:bg-primary/90 rounded-xl">
                 Get Started
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
@@ -345,7 +347,7 @@ const Index = () => {
         </motion.section>
 
         <motion.footer 
-          className="mt-20 border-t pt-6 text-sm text-[#90A4AE] flex justify-between items-center"
+          className="mt-20 border-t pt-6 text-sm text-neutrals flex justify-between items-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.6 }}
