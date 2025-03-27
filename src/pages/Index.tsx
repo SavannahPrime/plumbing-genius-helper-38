@@ -1,7 +1,6 @@
-
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Wrench, MessageSquare, Image as ImageIcon, MoreVertical, Settings, Toilet, Shower, Droplet, Bath, Flame, Trash2, Info, ArrowRight } from "lucide-react";
+import { Wrench, MessageSquare, Image as ImageIcon, MoreVertical, Settings, Toilet, Droplet, Bath, Flame, Trash2, Info, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -28,7 +27,7 @@ const features = [
 
 const problemCategories = [
   { icon: <Toilet className="w-5 h-5" />, name: "Toilet", query: "I have a problem with my toilet." },
-  { icon: <Shower className="w-5 h-5" />, name: "Shower", query: "I have an issue with my shower." },
+  { icon: <Droplet className="w-5 h-5" />, name: "Shower", query: "I have an issue with my shower." },
   { icon: <Droplet className="w-5 h-5" />, name: "Sink", query: "My sink is having problems." },
   { icon: <Bath className="w-5 h-5" />, name: "Bathtub", query: "I'm having issues with my bathtub." },
   { icon: <Flame className="w-5 h-5" />, name: "Water Heater", query: "My water heater isn't working properly." },
