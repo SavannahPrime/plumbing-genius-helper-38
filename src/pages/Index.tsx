@@ -7,6 +7,7 @@ import Header from "@/components/home/Header";
 import Hero from "@/components/home/Hero";
 import ProblemCategories from "@/components/home/ProblemCategories";
 import QuickFixSection from "@/components/home/QuickFixSection";
+import OtherProducts from "@/components/home/OtherProducts";
 import Footer from "@/components/home/Footer";
 
 const typingTexts = [
@@ -45,6 +46,8 @@ const Index = () => {
         <ProblemCategories />
         
         <QuickFixSection />
+        
+        <OtherProducts />
 
         <Footer />
       </main>
