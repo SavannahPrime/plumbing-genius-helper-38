@@ -14,11 +14,27 @@ export const useMicActivation = (
   getAgentId: () => string
 ) => {
   const handleMicClick = useCallback(() => {
+    // Check if custom element is registered before proceeding
+    if (!customElements.get("elevenlabs-convai")) {
+      toast({
+        title: "Voice Assistant Initialization Failed",
+        description: "Unable to initialize voice assistant. Please try again later.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
     if (!state.isInitialized) {
+      // If we're still initializing, show a toast and trigger a reset
       toast({
         title: "Voice Assistant",
         description: "Voice assistant is initializing. Please try again in a moment.",
       });
+      
+      // Try to reset if we've been waiting too long
+      if (retryCount.current >= MAX_RETRIES) {
+        resetAgent();
+      }
       return;
     }
     
@@ -38,6 +54,15 @@ export const useMicActivation = (
           } else {
             throw new Error("Maximum retry attempts reached");
           }
+        }
+        
+        if (!elevenLabsAgent.current) {
+          toast({
+            title: "Voice Assistant Error",
+            description: "Failed to create voice assistant. Please refresh the page and try again.",
+            variant: "destructive"
+          });
+          return;
         }
         
         activateAgent(elevenLabsAgent.current);

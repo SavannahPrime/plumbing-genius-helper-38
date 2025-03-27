@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -21,30 +20,62 @@ import GadgetGlossary from "./pages/GadgetGlossary";
 import Chef from "./pages/Chef";
 import Stylist from "./pages/Stylist";
 import StepByStepGlossary from "./pages/StepByStepGlossary";
-import { SCRIPT_URL, ELEVEN_LABS_AGENT_ID } from "@/constants/elevenlabs";
+import { SCRIPT_URL } from "@/constants/elevenlabs";
 
 const queryClient = new QueryClient();
 
-// Widget initializer component that can access route information
+// Widget initializer component with improved error handling
 const ElevenLabsWidgetInitializer = () => {
-  const location = useLocation();
-  const [searchParams] = useSearchParams();
-  const specialtyParam = searchParams.get('specialty');
-  
   useEffect(() => {
-    // Load the script if it's not already loaded
-    if (!document.querySelector(`script[src="${SCRIPT_URL}"]`)) {
+    let scriptLoadAttempts = 0;
+    const maxAttempts = 3;
+    
+    const loadScript = () => {
+      // Check if script is already loaded
+      if (document.querySelector(`script[src="${SCRIPT_URL}"]`)) {
+        console.log("ElevenLabs script already loaded in App initializer");
+        return;
+      }
+      
+      scriptLoadAttempts++;
+      console.log(`Loading ElevenLabs script in App initializer (attempt ${scriptLoadAttempts}/${maxAttempts})`);
+      
       const script = document.createElement("script");
       script.src = SCRIPT_URL;
       script.async = true;
       script.type = "text/javascript";
-      document.head.appendChild(script);
       
-      console.log("ElevenLabs script loaded");
-    }
+      script.onload = () => {
+        console.log("ElevenLabs script loaded successfully in App initializer");
+        
+        // Check if the custom element is registered
+        setTimeout(() => {
+          if (!customElements.get("elevenlabs-convai") && scriptLoadAttempts < maxAttempts) {
+            console.warn("ElevenLabs custom element not registered after script load, retrying...");
+            script.remove();
+            setTimeout(loadScript, 1000);
+          }
+        }, 1000);
+      };
+      
+      script.onerror = (error) => {
+        console.error("Error loading ElevenLabs script in App initializer:", error);
+        
+        if (scriptLoadAttempts < maxAttempts) {
+          console.log("Retrying script load after error...");
+          script.remove();
+          setTimeout(loadScript, 1000);
+        }
+      };
+      
+      document.head.appendChild(script);
+    };
     
-    // We don't create the widget here - we'll let the useElevenLabsAgent hook handle that
-    // This ensures proper agent ID selection based on the current route
+    loadScript();
+    
+    return () => {
+      // We don't remove the script on unmount to prevent reloading issues
+    };
   }, []);
   
   return null;
