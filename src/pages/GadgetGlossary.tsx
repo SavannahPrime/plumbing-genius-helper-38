@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -160,6 +159,78 @@ const GadgetGlossary: React.FC<GadgetGlossaryProps> = ({ contextType = "plumber"
         icon: "🍳"
       },
     ],
+    gadget: [
+      {
+        title: "Smartphone Issues",
+        problem: "My smartphone is running slow or freezing.",
+        solution: "Close unused apps, clear cache, check for software updates, and restart your device. If problems persist, try removing recent apps or performing a factory reset after backing up your data.",
+        category: "Gadget",
+        icon: "📱"
+      },
+      {
+        title: "Computer Performance",
+        problem: "My computer is sluggish and taking a long time to respond.",
+        solution: "Check for background processes using Task Manager/Activity Monitor, clear temporary files, update your operating system, and consider adding more RAM or switching to an SSD if you have an older HDD.",
+        category: "Gadget",
+        icon: "💻"
+      },
+      {
+        title: "WiFi Connectivity",
+        problem: "My WiFi connection keeps dropping or is slow.",
+        solution: "Restart your router, position it in a central location away from interference, update router firmware, or try changing WiFi channels. Consider a mesh network for larger homes with dead zones.",
+        category: "Gadget",
+        icon: "📶"
+      },
+      {
+        title: "Bluetooth Pairing",
+        problem: "My Bluetooth device won't connect or keeps disconnecting.",
+        solution: "Turn Bluetooth off and on again, ensure the device is in pairing mode, forget the device in your settings and reconnect, or check for interference from other wireless devices.",
+        category: "Gadget",
+        icon: "📲"
+      },
+      {
+        title: "Battery Drainage",
+        problem: "My device battery drains too quickly.",
+        solution: "Check which apps use the most battery, reduce screen brightness, turn off background app refresh, disable location services when not needed, and consider replacing the battery if it's an older device.",
+        category: "Gadget",
+        icon: "🔋"
+      },
+      {
+        title: "Screen Issues",
+        problem: "My screen is flickering, has dead pixels, or isn't responding properly.",
+        solution: "Update display drivers, adjust refresh rate settings, check cable connections, or test with an external monitor. For touchscreens, clean the surface and recalibrate if possible.",
+        category: "Gadget",
+        icon: "🖥️"
+      },
+      {
+        title: "Audio Problems",
+        problem: "No sound or poor sound quality from my device.",
+        solution: "Check volume levels and mute settings, verify audio output settings, update audio drivers, inspect headphone jacks for debris, and test with different speakers/headphones to isolate the issue.",
+        category: "Gadget",
+        icon: "🔊"
+      },
+      {
+        title: "Storage Full",
+        problem: "My device is running out of storage space.",
+        solution: "Delete unused apps, clear cache files, remove downloaded media, use cloud storage for photos and videos, or add external storage like SD cards or external drives if supported.",
+        category: "Gadget",
+        icon: "💾"
+      },
+      {
+        title: "Printer Problems",
+        problem: "My printer won't print or produces poor quality printouts.",
+        solution: "Check ink/toner levels, clean printheads, verify network connection, update printer drivers, and remove any paper jams. Run printer diagnostics from the manufacturer's software.",
+        category: "Gadget",
+        icon: "🖨️"
+      },
+      {
+        title: "Smart Home Devices",
+        problem: "My smart home devices aren't responding or connecting properly.",
+        solution: "Check if they're properly powered, verify WiFi connectivity, update device firmware, reset to factory settings if needed, and ensure your smart home hub is functioning correctly.",
+        category: "Gadget",
+        icon: "🏠"
+      }
+    ],
     default: [
       {
         title: "General Advice",
@@ -173,7 +244,6 @@ const GadgetGlossary: React.FC<GadgetGlossaryProps> = ({ contextType = "plumber"
 
   const currentItems = glossaryItems[contextType] || glossaryItems.default;
   
-  // Get background color based on context type
   const getBgColorClass = () => {
     switch (contextType) {
       case "plumber": return "bg-gradient-to-b from-blue-50 to-blue-100";
