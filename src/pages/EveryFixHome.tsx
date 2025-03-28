@@ -150,10 +150,10 @@ const EveryFixHome = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col items-center justify-center text-center">
             <h1 className="text-3xl md:text-5xl font-bold font-space-grotesk text-primary mb-2">
-              EveryFixAI
+              Connect.Software
             </h1>
             <p className="text-gray-600 max-w-2xl mx-auto mb-4">
-              Your personal AI assistants for every home challenge — from plumbing and electrical to cleaning and landscaping.
+              Virtual Live 24x7 Agents for various industries. Select your desired chat/voice agent for your personal or business needs.
             </p>
             <div className="flex flex-wrap justify-center gap-2 mt-2">
               <Badge variant="outline" className="bg-blue-50">No appointments</Badge>
@@ -303,7 +303,7 @@ const EveryFixHome = () => {
 
       <footer className="bg-white border-t py-8">
         <div className="container mx-auto px-4 text-center text-sm text-gray-500">
-          <p>© 2023 EveryFixAI. All AI assistants are here to help you tackle home projects with confidence.</p>
+          <p>© {new Date().getFullYear()} Connect.Software. All virtual AI agents are available 24/7 to assist with your needs.</p>
           <p className="mt-2">For emergencies or complex issues, always consult a professional.</p>
         </div>
       </footer>

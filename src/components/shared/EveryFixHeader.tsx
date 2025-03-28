@@ -29,14 +29,14 @@ const EveryFixHeader: React.FC<EveryFixHeaderProps> = ({
             </div>
           )}
           <Link to="/" className="font-bold text-xl text-primary flex items-center">
-            {title ? title : "EveryFixAI"}
+            {title ? title : "Connect.Software"}
           </Link>
         </div>
         
         <div className="flex items-center gap-2">
           {!isMobile && (
             <Button variant="outline" size="sm" asChild>
-              <Link to="/fixes">Fixes</Link>
+              <Link to="/fixes">Agents</Link>
             </Button>
           )}
           <Button size="sm" asChild>
