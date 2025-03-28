@@ -50,6 +50,10 @@ const ChatHeader = ({ specialty, children }: ChatHeaderProps) => {
                 specialty === 'gadget' ? 'bg-purple-600' :
                 specialty === 'chef' ? 'bg-amber-600' :
                 specialty === 'stylist' ? 'bg-pink-500' :
+                specialty === 'handyman' ? 'bg-orange-500' :
+                specialty === 'mechanic' ? 'bg-blue-600' :
+                specialty === 'landscaper' ? 'bg-green-600' :
+                specialty === 'cleaning' ? 'bg-cyan-500' :
                 'bg-blue-500'
               }`}>
                 <span className="text-lg text-white">{agent.emoji}</span>

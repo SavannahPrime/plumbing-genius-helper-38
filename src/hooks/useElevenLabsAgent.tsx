@@ -1,5 +1,6 @@
 
 import { useEffect } from "react";
+import { toast } from "@/hooks/use-toast";
 import { deactivateAgent, removeAgentElement } from "@/utils/elevenlabsAgent";
 import { ElevenLabsAgentHook } from "@/types/elevenlabs";
 import { useAgentIdResolver } from "./elevenlabs/useAgentIdResolver";
@@ -53,6 +54,19 @@ export const useElevenLabsAgent = (): ElevenLabsAgentHook => {
       }
     };
   }, [initializeAgent]);
+
+  // When active, disable scrolling and append "talkingWithAI" class to body
+  useEffect(() => {
+    if (state.isActive) {
+      document.body.classList.add("talkingWithAI");
+    } else {
+      document.body.classList.remove("talkingWithAI");
+    }
+    
+    return () => {
+      document.body.classList.remove("talkingWithAI");
+    };
+  }, [state.isActive]);
 
   return { 
     handleMicClick, 

@@ -5,7 +5,8 @@ import ChatInput from "@/components/chat/ChatInput";
 import { Message, ConversationContext } from "@/types/chat";
 import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
 import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
+import { Mic } from "lucide-react";
+import { useElevenLabsAgent } from "@/hooks/useElevenLabsAgent";
 
 interface ChatContentProps {
   messages: Message[];
@@ -58,6 +59,13 @@ const ChatContent: React.FC<ChatContentProps> = ({
     }
   }, [currentAgentSpecialty, messages.length, setMessages]);
 
+  // Use ElevenLabs agent hook for voice interaction
+  const { 
+    handleMicClick: handleElevenLabsActivation, 
+    isInitialized,
+    isActive
+  } = useElevenLabsAgent();
+
   return (
     <>
       <div className="flex-1 overflow-hidden relative">
@@ -69,19 +77,18 @@ const ChatContent: React.FC<ChatContentProps> = ({
         />
       </div>
       
-      {/* ElevenLabs Talk Widget for Plumber */}
+      {/* Voice chat activation button for Plumber */}
       {currentAgentSpecialty === 'plumber' && (
         <div className="border-t border-amber-200 bg-amber-50/60 p-2">
           <div className="container mx-auto flex justify-center">
-            <a 
-              href="https://elevenlabs.io/app/talk-to?agent_id=lX8syHY754gA8SdjQU6n" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 text-amber-700 hover:text-amber-900 text-sm font-medium"
+            <Button 
+              onClick={handleElevenLabsActivation}
+              variant="ghost"
+              className={`flex items-center gap-1 text-amber-700 hover:text-amber-900 text-sm font-medium ${isActive ? 'bg-amber-200' : ''}`}
             >
-              <ExternalLink className="h-4 w-4" />
-              Talk to Plumber using ElevenLabs Voice Assistant
-            </a>
+              <Mic className={`h-4 w-4 ${isActive ? 'text-red-500 animate-pulse' : ''}`} />
+              {isActive ? 'Stop Voice Chat' : 'Start Voice Chat with Plumber'}
+            </Button>
           </div>
         </div>
       )}
