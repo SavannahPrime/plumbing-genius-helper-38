@@ -88,16 +88,7 @@ const EveryFixHowItWorks = ({ specialty = "general" }: EveryFixHowItWorksProps) 
             onClick={() => setVideoDialogOpen(true)}
           >
             <Play className="h-4 w-4" />
-            Watch {specialty === "plumber" ? "Plumber's Helper" : 
-                  specialty === "handyman" ? "Handyman Hero" :
-                  specialty === "electrician" ? "Electrician Genius" :
-                  specialty === "gadget" ? "Gadget Fix Genie" :
-                  specialty === "chef" ? "Chef's Assistant" :
-                  specialty === "cleaning" ? "Cleaning Genius" :
-                  specialty === "mechanic" ? "Mechanic Assistant" :
-                  specialty === "landscaper" ? "Landscaper Buddy" :
-                  specialty === "stylist" ? "Stylist's Helper" :
-                  "Assistant"} in Action
+            Watch in Action
           </Button>
         </div>
       )}
