@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/carousel";
 import { createIcon } from "@/utils/iconUtils";
 import { Badge } from "@/components/ui/badge";
-import Logo from "@/components/shared/Logo";
 
 const EveryFixHome = () => {
   const [activeVideos, setActiveVideos] = useState(0);
@@ -150,12 +149,9 @@ const EveryFixHome = () => {
       <header className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col items-center justify-center text-center">
-            <div className="flex items-center gap-3 mb-3">
-              <Logo size="lg" />
-              <h1 className="text-3xl md:text-5xl font-bold font-space-grotesk text-primary">
-                Connect.Software
-              </h1>
-            </div>
+            <h1 className="text-3xl md:text-5xl font-bold font-space-grotesk text-primary mb-2">
+              Connect.Software
+            </h1>
             <p className="text-gray-600 max-w-2xl mx-auto mb-4">
               Virtual Live 24x7 Agents for various industries. Select your desired chat/voice agent for your personal or business needs.
             </p>
@@ -295,7 +291,7 @@ const EveryFixHome = () => {
         <section className="mb-16">
           <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-100">
             <div className="text-center mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">How Connect.Software Works</h2>
+              <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">How EveryFixAI Works</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
                 Get expert help in three simple steps
               </p>
@@ -307,10 +303,6 @@ const EveryFixHome = () => {
 
       <footer className="bg-white border-t py-8">
         <div className="container mx-auto px-4 text-center text-sm text-gray-500">
-          <div className="flex items-center justify-center mb-4">
-            <Logo size="sm" />
-            <span className="ml-2 font-semibold">Connect.Software</span>
-          </div>
           <p>© {new Date().getFullYear()} Connect.Software. All virtual AI agents are available 24/7 to assist with your needs.</p>
           <p className="mt-2">For emergencies or complex issues, always consult a professional.</p>
         </div>

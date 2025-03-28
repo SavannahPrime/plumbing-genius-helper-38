@@ -3,7 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
-import Logo from "./Logo";
 
 export interface EveryFixHeaderProps {
   specialty?: string;
@@ -24,7 +23,6 @@ const EveryFixHeader: React.FC<EveryFixHeaderProps> = ({
     <header className="bg-white border-b border-gray-200">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <Logo size="sm" />
           {icon && colorClass && (
             <div className={colorClass}>
               {icon}
