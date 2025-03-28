@@ -22,6 +22,9 @@ export const useAgentSpecialtyResolver = (): AgentSpecialty => {
   if (path.includes("stylist")) return "stylist";
   if (path.includes("cleaning")) return "cleaning";
   if (path.includes("gadget")) return "gadget";
+  if (path.includes("painter")) return "painter";
+  if (path.includes("pool")) return "pool";
+  if (path.includes("declutter")) return "declutter";
   
   return "plumber";
 };

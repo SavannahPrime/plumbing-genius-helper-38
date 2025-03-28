@@ -1,4 +1,3 @@
-
 import { QuickActionCategory } from "@/components/shared/QuickActionCategory";
 import { createIcon } from "@/utils/iconUtils";
 
@@ -334,6 +333,117 @@ export const specialtyCategories: Record<string, { title: string, categories: Qu
         hoverText: "Solutions for dripping, squeaking or stuck faucets",
         emoji: "🚰",
         path: "/plumber/glossary"
+      }
+    ]
+  },
+  painter: {
+    title: "Quick Painting Solutions",
+    categories: [
+      {
+        iconType: "brush",
+        icon: createIcon("brush"),
+        name: "Surface Prep",
+        hoverText: "How to prepare different surfaces for painting",
+        emoji: "🧰",
+        path: "/painter/glossary"
+      },
+      {
+        iconType: "brush",
+        icon: createIcon("brush"),
+        name: "Paint Selection",
+        hoverText: "Choosing the right type of paint for your project",
+        emoji: "🎨",
+        path: "/painter/glossary"
+      },
+      {
+        iconType: "brush",
+        icon: createIcon("brush"),
+        name: "Technique Tips",
+        hoverText: "Professional painting techniques for beginners",
+        emoji: "🖌️",
+        path: "/painter/glossary"
+      },
+      {
+        iconType: "brush",
+        icon: createIcon("brush"),
+        name: "Problem Solving",
+        hoverText: "Fixing common painting issues and mistakes",
+        emoji: "🔍",
+        path: "/painter/glossary"
+      }
+    ]
+  },
+  pool: {
+    title: "Quick Pool Solutions",
+    categories: [
+      {
+        iconType: "pool",
+        icon: createIcon("pool"),
+        name: "Water Chemistry",
+        hoverText: "Balancing your pool's chemical levels",
+        emoji: "⚗️",
+        path: "/pool/glossary"
+      },
+      {
+        iconType: "pool",
+        icon: createIcon("pool"),
+        name: "Equipment Care",
+        hoverText: "Maintaining pumps, filters, and other pool equipment",
+        emoji: "⚙️",
+        path: "/pool/glossary"
+      },
+      {
+        iconType: "pool",
+        icon: createIcon("pool"),
+        name: "Cleaning Tips",
+        hoverText: "Efficient techniques for keeping your pool clean",
+        emoji: "🧹",
+        path: "/pool/glossary"
+      },
+      {
+        iconType: "pool",
+        icon: createIcon("pool"),
+        name: "Seasonal Care",
+        hoverText: "Opening, closing, and maintaining your pool year-round",
+        emoji: "🌡️",
+        path: "/pool/glossary"
+      }
+    ]
+  },
+  declutter: {
+    title: "Quick Decluttering Solutions",
+    categories: [
+      {
+        iconType: "user",
+        icon: createIcon("user"),
+        name: "Space Sorting",
+        hoverText: "Organizing and categorizing your belongings",
+        emoji: "📦",
+        path: "/declutter/glossary"
+      },
+      {
+        iconType: "user",
+        icon: createIcon("user"),
+        name: "Joy Sparking",
+        hoverText: "Deciding what items to keep and what to let go",
+        emoji: "✨",
+        path: "/declutter/glossary"
+      },
+      {
+        iconType: "user",
+        icon: createIcon("user"),
+        name: "Storage Ideas",
+        hoverText: "Creative solutions for storing your essentials",
+        emoji: "🗄️",
+        path: "/declutter/glossary"
+      },
+      {
+        iconType: "user",
+        icon: createIcon("user"),
+        name: "Maintenance",
+        hoverText: "Systems to keep your space organized long-term",
+        emoji: "🔄",
+        path: "/declutter/glossary"
       }
     ]
   }

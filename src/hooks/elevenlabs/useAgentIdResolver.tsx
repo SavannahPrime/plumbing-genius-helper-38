@@ -1,3 +1,4 @@
+
 import { useCallback } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { ELEVEN_LABS_AGENT_IDS } from "@/constants/elevenlabs";
@@ -50,6 +51,18 @@ export const useAgentIdResolver = () => {
     if (path.includes("gadget")) {
       console.log("Using gadget agent ID");
       return ELEVEN_LABS_AGENT_IDS.gadget;
+    }
+    if (path.includes("painter")) {
+      console.log("Using painter agent ID");
+      return ELEVEN_LABS_AGENT_IDS.plumber; // Using plumber as fallback until custom agent IDs are created
+    }
+    if (path.includes("pool")) {
+      console.log("Using pool agent ID");
+      return ELEVEN_LABS_AGENT_IDS.plumber; // Using plumber as fallback until custom agent IDs are created
+    }
+    if (path.includes("declutter")) {
+      console.log("Using declutter agent ID");
+      return ELEVEN_LABS_AGENT_IDS.plumber; // Using plumber as fallback until custom agent IDs are created
     }
     
     // Default to plumber

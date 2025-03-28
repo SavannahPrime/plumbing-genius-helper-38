@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, Wrench, Zap, Leaf, Smartphone } from "lucide-react";
+import { Sparkles, Wrench, Zap, Leaf, Smartphone, Paintbrush, Pool, User } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -96,8 +96,7 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           title="Electrician Genius"
           tagline="Flip the switch on electrical problems — safely and smart."
           path="/electrician"
-          color="bg-yellow-100/80"
-          hoverColor="bg-yellow-200/90"
+          color="bg-gradient-to-r from-yellow-400 to-yellow-200/90"
           iconColor="bg-gradient-to-br from-yellow-400 to-yellow-600"
           buttonTextColor="text-yellow-700 hover:text-yellow-800"
         />
@@ -124,6 +123,42 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           hoverColor="bg-indigo-200/90"
           iconColor="bg-gradient-to-br from-indigo-400 to-indigo-600"
           buttonTextColor="text-indigo-700 hover:text-indigo-800"
+        />
+
+        <ProductCard
+          icon={<Paintbrush className="w-5 h-5 text-white" />}
+          emoji="🎨"
+          title="Painting Helper"
+          tagline="Your AI painting assistant for interior and exterior projects."
+          path="/painter"
+          color="bg-purple-100/80"
+          hoverColor="bg-purple-200/90"
+          iconColor="bg-gradient-to-br from-purple-400 to-purple-600"
+          buttonTextColor="text-purple-700 hover:text-purple-800"
+        />
+
+        <ProductCard
+          icon={<Pool className="w-5 h-5 text-white" />}
+          emoji="🏊"
+          title="Pool Assistant"
+          tagline="Keep your pool crystal clear with expert maintenance advice."
+          path="/pool"
+          color="bg-blue-100/80"
+          hoverColor="bg-blue-200/90"
+          iconColor="bg-gradient-to-br from-blue-400 to-blue-600"
+          buttonTextColor="text-blue-700 hover:text-blue-800"
+        />
+
+        <ProductCard
+          icon={<User className="w-5 h-5 text-white" />}
+          emoji="✨"
+          title="Marie's Helper"
+          tagline="Decluttering expert to help spark joy in your living spaces."
+          path="/declutter"
+          color="bg-pink-100/80"
+          hoverColor="bg-pink-200/90"
+          iconColor="bg-gradient-to-br from-pink-400 to-pink-600"
+          buttonTextColor="text-pink-700 hover:text-pink-800"
         />
       </div>
     </section>

@@ -11,7 +11,10 @@ export type AgentSpecialty =
   | "chef"
   | "stylist"
   | "cleaning"
-  | "gadget";
+  | "gadget"
+  | "painter"
+  | "pool"
+  | "declutter";
 
 // Agent personality types
 export type AgentPersonality = "professional" | "friendly" | "technical";
@@ -105,6 +108,30 @@ export const specializedAgents: Record<AgentSpecialty, SpecializedAgent> = {
     expertise: ["Phone Troubleshooting", "Computer Problems", "Smart Home Devices", "Electronics Repair", "Tech Setup"],
     personality: "technical",
     greeting: "Hey! I'm Gabe, your tech and gadget specialist. What device are you having trouble with today?"
+  },
+  painter: {
+    specialty: "painter",
+    name: "Pablo",
+    emoji: "🎨",
+    expertise: ["Interior Painting", "Exterior Painting", "Surface Preparation", "Paint Selection", "Technique Advice"],
+    personality: "friendly",
+    greeting: "Hi there! I'm Pablo, your painting expert with decades of experience. Whether you're painting a room or the whole house, I'm here to help. What's your painting project?"
+  },
+  pool: {
+    specialty: "pool",
+    name: "Penny",
+    emoji: "🏊",
+    expertise: ["Pool Maintenance", "Water Chemistry", "Equipment Repair", "Cleaning Techniques", "Seasonal Care"],
+    personality: "friendly",
+    greeting: "Hello! I'm Penny, your pool maintenance specialist. I can help you keep your pool crystal clear and running smoothly. What pool issue can I help with today?"
+  },
+  declutter: {
+    specialty: "declutter",
+    name: "Marie",
+    emoji: "✨",
+    expertise: ["Space Organization", "Minimalist Living", "Storage Solutions", "Decluttering Methods", "Joy-Sparking Decisions"],
+    personality: "friendly",
+    greeting: "Hello! I'm Marie, your decluttering and organization consultant. I'm here to help you transform your space and bring more joy into your home. What area would you like to organize today?"
   }
 };
 
@@ -166,6 +193,9 @@ export const getAgentByRoute = (route: string): AgentSpecialty => {
   if (route.includes("stylist")) return "stylist";
   if (route.includes("cleaning")) return "cleaning";
   if (route.includes("gadget")) return "gadget";
+  if (route.includes("painter")) return "painter";
+  if (route.includes("pool")) return "pool";
+  if (route.includes("declutter")) return "declutter";
   
   // Check the searchParams in the route
   const urlParams = new URLSearchParams(route.split('?')[1]);
@@ -486,6 +516,74 @@ RECOMMENDED ACTION:
 3. If attempting DIY repair, purchase a screen replacement kit specific to your exact model
 4. Use a screen protector after repair to prevent future damage
 5. If under warranty, check if it covers screen damage (though most don't cover accidental damage)
+`,
+    painter: `
+DIAGNOSIS: Interior Painting
+
+POSSIBLE CAUSES:
+• Poor preparation of surfaces
+• Incompatible paint colors
+• Incorrect application techniques
+• Insufficient drying time
+• Poor ventilation
+
+SEVERITY: Medium
+Painting issues can affect the appearance and durability of your home.
+
+REPAIR DIFFICULTY: Moderate
+DIY painting can be challenging, but with proper tools and techniques, it can be done.
+
+RECOMMENDED ACTION:
+1. Clean and prepare surfaces thoroughly
+2. Choose compatible paint colors
+3. Apply paint in layers and allow adequate drying time
+4. Use proper ventilation to prevent fumes
+5. Test paint color on a small area before full application
+`,
+    pool: `
+DIAGNOSIS: Pool Maintenance Issues
+
+POSSIBLE CAUSES:
+• Chemical imbalance
+• Equipment malfunction
+• Poor filtration
+• Insufficient cleaning
+• Overheating
+
+SEVERITY: High
+Pool issues can affect water quality and safety.
+
+REPAIR DIFFICULTY: Moderate
+Professional pool maintenance is often necessary to address these issues.
+
+RECOMMENDED ACTION:
+1. Test and adjust pool chemicals
+2. Inspect and clean pool equipment
+3. Check and replace filters
+4. Clean pool surfaces
+5. Monitor water temperature and adjust accordingly
+`,
+    declutter: `
+DIAGNOSIS: Space Organization Issues
+
+POSSIBLE CAUSES:
+• Lack of storage solutions
+• Misplaced items
+• Cluttered areas
+• Inefficient use of space
+
+SEVERITY: Medium
+Decluttering can improve living space and reduce stress.
+
+REPAIR DIFFICULTY: Easy
+Simple organization techniques can resolve most clutter issues.
+
+RECOMMENDED ACTION:
+1. Declutter and sort items
+2. Use storage solutions like shelves, bins, and baskets
+3. Organize items by category
+4. Regularly clean and maintain storage areas
+5. Consider hiring a professional organizer if needed
 `
   };
   
