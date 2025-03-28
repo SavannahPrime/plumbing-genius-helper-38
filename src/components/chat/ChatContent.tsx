@@ -56,13 +56,20 @@ const ChatContent: React.FC<ChatContentProps> = ({
 
   return (
     <div className="flex flex-col h-full relative">
-      {/* ElevenLabs Convai Widget */}
+      {/* ElevenLabs Convai Widget - With custom styling to hide text */}
       {currentAgentSpecialty === 'plumber' && (
         <div 
           id="elevenlabs-widget-container" 
           className="fixed top-4 right-4 z-50"
           dangerouslySetInnerHTML={{
-            __html: '<elevenlabs-convai agent-id="lX8syHY754gA8SdjQU6n"></elevenlabs-convai>'
+            __html: `
+              <style>
+                elevenlabs-convai::part(cta) {
+                  display: none !important;
+                }
+              </style>
+              <elevenlabs-convai agent-id="lX8syHY754gA8SdjQU6n"></elevenlabs-convai>
+            `
           }}
         />
       )}
