@@ -12,4 +12,11 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// Add favicon link
+const favicon = document.createElement('link');
+favicon.rel = 'icon';
+favicon.href = '/logo.svg';
+favicon.type = 'image/svg+xml';
+document.head.appendChild(favicon);
+
 createRoot(document.getElementById("root")!).render(<App />);

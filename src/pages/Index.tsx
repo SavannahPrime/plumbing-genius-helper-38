@@ -1,8 +1,8 @@
-
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ArrowRight, Bot, Code, Link, MessageSquare, Shield, Sparkles, Workflow } from "lucide-react";
+import { ArrowRight, Bot, Code, Link as LinkIcon, MessageSquare, Shield, Sparkles, Workflow } from "lucide-react";
 import { Link as RouterLink } from "react-router-dom";
+import Logo from "@/components/shared/Logo";
 
 export default function Index() {
   return (
@@ -10,7 +10,7 @@ export default function Index() {
       {/* Navigation */}
       <nav className="container mx-auto py-6 px-4 flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <Link className="h-6 w-6 text-blue-500" />
+          <Logo size="sm" className="bg-white rounded-full p-0.5" />
           <span className="text-xl font-bold">connect.software</span>
         </div>
         <div className="hidden md:flex gap-8 items-center">
@@ -53,6 +53,11 @@ export default function Index() {
             <Sparkles className="w-4 h-4 mr-2" />
             Introducing connect.software - The AI-Agent Platform
           </div>
+          
+          <div className="flex justify-center mb-6">
+            <Logo size="xl" className="bg-white rounded-full p-2" />
+          </div>
+          
           <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
             Connect Your Software with Intelligent AI Agents
           </h1>
@@ -88,7 +93,7 @@ export default function Index() {
                 <div className="col-span-2 h-full bg-gray-800 rounded p-6">
                   <div className="flex items-center mb-4">
                     <div className="h-10 w-10 bg-blue-500/20 rounded-full flex items-center justify-center">
-                      <Link className="h-5 w-5 text-blue-500" />
+                      <LinkIcon className="h-5 w-5 text-blue-500" />
                     </div>
                     <div className="ml-3">
                       <div className="h-4 w-32 bg-gray-700 rounded"></div>
@@ -381,7 +386,7 @@ export default function Index() {
           </div>
           <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center gap-2 mb-4 md:mb-0">
-              <Link className="h-6 w-6 text-blue-500" />
+              <Logo size="sm" className="bg-white rounded-full p-0.5" />
               <span className="text-xl font-bold">connect.software</span>
             </div>
             <div className="text-gray-400">
