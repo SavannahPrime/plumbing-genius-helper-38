@@ -1,73 +1,73 @@
 
 import React from 'react';
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import QuickActionCategories from "@/components/shared/QuickActionCategories";
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { ArrowRight } from 'lucide-react';
 
-const ModernHero = () => {
+interface ModernHeroProps {
+  title?: string;
+  specialty?: string;
+  emoji?: string;
+  description?: string;
+  placeholderText?: string;
+}
+
+const ModernHero: React.FC<ModernHeroProps> = ({ 
+  title = "Connect.AI",
+  specialty,
+  emoji,
+  description = "Your AI-powered home repair assistant",
+  placeholderText = "Describe your issue..."
+}) => {
   const navigate = useNavigate();
-
+  const [query, setQuery] = React.useState('');
+  
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (query.trim()) {
+      const specialtyParam = specialty ? `&specialty=${specialty}` : '';
+      navigate(`/chat?q=${encodeURIComponent(query)}${specialtyParam}`);
+    }
+  };
+  
   return (
-    <div className="container mx-auto px-4 py-12 md:py-20">
-      <div className="text-center max-w-4xl mx-auto mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-          Your Personal AI Assistants for <span className="text-primary">Every Household Task</span>
-        </h1>
-        <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-          Connect with specialized AI experts for instant help with plumbing, electrical work, 
-          home repairs, car maintenance, and more.
+    <div className="container mx-auto px-4 py-16 sm:py-24">
+      <div className="text-center max-w-3xl mx-auto">
+        <div className="mb-4 text-4xl">{emoji}</div>
+        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-6">{title}</h1>
+        <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+          {description}
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-          <Button 
-            size="lg" 
-            className="text-md px-8"
-            onClick={() => navigate('/chat')}
-          >
-            Start Chatting <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-          <Button 
-            variant="outline"
-            size="lg"
-            className="text-md px-8"
-            onClick={() => navigate('/subscription')}
-          >
-            View Premium Plans
-          </Button>
-        </div>
         
-        <div className="flex flex-wrap justify-center gap-3 mb-10">
-          <div className="bg-primary/10 text-primary text-sm px-4 py-1.5 rounded-full">Voice-Enabled</div>
-          <div className="bg-primary/10 text-primary text-sm px-4 py-1.5 rounded-full">24/7 Availability</div>
-          <div className="bg-primary/10 text-primary text-sm px-4 py-1.5 rounded-full">Step-by-Step Guidance</div>
-          <div className="bg-primary/10 text-primary text-sm px-4 py-1.5 rounded-full">Image Recognition</div>
-          <div className="bg-primary/10 text-primary text-sm px-4 py-1.5 rounded-full">Specialized Experts</div>
-        </div>
-      </div>
-      
-      <div className="mb-16">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">Popular AI Assistants</h2>
-          <Button variant="ghost" className="text-primary" onClick={() => navigate('/chat')}>
-            View All <ArrowRight className="ml-1 h-4 w-4" />
+        <form onSubmit={handleSubmit} className="flex gap-2 max-w-lg mx-auto mb-8">
+          <Input
+            type="text"
+            placeholder={placeholderText}
+            className="flex-1"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <Button type="submit">
+            <ArrowRight className="h-4 w-4 mr-2" />
+            Go
+          </Button>
+        </form>
+        
+        <div className="flex flex-wrap justify-center gap-4">
+          <Button 
+            variant="outline" 
+            onClick={() => navigate(specialty ? `/chat?specialty=${specialty}` : '/chat')}
+          >
+            Start Chat
+          </Button>
+          <Button 
+            variant="outline" 
+            onClick={() => navigate(specialty ? `/diagnosis?specialty=${specialty}` : '/diagnosis')}
+          >
+            Upload Photo
           </Button>
         </div>
-        <QuickActionCategories showToggle={true} showPopularOnly={true} />
-      </div>
-      
-      <div className="border-t pt-8">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold mb-3">Manage Your Active Assistants</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Toggle your preferred assistants on or off. Premium assistants require a subscription.
-          </p>
-        </div>
-        <QuickActionCategories 
-          showToggle={true} 
-          showDescription={false}
-          showAction={false}
-          size="sm"
-        />
       </div>
     </div>
   );

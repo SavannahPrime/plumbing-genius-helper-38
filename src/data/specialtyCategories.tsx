@@ -1,6 +1,5 @@
 
 import { Home, Wrench, Zap, Droplet, Hammer, PlusCircle, Car, Scissors, ChefHat, Shovel } from "lucide-react";
-import { SpecialtyType } from "@/types/global";
 
 export interface SpecialtyCategory {
   id: string;

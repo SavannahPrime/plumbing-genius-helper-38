@@ -9,6 +9,7 @@ interface QuickActionCategoriesProps {
   size?: 'sm' | 'md' | 'lg';
   showDescription?: boolean;
   showAction?: boolean;
+  specialty?: string;
 }
 
 const QuickActionCategories = ({ 
@@ -16,7 +17,8 @@ const QuickActionCategories = ({
   showToggle = false,
   size = 'md',
   showDescription = true,
-  showAction = true
+  showAction = true,
+  specialty
 }: QuickActionCategoriesProps) => {
   const filteredCategories = showPopularOnly
     ? specialtyCategories.filter(category => category.isPopular)

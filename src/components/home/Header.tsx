@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { MenuIcon, Home, MessageSquare, Wrench, Tool, Lightbulb, X, Crown } from 'lucide-react';
+import { MenuIcon, Home, MessageSquare, Wrench, Settings, Lightbulb, X, Crown } from 'lucide-react';
 import { specialtyCategories } from '@/data/specialtyCategories';
 
 interface Route {
@@ -48,7 +48,7 @@ const Header = () => {
       <div className="container mx-auto px-4 flex h-16 items-center justify-between">
         <div className="flex items-center gap-8">
           <Link to="/" className="flex items-center gap-2">
-            <Tool className="h-6 w-6 text-primary" />
+            <Settings className="h-6 w-6 text-primary" />
             <span className="font-bold text-xl">Connect.AI</span>
           </Link>
 
@@ -91,7 +91,7 @@ const Header = () => {
               <div className="flex h-full flex-col">
                 <div className="flex items-center justify-between border-b py-4">
                   <div className="flex items-center gap-2">
-                    <Tool className="h-5 w-5 text-primary" />
+                    <Settings className="h-5 w-5 text-primary" />
                     <span className="font-semibold">Connect.AI</span>
                   </div>
                   <Button

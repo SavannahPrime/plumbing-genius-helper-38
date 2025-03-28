@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import ElevenLabsWidgetInitializer from "./components/chat/ElevenLabsWidgetInitializer";
+import ElevenLabsWidgetInitializer from "@/components/chat/ElevenLabsWidgetInitializer";
 
 // Import pages
 import Index from "./pages/Index";

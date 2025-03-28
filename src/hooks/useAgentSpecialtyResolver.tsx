@@ -1,13 +1,26 @@
 
 import { useLocation, useSearchParams } from "react-router-dom";
-import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
+
+export type AgentSpecialty = 
+  | 'plumber'
+  | 'handyman'
+  | 'electrician'
+  | 'chef'
+  | 'mechanic'
+  | 'stylist'
+  | 'landscaper'
+  | 'cleaning'
+  | 'gadget'
+  | 'painter'
+  | 'pool'
+  | 'declutter';
 
 export const useAgentSpecialtyResolver = (): AgentSpecialty => {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   
   const specialtyParam = searchParams.get('specialty') as AgentSpecialty;
-  if (specialtyParam && Object.keys(specializedAgents).includes(specialtyParam)) {
+  if (specialtyParam) {
     console.log(`Using agent specialty from URL param: ${specialtyParam}`);
     return specialtyParam;
   }

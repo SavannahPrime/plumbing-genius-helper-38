@@ -1,130 +1,157 @@
 
-import React from 'react';
-import { Button } from "@/components/ui/card";
-import { Check } from "lucide-react";
-import { EveryFixHeader } from "@/components/shared/EveryFixHeader";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import EveryFixHeader from "@/components/shared/EveryFixHeader";
+import Footer from "@/components/home/Footer";
+import { CheckCircle, Crown, XCircle } from "lucide-react";
 import { toast } from "sonner";
 
 const Subscription = () => {
+  const navigate = useNavigate();
+  const premiumFeatures = [
+    "Access to all premium AI assistants",
+    "Voice chat with all assistants",
+    "Unlimited image uploads for diagnosis",
+    "Priority support",
+    "Advanced troubleshooting options",
+    "No ads or waiting times"
+  ];
+
+  const freeFeatures = [
+    "Access to basic AI assistants",
+    "Limited voice chat interactions",
+    "5 image uploads per day",
+    "Standard support",
+    "Basic troubleshooting options",
+    "Ad-supported experience"
+  ];
+
   const handleSubscribe = (plan: string) => {
-    toast.success(`${plan} subscription selected`, {
-      description: "This would connect to a payment processor in production"
+    if (plan === "free") {
+      toast.success("You're already on the Free plan!");
+      navigate("/");
+      return;
+    }
+    
+    toast("Coming Soon", {
+      description: "Payment processing will be available soon!",
+      action: {
+        label: "OK",
+        onClick: () => console.log("Acknowledged")
+      }
     });
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <EveryFixHeader title="Premium Subscription Plans" />
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
+      <EveryFixHeader />
       
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold mb-4">
-            Unlock Premium AI Assistants
-          </h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Get unlimited access to all our specialized AI assistants, including premium experts in electrical work, auto mechanics, fashion styling, and more.
+      <main className="container mx-auto px-4 py-12">
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <Crown className="h-12 w-12 text-amber-500 mx-auto mb-4" />
+          <h1 className="text-4xl font-bold mb-4">Choose Your Plan</h1>
+          <p className="text-xl text-gray-600">
+            Unlock the full potential of Connect.AI with a premium subscription
           </p>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
-          {/* Monthly Plan */}
-          <div className="border rounded-lg p-6 flex flex-col">
-            <h3 className="text-xl font-semibold mb-2">Monthly</h3>
-            <div className="text-3xl font-bold mb-1">$9.99<span className="text-base font-normal text-muted-foreground">/month</span></div>
-            <p className="text-muted-foreground mb-6">Billed monthly</p>
-            <ul className="space-y-3 mb-6 flex-grow">
-              <li className="flex items-start">
-                <Check size={20} className="text-green-500 shrink-0 mr-2 mt-0.5" />
-                <span>Access to all premium assistants</span>
-              </li>
-              <li className="flex items-start">
-                <Check size={20} className="text-green-500 shrink-0 mr-2 mt-0.5" />
-                <span>Unlimited conversations</span>
-              </li>
-              <li className="flex items-start">
-                <Check size={20} className="text-green-500 shrink-0 mr-2 mt-0.5" />
-                <span>Voice chat capabilities</span>
-              </li>
-            </ul>
-            <Button className="w-full bg-primary text-white" onClick={() => handleSubscribe("Monthly")}>
-              Subscribe Monthly
-            </Button>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {/* Free Plan */}
+          <Card className="border-gray-200 relative">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span>Free Plan</span>
+                <span className="text-lg text-gray-500">$0/month</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ul className="space-y-2">
+                {freeFeatures.map((feature, index) => (
+                  <li key={index} className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-gray-500 mr-2 shrink-0 mt-0.5" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+            <CardFooter>
+              <Button 
+                className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800"
+                onClick={() => handleSubscribe("free")}
+              >
+                Current Plan
+              </Button>
+            </CardFooter>
+          </Card>
           
-          {/* Annual Plan */}
-          <div className="border rounded-lg p-6 flex flex-col relative overflow-hidden shadow-lg border-primary">
-            <div className="absolute top-0 right-0 bg-primary text-white text-xs px-3 py-1 rounded-bl-lg">
-              BEST VALUE
+          {/* Premium Plan */}
+          <Card className="border-amber-300 bg-gradient-to-b from-amber-50 to-white relative shadow-xl">
+            <div className="absolute -top-4 left-0 right-0 mx-auto w-fit px-3 py-1 bg-amber-500 text-white rounded-full text-sm font-medium">
+              Recommended
             </div>
-            <h3 className="text-xl font-semibold mb-2">Annual</h3>
-            <div className="text-3xl font-bold mb-1">$7.99<span className="text-base font-normal text-muted-foreground">/month</span></div>
-            <p className="text-muted-foreground mb-2">Billed annually at $95.88</p>
-            <p className="text-green-600 font-medium mb-6">Save 20%</p>
-            <ul className="space-y-3 mb-6 flex-grow">
-              <li className="flex items-start">
-                <Check size={20} className="text-green-500 shrink-0 mr-2 mt-0.5" />
-                <span>Access to all premium assistants</span>
-              </li>
-              <li className="flex items-start">
-                <Check size={20} className="text-green-500 shrink-0 mr-2 mt-0.5" />
-                <span>Unlimited conversations</span>
-              </li>
-              <li className="flex items-start">
-                <Check size={20} className="text-green-500 shrink-0 mr-2 mt-0.5" />
-                <span>Voice chat capabilities</span>
-              </li>
-              <li className="flex items-start">
-                <Check size={20} className="text-green-500 shrink-0 mr-2 mt-0.5" />
-                <span>Priority support</span>
-              </li>
-            </ul>
-            <Button className="w-full bg-primary text-white" onClick={() => handleSubscribe("Annual")}>
-              Subscribe Annually
-            </Button>
-          </div>
-          
-          {/* Lifetime Plan */}
-          <div className="border rounded-lg p-6 flex flex-col">
-            <h3 className="text-xl font-semibold mb-2">Lifetime</h3>
-            <div className="text-3xl font-bold mb-1">$199<span className="text-base font-normal text-muted-foreground"> one-time</span></div>
-            <p className="text-muted-foreground mb-6">Pay once, use forever</p>
-            <ul className="space-y-3 mb-6 flex-grow">
-              <li className="flex items-start">
-                <Check size={20} className="text-green-500 shrink-0 mr-2 mt-0.5" />
-                <span>Access to all premium assistants</span>
-              </li>
-              <li className="flex items-start">
-                <Check size={20} className="text-green-500 shrink-0 mr-2 mt-0.5" />
-                <span>Unlimited conversations</span>
-              </li>
-              <li className="flex items-start">
-                <Check size={20} className="text-green-500 shrink-0 mr-2 mt-0.5" />
-                <span>Voice chat capabilities</span>
-              </li>
-              <li className="flex items-start">
-                <Check size={20} className="text-green-500 shrink-0 mr-2 mt-0.5" />
-                <span>All future updates included</span>
-              </li>
-              <li className="flex items-start">
-                <Check size={20} className="text-green-500 shrink-0 mr-2 mt-0.5" />
-                <span>VIP support</span>
-              </li>
-            </ul>
-            <Button className="w-full bg-primary text-white" onClick={() => handleSubscribe("Lifetime")}>
-              Buy Lifetime
-            </Button>
-          </div>
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span>Premium Plan</span>
+                <span className="text-lg text-amber-600">$9.99/month</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ul className="space-y-2">
+                {premiumFeatures.map((feature, index) => (
+                  <li key={index} className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-amber-500 mr-2 shrink-0 mt-0.5" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+            <CardFooter>
+              <Button 
+                className="w-full bg-amber-500 hover:bg-amber-600"
+                onClick={() => handleSubscribe("premium")}
+              >
+                Upgrade Now
+              </Button>
+            </CardFooter>
+          </Card>
         </div>
         
-        <div className="text-center">
-          <p className="text-muted-foreground mb-6">
-            All plans include a 7-day money-back guarantee. No questions asked.
-          </p>
-          <p className="text-sm text-muted-foreground">
-            By subscribing, you agree to our Terms of Service and Privacy Policy.
-          </p>
+        <div className="mt-16 text-center">
+          <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+          <div className="max-w-3xl mx-auto grid gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">What's included in the Premium plan?</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Premium subscribers get access to all AI assistants including electrician, chef, stylist, and other specialized experts that are not available in the free plan.</p>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Can I cancel anytime?</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Yes, you can cancel your subscription at any time. Your premium access will continue until the end of your billing cycle.</p>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Is there a free trial?</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>We offer a 7-day free trial of our Premium plan so you can experience all the benefits before committing.</p>
+              </CardContent>
+            </Card>
+          </div>
         </div>
-      </div>
+      </main>
+      
+      <Footer />
     </div>
   );
 };
