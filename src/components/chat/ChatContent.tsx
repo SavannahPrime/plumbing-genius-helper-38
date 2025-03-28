@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import ChatMessages from "@/components/chat/ChatMessages";
 import ChatInput from "@/components/chat/ChatInput";
@@ -53,40 +54,19 @@ const ChatContent: React.FC<ChatContentProps> = ({
     }
   }, [currentAgentSpecialty, messages.length, setMessages]);
 
-  useEffect(() => {
-    if (currentAgentSpecialty === 'plumber') {
-      if (!document.querySelector('elevenlabs-convai')) {
-        const widget = document.createElement('elevenlabs-convai');
-        widget.setAttribute('agent-id', 'lX8syHY754gA8SdjQU6n');
-        
-        const widgetContainer = document.getElementById('elevenlabs-widget-container');
-        if (widgetContainer) {
-          widgetContainer.appendChild(widget);
-          console.log("ElevenLabs Convai widget added to custom container for plumber");
-        } else {
-          document.body.appendChild(widget);
-          console.log("ElevenLabs Convai widget added to body for plumber (container not found)");
-        }
-      }
-    } else {
-      const widget = document.querySelector('elevenlabs-convai');
-      if (widget) {
-        widget.remove();
-        console.log("ElevenLabs Convai widget removed");
-      }
-    }
-    
-    return () => {
-      const widget = document.querySelector('elevenlabs-convai');
-      if (widget) {
-        widget.remove();
-        console.log("ElevenLabs Convai widget removed on cleanup");
-      }
-    };
-  }, [currentAgentSpecialty]);
-
   return (
     <div className="flex flex-col h-full relative">
+      {/* ElevenLabs Convai Widget */}
+      {currentAgentSpecialty === 'plumber' && (
+        <div 
+          id="elevenlabs-widget-container" 
+          className="fixed top-4 right-4 z-50"
+          dangerouslySetInnerHTML={{
+            __html: '<elevenlabs-convai agent-id="lX8syHY754gA8SdjQU6n"></elevenlabs-convai>'
+          }}
+        />
+      )}
+      
       <div className="flex-1 overflow-hidden">
         <ChatMessages 
           messages={messages} 
@@ -95,14 +75,6 @@ const ChatContent: React.FC<ChatContentProps> = ({
           specialty={currentAgentSpecialty}
         />
       </div>
-      
-      {currentAgentSpecialty === 'plumber' && (
-        <div 
-          id="elevenlabs-widget-container" 
-          className="fixed top-20 right-4 z-50"
-          style={{ width: 'auto', maxWidth: '280px' }}
-        ></div>
-      )}
       
       <div className="sticky bottom-0 w-full z-10">
         <ChatInput
