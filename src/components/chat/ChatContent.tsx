@@ -60,7 +60,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
       {currentAgentSpecialty === 'plumber' && (
         <div 
           id="elevenlabs-widget-container" 
-          className="fixed top-2 right-4 z-50"
+          className="fixed -top-18 right-4 z-50"
           dangerouslySetInnerHTML={{
             __html: `
               <style>
