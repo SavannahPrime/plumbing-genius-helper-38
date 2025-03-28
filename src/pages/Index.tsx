@@ -39,6 +39,22 @@ const Index = () => {
         setPlumberPersonality={setPlumberPersonality}
       />
       
+      {/* ElevenLabs Convai Widget */}
+      <div 
+        id="elevenlabs-widget-container" 
+        className="fixed -top-18 right-4 z-50"
+        dangerouslySetInnerHTML={{
+          __html: `
+            <style>
+              elevenlabs-convai::part(cta) {
+                display: none !important;
+              }
+            </style>
+            <elevenlabs-convai agent-id="lX8syHY754gA8SdjQU6n"></elevenlabs-convai>
+          `
+        }}
+      />
+      
       <main>
         <ModernHero 
           title="Plumber's Helper"
