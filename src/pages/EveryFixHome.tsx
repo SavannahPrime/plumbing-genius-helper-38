@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -165,16 +166,16 @@ const EveryFixHome = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        {/* Featured Helpers Section */}
-        <section className="mb-16">
-          <div className="text-center mb-8">
+        {/* Featured Helpers Section - Now Smaller */}
+        <section className="mb-12">
+          <div className="text-center mb-6">
             <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">Featured Helpers</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 max-w-2xl mx-auto text-sm">
               Our most popular AI assistants ready to solve your home challenges
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {featuredProducts.map((product, index) => (
               <motion.div
                 key={product.name}
@@ -191,29 +192,29 @@ const EveryFixHome = () => {
                         <span className="text-xs font-medium">Featured</span>
                       </div>
                     </div>
-                    <CardHeader className={`${product.color} text-white rounded-t-xl`}>
+                    <CardHeader className={`${product.color} text-white rounded-t-xl p-4`}>
                       <div className="flex justify-between items-center">
                         <div>
-                          <CardTitle className="text-xl font-bold">
+                          <CardTitle className="text-lg font-bold">
                             {product.emoji} {product.name}
                           </CardTitle>
-                          <CardDescription className="text-white/90 mt-1">
+                          <CardDescription className="text-white/90 text-xs mt-1">
                             Your AI Assistant
                           </CardDescription>
                         </div>
-                        <Avatar className="h-12 w-12 border-2 border-white">
+                        <Avatar className="h-10 w-10 border-2 border-white">
                           <AvatarImage src={product.avatar} alt={product.name} />
-                          <AvatarFallback className="text-xl">{product.avatarFallback}</AvatarFallback>
+                          <AvatarFallback className="text-sm">{product.avatarFallback}</AvatarFallback>
                         </Avatar>
                       </div>
                     </CardHeader>
-                    <CardContent className="pt-4">
-                      <p className="text-gray-700">{product.description}</p>
+                    <CardContent className="pt-3 p-4">
+                      <p className="text-gray-700 text-sm">{product.description}</p>
                     </CardContent>
-                    <CardFooter className="pt-0">
-                      <Button className="w-full group-hover:bg-primary/90 transition-colors" variant="outline">
-                        Explore {product.name}
-                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <CardFooter className="pt-0 p-4">
+                      <Button className="w-full group-hover:bg-primary/90 transition-colors text-sm py-1" variant="outline">
+                        Explore
+                        <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1" />
                       </Button>
                     </CardFooter>
                   </Card>
