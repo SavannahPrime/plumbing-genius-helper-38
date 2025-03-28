@@ -26,3 +26,21 @@ export type SpecialtyType =
   | 'landscaper'
   | 'cleaning'
   | 'gadget';
+
+// Define payment method types
+export type PaymentMethodType =
+  | 'link'
+  | 'applepay'
+  | 'googlepay'
+  | 'card';
+
+// Define user token balance interface
+export interface TokenBalance {
+  available: number;
+  used: number;
+  subscription: {
+    level: 'free' | 'basic' | 'premium' | 'enterprise';
+    tokens: number;
+    expiresAt: string;
+  };
+}

@@ -34,6 +34,7 @@ const QuickActionCategories = ({
           showDescription={showDescription}
           showAction={showAction}
           showToggle={showToggle}
+          specialty={specialty}
         />
       ))}
     </div>

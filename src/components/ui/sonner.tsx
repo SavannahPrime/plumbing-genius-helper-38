@@ -27,5 +27,5 @@ const Toaster = ({ ...props }: ToasterProps) => {
   )
 }
 
-// Export both Toaster and Sonner
+// Export both Toaster and the original Sonner component
 export { Toaster, Sonner }

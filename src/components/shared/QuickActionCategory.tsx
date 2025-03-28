@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import SubscriptionToggle from './SubscriptionToggle';
 import { SpecialtyCategory } from '@/data/specialtyCategories';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { toast } from 'sonner';
 
 interface QuickActionCategoryProps {
   category: SpecialtyCategory;
@@ -13,6 +14,7 @@ interface QuickActionCategoryProps {
   showDescription?: boolean;
   showAction?: boolean;
   showToggle?: boolean;
+  specialty?: string;
 }
 
 const QuickActionCategory = ({ 
@@ -20,7 +22,8 @@ const QuickActionCategory = ({
   size = 'md', 
   showDescription = true,
   showAction = true,
-  showToggle = false
+  showToggle = false,
+  specialty
 }: QuickActionCategoryProps) => {
   const [activeAgents, setActiveAgents] = useLocalStorage<string[]>('activeAgents', []);
   
@@ -31,6 +34,26 @@ const QuickActionCategory = ({
       setActiveAgents([...activeAgents, category.id]);
     } else {
       setActiveAgents(activeAgents.filter(id => id !== category.id));
+    }
+  };
+
+  const handleConnect = () => {
+    if (category.requiresSubscription && !isAgentActive) {
+      toast("Subscription Required", {
+        description: "This agent requires a subscription to connect.",
+        action: {
+          label: "Subscribe",
+          onClick: () => window.location.href = "/subscription"
+        }
+      });
+      return;
+    }
+    
+    if (!isAgentActive) {
+      setActiveAgents([...activeAgents, category.id]);
+      toast.success(`Connected to ${category.name}`);
+    } else {
+      window.location.href = category.path;
     }
   };
 
@@ -81,11 +104,14 @@ const QuickActionCategory = ({
       {showAction && (
         <CardContent className="pt-0">
           <div className="flex justify-end">
-            <Link to={category.path}>
-              <Button variant="outline" size="sm">
-                Chat Now
-              </Button>
-            </Link>
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={handleConnect}
+              className={isAgentActive ? "bg-green-50 border-green-200 text-green-600 hover:bg-green-100" : ""}
+            >
+              {isAgentActive ? "Chat Now" : "Connect"}
+            </Button>
           </div>
         </CardContent>
       )}
