@@ -37,5 +37,5 @@ export const iconComponents: Record<IconType, LucideIcon> = {
 // Function to create icon JSX element
 export const createIcon = (iconType: IconType): JSX.Element => {
   const IconComponent = iconComponents[iconType];
-  return <IconComponent className="h-4 w-4 text-primary" />;
+  return <IconComponent className="h-5 w-5 text-primary" />;
 };
