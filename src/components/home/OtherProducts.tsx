@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, Wrench, Zap, Leaf, Smartphone, Paintbrush, Pool, User } from "lucide-react";
+import { Sparkles, Wrench, Zap, Leaf, Smartphone, Paintbrush, LifeBuoy, User } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -97,6 +97,7 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
           tagline="Flip the switch on electrical problems — safely and smart."
           path="/electrician"
           color="bg-gradient-to-r from-yellow-400 to-yellow-200/90"
+          hoverColor="bg-yellow-200/90"
           iconColor="bg-gradient-to-br from-yellow-400 to-yellow-600"
           buttonTextColor="text-yellow-700 hover:text-yellow-800"
         />
@@ -138,7 +139,7 @@ const OtherProducts: React.FC<OtherProductsProps> = ({ title = "Other Products" 
         />
 
         <ProductCard
-          icon={<Pool className="w-5 h-5 text-white" />}
+          icon={<LifeBuoy className="w-5 h-5 text-white" />}
           emoji="🏊"
           title="Pool Assistant"
           tagline="Keep your pool crystal clear with expert maintenance advice."

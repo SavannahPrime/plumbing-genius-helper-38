@@ -340,32 +340,32 @@ export const specialtyCategories: Record<string, { title: string, categories: Qu
     title: "Quick Painting Solutions",
     categories: [
       {
-        iconType: "brush",
-        icon: createIcon("brush"),
+        iconType: "paintbrush",
+        icon: createIcon("paintbrush"),
         name: "Surface Prep",
         hoverText: "How to prepare different surfaces for painting",
         emoji: "🧰",
         path: "/painter/glossary"
       },
       {
-        iconType: "brush",
-        icon: createIcon("brush"),
+        iconType: "paintbrush",
+        icon: createIcon("paintbrush"),
         name: "Paint Selection",
         hoverText: "Choosing the right type of paint for your project",
         emoji: "🎨",
         path: "/painter/glossary"
       },
       {
-        iconType: "brush",
-        icon: createIcon("brush"),
+        iconType: "paintbrush",
+        icon: createIcon("paintbrush"),
         name: "Technique Tips",
         hoverText: "Professional painting techniques for beginners",
         emoji: "🖌️",
         path: "/painter/glossary"
       },
       {
-        iconType: "brush",
-        icon: createIcon("brush"),
+        iconType: "paintbrush",
+        icon: createIcon("paintbrush"),
         name: "Problem Solving",
         hoverText: "Fixing common painting issues and mistakes",
         emoji: "🔍",
@@ -377,32 +377,32 @@ export const specialtyCategories: Record<string, { title: string, categories: Qu
     title: "Quick Pool Solutions",
     categories: [
       {
-        iconType: "pool",
-        icon: createIcon("pool"),
+        iconType: "lifebuoy",
+        icon: createIcon("lifebuoy"),
         name: "Water Chemistry",
         hoverText: "Balancing your pool's chemical levels",
         emoji: "⚗️",
         path: "/pool/glossary"
       },
       {
-        iconType: "pool",
-        icon: createIcon("pool"),
+        iconType: "lifebuoy",
+        icon: createIcon("lifebuoy"),
         name: "Equipment Care",
         hoverText: "Maintaining pumps, filters, and other pool equipment",
         emoji: "⚙️",
         path: "/pool/glossary"
       },
       {
-        iconType: "pool",
-        icon: createIcon("pool"),
+        iconType: "lifebuoy",
+        icon: createIcon("lifebuoy"),
         name: "Cleaning Tips",
         hoverText: "Efficient techniques for keeping your pool clean",
         emoji: "🧹",
         path: "/pool/glossary"
       },
       {
-        iconType: "pool",
-        icon: createIcon("pool"),
+        iconType: "lifebuoy",
+        icon: createIcon("lifebuoy"),
         name: "Seasonal Care",
         hoverText: "Opening, closing, and maintaining your pool year-round",
         emoji: "🌡️",

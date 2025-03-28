@@ -10,10 +10,13 @@ import {
   Car, 
   Hammer, 
   Bath,
+  Paintbrush,
+  User,
+  LifeBuoy,
   LucideIcon
 } from "lucide-react";
 
-export type IconType = "chef" | "wrench" | "scissors" | "zap" | "smartphone" | "droplet" | "car" | "hammer" | "bath";
+export type IconType = "chef" | "wrench" | "scissors" | "zap" | "smartphone" | "droplet" | "car" | "hammer" | "bath" | "paintbrush" | "user" | "lifebuoy";
 
 // Map of icon types to their components
 export const iconComponents: Record<IconType, LucideIcon> = {
@@ -25,7 +28,10 @@ export const iconComponents: Record<IconType, LucideIcon> = {
   droplet: Droplet,
   car: Car,
   hammer: Hammer,
-  bath: Bath
+  bath: Bath,
+  paintbrush: Paintbrush,
+  user: User,
+  lifebuoy: LifeBuoy
 };
 
 // Function to create icon JSX element
