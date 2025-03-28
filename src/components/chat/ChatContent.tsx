@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import ChatMessages from "@/components/chat/ChatMessages";
 import ChatInput from "@/components/chat/ChatInput";
@@ -100,7 +99,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
       {currentAgentSpecialty === 'plumber' && (
         <div 
           id="elevenlabs-widget-container" 
-          className="w-full flex justify-center absolute bottom-[72px]"
+          className="w-full flex justify-center absolute bottom-0 mb-[72px]"
         ></div>
       )}
       
