@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import ChatMessages from "@/components/chat/ChatMessages";
 import ChatInput from "@/components/chat/ChatInput";
@@ -87,13 +88,6 @@ const ChatContent: React.FC<ChatContentProps> = ({
 
   return (
     <>
-      {currentAgentSpecialty === 'plumber' && (
-        <div 
-          id="elevenlabs-widget-container" 
-          className="fixed top-20 right-4 z-50 transform -translate-y-full"
-        ></div>
-      )}
-      
       <div className="flex-1 overflow-hidden relative">
         <ChatMessages 
           messages={messages} 
@@ -102,6 +96,13 @@ const ChatContent: React.FC<ChatContentProps> = ({
           specialty={currentAgentSpecialty}
         />
       </div>
+      
+      {currentAgentSpecialty === 'plumber' && (
+        <div 
+          id="elevenlabs-widget-container" 
+          className="w-full flex justify-center mb-4"
+        ></div>
+      )}
       
       <ChatInput
         message={message}
