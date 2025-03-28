@@ -166,7 +166,7 @@ const EveryFixHome = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        {/* Featured Helpers Section - Now Smaller */}
+        {/* Featured Helpers Section - Now a Carousel */}
         <section className="mb-12">
           <div className="text-center mb-6">
             <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">Featured Helpers</h2>
@@ -175,52 +175,59 @@ const EveryFixHome = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {featuredProducts.map((product, index) => (
-              <motion.div
-                key={product.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="h-full"
-              >
-                <Link to={product.path} className="block h-full no-underline group">
-                  <Card className={`h-full shadow-sm hover:shadow-md transition-all ${product.bgClass} cursor-pointer border border-gray-200 group-hover:border-gray-300 relative overflow-hidden`}>
-                    <div className="absolute top-2 right-2 z-10">
-                      <div className="bg-yellow-300 text-yellow-900 p-1 rounded-full flex items-center">
-                        <Star className="h-3 w-3 fill-yellow-900 mr-1" />
-                        <span className="text-xs font-medium">Featured</span>
-                      </div>
-                    </div>
-                    <CardHeader className={`${product.color} text-white rounded-t-xl p-4`}>
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <CardTitle className="text-lg font-bold">
-                            {product.emoji} {product.name}
-                          </CardTitle>
-                          <CardDescription className="text-white/90 text-xs mt-1">
-                            Your AI Assistant
-                          </CardDescription>
-                        </div>
-                        <Avatar className="h-10 w-10 border-2 border-white">
-                          <AvatarImage src={product.avatar} alt={product.name} />
-                          <AvatarFallback className="text-sm">{product.avatarFallback}</AvatarFallback>
-                        </Avatar>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="pt-3 p-4">
-                      <p className="text-gray-700 text-sm">{product.description}</p>
-                    </CardContent>
-                    <CardFooter className="pt-0 p-4">
-                      <Button className="w-full group-hover:bg-primary/90 transition-colors text-sm py-1" variant="outline">
-                        Explore
-                        <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1" />
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </Link>
-              </motion.div>
-            ))}
+          <div className="relative mx-auto max-w-5xl px-8">
+            <Carousel opts={{ align: "start", loop: true }}>
+              <CarouselContent>
+                {featuredProducts.map((product, index) => (
+                  <CarouselItem key={product.name} className="md:basis-1/2 lg:basis-1/3">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      className="h-full p-1"
+                    >
+                      <Link to={product.path} className="block h-full no-underline group">
+                        <Card className={`h-full shadow-sm hover:shadow-md transition-all ${product.bgClass} cursor-pointer border border-gray-200 group-hover:border-gray-300 relative overflow-hidden`}>
+                          <div className="absolute top-2 right-2 z-10">
+                            <div className="bg-yellow-300 text-yellow-900 p-1 rounded-full flex items-center">
+                              <Star className="h-3 w-3 fill-yellow-900 mr-1" />
+                              <span className="text-xs font-medium">Featured</span>
+                            </div>
+                          </div>
+                          <CardHeader className={`${product.color} text-white rounded-t-xl p-4`}>
+                            <div className="flex justify-between items-center">
+                              <div>
+                                <CardTitle className="text-lg font-bold">
+                                  {product.emoji} {product.name}
+                                </CardTitle>
+                                <CardDescription className="text-white/90 text-xs mt-1">
+                                  Your AI Assistant
+                                </CardDescription>
+                              </div>
+                              <Avatar className="h-10 w-10 border-2 border-white">
+                                <AvatarImage src={product.avatar} alt={product.name} />
+                                <AvatarFallback className="text-sm">{product.avatarFallback}</AvatarFallback>
+                              </Avatar>
+                            </div>
+                          </CardHeader>
+                          <CardContent className="pt-3 p-4">
+                            <p className="text-gray-700 text-sm">{product.description}</p>
+                          </CardContent>
+                          <CardFooter className="pt-0 p-4">
+                            <Button className="w-full group-hover:bg-primary/90 transition-colors text-sm py-1" variant="outline">
+                              Explore
+                              <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                            </Button>
+                          </CardFooter>
+                        </Card>
+                      </Link>
+                    </motion.div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-0" />
+              <CarouselNext className="right-0" />
+            </Carousel>
           </div>
         </section>
 
