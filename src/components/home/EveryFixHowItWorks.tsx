@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { Camera, Zap, Wrench, Play } from "lucide-react";
+import { Camera, Zap, Wrench, Play, Smartphone, RefreshCw, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import VideoPlayerDialog from "@/components/shared/VideoPlayerDialog";
 
@@ -44,40 +44,66 @@ const EveryFixHowItWorks = ({ specialty = "general" }: EveryFixHowItWorksProps) 
   
   const videoDetails = getVideoDetails();
 
+  // Define specialty-specific content for the steps
+  const getStepsContent = () => {
+    if (specialty === "gadget") {
+      return [
+        {
+          icon: <Smartphone className="h-8 w-8 text-primary" />,
+          title: "Select Your Device",
+          description: "Choose the type of tech device you're having trouble with"
+        },
+        {
+          icon: <HelpCircle className="h-8 w-8 text-primary" />,
+          title: "Describe the Issue",
+          description: "Tell us what's not working or share a photo of the problem"
+        },
+        {
+          icon: <RefreshCw className="h-8 w-8 text-primary" />,
+          title: "Follow Troubleshooting Steps",
+          description: "Get step-by-step solutions to get your device working again"
+        }
+      ];
+    }
+
+    // Default steps for other specialties
+    return [
+      {
+        icon: <Camera className="h-8 w-8 text-primary" />,
+        title: "Choose Your Assistant",
+        description: "Select the AI assistant that matches your home challenge"
+      },
+      {
+        icon: <Zap className="h-8 w-8 text-primary" />,
+        title: "Describe or Show",
+        description: "Chat or upload a photo of your problem"
+      },
+      {
+        icon: <Wrench className="h-8 w-8 text-primary" />,
+        title: "Get Expert Guidance",
+        description: "Follow personalized instructions to solve your issue"
+      }
+    ];
+  };
+
+  const steps = getStepsContent();
+
   return (
     <div className="w-full">
       <h2 className="text-3xl font-bold mb-6 text-left">How It Works</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-        <div className="bg-white/80 backdrop-blur-md rounded-xl p-6 shadow-lg border border-gray-200/50 hover:shadow-xl transition-all duration-300">
-          <div className="mb-6 flex justify-center">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
-              <Camera className="h-8 w-8 text-primary" />
+        {steps.map((step, index) => (
+          <div key={index} className="bg-white/80 backdrop-blur-md rounded-xl p-6 shadow-lg border border-gray-200/50 hover:shadow-xl transition-all duration-300">
+            <div className="mb-6 flex justify-center">
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
+                {step.icon}
+              </div>
             </div>
+            <h3 className="text-xl font-semibold mb-3 text-center">{step.title}</h3>
+            <p className="text-gray-700 text-center">{step.description}</p>
           </div>
-          <h3 className="text-xl font-semibold mb-3 text-center">Choose Your Assistant</h3>
-          <p className="text-gray-700 text-center">Select the AI assistant that matches your home challenge</p>
-        </div>
-        
-        <div className="bg-white/80 backdrop-blur-md rounded-xl p-6 shadow-lg border border-gray-200/50 hover:shadow-xl transition-all duration-300">
-          <div className="mb-6 flex justify-center">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
-              <Zap className="h-8 w-8 text-primary" />
-            </div>
-          </div>
-          <h3 className="text-xl font-semibold mb-3 text-center">Describe or Show</h3>
-          <p className="text-gray-700 text-center">Chat or upload a photo of your problem</p>
-        </div>
-        
-        <div className="bg-white/80 backdrop-blur-md rounded-xl p-6 shadow-lg border border-gray-200/50 hover:shadow-xl transition-all duration-300">
-          <div className="mb-6 flex justify-center">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
-              <Wrench className="h-8 w-8 text-primary" />
-            </div>
-          </div>
-          <h3 className="text-xl font-semibold mb-3 text-center">Get Expert Guidance</h3>
-          <p className="text-gray-700 text-center">Follow personalized instructions to solve your issue</p>
-        </div>
+        ))}
       </div>
       
       {specialty !== "general" && (
