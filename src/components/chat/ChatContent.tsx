@@ -87,8 +87,8 @@ const ChatContent: React.FC<ChatContentProps> = ({
   }, [currentAgentSpecialty]);
 
   return (
-    <>
-      <div className="flex-1 overflow-hidden relative">
+    <div className="flex flex-col h-full relative">
+      <div className="flex-1 overflow-hidden">
         <ChatMessages 
           messages={messages} 
           isLoading={isLoading} 
@@ -100,20 +100,22 @@ const ChatContent: React.FC<ChatContentProps> = ({
       {currentAgentSpecialty === 'plumber' && (
         <div 
           id="elevenlabs-widget-container" 
-          className="w-full flex justify-center mb-8"
+          className="w-full flex justify-center absolute bottom-[72px]"
         ></div>
       )}
       
-      <ChatInput
-        message={message}
-        setMessage={setMessage}
-        handleSendMessage={handleSendMessage}
-        isLoading={isLoading}
-        handleMicClick={handleMicClick}
-        fileInputRef={fileInputRef}
-        handleImageUpload={handleImageUpload}
-        isUploading={isUploading}
-      />
+      <div className="sticky bottom-0 w-full">
+        <ChatInput
+          message={message}
+          setMessage={setMessage}
+          handleSendMessage={handleSendMessage}
+          isLoading={isLoading}
+          handleMicClick={handleMicClick}
+          fileInputRef={fileInputRef}
+          handleImageUpload={handleImageUpload}
+          isUploading={isUploading}
+        />
+      </div>
       
       <input
         type="file"
@@ -122,7 +124,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
         accept="image/*"
         className="hidden"
       />
-    </>
+    </div>
   );
 };
 
