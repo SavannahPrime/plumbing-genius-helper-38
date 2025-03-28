@@ -56,6 +56,35 @@ const ChatContent: React.FC<ChatContentProps> = ({
     }
   }, [currentAgentSpecialty, messages.length, setMessages]);
 
+  // Add ElevenLabs widget for the plumber
+  useEffect(() => {
+    if (currentAgentSpecialty === 'plumber') {
+      // Check if widget already exists
+      if (!document.querySelector('elevenlabs-convai')) {
+        const widget = document.createElement('elevenlabs-convai');
+        widget.setAttribute('agent-id', 'lX8syHY754gA8SdjQU6n');
+        document.body.appendChild(widget);
+        console.log("ElevenLabs Convai widget added for plumber");
+      }
+    } else {
+      // Remove widget if not on plumber specialty
+      const widget = document.querySelector('elevenlabs-convai');
+      if (widget) {
+        widget.remove();
+        console.log("ElevenLabs Convai widget removed");
+      }
+    }
+    
+    return () => {
+      // Cleanup widget on component unmount
+      const widget = document.querySelector('elevenlabs-convai');
+      if (widget) {
+        widget.remove();
+        console.log("ElevenLabs Convai widget removed on cleanup");
+      }
+    };
+  }, [currentAgentSpecialty]);
+
   return (
     <>
       <div className="flex-1 overflow-hidden relative">

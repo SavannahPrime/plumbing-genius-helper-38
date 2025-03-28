@@ -51,18 +51,7 @@ const ChatMessages = ({ messages, isLoading, specialty, context }: ChatMessagesP
                       <img src={agent.avatarImage} alt={agent.name} className="w-full h-full object-cover" />
                     </Avatar>
                   ) : (
-                    <Avatar className={`h-8 w-8 ${
-                      specialty === 'plumber' ? 'bg-accent/80' : 
-                      specialty === 'electrician' ? 'bg-yellow-500' :
-                      specialty === 'gadget' ? 'bg-purple-600' :
-                      specialty === 'chef' ? 'bg-amber-600' :
-                      specialty === 'stylist' ? 'bg-pink-500' :
-                      specialty === 'handyman' ? 'bg-orange-500' :
-                      specialty === 'mechanic' ? 'bg-blue-600' :
-                      specialty === 'landscaper' ? 'bg-green-600' :
-                      specialty === 'cleaning' ? 'bg-cyan-500' :
-                      'bg-blue-500'
-                    }`}>
+                    <Avatar className={`h-8 w-8 ${getAvatarBgColor(specialty)}`}>
                       <span className="text-white text-xs">{agent.emoji}</span>
                     </Avatar>
                   )}
@@ -106,6 +95,32 @@ const ChatMessages = ({ messages, isLoading, specialty, context }: ChatMessagesP
       </div>
     </div>
   );
+};
+
+// Helper function to get avatar background color based on specialty
+const getAvatarBgColor = (specialty: AgentSpecialty): string => {
+  switch (specialty) {
+    case 'plumber':
+      return 'bg-accent/80';
+    case 'electrician':
+      return 'bg-yellow-500';
+    case 'gadget':
+      return 'bg-purple-600';
+    case 'chef':
+      return 'bg-amber-600';
+    case 'stylist':
+      return 'bg-pink-500';
+    case 'handyman':
+      return 'bg-orange-500';
+    case 'mechanic':
+      return 'bg-blue-600';
+    case 'landscaper':
+      return 'bg-green-600';
+    case 'cleaning':
+      return 'bg-cyan-500';
+    default:
+      return 'bg-blue-500';
+  }
 };
 
 export default ChatMessages;
