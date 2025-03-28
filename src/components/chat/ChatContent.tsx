@@ -63,8 +63,17 @@ const ChatContent: React.FC<ChatContentProps> = ({
       if (!document.querySelector('elevenlabs-convai')) {
         const widget = document.createElement('elevenlabs-convai');
         widget.setAttribute('agent-id', 'lX8syHY754gA8SdjQU6n');
-        document.body.appendChild(widget);
-        console.log("ElevenLabs Convai widget added for plumber");
+        
+        // Add the widget to our custom container instead of body
+        const widgetContainer = document.getElementById('elevenlabs-widget-container');
+        if (widgetContainer) {
+          widgetContainer.appendChild(widget);
+          console.log("ElevenLabs Convai widget added to custom container for plumber");
+        } else {
+          // Fallback to body if container not found
+          document.body.appendChild(widget);
+          console.log("ElevenLabs Convai widget added to body for plumber (container not found)");
+        }
       }
     } else {
       // Remove widget if not on plumber specialty
@@ -87,6 +96,14 @@ const ChatContent: React.FC<ChatContentProps> = ({
 
   return (
     <>
+      {/* Widget container positioned at the top of the chat */}
+      {currentAgentSpecialty === 'plumber' && (
+        <div 
+          id="elevenlabs-widget-container" 
+          className="absolute top-4 right-4 z-50"
+        ></div>
+      )}
+      
       <div className="flex-1 overflow-hidden relative">
         <ChatMessages 
           messages={messages} 
