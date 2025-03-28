@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import ChatMessages from "@/components/chat/ChatMessages";
 import ChatInput from "@/components/chat/ChatInput";
@@ -35,13 +34,11 @@ const ChatContent: React.FC<ChatContentProps> = ({
   context,
   currentAgentSpecialty,
 }) => {
-  // Add a welcome message when the chat starts
   useEffect(() => {
     if (messages.length === 0) {
       const agent = specializedAgents[currentAgentSpecialty];
       let greeting = agent.greeting;
       
-      // Custom greeting for the chef with cartoon image
       if (currentAgentSpecialty === 'chef') {
         greeting = "Bonjour! I'm Chef Charlie at your service! What delicious dish are you looking to create today? I can help with recipes, cooking techniques, ingredient substitutions, or any kitchen dilemmas you're facing!";
       }
@@ -56,27 +53,22 @@ const ChatContent: React.FC<ChatContentProps> = ({
     }
   }, [currentAgentSpecialty, messages.length, setMessages]);
 
-  // Add ElevenLabs widget for the plumber
   useEffect(() => {
     if (currentAgentSpecialty === 'plumber') {
-      // Check if widget already exists
       if (!document.querySelector('elevenlabs-convai')) {
         const widget = document.createElement('elevenlabs-convai');
         widget.setAttribute('agent-id', 'lX8syHY754gA8SdjQU6n');
         
-        // Add the widget to our custom container instead of body
         const widgetContainer = document.getElementById('elevenlabs-widget-container');
         if (widgetContainer) {
           widgetContainer.appendChild(widget);
           console.log("ElevenLabs Convai widget added to custom container for plumber");
         } else {
-          // Fallback to body if container not found
           document.body.appendChild(widget);
           console.log("ElevenLabs Convai widget added to body for plumber (container not found)");
         }
       }
     } else {
-      // Remove widget if not on plumber specialty
       const widget = document.querySelector('elevenlabs-convai');
       if (widget) {
         widget.remove();
@@ -85,7 +77,6 @@ const ChatContent: React.FC<ChatContentProps> = ({
     }
     
     return () => {
-      // Cleanup widget on component unmount
       const widget = document.querySelector('elevenlabs-convai');
       if (widget) {
         widget.remove();
@@ -96,11 +87,10 @@ const ChatContent: React.FC<ChatContentProps> = ({
 
   return (
     <>
-      {/* Widget container positioned at the very top of the screen */}
       {currentAgentSpecialty === 'plumber' && (
         <div 
           id="elevenlabs-widget-container" 
-          className="fixed top-[-100px] right-4 z-50"
+          className="fixed top-20 right-4 z-50 transform -translate-y-full"
         ></div>
       )}
       
