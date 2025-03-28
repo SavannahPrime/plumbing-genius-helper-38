@@ -100,11 +100,12 @@ const ChatContent: React.FC<ChatContentProps> = ({
       {currentAgentSpecialty === 'plumber' && (
         <div 
           id="elevenlabs-widget-container" 
-          className="w-full flex justify-center absolute bottom-0 mb-[120px]"
+          className="w-full flex justify-center fixed bottom-[90px] right-4 z-50"
+          style={{ width: 'auto', maxWidth: '280px' }}
         ></div>
       )}
       
-      <div className="sticky bottom-0 w-full">
+      <div className="sticky bottom-0 w-full z-10">
         <ChatInput
           message={message}
           setMessage={setMessage}
