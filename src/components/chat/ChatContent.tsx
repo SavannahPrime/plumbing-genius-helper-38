@@ -96,11 +96,11 @@ const ChatContent: React.FC<ChatContentProps> = ({
 
   return (
     <>
-      {/* Widget container positioned higher on the screen to avoid overlap with input area */}
+      {/* Widget container positioned much higher on the screen to avoid any overlap */}
       {currentAgentSpecialty === 'plumber' && (
         <div 
           id="elevenlabs-widget-container" 
-          className="fixed top-20 right-4 z-50"
+          className="fixed top-2 right-4 z-50"
         ></div>
       )}
       
