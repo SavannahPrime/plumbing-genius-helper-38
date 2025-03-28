@@ -1,46 +1,15 @@
 
-// Define global interfaces and types
-declare interface Window {
+interface Window {
   elevenlabsAgentLoaded?: boolean;
 }
 
 // Define the custom elevenlabs-convai element
-declare interface HTMLElementTagNameMap {
+interface HTMLElementTagNameMap {
   'elevenlabs-convai': HTMLElement & {
     setAttribute(name: string, value: string): void;
     getAttribute(name: string): string | null;
     activate?: () => void;
     deactivate?: () => void;
     apiKey?: string;
-  };
-}
-
-// Define specialty type that can be used across the application
-export type SpecialtyType = 
-  | 'plumber'
-  | 'handyman'
-  | 'electrician'
-  | 'chef'
-  | 'mechanic'
-  | 'stylist'
-  | 'landscaper'
-  | 'cleaning'
-  | 'gadget';
-
-// Define payment method types
-export type PaymentMethodType =
-  | 'link'
-  | 'applepay'
-  | 'googlepay'
-  | 'card';
-
-// Define user token balance interface
-export interface TokenBalance {
-  available: number;
-  used: number;
-  subscription: {
-    level: 'free' | 'basic' | 'premium' | 'enterprise';
-    tokens: number;
-    expiresAt: string;
   };
 }

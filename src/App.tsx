@@ -1,35 +1,88 @@
 
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
-import { Sonner } from "@/components/ui/sonner";
+import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import ElevenLabsWidgetInitializer from "@/components/chat/ElevenLabsWidgetInitializer";
-
-// Import pages
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
-import EveryFixHome from "./pages/EveryFixHome";
 import Chat from "./pages/Chat";
 import Diagnosis from "./pages/Diagnosis";
 import Fixes from "./pages/Fixes";
+import NotFound from "./pages/NotFound";
 import Cleaning from "./pages/Cleaning";
 import Handyman from "./pages/Handyman";
 import Electrician from "./pages/Electrician";
 import Landscaper from "./pages/Landscaper";
+import EveryFixHome from "./pages/EveryFixHome";
 import Mechanic from "./pages/Mechanic";
 import GadgetFixGenie from "./pages/GadgetFixGenie";
 import GadgetGlossary from "./pages/GadgetGlossary";
 import Chef from "./pages/Chef";
 import Stylist from "./pages/Stylist";
 import StepByStepGlossary from "./pages/StepByStepGlossary";
-import Subscription from "./pages/Subscription";
-import NotFound from "./pages/NotFound";
+import { SCRIPT_URL } from "@/constants/elevenlabs";
 
-// Create a client
 const queryClient = new QueryClient();
 
-function App() {
+// Widget initializer component with improved error handling
+const ElevenLabsWidgetInitializer = () => {
+  useEffect(() => {
+    let scriptLoadAttempts = 0;
+    const maxAttempts = 3;
+    
+    const loadScript = () => {
+      // Check if script is already loaded
+      if (document.querySelector(`script[src="${SCRIPT_URL}"]`)) {
+        console.log("ElevenLabs script already loaded in App initializer");
+        return;
+      }
+      
+      scriptLoadAttempts++;
+      console.log(`Loading ElevenLabs script in App initializer (attempt ${scriptLoadAttempts}/${maxAttempts})`);
+      
+      const script = document.createElement("script");
+      script.src = SCRIPT_URL;
+      script.async = true;
+      script.type = "text/javascript";
+      
+      script.onload = () => {
+        console.log("ElevenLabs script loaded successfully in App initializer");
+        
+        // Check if the custom element is registered
+        setTimeout(() => {
+          if (!customElements.get("elevenlabs-convai") && scriptLoadAttempts < maxAttempts) {
+            console.warn("ElevenLabs custom element not registered after script load, retrying...");
+            script.remove();
+            setTimeout(loadScript, 1000);
+          }
+        }, 1000);
+      };
+      
+      script.onerror = (error) => {
+        console.error("Error loading ElevenLabs script in App initializer:", error);
+        
+        if (scriptLoadAttempts < maxAttempts) {
+          console.log("Retrying script load after error...");
+          script.remove();
+          setTimeout(loadScript, 1000);
+        }
+      };
+      
+      document.head.appendChild(script);
+    };
+    
+    loadScript();
+    
+    return () => {
+      // We don't remove the script on unmount to prevent reloading issues
+    };
+  }, []);
+  
+  return null;
+};
+
+const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
@@ -48,7 +101,6 @@ function App() {
             <Route path="/landscaper" element={<Landscaper />} />
             <Route path="/mechanic" element={<Mechanic />} />
             <Route path="/gadgetfixgenie" element={<GadgetFixGenie />} />
-            <Route path="/subscription" element={<Subscription />} />
             
             {/* Context-specific glossary routes */}
             <Route path="/glossary" element={<GadgetGlossary />} />
@@ -72,6 +124,6 @@ function App() {
       </BrowserRouter>
     </QueryClientProvider>
   );
-}
+};
 
 export default App;

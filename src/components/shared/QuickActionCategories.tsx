@@ -1,43 +1,57 @@
 
-import React from 'react';
-import { specialtyCategories } from '@/data/specialtyCategories';
-import QuickActionCategory from './QuickActionCategory';
+import React from "react";
+import { motion } from "framer-motion";
+import { specialtyCategories } from "@/data/specialtyCategories";
+import QuickActionCategoryCard, { QuickActionCategory } from "./QuickActionCategory";
+import { useCurrentContext } from "@/utils/pathUtils";
 
 interface QuickActionCategoriesProps {
-  showPopularOnly?: boolean;
-  showToggle?: boolean;
-  size?: 'sm' | 'md' | 'lg';
-  showDescription?: boolean;
-  showAction?: boolean;
+  title?: string;
+  categories?: QuickActionCategory[];
   specialty?: string;
+  className?: string;
 }
 
 const QuickActionCategories = ({ 
-  showPopularOnly = false, 
-  showToggle = false,
-  size = 'md',
-  showDescription = true,
-  showAction = true,
-  specialty
+  title, 
+  categories, 
+  specialty, 
+  className = "" 
 }: QuickActionCategoriesProps) => {
-  const filteredCategories = showPopularOnly
-    ? specialtyCategories.filter(category => category.isPopular)
-    : specialtyCategories;
+  const currentContext = useCurrentContext();
+  
+  // Determine what categories and title to use (from props or from specialty lookup)
+  let displayCategories = categories;
+  let displayTitle = title;
+  
+  if (specialty && specialtyCategories[specialty]) {
+    displayCategories = specialtyCategories[specialty].categories;
+    displayTitle = displayTitle || specialtyCategories[specialty].title;
+  }
+  
+  // If we still don't have categories, show a default empty state or return null
+  if (!displayCategories) {
+    return null;
+  }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {filteredCategories.map((category) => (
-        <QuickActionCategory 
-          key={category.id} 
-          category={category} 
-          size={size}
-          showDescription={showDescription}
-          showAction={showAction}
-          showToggle={showToggle}
-          specialty={specialty}
-        />
-      ))}
-    </div>
+    <motion.section
+      className={`mt-12 ${className}`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.4 }}
+    >
+      <h3 className="text-xl font-semibold mb-4 font-space-grotesk">{displayTitle}</h3>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {displayCategories.map((category, index) => (
+          <QuickActionCategoryCard 
+            key={index} 
+            category={category} 
+            currentContext={currentContext} 
+          />
+        ))}
+      </div>
+    </motion.section>
   );
 };
 
