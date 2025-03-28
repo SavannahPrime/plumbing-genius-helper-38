@@ -100,7 +100,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
       {currentAgentSpecialty === 'plumber' && (
         <div 
           id="elevenlabs-widget-container" 
-          className="w-full flex justify-center mb-4"
+          className="w-full flex justify-center mb-8"
         ></div>
       )}
       
