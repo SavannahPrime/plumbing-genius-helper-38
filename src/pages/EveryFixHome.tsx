@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -226,12 +225,6 @@ const EveryFixHome = () => {
 
         {/* Live Fix Feed */}
         <section className="mb-16">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">Live Activity</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              See what others are fixing right now with our AI assistants
-            </p>
-          </div>
           <LiveFixFeed specialty="gadget" />
         </section>
 

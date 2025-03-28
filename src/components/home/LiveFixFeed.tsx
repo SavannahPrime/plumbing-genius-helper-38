@@ -93,6 +93,30 @@ const LiveFixFeed: React.FC<LiveFixFeedProps> = ({ specialty = "plumber" }) => {
       { emoji: "📷", name: "Alex", problem: "restored camera settings", location: "Mount Washington", timeAgo: "26 mins ago" },
       { emoji: "🎮", name: "Cameron", problem: "upgraded gaming system", location: "Cypress Park", timeAgo: "33 mins ago" },
     ],
+    painter: [
+      { emoji: "🎨", name: "Robin", problem: "matched paint colors perfectly", location: "Glendale", timeAgo: "3 mins ago" },
+      { emoji: "🖌️", name: "Avery", problem: "fixed paint drips", location: "Pasadena", timeAgo: "8 mins ago" },
+      { emoji: "🧰", name: "Jordan", problem: "prepped walls for painting", location: "Highland Park", timeAgo: "12 mins ago" },
+      { emoji: "🪟", name: "Riley", problem: "painted window trim", location: "Eagle Rock", timeAgo: "17 mins ago" },
+      { emoji: "🚪", name: "Casey", problem: "refreshed cabinet doors", location: "Los Feliz", timeAgo: "22 mins ago" },
+      { emoji: "🧹", name: "Taylor", problem: "cleaned painting tools properly", location: "Silver Lake", timeAgo: "29 mins ago" },
+    ],
+    pool: [
+      { emoji: "🏊", name: "Alex", problem: "balanced pool chemicals", location: "Calabasas", timeAgo: "4 mins ago" },
+      { emoji: "⚗️", name: "Morgan", problem: "fixed green pool water", location: "Woodland Hills", timeAgo: "9 mins ago" },
+      { emoji: "⚙️", name: "Charlie", problem: "repaired pool pump", location: "Encino", timeAgo: "14 mins ago" },
+      { emoji: "🧹", name: "Jamie", problem: "removed pool debris", location: "Tarzana", timeAgo: "19 mins ago" },
+      { emoji: "🌡️", name: "Dakota", problem: "adjusted pool heater", location: "Sherman Oaks", timeAgo: "25 mins ago" },
+      { emoji: "🕳️", name: "Hayden", problem: "fixed pool leak", location: "Studio City", timeAgo: "31 mins ago" },
+    ],
+    declutter: [
+      { emoji: "📦", name: "Sage", problem: "organized closet space", location: "Santa Monica", timeAgo: "5 mins ago" },
+      { emoji: "🧸", name: "River", problem: "sorted children's toys", location: "Pacific Palisades", timeAgo: "10 mins ago" },
+      { emoji: "📚", name: "Quinn", problem: "arranged bookshelf by color", location: "Brentwood", timeAgo: "15 mins ago" },
+      { emoji: "🧾", name: "Rowan", problem: "created paper filing system", location: "Westwood", timeAgo: "20 mins ago" },
+      { emoji: "👕", name: "Finley", problem: "decluttered wardrobe", location: "West LA", timeAgo: "26 mins ago" },
+      { emoji: "🍽️", name: "Peyton", problem: "reorganized kitchen cabinets", location: "Culver City", timeAgo: "33 mins ago" },
+    ],
   };
 
   // Get the appropriate fixes for the current specialty
@@ -137,7 +161,10 @@ const LiveFixFeed: React.FC<LiveFixFeedProps> = ({ specialty = "plumber" }) => {
              specialty === "chef" ? "🍳" : 
              specialty === "stylist" ? "💇‍♀️" : 
              specialty === "cleaning" ? "🧹" : 
-             specialty === "gadget" ? "📱" : "🪠"} 
+             specialty === "gadget" ? "📱" : 
+             specialty === "painter" ? "🎨" :
+             specialty === "pool" ? "🏊" :
+             specialty === "declutter" ? "✨" : "🪠"} 
              4,238 people solved issues this week
           </div>
           <div className="text-sm text-primary/60">⚡ 142 active users right now</div>
