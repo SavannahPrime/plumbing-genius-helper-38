@@ -45,16 +45,7 @@ const ChatHeader = ({ specialty, children }: ChatHeaderProps) => {
               </div>
             ) : (
               <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                specialty === 'plumber' ? 'bg-accent/80' : 
-                specialty === 'electrician' ? 'bg-yellow-500' :
-                specialty === 'gadget' ? 'bg-purple-600' :
-                specialty === 'chef' ? 'bg-amber-600' :
-                specialty === 'stylist' ? 'bg-pink-500' :
-                specialty === 'handyman' ? 'bg-orange-500' :
-                specialty === 'mechanic' ? 'bg-blue-600' :
-                specialty === 'landscaper' ? 'bg-green-600' :
-                specialty === 'cleaning' ? 'bg-cyan-500' :
-                'bg-blue-500'
+                getBackgroundColorForSpecialty(specialty)
               }`}>
                 <span className="text-lg text-white">{agent.emoji}</span>
               </div>
@@ -82,6 +73,32 @@ const ChatHeader = ({ specialty, children }: ChatHeaderProps) => {
       </div>
     </header>
   );
+};
+
+// Helper function to get background color based on agent specialty
+const getBackgroundColorForSpecialty = (specialty: AgentSpecialty): string => {
+  switch (specialty) {
+    case 'plumber':
+      return 'bg-accent/80';
+    case 'electrician':
+      return 'bg-yellow-500';
+    case 'gadget':
+      return 'bg-purple-600';
+    case 'chef':
+      return 'bg-amber-600';
+    case 'stylist':
+      return 'bg-pink-500';
+    case 'handyman':
+      return 'bg-orange-500';
+    case 'mechanic':
+      return 'bg-blue-600';
+    case 'landscaper':
+      return 'bg-green-600';
+    case 'cleaning':
+      return 'bg-cyan-500';
+    default:
+      return 'bg-blue-500';
+  }
 };
 
 export default ChatHeader;
