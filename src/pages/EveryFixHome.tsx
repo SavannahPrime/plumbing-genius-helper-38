@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -17,11 +16,11 @@ import {
 } from "@/components/ui/carousel";
 import { createIcon } from "@/utils/iconUtils";
 import { Badge } from "@/components/ui/badge";
+import { PageLayout } from "@/components/shared/PageLayout";
 
 const EveryFixHome = () => {
   const [activeVideos, setActiveVideos] = useState(0);
 
-  // Animation to cycle through active videos count
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveVideos(prev => (prev + 1) % 4);
@@ -141,173 +140,170 @@ const EveryFixHome = () => {
     }
   ];
 
-  // Filter featured products
   const featuredProducts = products.filter(product => product.featured);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
-      <header className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col items-center justify-center text-center">
-            <h1 className="text-3xl md:text-5xl font-bold font-space-grotesk text-primary mb-2">
-              Connect.Software
-            </h1>
-            <p className="text-gray-600 max-w-2xl mx-auto mb-4">
-              Virtual Live 24x7 Agents for various industries. Select your desired chat/voice agent for your personal or business needs.
-            </p>
-            <div className="flex flex-wrap justify-center gap-2 mt-2">
-              <Badge variant="outline" className="bg-blue-50">No appointments</Badge>
-              <Badge variant="outline" className="bg-green-50">24/7 availability</Badge>
-              <Badge variant="outline" className="bg-amber-50">Step-by-step guidance</Badge>
-              <Badge variant="outline" className="bg-purple-50">Photo diagnosis</Badge>
+    <PageLayout>
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+        <header className="bg-white shadow-sm">
+          <div className="container mx-auto px-4 py-6">
+            <div className="flex flex-col items-center justify-center text-center">
+              <h1 className="text-3xl md:text-5xl font-bold font-space-grotesk text-primary mb-2">
+                Connect.Software
+              </h1>
+              <p className="text-gray-600 max-w-2xl mx-auto mb-4">
+                Virtual Live 24x7 Agents for various industries. Select your desired chat/voice agent for your personal or business needs.
+              </p>
+              <div className="flex flex-wrap justify-center gap-2 mt-2">
+                <Badge variant="outline" className="bg-blue-50">No appointments</Badge>
+                <Badge variant="outline" className="bg-green-50">24/7 availability</Badge>
+                <Badge variant="outline" className="bg-amber-50">Step-by-step guidance</Badge>
+                <Badge variant="outline" className="bg-purple-50">Photo diagnosis</Badge>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <main className="container mx-auto px-4 py-8">
-        {/* Featured Helpers Section - Now a Carousel */}
-        <section className="mb-12">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">Featured Helpers</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-sm">
-              Our most popular AI assistants ready to solve your home challenges
-            </p>
-          </div>
-          
-          <div className="relative mx-auto max-w-5xl px-8">
-            <Carousel opts={{ align: "start", loop: true }}>
-              <CarouselContent>
-                {featuredProducts.map((product, index) => (
-                  <CarouselItem key={product.name} className="md:basis-1/2 lg:basis-1/3">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      className="h-full p-1"
-                    >
-                      <Link to={product.path} className="block h-full no-underline group">
-                        <Card className={`h-full shadow-sm hover:shadow-md transition-all ${product.bgClass} cursor-pointer border border-gray-200 group-hover:border-gray-300 relative overflow-hidden`}>
-                          <div className="absolute top-2 right-2 z-10">
-                            <div className="bg-yellow-300 text-yellow-900 p-1 rounded-full flex items-center">
-                              <Star className="h-3 w-3 fill-yellow-900 mr-1" />
-                              <span className="text-xs font-medium">Featured</span>
-                            </div>
-                          </div>
-                          <CardHeader className={`${product.color} text-white rounded-t-xl p-4`}>
-                            <div className="flex justify-between items-center">
-                              <div>
-                                <CardTitle className="text-lg font-bold">
-                                  {product.emoji} {product.name}
-                                </CardTitle>
-                                <CardDescription className="text-white/90 text-xs mt-1">
-                                  Your AI Assistant
-                                </CardDescription>
-                              </div>
-                              <Avatar className="h-10 w-10 border-2 border-white">
-                                <AvatarImage src={product.avatar} alt={product.name} />
-                                <AvatarFallback className="text-sm">{product.avatarFallback}</AvatarFallback>
-                              </Avatar>
-                            </div>
-                          </CardHeader>
-                          <CardContent className="pt-3 p-4">
-                            <p className="text-gray-700 text-sm">{product.description}</p>
-                          </CardContent>
-                          <CardFooter className="pt-0 p-4">
-                            <Button className="w-full group-hover:bg-primary/90 transition-colors text-sm py-1" variant="outline">
-                              Explore
-                              <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1" />
-                            </Button>
-                          </CardFooter>
-                        </Card>
-                      </Link>
-                    </motion.div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="left-0" />
-              <CarouselNext className="right-0" />
-            </Carousel>
-          </div>
-        </section>
-
-        {/* Live Fix Feed */}
-        <section className="mb-16">
-          <LiveFixFeed specialty="gadget" />
-        </section>
-
-        {/* Helper Cards Grid */}
-        <section className="mb-16">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">Choose Your AI Helper</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Select the expert that matches your current challenge
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
-            {products.map((product, index) => (
-              <motion.div
-                key={product.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Link to={product.path} className="block h-full no-underline group">
-                  <Card className={`h-full shadow-sm hover:shadow-md transition-all ${product.bgClass} cursor-pointer border border-gray-200 group-hover:border-gray-300`}>
-                    <CardHeader className={`${product.color} text-white rounded-t-xl`}>
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <CardTitle className="text-xl font-bold">
-                            {product.emoji} {product.name}
-                          </CardTitle>
-                          <CardDescription className="text-white/90 mt-1">
-                            Your AI Assistant
-                          </CardDescription>
-                        </div>
-                        <Avatar className="h-12 w-12 border-2 border-white">
-                          <AvatarImage src={product.avatar} alt={product.name} />
-                          <AvatarFallback className="text-xl">{product.avatarFallback}</AvatarFallback>
-                        </Avatar>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="pt-4">
-                      <p className="text-gray-700">{product.description}</p>
-                    </CardContent>
-                    <CardFooter className="pt-0">
-                      <Button className="w-full group-hover:bg-primary/90 transition-colors" variant="outline">
-                        Explore {product.name}
-                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* How It Works Section */}
-        <section className="mb-16">
-          <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-100">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">How EveryFixAI Works</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Get expert help in three simple steps
+        <main className="container mx-auto px-4 py-8">
+          <section className="mb-12">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">Featured Helpers</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto text-sm">
+                Our most popular AI assistants ready to solve your home challenges
               </p>
             </div>
-            <EveryFixHowItWorks />
-          </div>
-        </section>
-      </main>
+            
+            <div className="relative mx-auto max-w-5xl px-8">
+              <Carousel opts={{ align: "start", loop: true }}>
+                <CarouselContent>
+                  {featuredProducts.map((product, index) => (
+                    <CarouselItem key={product.name} className="md:basis-1/2 lg:basis-1/3">
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        className="h-full p-1"
+                      >
+                        <Link to={product.path} className="block h-full no-underline group">
+                          <Card className={`h-full shadow-sm hover:shadow-md transition-all ${product.bgClass} cursor-pointer border border-gray-200 group-hover:border-gray-300 relative overflow-hidden`}>
+                            <div className="absolute top-2 right-2 z-10">
+                              <div className="bg-yellow-300 text-yellow-900 p-1 rounded-full flex items-center">
+                                <Star className="h-3 w-3 fill-yellow-900 mr-1" />
+                                <span className="text-xs font-medium">Featured</span>
+                              </div>
+                            </div>
+                            <CardHeader className={`${product.color} text-white rounded-t-xl p-4`}>
+                              <div className="flex justify-between items-center">
+                                <div>
+                                  <CardTitle className="text-lg font-bold">
+                                    {product.emoji} {product.name}
+                                  </CardTitle>
+                                  <CardDescription className="text-white/90 text-xs mt-1">
+                                    Your AI Assistant
+                                  </CardDescription>
+                                </div>
+                                <Avatar className="h-10 w-10 border-2 border-white">
+                                  <AvatarImage src={product.avatar} alt={product.name} />
+                                  <AvatarFallback className="text-sm">{product.avatarFallback}</AvatarFallback>
+                                </Avatar>
+                              </div>
+                            </CardHeader>
+                            <CardContent className="pt-3 p-4">
+                              <p className="text-gray-700 text-sm">{product.description}</p>
+                            </CardContent>
+                            <CardFooter className="pt-0 p-4">
+                              <Button className="w-full group-hover:bg-primary/90 transition-colors text-sm py-1" variant="outline">
+                                Explore
+                                <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                              </Button>
+                            </CardFooter>
+                          </Card>
+                        </Link>
+                      </motion.div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="left-0" />
+                <CarouselNext className="right-0" />
+              </Carousel>
+            </div>
+          </section>
 
-      <footer className="bg-white border-t py-8">
-        <div className="container mx-auto px-4 text-center text-sm text-gray-500">
-          <p>© {new Date().getFullYear()} Connect.Software. All virtual AI agents are available 24/7 to assist with your needs.</p>
-          <p className="mt-2">For emergencies or complex issues, always consult a professional.</p>
-        </div>
-      </footer>
-    </div>
+          <section className="mb-16">
+            <LiveFixFeed specialty="gadget" />
+          </section>
+
+          <section className="mb-16">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">Choose Your AI Helper</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Select the expert that matches your current challenge
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+              {products.map((product, index) => (
+                <motion.div
+                  key={product.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <Link to={product.path} className="block h-full no-underline group">
+                    <Card className={`h-full shadow-sm hover:shadow-md transition-all ${product.bgClass} cursor-pointer border border-gray-200 group-hover:border-gray-300`}>
+                      <CardHeader className={`${product.color} text-white rounded-t-xl`}>
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <CardTitle className="text-xl font-bold">
+                              {product.emoji} {product.name}
+                            </CardTitle>
+                            <CardDescription className="text-white/90 mt-1">
+                              Your AI Assistant
+                            </CardDescription>
+                          </div>
+                          <Avatar className="h-12 w-12 border-2 border-white">
+                            <AvatarImage src={product.avatar} alt={product.name} />
+                            <AvatarFallback className="text-xl">{product.avatarFallback}</AvatarFallback>
+                          </Avatar>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="pt-4">
+                        <p className="text-gray-700">{product.description}</p>
+                      </CardContent>
+                      <CardFooter className="pt-0">
+                        <Button className="w-full group-hover:bg-primary/90 transition-colors" variant="outline">
+                          Explore {product.name}
+                          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
+          <section className="mb-16">
+            <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-100">
+              <div className="text-center mb-8">
+                <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">How EveryFixAI Works</h2>
+                <p className="text-gray-600 max-w-2xl mx-auto">
+                  Get expert help in three simple steps
+                </p>
+              </div>
+              <EveryFixHowItWorks />
+            </div>
+          </section>
+        </main>
+
+        <footer className="bg-white border-t py-8">
+          <div className="container mx-auto px-4 text-center text-sm text-gray-500">
+            <p>© {new Date().getFullYear()} Connect.Software. All virtual AI agents are available 24/7 to assist with your needs.</p>
+            <p className="mt-2">For emergencies or complex issues, always consult a professional.</p>
+          </div>
+        </footer>
+      </div>
+    </PageLayout>
   );
 };
 

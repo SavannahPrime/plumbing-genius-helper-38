@@ -1,7 +1,7 @@
 
 import { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
+import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -21,6 +21,9 @@ import GadgetGlossary from "./pages/GadgetGlossary";
 import Chef from "./pages/Chef";
 import Stylist from "./pages/Stylist";
 import StepByStepGlossary from "./pages/StepByStepGlossary";
+import Account from "./pages/Account";
+import Agents from "./pages/Agents";
+import Answers from "./pages/Answers";
 import { SCRIPT_URL } from "@/constants/elevenlabs";
 
 const queryClient = new QueryClient();
@@ -88,7 +91,7 @@ const App = () => {
       <BrowserRouter>
         <TooltipProvider>
           <Toaster />
-          <Sonner />
+          <SonnerToaster />
           <Routes>
             <Route path="/plumber" element={<Index />} />
             <Route path="/" element={<EveryFixHome />} />
@@ -117,6 +120,12 @@ const App = () => {
             <Route path="/chef" element={<Chef />} />
             <Route path="/stylist" element={<Stylist />} />
             <Route path="/step-by-step" element={<StepByStepGlossary />} />
+            
+            {/* New routes for bottom navigation */}
+            <Route path="/account" element={<Account />} />
+            <Route path="/agents" element={<Agents />} />
+            <Route path="/answers" element={<Answers />} />
+            
             <Route path="*" element={<NotFound />} />
           </Routes>
           <ElevenLabsWidgetInitializer />
