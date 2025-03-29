@@ -34,14 +34,14 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
             >
               <img 
                 src="/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png" 
-                alt="Friendly Plumber" 
+                alt="AI Assistant" 
                 className="w-40 md:w-56 h-auto"
               />
             </motion.div>
           </div>
           
           <div className="absolute -top-12 -right-16 md:-right-24 bg-white rounded-2xl p-3 shadow-card after:content-[''] after:absolute after:bottom-0 after:left-6 after:w-4 after:h-4 after:bg-white after:rotate-45 after:-mb-2">
-            <p className="text-sm md:text-base font-medium">Let's fix that leaky mess!</p>
+            <p className="text-sm md:text-base font-medium">Let's boost your business!</p>
           </div>
         </div>
       </motion.div>
@@ -52,7 +52,7 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 font-space-grotesk">Your AI-Powered Plumbing Assistant</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 font-space-grotesk">AI-Powered Business Assistant</h2>
         
         <motion.p
           key={currentTextIndex}
@@ -66,8 +66,8 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
         </motion.p>
         
         <p className="mb-6 text-lg text-primary/80">
-          Snap a pic. Talk to your AI plumber. Get unstuck, fast.
-          <Badge variant="outline" className="ml-2 bg-mint/20 text-primary">💡 No appointments. Just answers.</Badge>
+          Connect with AI. Streamline your workflow. Grow your business.
+          <Badge variant="outline" className="ml-2 bg-mint/20 text-primary">💡 No setup. Just solutions.</Badge>
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -76,7 +76,7 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
               className="w-full sm:w-auto text-lg py-6 px-8 bg-primary hover:bg-primary/90 shadow-md active:scale-[0.98] transition-all rounded-xl"
             >
               <MessageSquare className="w-5 h-5 mr-2" />
-              Start Chat
+              Chat with AI
             </Button>
           </Link>
           <Link to="/diagnosis">
@@ -84,11 +84,11 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
               className="w-full sm:w-auto text-lg py-6 px-8 bg-secondary hover:bg-secondary/90 text-white shadow-md active:scale-[0.98] transition-all rounded-xl"
             >
               <ImageIcon className="w-5 h-5 mr-2" />
-              Visual Diagnosis
+              Visual Analysis
             </Button>
           </Link>
         </div>
-        <div className="text-sm text-neutrals">Or explore quick help topics below 👇</div>
+        <div className="text-sm text-neutrals">Or explore our business solutions below 👇</div>
       </motion.div>
     </section>
   );

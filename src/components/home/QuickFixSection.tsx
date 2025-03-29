@@ -44,17 +44,17 @@ const QuickFixSection = () => {
     >
       <h3 className="text-xl font-semibold mb-4 flex items-center font-space-grotesk">
         <Wrench className="w-5 h-5 mr-2 text-accent" />
-        Fix it now
+        Business Solutions
       </h3>
       
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
         <Link to={getGlossaryPath()} className="w-full max-w-xs">
           <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
             <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
-              <span className="text-xl">🛠️</span>
+              <span className="text-xl">💼</span>
             </div>
-            <h4 className="font-medium mb-1 font-space-grotesk">What's the problem?</h4>
-            <p className="text-sm text-neutrals">Select from options above</p>
+            <h4 className="font-medium mb-1 font-space-grotesk">Business Analysis</h4>
+            <p className="text-sm text-neutrals">Identify opportunities & challenges</p>
           </div>
         </Link>
         
@@ -63,10 +63,10 @@ const QuickFixSection = () => {
         <Link to="/diagnosis" className="w-full max-w-xs">
           <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
             <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
-              <span className="text-xl">📷</span>
+              <span className="text-xl">📊</span>
             </div>
-            <h4 className="font-medium mb-1 font-space-grotesk">Got a pic?</h4>
-            <p className="text-sm text-neutrals">Upload for better results</p>
+            <h4 className="font-medium mb-1 font-space-grotesk">AI Integration</h4>
+            <p className="text-sm text-neutrals">Connect AI to your workflow</p>
           </div>
         </Link>
         
@@ -75,10 +75,10 @@ const QuickFixSection = () => {
         <Link to="/step-by-step" className="w-full max-w-xs">
           <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
             <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
-              <span className="text-xl">✅</span>
+              <span className="text-xl">🚀</span>
             </div>
-            <h4 className="font-medium mb-1 font-space-grotesk">Here's your fix!</h4>
-            <p className="text-sm text-neutrals">Step-by-step solutions</p>
+            <h4 className="font-medium mb-1 font-space-grotesk">Growth Strategy</h4>
+            <p className="text-sm text-neutrals">AI-powered business growth</p>
           </div>
         </Link>
       </div>
