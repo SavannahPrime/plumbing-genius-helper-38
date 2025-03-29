@@ -7,6 +7,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 export interface EveryFixHeaderProps {
   specialty?: string;
   title?: string;
+  subtitle?: string;
   icon?: React.ReactNode;
   colorClass?: string;
 }
@@ -14,6 +15,7 @@ export interface EveryFixHeaderProps {
 const EveryFixHeader: React.FC<EveryFixHeaderProps> = ({ 
   specialty,
   title,
+  subtitle,
   icon,
   colorClass
 }) => {
@@ -22,21 +24,26 @@ const EveryFixHeader: React.FC<EveryFixHeaderProps> = ({
   return (
     <header className="bg-white border-b border-gray-200">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          {icon && colorClass && (
-            <div className={colorClass}>
-              {icon}
-            </div>
+        <div className="flex flex-col">
+          <div className="flex items-center gap-2">
+            {icon && colorClass && (
+              <div className={colorClass}>
+                {icon}
+              </div>
+            )}
+            <Link to="/" className="font-bold text-xl text-primary flex items-center">
+              {title ? title : "Connect.Software"}
+            </Link>
+          </div>
+          {subtitle && (
+            <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>
           )}
-          <Link to="/" className="font-bold text-xl text-primary flex items-center">
-            {title ? title : "Connect.Software"}
-          </Link>
         </div>
         
         <div className="flex items-center gap-2">
           {!isMobile && (
             <Button variant="outline" size="sm" asChild>
-              <Link to="/fixes">Agents</Link>
+              <Link to="/agents">Agents</Link>
             </Button>
           )}
           <Button size="sm" asChild>
