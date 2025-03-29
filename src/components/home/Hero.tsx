@@ -2,9 +2,9 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MessageSquare, Image as ImageIcon } from "lucide-react";
+import { MessageSquare, Image as ImageIcon, Link } from "lucide-react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 interface HeroProps {
   currentTextIndex: number;
@@ -41,7 +41,7 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
           </div>
           
           <div className="absolute -top-12 -right-16 md:-right-24 bg-white rounded-2xl p-3 shadow-card after:content-[''] after:absolute after:bottom-0 after:left-6 after:w-4 after:h-4 after:bg-white after:rotate-45 after:-mb-2">
-            <p className="text-sm md:text-base font-medium">Let's boost your business!</p>
+            <p className="text-sm md:text-base font-medium">MCP connects your business with AI!</p>
           </div>
         </div>
       </motion.div>
@@ -52,7 +52,7 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 font-space-grotesk">AI-Powered Business Assistant</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 font-space-grotesk">MCP to Connect AI</h2>
         
         <motion.p
           key={currentTextIndex}
@@ -66,27 +66,27 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
         </motion.p>
         
         <p className="mb-6 text-lg text-primary/80">
-          Connect with AI. Streamline your workflow. Grow your business.
-          <Badge variant="outline" className="ml-2 bg-mint/20 text-primary">💡 No setup. Just solutions.</Badge>
+          Our Multi-Channel Platform connects your business with fine-tuned AI assistants.
+          <Badge variant="outline" className="ml-2 bg-mint/20 text-primary">💡 Seamless integration. Maximum efficiency.</Badge>
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
-          <Link to="/chat">
+          <RouterLink to="/chat">
             <Button 
               className="w-full sm:w-auto text-lg py-6 px-8 bg-primary hover:bg-primary/90 shadow-md active:scale-[0.98] transition-all rounded-xl"
             >
               <MessageSquare className="w-5 h-5 mr-2" />
               Chat with AI
             </Button>
-          </Link>
-          <Link to="/diagnosis">
+          </RouterLink>
+          <RouterLink to="/diagnosis">
             <Button 
               className="w-full sm:w-auto text-lg py-6 px-8 bg-secondary hover:bg-secondary/90 text-white shadow-md active:scale-[0.98] transition-all rounded-xl"
             >
               <ImageIcon className="w-5 h-5 mr-2" />
               Visual Analysis
             </Button>
-          </Link>
+          </RouterLink>
         </div>
         <div className="text-sm text-neutrals">Or explore our business solutions below 👇</div>
       </motion.div>

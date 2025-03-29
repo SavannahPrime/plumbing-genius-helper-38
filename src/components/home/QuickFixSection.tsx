@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import { Wrench, ArrowRight } from "lucide-react";
+import { Wrench, ArrowRight, Link as LinkIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import { specializedAgents, AgentSpecialty } from "@/services/specializedAgentService";
 
@@ -43,8 +43,8 @@ const QuickFixSection = () => {
       transition={{ duration: 0.5, delay: 0.6 }}
     >
       <h3 className="text-xl font-semibold mb-4 flex items-center font-space-grotesk">
-        <Wrench className="w-5 h-5 mr-2 text-accent" />
-        Business Solutions
+        <LinkIcon className="w-5 h-5 mr-2 text-accent" />
+        MCP Business Solutions
       </h3>
       
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -53,8 +53,8 @@ const QuickFixSection = () => {
             <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
               <span className="text-xl">💼</span>
             </div>
-            <h4 className="font-medium mb-1 font-space-grotesk">Business Analysis</h4>
-            <p className="text-sm text-neutrals">Identify opportunities & challenges</p>
+            <h4 className="font-medium mb-1 font-space-grotesk">Business Integration</h4>
+            <p className="text-sm text-neutrals">Connect your systems to our MCP platform</p>
           </div>
         </Link>
         
@@ -65,8 +65,8 @@ const QuickFixSection = () => {
             <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
               <span className="text-xl">📊</span>
             </div>
-            <h4 className="font-medium mb-1 font-space-grotesk">AI Integration</h4>
-            <p className="text-sm text-neutrals">Connect AI to your workflow</p>
+            <h4 className="font-medium mb-1 font-space-grotesk">Custom AI Training</h4>
+            <p className="text-sm text-neutrals">Fine-tune assistants for your business needs</p>
           </div>
         </Link>
         
@@ -77,8 +77,8 @@ const QuickFixSection = () => {
             <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
               <span className="text-xl">🚀</span>
             </div>
-            <h4 className="font-medium mb-1 font-space-grotesk">Growth Strategy</h4>
-            <p className="text-sm text-neutrals">AI-powered business growth</p>
+            <h4 className="font-medium mb-1 font-space-grotesk">Multi-Channel Deployment</h4>
+            <p className="text-sm text-neutrals">Deploy AI across all your business channels</p>
           </div>
         </Link>
       </div>
