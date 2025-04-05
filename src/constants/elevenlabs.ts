@@ -7,13 +7,13 @@ export const SCRIPT_URL = "https://projects.elevenlabs.io/widgetkit";
 /**
  * Default ElevenLabs agent ID
  */
-export const ELEVEN_LABS_AGENT_ID = "afbe7265-adf7-4103-a2fc-8bb6dd0fe26c"; // Plumber agent ID
+export const ELEVEN_LABS_AGENT_ID = "mXPzW5l0eiuyUNazl1Xs"; // Home Fix Wizard agent ID
 
 /**
  * Specialized agent IDs for each domain expert
  */
 export const ELEVEN_LABS_AGENT_IDS = {
-  plumber: "afbe7265-adf7-4103-a2fc-8bb6dd0fe26c",
+  plumber: "mXPzW5l0eiuyUNazl1Xs", // Home Fix Wizard
   electrician: "d1c68055-4cdf-42ef-9d3f-bf8345105d0a",
   handyman: "3c977cb0-bf9f-4010-847d-f2b3a4c52673",
   mechanic: "d51c913e-5fc9-4ded-8173-b53dbf90d8ba",

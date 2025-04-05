@@ -52,7 +52,7 @@ const Header = ({ plumberPersonality, setPlumberPersonality }: HeaderProps) => {
           <nav className="text-sm text-neutrals hidden md:flex items-center space-x-6">
             <Link to="/fixes" className="hover:text-primary transition-colors">Find a Pro</Link>
             <Link to="/step-by-step" className="hover:text-primary transition-colors">Guides</Link>
-            <Link to="/chat" className="hover:text-primary transition-colors">Chat</Link>
+            <Link to="/chat?specialty=plumber" className="hover:text-primary transition-colors">Chat</Link>
             <Button size="sm" variant="outline" onClick={() => navigate("/")}>
               All Products
             </Button>

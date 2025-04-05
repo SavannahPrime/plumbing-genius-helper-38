@@ -71,12 +71,12 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
-          <RouterLink to="/chat">
+          <RouterLink to="/chat?specialty=plumber">
             <Button 
               className="w-full sm:w-auto text-lg py-6 px-8 bg-primary hover:bg-primary/90 shadow-md active:scale-[0.98] transition-all rounded-xl"
             >
               <MessageSquare className="w-5 h-5 mr-2" />
-              Chat with an Agent
+              Chat with Home Fix Wizard
             </Button>
           </RouterLink>
           <RouterLink to="/diagnosis">
