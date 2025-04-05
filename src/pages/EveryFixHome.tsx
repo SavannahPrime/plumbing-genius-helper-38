@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -37,7 +36,7 @@ const EveryFixHome = () => {
       description: "Your AI home repair expert. Fix leaks, clogs, and more without calling a contractor.",
       iconType: "droplet" as const,
       emoji: "🔧",
-      path: "/plumber",
+      path: "/chat?specialty=plumber",
       color: "bg-gradient-to-r from-blue-400 to-blue-600",
       avatar: "/lovable-uploads/1d4662ea-cc69-4e4f-9c18-078726ebe91e.png",
       avatarFallback: "🔧",
@@ -49,7 +48,7 @@ const EveryFixHome = () => {
       description: "Fix furniture, patch walls, hang shelves — no handyman required.",
       iconType: "hammer" as const,
       emoji: "🔨",
-      path: "/handyman",
+      path: "/chat?specialty=handyman",
       color: "bg-gradient-to-r from-orange-400 to-orange-600",
       avatar: "/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png",
       avatarFallback: "🔨",
@@ -61,7 +60,7 @@ const EveryFixHome = () => {
       description: "Troubleshoot phones, tablets, routers, remotes and other electronic devices.",
       iconType: "smartphone" as const,
       emoji: "📱",
-      path: "/gadgetfixgenie",
+      path: "/chat?specialty=gadget",
       color: "bg-gradient-to-r from-purple-400 to-purple-600",
       avatar: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
       avatarFallback: "📱",
@@ -75,7 +74,7 @@ const EveryFixHome = () => {
       description: "Expert AI tax advice and legal guidance for complex financial situations.",
       iconType: "scale" as const,
       emoji: "⚖️",
-      path: "/tax-attorney",
+      path: "/chat?specialty=tax",
       color: "bg-gradient-to-r from-indigo-400 to-indigo-600",
       avatar: "/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png",
       avatarFallback: "⚖️",
@@ -87,7 +86,7 @@ const EveryFixHome = () => {
       description: "Private AI mental health consultation and guidance for emotional well-being.",
       iconType: "user" as const,
       emoji: "🧠",
-      path: "/psychiatrist",
+      path: "/chat?specialty=psychiatrist",
       color: "bg-gradient-to-r from-teal-400 to-teal-600",
       avatar: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
       avatarFallback: "🧠",
@@ -99,7 +98,7 @@ const EveryFixHome = () => {
       description: "Professional AI investment planning and financial guidance tailored to your goals.",
       iconType: "briefcase" as const,
       emoji: "💼",
-      path: "/financial-advisor",
+      path: "/chat?specialty=financial",
       color: "bg-gradient-to-r from-emerald-400 to-emerald-600",
       avatar: "/lovable-uploads/1d4662ea-cc69-4e4f-9c18-078726ebe91e.png",
       avatarFallback: "💼",
@@ -111,7 +110,7 @@ const EveryFixHome = () => {
       description: "Personalized AI health and wellness guidance for a balanced lifestyle.",
       iconType: "heartPulse" as const,
       emoji: "❤️",
-      path: "/wellness-coach",
+      path: "/chat?specialty=wellness",
       color: "bg-gradient-to-r from-rose-400 to-rose-600",
       avatar: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
       avatarFallback: "❤️",
@@ -123,7 +122,7 @@ const EveryFixHome = () => {
       description: "General AI legal advice for everyday matters and common legal questions.",
       iconType: "fileText" as const,
       emoji: "📄",
-      path: "/legal-consultant",
+      path: "/chat?specialty=legal",
       color: "bg-gradient-to-r from-stone-400 to-stone-600",
       avatar: "/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png",
       avatarFallback: "📄",
@@ -137,7 +136,7 @@ const EveryFixHome = () => {
       description: "The AI that knows how to clean anything — without Googling.",
       iconType: "bath" as const,
       emoji: "🧼",
-      path: "/cleaning",
+      path: "/chat?specialty=cleaning",
       color: "bg-gradient-to-r from-blue-400 to-blue-500",
       avatar: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
       avatarFallback: "🧼",
@@ -149,7 +148,7 @@ const EveryFixHome = () => {
       description: "Flip the switch on electrical problems — safely and smart.",
       iconType: "zap" as const, 
       emoji: "⚡",
-      path: "/electrician",
+      path: "/chat?specialty=electrician",
       color: "bg-gradient-to-r from-yellow-400 to-yellow-600",
       avatar: "/lovable-uploads/3be27937-18fe-451e-a339-37459edc18bb.png",
       avatarFallback: "⚡",
@@ -161,7 +160,7 @@ const EveryFixHome = () => {
       description: "Your AI yard partner — from soil to sprinkler.",
       iconType: "wrench" as const,
       emoji: "🌿",
-      path: "/landscaper",
+      path: "/chat?specialty=landscaper",
       color: "bg-gradient-to-r from-green-400 to-green-600",
       avatar: "/lovable-uploads/3be27937-18fe-451e-a339-37459edc18bb.png",
       avatarFallback: "🌿",
@@ -173,7 +172,7 @@ const EveryFixHome = () => {
       description: "Your virtual auto mechanic — diagnose car problems and get repair guidance.",
       iconType: "car" as const,
       emoji: "🔩",
-      path: "/mechanic",
+      path: "/chat?specialty=mechanic",
       color: "bg-gradient-to-r from-red-400 to-red-600",
       avatar: "/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png",
       avatarFallback: "🔩",
@@ -185,7 +184,7 @@ const EveryFixHome = () => {
       description: "Your cooking companion — recipes, techniques, and kitchen problem-solving.",
       iconType: "chef" as const,
       emoji: "👨‍🍳",
-      path: "/chef",
+      path: "/chat?specialty=chef",
       color: "bg-gradient-to-r from-amber-400 to-amber-600",
       avatar: "/lovable-uploads/1d4662ea-cc69-4e4f-9c18-078726ebe91e.png",
       avatarFallback: "👨‍🍳",
@@ -197,7 +196,7 @@ const EveryFixHome = () => {
       description: "Hair, fashion, and beauty advice from your personal AI stylist.",
       iconType: "scissors" as const,
       emoji: "💇",
-      path: "/stylist",
+      path: "/chat?specialty=stylist",
       color: "bg-gradient-to-r from-pink-400 to-pink-600",
       avatar: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
       avatarFallback: "💇",
@@ -279,7 +278,7 @@ const EveryFixHome = () => {
                             </CardContent>
                             <CardFooter className="pt-0 p-4">
                               <Button className="w-full group-hover:bg-primary/90 transition-colors text-sm py-1" variant="outline">
-                                Explore
+                                Chat Now
                                 <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1" />
                               </Button>
                             </CardFooter>
@@ -338,7 +337,7 @@ const EveryFixHome = () => {
                       </CardContent>
                       <CardFooter className="pt-0">
                         <Button className="w-full group-hover:bg-primary/90 transition-colors" variant="outline">
-                          Explore {product.name}
+                          Chat Now
                           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                         </Button>
                       </CardFooter>

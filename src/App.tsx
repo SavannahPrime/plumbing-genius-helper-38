@@ -93,7 +93,7 @@ const App = () => {
           <Toaster />
           <SonnerToaster />
           <Routes>
-            <Route path="/plumber" element={<Index />} />
+            {/* Remove the /plumber route that previously pointed to Index */}
             <Route path="/" element={<EveryFixHome />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/diagnosis" element={<Diagnosis />} />

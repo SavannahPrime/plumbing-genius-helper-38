@@ -1,23 +1,28 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Link } from "lucide-react";
+import { Link as LucideLink } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <nav className="container mx-auto py-6 px-4 flex justify-between items-center">
       <div className="flex items-center gap-2">
-        <Link className="h-6 w-6 text-blue-500" />
+        <LucideLink className="h-6 w-6 text-blue-500" />
         <span className="text-xl font-bold">connect.software</span>
       </div>
       <div className="hidden md:flex gap-8 items-center">
         <a href="#features" className="hover:text-blue-400 transition-colors">Features</a>
         <a href="#how-it-works" className="hover:text-blue-400 transition-colors">How it works</a>
         <a href="#pricing" className="hover:text-blue-400 transition-colors">Pricing</a>
-        <Button variant="outline" className="border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white">
-          Documentation
-        </Button>
-        <Button className="bg-blue-600 hover:bg-blue-700">Get Started</Button>
+        <Link to="/chat?specialty=legal">
+          <Button variant="outline" className="border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white">
+            Legal Assistant
+          </Button>
+        </Link>
+        <Link to="/chat?specialty=plumber">
+          <Button className="bg-blue-600 hover:bg-blue-700">Chat with Home Fix Wizard</Button>
+        </Link>
       </div>
       <Button variant="ghost" className="md:hidden">
         <span className="sr-only">Open menu</span>

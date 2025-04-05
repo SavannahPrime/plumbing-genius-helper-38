@@ -2,6 +2,7 @@
 import React from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const HowItWorksSection = () => {
   const steps = [
@@ -49,9 +50,11 @@ const HowItWorksSection = () => {
       </div>
 
       <div className="mt-16 text-center">
-        <Button className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-6">
-          Start Building Today
-        </Button>
+        <Link to="/chat?specialty=financial">
+          <Button className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-6">
+            Chat with Financial Advisor
+          </Button>
+        </Link>
       </div>
     </section>
   );
