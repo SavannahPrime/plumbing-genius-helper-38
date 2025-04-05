@@ -41,7 +41,7 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
           </div>
           
           <div className="absolute -top-12 -right-16 md:-right-24 bg-white rounded-2xl p-3 shadow-card after:content-[''] after:absolute after:bottom-0 after:left-6 after:w-4 after:h-4 after:bg-white after:rotate-45 after:-mb-2">
-            <p className="text-sm md:text-base font-medium">Home Genie connects your life with premium AI assistants!</p>
+            <p className="text-sm md:text-base font-medium">Connect.Software links your business with premium AI agents!</p>
           </div>
         </div>
       </motion.div>
@@ -52,7 +52,7 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 font-space-grotesk">Home Genie - Premium AI Assistants</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 font-space-grotesk">Connect.Software - AI Agents Marketplace</h2>
         
         <motion.p
           key={currentTextIndex}
@@ -66,8 +66,8 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
         </motion.p>
         
         <p className="mb-6 text-lg text-primary/80">
-          Our MCP connects you with specialized AI assistants for both home services and premium professional consultations.
-          <Badge variant="outline" className="ml-2 bg-mint/20 text-primary">💡 From home repairs to professional advice.</Badge>
+          Our MCP connects you with specialized AI agents for both business services and premium professional consultations.
+          <Badge variant="outline" className="ml-2 bg-mint/20 text-primary">💡 Available 24/7, including voice chat!</Badge>
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -76,7 +76,7 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
               className="w-full sm:w-auto text-lg py-6 px-8 bg-primary hover:bg-primary/90 shadow-md active:scale-[0.98] transition-all rounded-xl"
             >
               <MessageSquare className="w-5 h-5 mr-2" />
-              Chat with an Assistant
+              Chat with an Agent
             </Button>
           </RouterLink>
           <RouterLink to="/diagnosis">

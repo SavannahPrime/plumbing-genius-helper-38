@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -32,8 +33,8 @@ const EveryFixHome = () => {
   const products = [
     // Home services
     {
-      name: "Plumber's Helper",
-      description: "Your AI plumbing expert. Fix leaks, clogs, and more without calling a plumber.",
+      name: "Home Fix Wizard",
+      description: "Your AI home repair expert. Fix leaks, clogs, and more without calling a contractor.",
       iconType: "droplet" as const,
       emoji: "🔧",
       path: "/plumber",
@@ -214,16 +215,16 @@ const EveryFixHome = () => {
           <div className="container mx-auto px-4 py-6">
             <div className="flex flex-col items-center justify-center text-center">
               <h1 className="text-3xl md:text-5xl font-bold font-space-grotesk text-primary mb-2">
-                Home Genie
+                Connect.Software
               </h1>
               <p className="text-gray-600 max-w-2xl mx-auto mb-4">
-                Premium AI assistants for home services and professional consultations. Your digital concierge for both practical and specialized advice.
+                Connecting you with Software agents of any types of knowledge and expertise, available 24/7, also by voice!
               </p>
               <div className="flex flex-wrap justify-center gap-2 mt-2">
                 <Badge variant="outline" className="bg-blue-50">No appointments</Badge>
                 <Badge variant="outline" className="bg-green-50">24/7 availability</Badge>
                 <Badge variant="outline" className="bg-amber-50">Professional guidance</Badge>
-                <Badge variant="outline" className="bg-purple-50">Confidential service</Badge>
+                <Badge variant="outline" className="bg-purple-50">Voice-enabled</Badge>
               </div>
             </div>
           </div>
@@ -234,7 +235,7 @@ const EveryFixHome = () => {
             <div className="text-center mb-6">
               <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">Featured Services</h2>
               <p className="text-gray-600 max-w-2xl mx-auto text-sm">
-                Our most popular AI assistants ready to help with both everyday tasks and specialized guidance
+                Our most popular AI agents ready to help with both everyday tasks and specialized guidance
               </p>
             </div>
             
@@ -351,7 +352,7 @@ const EveryFixHome = () => {
           <section className="mb-16">
             <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-100">
               <div className="text-center mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">How Home Genie Works</h2>
+                <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">How Connect.Software Works</h2>
                 <p className="text-gray-600 max-w-2xl mx-auto">
                   Get expert help in three simple steps
                 </p>
@@ -363,7 +364,7 @@ const EveryFixHome = () => {
 
         <footer className="bg-white border-t py-8">
           <div className="container mx-auto px-4 text-center text-sm text-gray-500">
-            <p>© {new Date().getFullYear()} Home Genie. All virtual AI assistants are available 24/7 to assist with your needs.</p>
+            <p>© {new Date().getFullYear()} Connect.Software. All virtual AI assistants are available 24/7 to assist with your needs.</p>
             <p className="mt-2">For emergencies or complex issues requiring immediate human intervention, please consult a professional.</p>
           </div>
         </footer>

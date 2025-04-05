@@ -22,9 +22,9 @@ const Header = ({ plumberPersonality, setPlumberPersonality }: HeaderProps) => {
           </Button>
           <Wrench className="w-7 h-7 text-accent" />
           <span className="font-space-grotesk font-bold text-xl text-primary">
-            Plumber's Helper
+            Home Fix Wizard
           </span>
-          <Badge variant="outline" className="ml-2">by EveryFixAI</Badge>
+          <Badge variant="outline" className="ml-2">by Connect.Software</Badge>
         </div>
         
         <div className="flex items-center gap-4">

@@ -15,10 +15,10 @@ interface ModernHeroProps {
 }
 
 const ModernHero = ({
-  title = "Plumber's Helper",
+  title = "Home Fix Wizard",
   specialty = "plumber",
   emoji = "🔧",
-  description = "Say goodbye to plumbers, googling, and guessing.",
+  description = "Say goodbye to contractors, googling, and guessing.",
   placeholderText = "What's leaking, squeaking, or not working?",
   showChat = true
 }: ModernHeroProps) => {
