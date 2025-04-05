@@ -41,7 +41,7 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
           </div>
           
           <div className="absolute -top-12 -right-16 md:-right-24 bg-white rounded-2xl p-3 shadow-card after:content-[''] after:absolute after:bottom-0 after:left-6 after:w-4 after:h-4 after:bg-white after:rotate-45 after:-mb-2">
-            <p className="text-sm md:text-base font-medium">MCP connects your business with AI!</p>
+            <p className="text-sm md:text-base font-medium">Home Genie connects your life with premium AI assistants!</p>
           </div>
         </div>
       </motion.div>
@@ -52,7 +52,7 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 font-space-grotesk">MCP to Connect AI</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 font-space-grotesk">Home Genie - Premium AI Assistants</h2>
         
         <motion.p
           key={currentTextIndex}
@@ -66,8 +66,8 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
         </motion.p>
         
         <p className="mb-6 text-lg text-primary/80">
-          Our Multi-Channel Platform connects your business with fine-tuned AI assistants.
-          <Badge variant="outline" className="ml-2 bg-mint/20 text-primary">💡 Seamless integration. Maximum efficiency.</Badge>
+          Our MCP connects you with specialized AI assistants for both home services and premium professional consultations.
+          <Badge variant="outline" className="ml-2 bg-mint/20 text-primary">💡 From home repairs to professional advice.</Badge>
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -76,7 +76,7 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
               className="w-full sm:w-auto text-lg py-6 px-8 bg-primary hover:bg-primary/90 shadow-md active:scale-[0.98] transition-all rounded-xl"
             >
               <MessageSquare className="w-5 h-5 mr-2" />
-              Chat with AI
+              Chat with an Assistant
             </Button>
           </RouterLink>
           <RouterLink to="/diagnosis">
@@ -88,7 +88,7 @@ const Hero = ({ currentTextIndex, typingTexts }: HeroProps) => {
             </Button>
           </RouterLink>
         </div>
-        <div className="text-sm text-neutrals">Or explore our business solutions below 👇</div>
+        <div className="text-sm text-neutrals">Or explore our premium services below 👇</div>
       </motion.div>
     </section>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Wrench, Leaf, Sparkles, Zap, Settings, Smartphone, ChefHat, Scissors, Play, ArrowRight, Star } from "lucide-react";
+import { Wrench, Leaf, Sparkles, Zap, Settings, Smartphone, ChefHat, Scissors, Play, ArrowRight, Star, Scale, UserRound, Briefcase, HeartPulse, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -30,6 +30,7 @@ const EveryFixHome = () => {
   }, []);
 
   const products = [
+    // Home services
     {
       name: "Plumber's Helper",
       description: "Your AI plumbing expert. Fix leaks, clogs, and more without calling a plumber.",
@@ -43,6 +44,94 @@ const EveryFixHome = () => {
       featured: true
     },
     {
+      name: "Handyman Hero",
+      description: "Fix furniture, patch walls, hang shelves — no handyman required.",
+      iconType: "hammer" as const,
+      emoji: "🔨",
+      path: "/handyman",
+      color: "bg-gradient-to-r from-orange-400 to-orange-600",
+      avatar: "/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png",
+      avatarFallback: "🔨",
+      bgClass: "bg-orange-50",
+      featured: false
+    },
+    {
+      name: "Gadget Fix Genie",
+      description: "Troubleshoot phones, tablets, routers, remotes and other electronic devices.",
+      iconType: "smartphone" as const,
+      emoji: "📱",
+      path: "/gadgetfixgenie",
+      color: "bg-gradient-to-r from-purple-400 to-purple-600",
+      avatar: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
+      avatarFallback: "📱",
+      bgClass: "bg-purple-50",
+      featured: false
+    },
+    
+    // New premium services
+    {
+      name: "Tax Law Attorney",
+      description: "Expert AI tax advice and legal guidance for complex financial situations.",
+      iconType: "scale" as const,
+      emoji: "⚖️",
+      path: "/tax-attorney",
+      color: "bg-gradient-to-r from-indigo-400 to-indigo-600",
+      avatar: "/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png",
+      avatarFallback: "⚖️",
+      bgClass: "bg-indigo-50",
+      featured: true
+    },
+    {
+      name: "Confidential Psychiatrist",
+      description: "Private AI mental health consultation and guidance for emotional well-being.",
+      iconType: "user" as const,
+      emoji: "🧠",
+      path: "/psychiatrist",
+      color: "bg-gradient-to-r from-teal-400 to-teal-600",
+      avatar: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
+      avatarFallback: "🧠",
+      bgClass: "bg-teal-50",
+      featured: true
+    },
+    {
+      name: "Financial Advisor",
+      description: "Professional AI investment planning and financial guidance tailored to your goals.",
+      iconType: "briefcase" as const,
+      emoji: "💼",
+      path: "/financial-advisor",
+      color: "bg-gradient-to-r from-emerald-400 to-emerald-600",
+      avatar: "/lovable-uploads/1d4662ea-cc69-4e4f-9c18-078726ebe91e.png",
+      avatarFallback: "💼",
+      bgClass: "bg-emerald-50",
+      featured: true
+    },
+    {
+      name: "Wellness Coach",
+      description: "Personalized AI health and wellness guidance for a balanced lifestyle.",
+      iconType: "heartPulse" as const,
+      emoji: "❤️",
+      path: "/wellness-coach",
+      color: "bg-gradient-to-r from-rose-400 to-rose-600",
+      avatar: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
+      avatarFallback: "❤️",
+      bgClass: "bg-rose-50",
+      featured: false
+    },
+    {
+      name: "Legal Consultant",
+      description: "General AI legal advice for everyday matters and common legal questions.",
+      iconType: "fileText" as const,
+      emoji: "📄",
+      path: "/legal-consultant",
+      color: "bg-gradient-to-r from-stone-400 to-stone-600",
+      avatar: "/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png",
+      avatarFallback: "📄",
+      bgClass: "bg-stone-50",
+      featured: false
+    },
+    
+    // Keep other existing services
+    {
       name: "Cleaning Genius",
       description: "The AI that knows how to clean anything — without Googling.",
       iconType: "bath" as const,
@@ -53,18 +142,6 @@ const EveryFixHome = () => {
       avatarFallback: "🧼",
       bgClass: "bg-blue-50",
       featured: false
-    },
-    {
-      name: "Handyman Hero",
-      description: "Fix furniture, patch walls, hang shelves — no handyman required.",
-      iconType: "hammer" as const,
-      emoji: "🔨",
-      path: "/handyman",
-      color: "bg-gradient-to-r from-orange-400 to-orange-600",
-      avatar: "/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png",
-      avatarFallback: "🔨",
-      bgClass: "bg-orange-50",
-      featured: true
     },
     {
       name: "Electrician Genius",
@@ -103,18 +180,6 @@ const EveryFixHome = () => {
       featured: false
     },
     {
-      name: "Gadget Fix Genie",
-      description: "Troubleshoot phones, tablets, routers, remotes and other electronic devices.",
-      iconType: "smartphone" as const,
-      emoji: "📱",
-      path: "/gadgetfixgenie",
-      color: "bg-gradient-to-r from-purple-400 to-purple-600",
-      avatar: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
-      avatarFallback: "📱",
-      bgClass: "bg-purple-50",
-      featured: true
-    },
-    {
       name: "Chef's Assistant",
       description: "Your cooking companion — recipes, techniques, and kitchen problem-solving.",
       iconType: "chef" as const,
@@ -149,16 +214,16 @@ const EveryFixHome = () => {
           <div className="container mx-auto px-4 py-6">
             <div className="flex flex-col items-center justify-center text-center">
               <h1 className="text-3xl md:text-5xl font-bold font-space-grotesk text-primary mb-2">
-                Connect.Software
+                Home Genie
               </h1>
               <p className="text-gray-600 max-w-2xl mx-auto mb-4">
-                Virtual Live 24x7 Agents for various industries. Select your desired chat/voice agent for your personal or business needs.
+                Premium AI assistants for home services and professional consultations. Your digital concierge for both practical and specialized advice.
               </p>
               <div className="flex flex-wrap justify-center gap-2 mt-2">
                 <Badge variant="outline" className="bg-blue-50">No appointments</Badge>
                 <Badge variant="outline" className="bg-green-50">24/7 availability</Badge>
-                <Badge variant="outline" className="bg-amber-50">Step-by-step guidance</Badge>
-                <Badge variant="outline" className="bg-purple-50">Photo diagnosis</Badge>
+                <Badge variant="outline" className="bg-amber-50">Professional guidance</Badge>
+                <Badge variant="outline" className="bg-purple-50">Confidential service</Badge>
               </div>
             </div>
           </div>
@@ -167,9 +232,9 @@ const EveryFixHome = () => {
         <main className="container mx-auto px-4 py-8">
           <section className="mb-12">
             <div className="text-center mb-6">
-              <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">Featured Helpers</h2>
+              <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">Featured Services</h2>
               <p className="text-gray-600 max-w-2xl mx-auto text-sm">
-                Our most popular AI assistants ready to solve your home challenges
+                Our most popular AI assistants ready to help with both everyday tasks and specialized guidance
               </p>
             </div>
             
@@ -235,9 +300,9 @@ const EveryFixHome = () => {
 
           <section className="mb-16">
             <div className="text-center mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">Choose Your AI Helper</h2>
+              <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">Choose Your AI Assistant</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Select the expert that matches your current challenge
+                From practical home services to premium professional guidance
               </p>
             </div>
             
@@ -286,7 +351,7 @@ const EveryFixHome = () => {
           <section className="mb-16">
             <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-100">
               <div className="text-center mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">How EveryFixAI Works</h2>
+                <h2 className="text-2xl md:text-3xl font-bold font-space-grotesk mb-2">How Home Genie Works</h2>
                 <p className="text-gray-600 max-w-2xl mx-auto">
                   Get expert help in three simple steps
                 </p>
@@ -298,8 +363,8 @@ const EveryFixHome = () => {
 
         <footer className="bg-white border-t py-8">
           <div className="container mx-auto px-4 text-center text-sm text-gray-500">
-            <p>© {new Date().getFullYear()} Connect.Software. All virtual AI agents are available 24/7 to assist with your needs.</p>
-            <p className="mt-2">For emergencies or complex issues, always consult a professional.</p>
+            <p>© {new Date().getFullYear()} Home Genie. All virtual AI assistants are available 24/7 to assist with your needs.</p>
+            <p className="mt-2">For emergencies or complex issues requiring immediate human intervention, please consult a professional.</p>
           </div>
         </footer>
       </div>

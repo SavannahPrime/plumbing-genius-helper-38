@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import { Wrench, ArrowRight, Link as LinkIcon } from "lucide-react";
+import { Wrench, ArrowRight, Link as LinkIcon, Briefcase, UserRound, Scale, HeartPulse, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import { specializedAgents, AgentSpecialty } from "@/services/specializedAgentService";
 
@@ -44,49 +44,73 @@ const QuickFixSection = () => {
     >
       <h3 className="text-xl font-semibold mb-4 flex items-center font-space-grotesk">
         <LinkIcon className="w-5 h-5 mr-2 text-accent" />
-        MCP Business Solutions
+        Home Genie Premium Services
       </h3>
       
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-        <Link to={getGlossaryPath()} className="w-full max-w-xs">
+        <Link to="/tax-attorney" className="w-full max-w-xs">
           <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
             <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
-              <span className="text-xl">💼</span>
+              <Scale className="h-6 w-6 text-primary" />
             </div>
-            <h4 className="font-medium mb-1 font-space-grotesk">Business Integration</h4>
-            <p className="text-sm text-neutrals">Connect your systems to our MCP platform</p>
+            <h4 className="font-medium mb-1 font-space-grotesk">Tax Law Attorney</h4>
+            <p className="text-sm text-neutrals">Expert tax advice and legal guidance</p>
           </div>
         </Link>
         
         <ArrowRight className="w-5 h-5 text-neutrals-steel hidden md:block" />
         
-        <Link to="/diagnosis" className="w-full max-w-xs">
+        <Link to="/psychiatrist" className="w-full max-w-xs">
           <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
             <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
-              <span className="text-xl">📊</span>
+              <UserRound className="h-6 w-6 text-primary" />
             </div>
-            <h4 className="font-medium mb-1 font-space-grotesk">Custom AI Training</h4>
-            <p className="text-sm text-neutrals">Fine-tune assistants for your business needs</p>
+            <h4 className="font-medium mb-1 font-space-grotesk">Confidential Psychiatrist</h4>
+            <p className="text-sm text-neutrals">Private mental health consultation</p>
           </div>
         </Link>
         
         <ArrowRight className="w-5 h-5 text-neutrals-steel hidden md:block" />
         
-        <Link to="/step-by-step" className="w-full max-w-xs">
+        <Link to="/financial-advisor" className="w-full max-w-xs">
           <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
             <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
-              <span className="text-xl">🚀</span>
+              <Briefcase className="h-6 w-6 text-primary" />
             </div>
-            <h4 className="font-medium mb-1 font-space-grotesk">Multi-Channel Deployment</h4>
-            <p className="text-sm text-neutrals">Deploy AI across all your business channels</p>
+            <h4 className="font-medium mb-1 font-space-grotesk">Financial Advisor</h4>
+            <p className="text-sm text-neutrals">Professional investment and planning guidance</p>
+          </div>
+        </Link>
+      </div>
+      
+      <div className="flex flex-col md:flex-row items-center justify-center gap-6 mt-6">
+        <Link to="/wellness-coach" className="w-full max-w-xs">
+          <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
+            <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
+              <HeartPulse className="h-6 w-6 text-primary" />
+            </div>
+            <h4 className="font-medium mb-1 font-space-grotesk">Wellness Coach</h4>
+            <p className="text-sm text-neutrals">Personalized health and wellness guidance</p>
+          </div>
+        </Link>
+        
+        <ArrowRight className="w-5 h-5 text-neutrals-steel hidden md:block" />
+        
+        <Link to="/legal-consultant" className="w-full max-w-xs">
+          <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
+            <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
+              <FileText className="h-6 w-6 text-primary" />
+            </div>
+            <h4 className="font-medium mb-1 font-space-grotesk">Legal Consultant</h4>
+            <p className="text-sm text-neutrals">General legal advice for everyday matters</p>
           </div>
         </Link>
       </div>
       
       <div className="mt-6 flex justify-center">
-        <Link to="/step-by-step">
+        <Link to="/premium-services">
           <Button className="bg-primary hover:bg-primary/90 rounded-xl">
-            Get Started
+            Explore All Premium Services
             <ArrowRight className="w-4 h-4 ml-1" />
           </Button>
         </Link>
