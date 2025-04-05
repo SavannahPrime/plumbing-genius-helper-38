@@ -15,13 +15,13 @@ const Navbar = () => {
         <a href="#features" className="hover:text-blue-400 transition-colors">Features</a>
         <a href="#how-it-works" className="hover:text-blue-400 transition-colors">How it works</a>
         <a href="#pricing" className="hover:text-blue-400 transition-colors">Pricing</a>
-        <Link to="/chat?specialty=legal">
+        <Link to="/chat?specialty=tax">
           <Button variant="outline" className="border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white">
-            Legal Assistant
+            Tax Attorney
           </Button>
         </Link>
         <Link to="/chat?specialty=plumber">
-          <Button className="bg-blue-600 hover:bg-blue-700">Chat with Home Fix Wizard</Button>
+          <Button className="bg-blue-600 hover:bg-blue-700">Home Fix Wizard</Button>
         </Link>
       </div>
       <Button variant="ghost" className="md:hidden">

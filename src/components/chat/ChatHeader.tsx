@@ -96,6 +96,22 @@ const getBackgroundColorForSpecialty = (specialty: AgentSpecialty): string => {
       return 'bg-green-600';
     case 'cleaning':
       return 'bg-cyan-500';
+    case 'tax':
+      return 'bg-indigo-600';
+    case 'psychiatrist':
+      return 'bg-teal-600';
+    case 'financial':
+      return 'bg-emerald-600';
+    case 'wellness':
+      return 'bg-rose-600';
+    case 'legal':
+      return 'bg-stone-600';
+    case 'career':
+      return 'bg-cyan-600';
+    case 'relationship':
+      return 'bg-pink-500';
+    case 'nutrition':
+      return 'bg-green-500';
     default:
       return 'bg-blue-500';
   }

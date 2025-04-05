@@ -14,12 +14,17 @@ const CTASection = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to="/chat?specialty=plumber">
             <Button className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-6">
-              Chat with an Agent Now
+              Chat with Home Fix Wizard
             </Button>
           </Link>
-          <Link to="/chat?specialty=gadget">
+          <Link to="/chat?specialty=tax">
             <Button variant="outline" className="border-white text-white hover:bg-white/10 text-lg px-8 py-6">
-              Try Gadget Fix Genie
+              Consult Tax Law Attorney
+            </Button>
+          </Link>
+          <Link to="/chat?specialty=psychiatrist">
+            <Button variant="outline" className="border-white text-white hover:bg-white/10 text-lg px-8 py-6">
+              Speak with Psychiatrist
             </Button>
           </Link>
         </div>

@@ -14,7 +14,15 @@ export type AgentSpecialty =
   | "gadget"
   | "painter"
   | "pool"
-  | "declutter";
+  | "declutter"
+  | "tax"
+  | "psychiatrist"
+  | "financial"
+  | "wellness"
+  | "legal"
+  | "career"
+  | "relationship"
+  | "nutrition";
 
 // Agent personality types
 export type AgentPersonality = "professional" | "friendly" | "technical";
@@ -132,6 +140,78 @@ export const specializedAgents: Record<AgentSpecialty, SpecializedAgent> = {
     expertise: ["Space Organization", "Minimalist Living", "Storage Solutions", "Decluttering Methods", "Joy-Sparking Decisions"],
     personality: "friendly",
     greeting: "Hello! I'm Marie, your decluttering and organization consultant. I'm here to help you transform your space and bring more joy into your home. What area would you like to organize today?"
+  },
+  tax: {
+    specialty: "tax",
+    name: "Thomas",
+    emoji: "⚖️",
+    expertise: ["Tax Law", "Tax Planning", "IRS Audits", "Business Taxation", "Personal Tax Strategies"],
+    personality: "professional",
+    greeting: "Hello, I'm Thomas, your AI Tax Law Attorney with expertise in tax legislation and strategy. How can I assist with your tax concerns today?",
+    avatarImage: "/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png"
+  },
+  psychiatrist: {
+    specialty: "psychiatrist",
+    name: "Dr. Patricia",
+    emoji: "🧠",
+    expertise: ["Mental Health", "Emotional Wellbeing", "Stress Management", "Anxiety & Depression", "Cognitive Behavioral Strategies"],
+    personality: "professional",
+    greeting: "Hello, I'm Dr. Patricia. I'm here to provide a confidential space where we can discuss your mental health concerns and explore strategies to support your emotional wellbeing. What brings you here today?",
+    avatarImage: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png"
+  },
+  financial: {
+    specialty: "financial",
+    name: "Fiona",
+    emoji: "💼",
+    expertise: ["Investment Planning", "Retirement Strategy", "Debt Management", "Budgeting", "Financial Goals"],
+    personality: "professional",
+    greeting: "Hello, I'm Fiona, your AI Financial Advisor. I'm here to help you navigate your financial journey and create a plan tailored to your goals. What aspect of your finances would you like to discuss today?",
+    avatarImage: "/lovable-uploads/1d4662ea-cc69-4e4f-9c18-078726ebe91e.png"
+  },
+  wellness: {
+    specialty: "wellness",
+    name: "Wendy",
+    emoji: "❤️",
+    expertise: ["Holistic Health", "Stress Reduction", "Mindfulness", "Work-Life Balance", "Healthy Habits"],
+    personality: "friendly",
+    greeting: "Hi there! I'm Wendy, your wellness coach. I'm passionate about helping you achieve balance and wellness in all areas of your life. What wellness goals are you working toward?",
+    avatarImage: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png"
+  },
+  legal: {
+    specialty: "legal",
+    name: "Lawrence",
+    emoji: "📄",
+    expertise: ["General Legal Advice", "Contract Review", "Legal Rights", "Civil Matters", "Consumer Protection"],
+    personality: "professional",
+    greeting: "Hello, I'm Lawrence, your AI Legal Consultant. I can provide general guidance on a variety of legal matters. Please note that my advice is informational and not a substitute for a licensed attorney. How can I assist you today?",
+    avatarImage: "/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png"
+  },
+  career: {
+    specialty: "career",
+    name: "Catherine",
+    emoji: "💼",
+    expertise: ["Career Planning", "Resume Building", "Interview Preparation", "Professional Development", "Job Search Strategies"],
+    personality: "professional",
+    greeting: "Hello, I'm Catherine, your Career Coach. I'm here to help you navigate your professional journey, whether you're starting out, changing paths, or advancing in your field. What career goals would you like to discuss today?",
+    avatarImage: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png"
+  },
+  relationship: {
+    specialty: "relationship",
+    name: "Rachel",
+    emoji: "💕",
+    expertise: ["Communication Skills", "Conflict Resolution", "Building Connection", "Boundaries", "Relationship Dynamics"],
+    personality: "friendly",
+    greeting: "Hi there, I'm Rachel, your Relationship Coach. I'm here to help you navigate interpersonal relationships and build healthier connections. What relationship matter would you like guidance on today?",
+    avatarImage: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png"
+  },
+  nutrition: {
+    specialty: "nutrition",
+    name: "Nathan",
+    emoji: "🥗",
+    expertise: ["Balanced Diet", "Meal Planning", "Nutritional Science", "Dietary Restrictions", "Healthy Eating Habits"],
+    personality: "friendly",
+    greeting: "Hello! I'm Nathan, your Nutrition Coach. I'm here to help you develop a healthier relationship with food and create eating habits that nourish your body. What nutrition goals are you working on?",
+    avatarImage: "/lovable-uploads/1d4662ea-cc69-4e4f-9c18-078726ebe91e.png"
   }
 };
 
@@ -197,14 +277,21 @@ export const getAgentByRoute = (route: string): AgentSpecialty => {
   if (route.includes("pool")) return "pool";
   if (route.includes("declutter")) return "declutter";
   
-  // Check the searchParams in the route
+  if (route.includes("tax")) return "tax";
+  if (route.includes("psychiatrist")) return "psychiatrist";
+  if (route.includes("financial")) return "financial";
+  if (route.includes("wellness")) return "wellness";
+  if (route.includes("legal")) return "legal";
+  if (route.includes("career")) return "career";
+  if (route.includes("relationship")) return "relationship";
+  if (route.includes("nutrition")) return "nutrition";
+  
   const urlParams = new URLSearchParams(route.split('?')[1]);
   const specialty = urlParams.get('specialty');
   if (specialty && Object.keys(specializedAgents).includes(specialty)) {
     return specialty as AgentSpecialty;
   }
   
-  // Default to plumber if no matching route
   return "plumber";
 };
 
@@ -584,6 +671,194 @@ RECOMMENDED ACTION:
 3. Organize items by category
 4. Regularly clean and maintain storage areas
 5. Consider hiring a professional organizer if needed
+`,
+    tax: `
+DIAGNOSIS: Tax Law Issues
+
+POSSIBLE CAUSES:
+• Taxable income not reported
+• Incorrect tax deductions
+• Overpayment of taxes
+• Tax evasion
+• Compliance with tax laws
+
+SEVERITY: Medium to High
+Tax issues can impact financial stability and legal consequences.
+
+REPAIR DIFFICULTY: Moderate to Difficult
+Addressing tax issues may require professional assistance.
+
+RECOMMENDED ACTION:
+1. Review your tax returns and financial statements
+2. Consult with a tax professional to review your tax situation
+3. Adjust your tax strategy to minimize tax liability
+4. Consider professional tax planning to optimize your tax situation
+5. Stay informed about tax laws and regulations
+`,
+    psychiatrist: `
+DIAGNOSIS: Mental Health Issues
+
+POSSIBLE CAUSES:
+• Anxiety and depression
+• Stress management challenges
+• Cognitive behavioral strategies
+• Emotional well-being concerns
+
+SEVERITY: Medium to High
+Mental health issues can impact overall well-being and quality of life.
+
+REPAIR DIFFICULTY: Moderate to Difficult
+Addressing mental health issues may require professional assistance.
+
+RECOMMENDED ACTION:
+1. Seek therapy or counseling to address your mental health concerns
+2. Practice stress management techniques to improve your emotional well-being
+3. Consider medication if necessary to manage your symptoms
+4. Stay informed about mental health resources and support
+5. Develop a plan to address your mental health goals
+`,
+    financial: `
+DIAGNOSIS: Financial Planning Issues
+
+POSSIBLE CAUSES:
+• Budgeting challenges
+• Debt management issues
+• Investment strategy concerns
+• Retirement planning concerns
+• Financial goals not aligned
+
+SEVERITY: Medium to High
+Financial planning issues can impact financial stability and long-term goals.
+
+REPAIR DIFFICULTY: Moderate to Difficult
+Addressing financial planning issues may require professional assistance.
+
+RECOMMENDED ACTION:
+1. Review your budget and financial statements
+2. Consult with a financial advisor to review your financial situation
+3. Adjust your financial strategy to optimize your financial situation
+4. Consider professional financial planning to optimize your financial situation
+5. Stay informed about financial resources and support
+6. Develop a plan to address your financial goals
+`,
+    wellness: `
+DIAGNOSIS: Holistic Health Issues
+
+POSSIBLE CAUSES:
+• Stress reduction challenges
+• Mindfulness practices
+• Work-life balance concerns
+• Healthy habits not aligned
+
+SEVERITY: Medium to High
+Holistic health issues can impact overall well-being and quality of life.
+
+REPAIR DIFFICULTY: Moderate to Difficult
+Addressing holistic health issues may require professional assistance.
+
+RECOMMENDED ACTION:
+1. Practice stress reduction techniques to improve your emotional well-being
+2. Engage in mindfulness practices to improve your mental health
+3. Develop a work-life balance plan to improve your overall well-being
+4. Consider healthy habits to improve your physical health
+5. Stay informed about holistic health resources and support
+6. Develop a plan to address your holistic health goals
+`,
+    legal: `
+DIAGNOSIS: Legal Issues
+
+POSSIBLE CAUSES:
+• Contract review concerns
+• Legal rights issues
+• Civil matters concerns
+• Consumer protection concerns
+
+SEVERITY: Medium to High
+Legal issues can impact legal rights and financial stability.
+
+REPAIR DIFFICULTY: Moderate to Difficult
+Addressing legal issues may require professional assistance.
+
+RECOMMENDED ACTION:
+1. Review your legal documents and contracts
+2. Consult with a lawyer to review your legal situation
+3. Adjust your legal strategy to optimize your legal situation
+4. Consider professional legal advice to optimize your legal situation
+5. Stay informed about legal resources and support
+6. Develop a plan to address your legal goals
+`,
+    career: `
+DIAGNOSIS: Career Planning Issues
+
+POSSIBLE CAUSES:
+• Career goals not aligned
+• Resume building challenges
+• Interview preparation concerns
+• Professional development concerns
+• Job search strategies concerns
+
+SEVERITY: Medium to High
+Career planning issues can impact career success and long-term goals.
+
+REPAIR DIFFICULTY: Moderate to Difficult
+Addressing career planning issues may require professional assistance.
+
+RECOMMENDED ACTION:
+1. Review your career goals and resume
+2. Consult with a career coach to review your career situation
+3. Adjust your career strategy to optimize your career situation
+4. Consider professional career advice to optimize your career situation
+5. Stay informed about career resources and support
+6. Develop a plan to address your career goals
+`,
+    relationship: `
+DIAGNOSIS: Relationship Issues
+
+POSSIBLE CAUSES:
+• Communication skills challenges
+• Conflict resolution concerns
+• Building connection issues
+• Boundaries concerns
+• Relationship dynamics concerns
+
+SEVERITY: Medium to High
+Relationship issues can impact personal well-being and quality of life.
+
+REPAIR DIFFICULTY: Moderate to Difficult
+Addressing relationship issues may require professional assistance.
+
+RECOMMENDED ACTION:
+1. Practice effective communication skills to improve your relationships
+2. Seek therapy or counseling to address your relationship concerns
+3. Develop conflict resolution strategies to improve your relationships
+4. Consider building connection strategies to improve your relationships
+5. Develop boundary strategies to improve your relationships
+6. Stay informed about relationship resources and support
+7. Develop a plan to address your relationship goals
+`,
+    nutrition: `
+DIAGNOSIS: Nutrition Issues
+
+POSSIBLE CAUSES:
+• Balanced diet concerns
+• Meal planning challenges
+• Nutritional science concerns
+• Dietary restrictions concerns
+• Healthy eating habits not aligned
+
+SEVERITY: Medium to High
+Nutrition issues can impact overall health and well-being.
+
+REPAIR DIFFICULTY: Moderate to Difficult
+Addressing nutrition issues may require professional assistance.
+
+RECOMMENDED ACTION:
+1. Review your diet and meal plan
+2. Consult with a nutritionist to review your nutritional situation
+3. Adjust your diet and meal plan to optimize your nutritional situation
+4. Consider professional nutrition advice to optimize your nutritional situation
+5. Stay informed about nutrition resources and support
+6. Develop a plan to address your nutrition goals
 `
   };
   

@@ -21,5 +21,16 @@ export const ELEVEN_LABS_AGENT_IDS = {
   chef: "0ed63455-0bef-430f-9e13-fad9a1f00a35",
   stylist: "fa8a16b8-69dd-4e0c-9a14-cda94ec88a9a",
   cleaning: "24c32a77-7853-48ce-b753-86a977bf488a",
-  gadget: "e33fef2c-08c4-4f3a-a51e-76f5703f5fa9"
+  gadget: "e33fef2c-08c4-4f3a-a51e-76f5703f5fa9",
+  
+  // For now, use existing ElevenLabs IDs for new agents
+  // These should be replaced with actual agent IDs once created in the ElevenLabs platform
+  tax: "mXPzW5l0eiuyUNazl1Xs", 
+  psychiatrist: "mXPzW5l0eiuyUNazl1Xs",
+  financial: "mXPzW5l0eiuyUNazl1Xs",
+  wellness: "mXPzW5l0eiuyUNazl1Xs",
+  legal: "mXPzW5l0eiuyUNazl1Xs",
+  career: "mXPzW5l0eiuyUNazl1Xs",
+  relationship: "mXPzW5l0eiuyUNazl1Xs",
+  nutrition: "mXPzW5l0eiuyUNazl1Xs"
 };

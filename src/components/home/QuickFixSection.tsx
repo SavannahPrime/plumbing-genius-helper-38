@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import { Wrench, ArrowRight, Link as LinkIcon, Briefcase, UserRound, Scale, HeartPulse, FileText } from "lucide-react";
+import { Wrench, ArrowRight, Link as LinkIcon, Briefcase, UserRound, Scale, HeartPulse, FileText, GraduationCap, Heart, Salad } from "lucide-react";
 import { motion } from "framer-motion";
 import { specializedAgents, AgentSpecialty } from "@/services/specializedAgentService";
 
@@ -21,6 +21,16 @@ const QuickFixSection = () => {
     if (path.includes("stylist")) return "stylist";
     if (path.includes("cleaning")) return "cleaning";
     if (path.includes("gadget")) return "gadget";
+    
+    // Add new specialties
+    if (path.includes("tax")) return "tax";
+    if (path.includes("psychiatrist")) return "psychiatrist";
+    if (path.includes("financial")) return "financial";
+    if (path.includes("wellness")) return "wellness";
+    if (path.includes("legal")) return "legal";
+    if (path.includes("career")) return "career";
+    if (path.includes("relationship")) return "relationship";
+    if (path.includes("nutrition")) return "nutrition";
     
     // Default to plumber
     return "plumber";
@@ -48,7 +58,7 @@ const QuickFixSection = () => {
       </h3>
       
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-        <Link to="/tax-attorney" className="w-full max-w-xs">
+        <Link to="/chat?specialty=tax" className="w-full max-w-xs">
           <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
             <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
               <Scale className="h-6 w-6 text-primary" />
@@ -60,7 +70,7 @@ const QuickFixSection = () => {
         
         <ArrowRight className="w-5 h-5 text-neutrals-steel hidden md:block" />
         
-        <Link to="/psychiatrist" className="w-full max-w-xs">
+        <Link to="/chat?specialty=psychiatrist" className="w-full max-w-xs">
           <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
             <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
               <UserRound className="h-6 w-6 text-primary" />
@@ -72,7 +82,7 @@ const QuickFixSection = () => {
         
         <ArrowRight className="w-5 h-5 text-neutrals-steel hidden md:block" />
         
-        <Link to="/financial-advisor" className="w-full max-w-xs">
+        <Link to="/chat?specialty=financial" className="w-full max-w-xs">
           <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
             <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
               <Briefcase className="h-6 w-6 text-primary" />
@@ -84,7 +94,7 @@ const QuickFixSection = () => {
       </div>
       
       <div className="flex flex-col md:flex-row items-center justify-center gap-6 mt-6">
-        <Link to="/wellness-coach" className="w-full max-w-xs">
+        <Link to="/chat?specialty=wellness" className="w-full max-w-xs">
           <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
             <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
               <HeartPulse className="h-6 w-6 text-primary" />
@@ -96,13 +106,49 @@ const QuickFixSection = () => {
         
         <ArrowRight className="w-5 h-5 text-neutrals-steel hidden md:block" />
         
-        <Link to="/legal-consultant" className="w-full max-w-xs">
+        <Link to="/chat?specialty=legal" className="w-full max-w-xs">
           <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
             <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
               <FileText className="h-6 w-6 text-primary" />
             </div>
             <h4 className="font-medium mb-1 font-space-grotesk">Legal Consultant</h4>
             <p className="text-sm text-neutrals">General legal advice for everyday matters</p>
+          </div>
+        </Link>
+      </div>
+      
+      <div className="flex flex-col md:flex-row items-center justify-center gap-6 mt-6">
+        <Link to="/chat?specialty=career" className="w-full max-w-xs">
+          <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
+            <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
+              <GraduationCap className="h-6 w-6 text-primary" />
+            </div>
+            <h4 className="font-medium mb-1 font-space-grotesk">Career Coach</h4>
+            <p className="text-sm text-neutrals">Career development and job strategies</p>
+          </div>
+        </Link>
+        
+        <ArrowRight className="w-5 h-5 text-neutrals-steel hidden md:block" />
+        
+        <Link to="/chat?specialty=relationship" className="w-full max-w-xs">
+          <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
+            <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
+              <Heart className="h-6 w-6 text-primary" />
+            </div>
+            <h4 className="font-medium mb-1 font-space-grotesk">Relationship Coach</h4>
+            <p className="text-sm text-neutrals">Build healthier connections and improve communication</p>
+          </div>
+        </Link>
+        
+        <ArrowRight className="w-5 h-5 text-neutrals-steel hidden md:block" />
+        
+        <Link to="/chat?specialty=nutrition" className="w-full max-w-xs">
+          <div className="flex flex-col items-center text-center p-4 hover:bg-secondary/10 rounded-lg transition-colors cursor-pointer">
+            <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
+              <Salad className="h-6 w-6 text-primary" />
+            </div>
+            <h4 className="font-medium mb-1 font-space-grotesk">Nutrition Coach</h4>
+            <p className="text-sm text-neutrals">Healthy eating guidance and meal planning</p>
           </div>
         </Link>
       </div>

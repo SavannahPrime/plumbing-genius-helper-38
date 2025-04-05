@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Wrench, Leaf, Sparkles, Zap, Settings, Smartphone, ChefHat, Scissors, Play, ArrowRight, Star, Scale, UserRound, Briefcase, HeartPulse, FileText } from "lucide-react";
+import { Wrench, Leaf, Sparkles, Zap, Settings, Smartphone, ChefHat, Scissors, Play, ArrowRight, Star, Scale, UserRound, Briefcase, HeartPulse, FileText, GraduationCap, Heart, Salad } from "lucide-react";
 import { motion } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -127,6 +127,44 @@ const EveryFixHome = () => {
       avatar: "/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png",
       avatarFallback: "📄",
       bgClass: "bg-stone-50",
+      featured: false
+    },
+    
+    // Additional specialized agents
+    {
+      name: "Career Coach",
+      description: "Strategic guidance for career development, job searching, and professional growth.",
+      iconType: "graduationCap" as const,
+      emoji: "🎓",
+      path: "/chat?specialty=career",
+      color: "bg-gradient-to-r from-blue-500 to-cyan-500",
+      avatar: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
+      avatarFallback: "🎓",
+      bgClass: "bg-cyan-50",
+      featured: false
+    },
+    {
+      name: "Relationship Coach",
+      description: "Guidance for healthy relationships, communication skills, and conflict resolution.",
+      iconType: "heart" as const,
+      emoji: "💕",
+      path: "/chat?specialty=relationship",
+      color: "bg-gradient-to-r from-pink-400 to-pink-500",
+      avatar: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
+      avatarFallback: "💕",
+      bgClass: "bg-pink-50",
+      featured: false
+    },
+    {
+      name: "Nutrition Coach",
+      description: "Expert advice on balanced eating, meal planning, and nutritional science.",
+      iconType: "salad" as const,
+      emoji: "🥗",
+      path: "/chat?specialty=nutrition",
+      color: "bg-gradient-to-r from-green-400 to-green-500",
+      avatar: "/lovable-uploads/1d4662ea-cc69-4e4f-9c18-078726ebe91e.png",
+      avatarFallback: "🥗",
+      bgClass: "bg-green-50",
       featured: false
     },
     

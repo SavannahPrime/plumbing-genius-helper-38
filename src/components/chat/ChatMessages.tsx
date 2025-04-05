@@ -27,6 +27,32 @@ const ChatMessages = ({ messages, isLoading, specialty, context }: ChatMessagesP
     }
   }, [messages]);
 
+  // Customize the loading message based on agent specialty
+  const getLoadingMessage = () => {
+    switch (specialty) {
+      case 'chef':
+        return "Chef is cooking up a response...";
+      case 'tax':
+        return "Tax Attorney is analyzing your situation...";
+      case 'psychiatrist':
+        return "Dr. Patricia is formulating a thoughtful response...";
+      case 'financial':
+        return "Financial Advisor is calculating options...";
+      case 'wellness':
+        return "Wellness Coach is preparing guidance...";
+      case 'legal':
+        return "Legal Consultant is researching your question...";
+      case 'career':
+        return "Career Coach is developing a strategy...";
+      case 'relationship':
+        return "Relationship Coach is crafting advice...";
+      case 'nutrition':
+        return "Nutrition Coach is preparing recommendations...";
+      default:
+        return `${agent.name} is thinking...`;
+    }
+  };
+
   return (
     <div className="container mx-auto h-full overflow-y-auto py-4 px-4">
       <div className="flex flex-col space-y-4">
@@ -86,7 +112,7 @@ const ChatMessages = ({ messages, isLoading, specialty, context }: ChatMessagesP
           <div className="flex justify-start">
             <div className="rounded-lg bg-gradient-to-br from-amber-100/90 to-amber-200/90 backdrop-blur-md p-3 flex items-center space-x-2 border border-amber-200/50">
               <Loader2 className="h-4 w-4 animate-spin text-amber-600" />
-              <span className="text-amber-900">Chef is cooking up a response...</span>
+              <span className="text-amber-900">{getLoadingMessage()}</span>
             </div>
           </div>
         )}
@@ -118,6 +144,22 @@ const getAvatarBgColor = (specialty: AgentSpecialty): string => {
       return 'bg-green-600';
     case 'cleaning':
       return 'bg-cyan-500';
+    case 'tax':
+      return 'bg-indigo-600';
+    case 'psychiatrist':
+      return 'bg-teal-600';
+    case 'financial':
+      return 'bg-emerald-600';
+    case 'wellness':
+      return 'bg-rose-600';
+    case 'legal':
+      return 'bg-stone-600';
+    case 'career':
+      return 'bg-cyan-600';
+    case 'relationship':
+      return 'bg-pink-500';
+    case 'nutrition':
+      return 'bg-green-500';
     default:
       return 'bg-blue-500';
   }

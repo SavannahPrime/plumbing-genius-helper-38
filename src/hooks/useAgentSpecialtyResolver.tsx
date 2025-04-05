@@ -26,5 +26,15 @@ export const useAgentSpecialtyResolver = (): AgentSpecialty => {
   if (path.includes("pool")) return "pool";
   if (path.includes("declutter")) return "declutter";
   
+  // Add new specialties
+  if (path.includes("tax")) return "tax";
+  if (path.includes("psychiatrist")) return "psychiatrist";
+  if (path.includes("financial")) return "financial";
+  if (path.includes("wellness")) return "wellness";
+  if (path.includes("legal")) return "legal";
+  if (path.includes("career")) return "career";
+  if (path.includes("relationship")) return "relationship";
+  if (path.includes("nutrition")) return "nutrition";
+  
   return "plumber";
 };

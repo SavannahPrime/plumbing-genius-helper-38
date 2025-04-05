@@ -52,6 +52,41 @@ export const useAgentIdResolver = () => {
       console.log("Using gadget agent ID");
       return ELEVEN_LABS_AGENT_IDS.gadget;
     }
+    
+    // Add new specialties
+    if (path.includes("tax")) {
+      console.log("Using tax agent ID");
+      return ELEVEN_LABS_AGENT_IDS.tax;
+    }
+    if (path.includes("psychiatrist")) {
+      console.log("Using psychiatrist agent ID");
+      return ELEVEN_LABS_AGENT_IDS.psychiatrist;
+    }
+    if (path.includes("financial")) {
+      console.log("Using financial agent ID");
+      return ELEVEN_LABS_AGENT_IDS.financial;
+    }
+    if (path.includes("wellness")) {
+      console.log("Using wellness agent ID");
+      return ELEVEN_LABS_AGENT_IDS.wellness;
+    }
+    if (path.includes("legal")) {
+      console.log("Using legal agent ID");
+      return ELEVEN_LABS_AGENT_IDS.legal;
+    }
+    if (path.includes("career")) {
+      console.log("Using career agent ID");
+      return ELEVEN_LABS_AGENT_IDS.career;
+    }
+    if (path.includes("relationship")) {
+      console.log("Using relationship agent ID");
+      return ELEVEN_LABS_AGENT_IDS.relationship;
+    }
+    if (path.includes("nutrition")) {
+      console.log("Using nutrition agent ID");
+      return ELEVEN_LABS_AGENT_IDS.nutrition;
+    }
+    
     if (path.includes("painter")) {
       console.log("Using painter agent ID");
       return ELEVEN_LABS_AGENT_IDS.plumber; // Using plumber as fallback until custom agent IDs are created
