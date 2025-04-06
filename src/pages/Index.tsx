@@ -5,7 +5,6 @@ import HeroSection from "@/components/index/HeroSection";
 import FeaturesSection from "@/components/index/FeaturesSection";
 import HowItWorksSection from "@/components/index/HowItWorksSection";
 import PricingSection from "@/components/index/PricingSection";
-import CTASection from "@/components/index/CTASection";
 import Footer from "@/components/index/Footer";
 import { motion } from "framer-motion";
 
@@ -48,8 +47,6 @@ export default function Index() {
       >
         <PricingSection />
       </motion.div>
-      
-      {/* Removing the CTASection to simplify since it might be redundant with PricingSection */}
       
       <Footer />
       
