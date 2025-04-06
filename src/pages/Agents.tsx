@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from "react";
 import { PageLayout } from "@/components/shared/PageLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -20,7 +19,11 @@ import {
   Star, 
   Search, 
   Filter,
-  ArrowRight
+  ArrowRight,
+  Sparkles,
+  MessageSquare,
+  Check,
+  Shield
 } from "lucide-react";
 import { specializedAgents } from "@/services/specializedAgentService";
 import { ELEVEN_LABS_AGENT_IDS } from "@/constants/elevenlabs";
@@ -44,6 +47,8 @@ interface Agent {
   featured: boolean;
   bgClass: string;
   colorClass: string;
+  rating?: number;
+  benefits?: string[];
 }
 
 const Agents = () => {
@@ -66,8 +71,10 @@ const Agents = () => {
       avatarUrl: "/lovable-uploads/1d4662ea-cc69-4e4f-9c18-078726ebe91e.png",
       avatarFallback: "🔧",
       featured: true,
-      bgClass: "bg-blue-50",
-      colorClass: "bg-gradient-to-r from-blue-400 to-blue-600"
+      bgClass: "bg-gradient-to-br from-blue-50/80 to-blue-100/90",
+      colorClass: "bg-gradient-to-r from-blue-500 to-blue-600",
+      rating: 4.9,
+      benefits: ["Step-by-step instructions", "Photo analysis", "Voice guidance"]
     },
     {
       id: ELEVEN_LABS_AGENT_IDS.handyman,
@@ -81,8 +88,10 @@ const Agents = () => {
       avatarUrl: "/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png",
       avatarFallback: "🔨",
       featured: false,
-      bgClass: "bg-orange-50",
-      colorClass: "bg-gradient-to-r from-orange-400 to-orange-600"
+      bgClass: "bg-gradient-to-br from-orange-50/80 to-orange-100/90",
+      colorClass: "bg-gradient-to-r from-orange-500 to-orange-600",
+      rating: 4.7,
+      benefits: ["Assembly instructions", "Repair guidance", "Tool recommendations"]
     },
     {
       id: ELEVEN_LABS_AGENT_IDS.gadget,
@@ -96,8 +105,10 @@ const Agents = () => {
       avatarUrl: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
       avatarFallback: "📱",
       featured: false,
-      bgClass: "bg-purple-50",
-      colorClass: "bg-gradient-to-r from-purple-400 to-purple-600"
+      bgClass: "bg-gradient-to-br from-purple-50/80 to-purple-100/90",
+      colorClass: "bg-gradient-to-r from-purple-500 to-purple-600",
+      rating: 4.8,
+      benefits: ["Device troubleshooting", "Software solutions", "Hardware diagnostics"]
     },
     {
       id: ELEVEN_LABS_AGENT_IDS.tax,
@@ -111,8 +122,10 @@ const Agents = () => {
       avatarUrl: "/lovable-uploads/c8ef72aa-6bbc-4cde-a827-e42f3bc112a0.png",
       avatarFallback: "⚖️",
       featured: true,
-      bgClass: "bg-indigo-50",
-      colorClass: "bg-gradient-to-r from-indigo-400 to-indigo-600"
+      bgClass: "bg-gradient-to-br from-indigo-50/80 to-indigo-100/90",
+      colorClass: "bg-gradient-to-r from-indigo-500 to-indigo-600",
+      rating: 4.9,
+      benefits: ["Tax law expertise", "Financial guidance", "Legal document review"]
     },
     {
       id: ELEVEN_LABS_AGENT_IDS.psychiatrist,
@@ -126,8 +139,10 @@ const Agents = () => {
       avatarUrl: "/lovable-uploads/8b852c7f-6b8c-40ef-9d7a-b38e45699b56.png",
       avatarFallback: "🧠",
       featured: true,
-      bgClass: "bg-teal-50",
-      colorClass: "bg-gradient-to-r from-teal-400 to-teal-600"
+      bgClass: "bg-gradient-to-br from-teal-50/80 to-teal-100/90",
+      colorClass: "bg-gradient-to-r from-teal-500 to-teal-600",
+      rating: 4.8,
+      benefits: ["Mental health support", "Coping strategies", "Personalized guidance"]
     },
     {
       id: ELEVEN_LABS_AGENT_IDS.financial,
@@ -141,8 +156,10 @@ const Agents = () => {
       avatarUrl: "/lovable-uploads/1d4662ea-cc69-4e4f-9c18-078726ebe91e.png",
       avatarFallback: "💼",
       featured: true,
-      bgClass: "bg-emerald-50",
-      colorClass: "bg-gradient-to-r from-emerald-400 to-emerald-600"
+      bgClass: "bg-gradient-to-br from-emerald-50/80 to-emerald-100/90",
+      colorClass: "bg-gradient-to-r from-emerald-500 to-emerald-600",
+      rating: 4.9,
+      benefits: ["Investment strategies", "Retirement planning", "Debt management"]
     },
     {
       id: ELEVEN_LABS_AGENT_IDS.wellness,
@@ -259,7 +276,7 @@ const Agents = () => {
       />
       
       <div className="container mx-auto px-4 py-8">
-        <Card className="mb-8 border-none shadow-sm">
+        <Card className="mb-8 border-none shadow-lg bg-white/90 backdrop-blur-sm">
           <CardContent className="p-6">
             <div className="flex flex-col md:flex-row gap-4 items-center">
               <div className="relative flex-grow">
@@ -268,7 +285,7 @@ const Agents = () => {
                   placeholder="Search agents..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 w-full"
+                  className="pl-10 w-full bg-gray-50 border-gray-200"
                 />
               </div>
               
@@ -276,7 +293,7 @@ const Agents = () => {
                 <div className="flex items-center gap-2">
                   <Filter className="h-4 w-4 text-gray-500" />
                   <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger className="w-[180px] bg-gray-50 border-gray-200">
                       <SelectValue placeholder="Category" />
                     </SelectTrigger>
                     <SelectContent>
@@ -290,7 +307,7 @@ const Agents = () => {
                 </div>
                 
                 <Select value={pricingFilter} onValueChange={setPricingFilter}>
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger className="w-[180px] bg-gray-50 border-gray-200">
                     <SelectValue placeholder="Pricing" />
                   </SelectTrigger>
                   <SelectContent>
@@ -307,56 +324,106 @@ const Agents = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredAgents.map((agent) => (
-            <Card key={agent.id} className={`overflow-hidden transition-all duration-200 hover:shadow-md border border-gray-200 ${agent.bgClass}`}>
-              <CardHeader className={`${agent.colorClass} text-white relative p-4`}>
+            <Card 
+              key={agent.id} 
+              className={`overflow-hidden transition-all duration-300 hover:shadow-xl border-none shadow-md hover:-translate-y-1 ${agent.bgClass}`}
+            >
+              <CardHeader className={`${agent.colorClass} text-white relative p-6`}>
                 {agent.featured && (
-                  <div className="absolute top-2 right-2 z-10">
-                    <div className="bg-yellow-300 text-yellow-900 p-1 rounded-full flex items-center">
-                      <Star className="h-3 w-3 fill-yellow-900 mr-1" />
-                      <span className="text-xs font-medium">Featured</span>
+                  <div className="absolute top-3 right-3 z-10">
+                    <div className="bg-yellow-300 text-yellow-900 px-2 py-1 rounded-full flex items-center shadow-lg">
+                      <Sparkles className="h-3 w-3 fill-yellow-900 mr-1" />
+                      <span className="text-xs font-semibold">Featured</span>
                     </div>
                   </div>
                 )}
                 <div className="flex justify-between items-center">
                   <div>
-                    <CardTitle className="text-lg font-bold">
-                      {agent.avatarFallback} {agent.name}
+                    <CardTitle className="text-xl font-bold">
+                      {agent.name}
                     </CardTitle>
-                    <CardDescription className="text-white/90 mt-1 text-xs">
-                      Your AI Assistant
+                    <CardDescription className="text-white/90 mt-1 text-sm font-medium">
+                      <span className="mr-2">{agent.avatarFallback}</span> {agent.category} Specialist
                     </CardDescription>
                   </div>
-                  <Avatar className="h-12 w-12 border-2 border-white">
+                  <Avatar className="h-16 w-16 border-2 border-white shadow-lg">
                     <AvatarImage src={agent.avatarUrl} alt={agent.name} />
                     <AvatarFallback>{agent.avatarFallback}</AvatarFallback>
                   </Avatar>
                 </div>
+                
+                {agent.rating && (
+                  <div className="flex items-center mt-2">
+                    <div className="flex">
+                      {[...Array(5)].map((_, i) => (
+                        <Star 
+                          key={i} 
+                          className={`h-4 w-4 ${i < Math.floor(agent.rating) ? "fill-yellow-300 text-yellow-300" : "text-white/30"}`} 
+                        />
+                      ))}
+                    </div>
+                    <span className="ml-2 text-sm font-medium">{agent.rating}</span>
+                  </div>
+                )}
               </CardHeader>
               
-              <CardContent className="p-4">
-                <p className="text-gray-700 text-sm mb-3">{agent.description}</p>
-                <div className="flex items-center justify-between mb-1">
-                  <Badge variant={agent.pricingTier === "Free" ? "outline" : 
-                         agent.pricingTier === "Standard" ? "secondary" : "default"}
-                         className="rounded-full">
+              <CardContent className="p-6">
+                <p className="text-gray-700 text-sm mb-5">{agent.description}</p>
+                
+                {agent.benefits && agent.benefits.length > 0 && (
+                  <div className="mb-5">
+                    <h4 className="text-sm font-semibold text-gray-700 mb-2">Key Benefits:</h4>
+                    <ul className="space-y-1.5">
+                      {agent.benefits.map((benefit, index) => (
+                        <li key={index} className="flex items-start text-sm">
+                          <Check className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span className="text-gray-600">{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                
+                <div className="flex items-center justify-between">
+                  <Badge 
+                    variant={agent.pricingTier === "Free" ? "outline" : 
+                          agent.pricingTier === "Standard" ? "secondary" : "default"}
+                    className={`rounded-full font-medium ${
+                      agent.pricingTier === "Premium" ? "bg-gradient-to-r from-blue-600 to-indigo-600" :
+                      agent.pricingTier === "Standard" ? "bg-gradient-to-r from-purple-500 to-purple-600" : 
+                      "border-blue-300 text-blue-600"
+                    }`}
+                  >
                     {agent.pricingTier === "Free" ? "Free" : 
-                     agent.pricingTier === "Standard" ? "Standard" : "Premium"}
+                    agent.pricingTier === "Standard" ? "Standard" : "Premium"}
                   </Badge>
+                  
                   {agent.price > 0 && (
-                    <div className="flex items-center text-sm font-medium">
+                    <div className="flex items-center text-sm font-medium bg-amber-50 px-2 py-1 rounded-full">
                       <Coins className="h-3 w-3 mr-1 text-amber-500" />
-                      <span>{agent.price} TXT</span>
-                      <span className="mx-1 text-gray-400">|</span>
-                      <span>${agent.monthlyPrice}/mo</span>
+                      <span className="text-amber-700">{agent.price} TXT</span>
                     </div>
                   )}
                 </div>
+                
+                {agent.price > 0 && (
+                  <div className="mt-2 text-xs text-right text-gray-500">
+                    ${agent.monthlyPrice}/month
+                  </div>
+                )}
               </CardContent>
               
-              <CardFooter className="p-4 pt-0">
+              <CardFooter className="p-5 pt-0">
                 <Link to={`/chat?specialty=${agent.specialty}`} className="w-full">
-                  <Button className="w-full group-hover:bg-primary/90 transition-colors" variant="outline">
-                    Chat Now
+                  <Button 
+                    className={`w-full group hover:shadow-md ${
+                      agent.pricingTier === "Premium" ? "bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700" :
+                      agent.pricingTier === "Standard" ? "bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700" :
+                      "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
+                    }`}
+                  >
+                    <MessageSquare className="mr-2 h-4 w-4" /> 
+                    Start Chatting
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </Link>
