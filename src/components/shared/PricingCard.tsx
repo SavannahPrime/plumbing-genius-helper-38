@@ -2,7 +2,8 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { CheckCircle, Coins, MessageSquare, ArrowRight, Sparkles, Star } from "lucide-react";
+import { CheckCircle, Coins, MessageSquare, ArrowRight, Sparkles, Star, Shield } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export interface PricingPlan {
   title: string;
@@ -22,9 +23,16 @@ interface PricingCardProps {
 }
 
 const PricingCard: React.FC<PricingCardProps> = ({ plan }) => {
+  const cardBorderClass = plan.highlighted 
+    ? "border-purple-500/30 shadow-lg shadow-purple-500/10" 
+    : "border-slate-700/30 hover:border-slate-600/50";
+  
   return (
     <div 
-      className={`rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-slate-700/30`}
+      className={cn(
+        "rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border",
+        cardBorderClass
+      )}
     >
       <div className={`p-6 ${plan.colorClass} text-white relative`}>
         {plan.highlighted && (
@@ -44,7 +52,7 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan }) => {
               {plan.price !== "Custom" && <span className="text-white/70 ml-1">/month</span>}
             </div>
             
-            {/* Star rating */}
+            {/* Enhanced star rating */}
             <div className="flex items-center mt-2">
               <div className="flex">
                 {[...Array(5)].map((_, i) => (
@@ -61,17 +69,20 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan }) => {
           {plan.txtTokens && (
             <div className="flex items-center bg-white/20 px-3 py-1.5 rounded-full">
               <Coins className="h-4 w-4 mr-2 text-amber-300" />
-              <span className="text-amber-100 font-medium">{plan.txtTokens} TXT</span>
+              <span className="text-amber-100 font-medium">{plan.txtTokens.toLocaleString()} TXT</span>
             </div>
           )}
         </div>
       </div>
       
-      <div className="p-6 bg-slate-800/50">
+      <div className="p-6 bg-slate-800/50 h-full flex flex-col">
         <p className="text-gray-300 mb-6">{plan.description}</p>
         
-        <div className="mb-6">
-          <h4 className="text-sm font-semibold text-gray-200 mb-3">Key Features:</h4>
+        <div className="mb-6 flex-grow">
+          <h4 className="text-sm font-semibold text-gray-200 mb-3 flex items-center">
+            <Shield className="w-4 h-4 mr-2 text-blue-400" />
+            Key Features:
+          </h4>
           <ul className="space-y-3">
             {plan.features.map((feature, i) => (
               <li key={i} className="flex items-start">
@@ -82,13 +93,14 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan }) => {
           </ul>
         </div>
         
-        <Link to={plan.price === "Custom" ? "/contact" : `/chat?specialty=${plan.specialty}`} className="w-full">
+        <Link to={plan.price === "Custom" ? "/contact" : `/chat?specialty=${plan.specialty}`} className="w-full mt-auto">
           <Button 
-            className={`w-full group ${
+            className={cn(
+              "w-full group hover:shadow-lg", 
               plan.highlighted 
                 ? "bg-purple-500 hover:bg-purple-600" 
-                : plan.colorClass + " hover:opacity-90"
-            }`}
+                : `${plan.colorClass} hover:opacity-90`
+            )}
           >
             <MessageSquare className="mr-2 h-4 w-4" />
             {plan.cta}

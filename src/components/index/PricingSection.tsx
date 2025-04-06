@@ -1,6 +1,7 @@
 
 import React from "react";
 import PricingCard, { PricingPlan } from "@/components/shared/PricingCard";
+import { motion } from "framer-motion";
 
 const PricingSection = () => {
   const plans: PricingPlan[] = [
@@ -61,9 +62,14 @@ const PricingSection = () => {
   ];
 
   return (
-    <section id="pricing" className="container mx-auto px-4 py-20 text-white">
+    <section id="pricing" className="container mx-auto px-4 py-24 text-white">
       <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
+        <div className="inline-block px-4 py-1 bg-purple-500/20 rounded-full text-purple-300 text-sm font-medium mb-4">
+          Pricing Plans
+        </div>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+          Simple, Transparent Pricing
+        </h2>
         <p className="text-xl text-gray-300 max-w-2xl mx-auto">
           Choose the plan that fits your needs, from startups to enterprise organizations.
         </p>
@@ -71,8 +77,25 @@ const PricingSection = () => {
 
       <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
         {plans.map((plan, index) => (
-          <PricingCard key={index} plan={plan} />
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            viewport={{ once: true }}
+          >
+            <PricingCard plan={plan} />
+          </motion.div>
         ))}
+      </div>
+      
+      <div className="mt-16 text-center max-w-3xl mx-auto">
+        <p className="text-gray-400 bg-slate-800/30 p-4 rounded-lg border border-slate-700/50">
+          All plans include access to our core platform features. Need a custom solution? 
+          <a href="/contact" className="text-purple-400 hover:text-purple-300 ml-1">
+            Contact our sales team
+          </a> for a tailored package.
+        </p>
       </div>
     </section>
   );
