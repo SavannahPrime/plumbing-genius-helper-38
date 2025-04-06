@@ -4,6 +4,7 @@ import ChatMessages from "@/components/chat/ChatMessages";
 import ChatInput from "@/components/chat/ChatInput";
 import { Message, ConversationContext } from "@/types/chat";
 import { AgentSpecialty, specializedAgents } from "@/services/specializedAgentService";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ChatContentProps {
   messages: Message[];
@@ -74,16 +75,16 @@ const ChatContent: React.FC<ChatContentProps> = ({
         />
       )}
       
-      <div className="flex-1 overflow-hidden">
+      <ScrollArea className="flex-1 overflow-hidden h-[calc(100vh-8rem)]">
         <ChatMessages 
           messages={messages} 
           isLoading={isLoading} 
           context={context}
           specialty={currentAgentSpecialty}
         />
-      </div>
+      </ScrollArea>
       
-      <div className="sticky bottom-0 w-full z-10">
+      <div className="sticky bottom-0 w-full z-10 bg-gradient-to-t from-background via-background/95 to-background/50 pt-2">
         <ChatInput
           message={message}
           setMessage={setMessage}
