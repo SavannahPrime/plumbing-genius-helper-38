@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Coins, CheckCircle, Star, Sparkles, ArrowRight, MessageSquare } from "lucide-react";
+import { Coins, CheckCircle, Star, Sparkles, ArrowRight, MessageSquare, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const PricingSection = () => {

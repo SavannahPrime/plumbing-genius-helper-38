@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Star, CheckCircle, Coins, MessageSquare, Sparkles } from "lucide-react";
+import { ArrowRight, Star, CheckCircle, Coins, MessageSquare, Sparkles, Shield } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 const CTASection = () => {
