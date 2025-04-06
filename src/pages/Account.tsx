@@ -15,14 +15,18 @@ import {
   CircleDollarSign,
   User,
   Lock,
-  Star
+  Star,
+  CheckCircle
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+// Define subscription status type for proper type checking
+type SubscriptionStatus = "Free Trial" | "Standard" | "Premium";
 
 const Account = () => {
   // Placeholder data - in a real app, this would come from a state or API
   const tokenBalance = 500;
-  const subscriptionStatus = "Free Trial";
+  const subscriptionStatus: SubscriptionStatus = "Free Trial";
   
   return (
     <PageLayout>
