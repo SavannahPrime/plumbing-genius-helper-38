@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { PageLayout } from "@/components/shared/PageLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -25,8 +25,26 @@ type SubscriptionStatus = "Free Trial" | "Standard" | "Premium";
 
 const Account = () => {
   // Placeholder data - in a real app, this would come from a state or API
-  const tokenBalance = 500;
-  const subscriptionStatus: SubscriptionStatus = "Free Trial";
+  const [tokenBalance, setTokenBalance] = useState(500);
+  const [subscriptionStatus, setSubscriptionStatus] = useState<SubscriptionStatus>("Free Trial");
+  
+  // Handler for buying tokens with TXT
+  const handleBuyTokens = (amount: number) => {
+    setTokenBalance(prev => prev + amount);
+    // In a real app, this would call a payment API
+  };
+  
+  // Handler for subscribing with TXT tokens
+  const handleSubscribeWithTokens = (plan: "Standard" | "Premium") => {
+    // In a real app, this would check if user has enough tokens and call API
+    if (plan === "Standard" && tokenBalance >= 175) {
+      setTokenBalance(prev => prev - 175);
+      setSubscriptionStatus("Standard");
+    } else if (plan === "Premium" && tokenBalance >= 350) {
+      setTokenBalance(prev => prev - 350);
+      setSubscriptionStatus("Premium");
+    }
+  };
   
   return (
     <PageLayout>
@@ -51,9 +69,13 @@ const Account = () => {
                     <User className="mr-2 h-5 w-5" />
                     Profile
                   </CardTitle>
+                  <div className="flex items-center bg-amber-100 text-amber-800 px-3 py-1 rounded-full">
+                    <Coins className="h-4 w-4 mr-2" />
+                    <span className="font-semibold">{tokenBalance} TXT</span>
+                  </div>
                 </div>
                 <CardDescription>
-                  Manage your personal information
+                  Manage your personal information and TXT token balance
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -83,6 +105,38 @@ const Account = () => {
                       placeholder="Your name" 
                       className="mt-1 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
                     />
+                  </div>
+                </div>
+                
+                <div className="mt-6">
+                  <h3 className="text-lg font-semibold mb-3 flex items-center">
+                    <Coins className="mr-2 h-5 w-5 text-amber-500" />
+                    TXT Token Balance
+                  </h3>
+                  <div className="bg-gradient-to-r from-amber-50 to-amber-100 rounded-lg p-4 border border-amber-200">
+                    <div className="flex justify-between items-center mb-3">
+                      <div>
+                        <p className="font-medium">Current Balance</p>
+                        <p className="text-2xl font-bold text-amber-800">{tokenBalance} TXT</p>
+                      </div>
+                      <div className="bg-white p-3 rounded-full shadow-sm">
+                        <Coins className="h-8 w-8 text-amber-500" />
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-4">
+                      TXT tokens can be used to subscribe to premium AI agents or pay for one-time services.
+                    </p>
+                    <div className="grid grid-cols-3 gap-2">
+                      <Button onClick={() => handleBuyTokens(100)} variant="outline" size="sm" className="bg-white">
+                        +100 TXT
+                      </Button>
+                      <Button onClick={() => handleBuyTokens(250)} variant="outline" size="sm" className="bg-white">
+                        +250 TXT
+                      </Button>
+                      <Button onClick={() => handleBuyTokens(500)} variant="outline" size="sm" className="bg-white">
+                        +500 TXT
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -172,7 +226,13 @@ const Account = () => {
                         <h3 className="font-bold text-lg">Standard Plan</h3>
                         <p className="text-sm text-muted-foreground mt-1">Access popular AI assistants</p>
                       </div>
-                      <div className="text-2xl font-bold">$1.99<span className="text-sm font-normal text-muted-foreground">/mo</span></div>
+                      <div className="flex flex-col items-end">
+                        <div className="text-2xl font-bold">$1.99<span className="text-sm font-normal text-muted-foreground">/mo</span></div>
+                        <div className="text-sm text-amber-600 flex items-center mt-1">
+                          <Coins className="h-3 w-3 mr-1" />
+                          <span>or 175 TXT/mo</span>
+                        </div>
+                      </div>
                     </div>
                     <ul className="mt-4 space-y-2">
                       <li className="flex items-center text-sm">
@@ -188,13 +248,31 @@ const Account = () => {
                         <span>Unlimited messaging</span>
                       </li>
                     </ul>
-                    <div className="mt-4">
+                    <div className="mt-4 flex flex-col sm:flex-row gap-2">
                       {subscriptionStatus === "Standard" ? (
                         <Button disabled className="w-full">Current Plan</Button>
                       ) : (
-                        <Button className="w-full bg-blue-600 hover:bg-blue-700">Subscribe - $1.99/mo</Button>
+                        <>
+                          <Button 
+                            className="w-full bg-blue-600 hover:bg-blue-700"
+                            onClick={() => handleSubscribeWithTokens("Standard")}
+                            disabled={tokenBalance < 175}
+                          >
+                            <Coins className="mr-2 h-4 w-4" />
+                            Subscribe with 175 TXT
+                          </Button>
+                          <Button className="w-full">
+                            <CreditCard className="mr-2 h-4 w-4" />
+                            Subscribe - $1.99/mo
+                          </Button>
+                        </>
                       )}
                     </div>
+                    {tokenBalance < 175 && subscriptionStatus !== "Standard" && (
+                      <p className="text-xs text-red-500 mt-2">
+                        You need {175 - tokenBalance} more TXT tokens for this plan
+                      </p>
+                    )}
                   </div>
                   
                   {/* Premium Plan */}
@@ -212,7 +290,13 @@ const Account = () => {
                         <h3 className="font-bold text-lg">Premium Plan</h3>
                         <p className="text-sm text-muted-foreground mt-1">Access all specialized agents</p>
                       </div>
-                      <div className="text-2xl font-bold">$3.99<span className="text-sm font-normal text-muted-foreground">/mo</span></div>
+                      <div className="flex flex-col items-end">
+                        <div className="text-2xl font-bold">$3.99<span className="text-sm font-normal text-muted-foreground">/mo</span></div>
+                        <div className="text-sm text-amber-600 flex items-center mt-1">
+                          <Coins className="h-3 w-3 mr-1" />
+                          <span>or 350 TXT/mo</span>
+                        </div>
+                      </div>
                     </div>
                     <ul className="mt-4 space-y-2">
                       <li className="flex items-center text-sm">
@@ -232,13 +316,31 @@ const Account = () => {
                         <span>Advanced AI features</span>
                       </li>
                     </ul>
-                    <div className="mt-4">
+                    <div className="mt-4 flex flex-col sm:flex-row gap-2">
                       {subscriptionStatus === "Premium" ? (
                         <Button disabled className="w-full">Current Plan</Button>
                       ) : (
-                        <Button className="w-full bg-amber-600 hover:bg-amber-700">Subscribe - $3.99/mo</Button>
+                        <>
+                          <Button 
+                            className="w-full bg-amber-600 hover:bg-amber-700"
+                            onClick={() => handleSubscribeWithTokens("Premium")}
+                            disabled={tokenBalance < 350}
+                          >
+                            <Coins className="mr-2 h-4 w-4" />
+                            Subscribe with 350 TXT
+                          </Button>
+                          <Button className="w-full bg-amber-600 hover:bg-amber-700">
+                            <CreditCard className="mr-2 h-4 w-4" />
+                            Subscribe - $3.99/mo
+                          </Button>
+                        </>
                       )}
                     </div>
+                    {tokenBalance < 350 && subscriptionStatus !== "Premium" && (
+                      <p className="text-xs text-red-500 mt-2">
+                        You need {350 - tokenBalance} more TXT tokens for this plan
+                      </p>
+                    )}
                   </div>
                 </div>
               </CardContent>
@@ -253,7 +355,7 @@ const Account = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Add a payment method to subscribe to premium features
+                  Add a payment method to subscribe to premium features or buy TXT tokens
                 </p>
                 <div className="border rounded-lg p-4 bg-muted/20 text-center">
                   <p className="text-sm text-muted-foreground mb-3">No payment methods found</p>
