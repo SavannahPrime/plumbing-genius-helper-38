@@ -1,12 +1,15 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Coins } from "lucide-react";
 
 const PricingSection = () => {
   const plans = [
     {
       title: "Starter",
       price: "$49",
+      txtTokens: 5000,
       description: "Perfect for small teams and startups",
       features: [
         "5 AI Agent Connections",
@@ -20,6 +23,7 @@ const PricingSection = () => {
     {
       title: "Professional",
       price: "$149",
+      txtTokens: 20000,
       description: "Ideal for growing businesses",
       features: [
         "25 AI Agent Connections",
@@ -34,6 +38,7 @@ const PricingSection = () => {
     {
       title: "Enterprise",
       price: "Custom",
+      txtTokens: null,
       description: "For organizations with advanced needs",
       features: [
         "Unlimited AI Agent Connections",
@@ -73,10 +78,18 @@ const PricingSection = () => {
               </div>
             )}
             <h3 className="text-2xl font-bold mb-2">{plan.title}</h3>
-            <div className="flex items-end mb-4">
+            <div className="flex items-end mb-2">
               <span className="text-4xl font-bold">{plan.price}</span>
               {plan.price !== "Custom" && <span className="text-gray-400 ml-1">/month</span>}
             </div>
+            
+            {plan.txtTokens && (
+              <div className="flex items-center mb-4 bg-amber-50/10 px-3 py-1.5 rounded-full w-fit">
+                <Coins className="h-4 w-4 mr-2 text-amber-500" />
+                <span className="text-amber-400 font-medium">{plan.txtTokens} TXT tokens</span>
+              </div>
+            )}
+            
             <p className="text-gray-300 mb-6">{plan.description}</p>
             <ul className="space-y-3 mb-8">
               {plan.features.map((feature, i) => (

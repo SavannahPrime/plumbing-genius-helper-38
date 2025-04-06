@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Star, CheckCircle } from "lucide-react";
+import { ArrowRight, Star, CheckCircle, Coins } from "lucide-react";
 
 const CTASection = () => {
   return (
@@ -22,6 +22,12 @@ const CTASection = () => {
             <div className="mt-2 text-3xl font-bold">
               $0<span className="text-sm font-normal text-white/70">/month</span>
             </div>
+            
+            <div className="mt-2 flex items-center bg-amber-50/10 px-3 py-1.5 rounded-full w-fit">
+              <Coins className="h-4 w-4 mr-2 text-amber-500" />
+              <span className="text-amber-400 font-medium">0 TXT tokens</span>
+            </div>
+            
             <p className="mt-4 text-white/70">Try our basic AI assistants with limited features</p>
             
             <ul className="mt-6 space-y-3">
@@ -60,6 +66,12 @@ const CTASection = () => {
             <div className="mt-2 text-3xl font-bold">
               $1.99<span className="text-sm font-normal text-white/70">/month</span>
             </div>
+            
+            <div className="mt-2 flex items-center bg-amber-50/20 px-3 py-1.5 rounded-full w-fit">
+              <Coins className="h-4 w-4 mr-2 text-amber-300" />
+              <span className="text-amber-200 font-medium">175 TXT tokens</span>
+            </div>
+            
             <p className="mt-4 text-white/70">Access to our most popular AI assistants</p>
             
             <ul className="mt-6 space-y-3">
@@ -98,6 +110,12 @@ const CTASection = () => {
             <div className="mt-2 text-3xl font-bold">
               $3.99<span className="text-sm font-normal text-white/70">/month</span>
             </div>
+            
+            <div className="mt-2 flex items-center bg-amber-50/10 px-3 py-1.5 rounded-full w-fit">
+              <Coins className="h-4 w-4 mr-2 text-amber-500" />
+              <span className="text-amber-400 font-medium">350 TXT tokens</span>
+            </div>
+            
             <p className="mt-4 text-white/70">Unlock all our specialized AI agents</p>
             
             <ul className="mt-6 space-y-3">
