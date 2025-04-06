@@ -117,6 +117,71 @@ const LiveFixFeed: React.FC<LiveFixFeedProps> = ({ specialty = "plumber" }) => {
       { emoji: "👕", name: "Finley", problem: "decluttered wardrobe", location: "West LA", timeAgo: "26 mins ago" },
       { emoji: "🍽️", name: "Peyton", problem: "reorganized kitchen cabinets", location: "Culver City", timeAgo: "33 mins ago" },
     ],
+    // Add new specialties
+    tax: [
+      { emoji: "⚖️", name: "Thomas", problem: "resolved a tax dispute", location: "Century City", timeAgo: "3 mins ago" },
+      { emoji: "📊", name: "Laura", problem: "optimized tax deductions", location: "Beverly Hills", timeAgo: "7 mins ago" },
+      { emoji: "📝", name: "Robert", problem: "clarified tax code application", location: "Downtown LA", timeAgo: "12 mins ago" },
+      { emoji: "💼", name: "Jennifer", problem: "reviewed a tax audit strategy", location: "Westwood", timeAgo: "18 mins ago" },
+      { emoji: "🗂️", name: "Michael", problem: "structured business taxation", location: "Santa Monica", timeAgo: "25 mins ago" },
+      { emoji: "📑", name: "Samantha", problem: "filed an amended return", location: "Culver City", timeAgo: "32 mins ago" },
+    ],
+    psychiatrist: [
+      { emoji: "🧠", name: "Dr. Patricia", problem: "provided anxiety management techniques", location: "Westwood", timeAgo: "4 mins ago" },
+      { emoji: "💭", name: "Dr. James", problem: "suggested coping strategies", location: "Brentwood", timeAgo: "9 mins ago" },
+      { emoji: "🌱", name: "Dr. Emily", problem: "guided through a mindfulness session", location: "Santa Monica", timeAgo: "15 mins ago" },
+      { emoji: "💪", name: "Dr. David", problem: "recommended stress reduction methods", location: "Beverly Hills", timeAgo: "21 mins ago" },
+      { emoji: "❤️", name: "Dr. Maria", problem: "discussed emotional resilience", location: "Pacific Palisades", timeAgo: "27 mins ago" },
+      { emoji: "🌟", name: "Dr. Richard", problem: "explored personal growth strategies", location: "Malibu", timeAgo: "35 mins ago" },
+    ],
+    financial: [
+      { emoji: "💰", name: "Fiona", problem: "created a debt repayment plan", location: "Manhattan Beach", timeAgo: "3 mins ago" },
+      { emoji: "📈", name: "Nathan", problem: "rebalanced an investment portfolio", location: "Redondo Beach", timeAgo: "8 mins ago" },
+      { emoji: "🏦", name: "Olivia", problem: "structured retirement savings", location: "Hermosa Beach", timeAgo: "14 mins ago" },
+      { emoji: "💳", name: "William", problem: "optimized credit utilization", location: "El Segundo", timeAgo: "19 mins ago" },
+      { emoji: "🏡", name: "Isabella", problem: "analyzed mortgage refinancing", location: "Torrance", timeAgo: "26 mins ago" },
+      { emoji: "📊", name: "Benjamin", problem: "developed a budget strategy", location: "Long Beach", timeAgo: "34 mins ago" },
+    ],
+    wellness: [
+      { emoji: "🧘", name: "Wendy", problem: "designed a meditation routine", location: "Malibu", timeAgo: "2 mins ago" },
+      { emoji: "🌿", name: "Zachary", problem: "balanced work-life integration", location: "Pacific Palisades", timeAgo: "7 mins ago" },
+      { emoji: "💆", name: "Hannah", problem: "created a stress management plan", location: "Santa Monica", timeAgo: "12 mins ago" },
+      { emoji: "🍵", name: "Tyler", problem: "improved sleep hygiene habits", location: "Venice Beach", timeAgo: "18 mins ago" },
+      { emoji: "🌞", name: "Grace", problem: "developed a morning routine", location: "Marina del Rey", timeAgo: "24 mins ago" },
+      { emoji: "🌙", name: "Noah", problem: "established healthy boundaries", location: "Playa Vista", timeAgo: "31 mins ago" },
+    ],
+    legal: [
+      { emoji: "📜", name: "Lawrence", problem: "reviewed a rental agreement", location: "Downtown LA", timeAgo: "5 mins ago" },
+      { emoji: "⚖️", name: "Victoria", problem: "explained contract obligations", location: "Century City", timeAgo: "10 mins ago" },
+      { emoji: "🏛️", name: "Andrew", problem: "clarified employment rights", location: "Beverly Hills", timeAgo: "16 mins ago" },
+      { emoji: "📝", name: "Rachel", problem: "reviewed settlement terms", location: "West Hollywood", timeAgo: "22 mins ago" },
+      { emoji: "💼", name: "Daniel", problem: "advised on business compliance", location: "Culver City", timeAgo: "28 mins ago" },
+      { emoji: "🔏", name: "Sophia", problem: "explained intellectual property protection", location: "Hollywood", timeAgo: "35 mins ago" },
+    ],
+    career: [
+      { emoji: "💼", name: "Catherine", problem: "improved a resume", location: "Burbank", timeAgo: "4 mins ago" },
+      { emoji: "🎯", name: "Jason", problem: "prepared for a job interview", location: "Studio City", timeAgo: "9 mins ago" },
+      { emoji: "📊", name: "Emma", problem: "outlined a career path strategy", location: "North Hollywood", timeAgo: "15 mins ago" },
+      { emoji: "🗣️", name: "Maxwell", problem: "practiced negotiation tactics", location: "Sherman Oaks", timeAgo: "20 mins ago" },
+      { emoji: "🏆", name: "Lily", problem: "developed leadership skills", location: "Encino", timeAgo: "27 mins ago" },
+      { emoji: "🔍", name: "Christopher", problem: "refined job search approach", location: "Van Nuys", timeAgo: "33 mins ago" },
+    ],
+    relationship: [
+      { emoji: "💕", name: "Rachel", problem: "improved communication skills", location: "Silver Lake", timeAgo: "3 mins ago" },
+      { emoji: "🗣️", name: "Ethan", problem: "resolved a conflict peacefully", location: "Echo Park", timeAgo: "8 mins ago" },
+      { emoji: "🤝", name: "Amanda", problem: "established healthy boundaries", location: "Los Feliz", timeAgo: "13 mins ago" },
+      { emoji: "❤️", name: "Brandon", problem: "rekindled emotional connection", location: "Highland Park", timeAgo: "19 mins ago" },
+      { emoji: "🌈", name: "Jessica", problem: "navigated relationship transition", location: "Atwater Village", timeAgo: "25 mins ago" },
+      { emoji: "🌱", name: "Matthew", problem: "built trust and understanding", location: "Glassell Park", timeAgo: "32 mins ago" },
+    ],
+    nutrition: [
+      { emoji: "🥗", name: "Nathan", problem: "created a balanced meal plan", location: "Calabasas", timeAgo: "4 mins ago" },
+      { emoji: "🍎", name: "Maya", problem: "improved eating habits", location: "Woodland Hills", timeAgo: "9 mins ago" },
+      { emoji: "🥦", name: "Colin", problem: "planned nutritious recipes", location: "Tarzana", timeAgo: "15 mins ago" },
+      { emoji: "💧", name: "Olivia", problem: "optimized hydration strategy", location: "Encino", timeAgo: "21 mins ago" },
+      { emoji: "🍽️", name: "Lucas", problem: "balanced macronutrients", location: "Sherman Oaks", timeAgo: "28 mins ago" },
+      { emoji: "🥄", name: "Alice", problem: "managed dietary restrictions", location: "Studio City", timeAgo: "35 mins ago" },
+    ],
   };
 
   // Get the appropriate fixes for the current specialty
@@ -164,7 +229,15 @@ const LiveFixFeed: React.FC<LiveFixFeedProps> = ({ specialty = "plumber" }) => {
              specialty === "gadget" ? "📱" : 
              specialty === "painter" ? "🎨" :
              specialty === "pool" ? "🏊" :
-             specialty === "declutter" ? "✨" : "🪠"} 
+             specialty === "declutter" ? "✨" :
+             specialty === "tax" ? "⚖️" :
+             specialty === "psychiatrist" ? "🧠" :
+             specialty === "financial" ? "💰" :
+             specialty === "wellness" ? "🧘" :
+             specialty === "legal" ? "📜" :
+             specialty === "career" ? "💼" :
+             specialty === "relationship" ? "💕" :
+             specialty === "nutrition" ? "🥗" : "🪠"} 
              4,238 people solved issues this week
           </div>
           <div className="text-sm text-primary/60">⚡ 142 active users right now</div>
