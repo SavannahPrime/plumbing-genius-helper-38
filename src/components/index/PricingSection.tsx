@@ -2,13 +2,15 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Coins, CheckCircle, Star, Sparkles } from "lucide-react";
+import { Coins, CheckCircle, Star, Sparkles, ArrowRight, MessageSquare } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const PricingSection = () => {
   const plans = [
     {
       title: "Starter",
       price: "$49",
+      monthlyPrice: 49,
       txtTokens: 5000,
       description: "Perfect for small teams and startups",
       features: [
@@ -22,10 +24,12 @@ const PricingSection = () => {
       colorClass: "bg-gradient-to-r from-blue-500 to-blue-600",
       bgClass: "bg-gradient-to-br from-blue-50/80 to-blue-100/90 dark:from-blue-900/20 dark:to-blue-800/20",
       rating: 4.7,
+      specialty: "plumber", // Added for chat linking
     },
     {
       title: "Professional",
       price: "$149",
+      monthlyPrice: 149,
       txtTokens: 20000,
       description: "Ideal for growing businesses",
       features: [
@@ -40,10 +44,12 @@ const PricingSection = () => {
       colorClass: "bg-gradient-to-r from-purple-500 to-indigo-600",
       bgClass: "bg-gradient-to-br from-indigo-50/80 to-indigo-100/90 dark:from-indigo-900/20 dark:to-indigo-800/20",
       rating: 4.9,
+      specialty: "tax", // Added for chat linking
     },
     {
       title: "Enterprise",
       price: "Custom",
+      monthlyPrice: null,
       txtTokens: null,
       description: "For organizations with advanced needs",
       features: [
@@ -59,6 +65,7 @@ const PricingSection = () => {
       colorClass: "bg-gradient-to-r from-emerald-500 to-emerald-600",
       bgClass: "bg-gradient-to-br from-emerald-50/80 to-emerald-100/90 dark:from-emerald-900/20 dark:to-emerald-800/20",
       rating: 4.8,
+      specialty: "financial", // Added for chat linking
     },
   ];
 
@@ -138,18 +145,19 @@ const PricingSection = () => {
                 </ul>
               </div>
               
-              <Button 
-                className={`w-full group ${
-                  plan.highlighted 
-                    ? plan.colorClass + " hover:shadow-lg" 
-                    : "bg-slate-700 hover:bg-slate-600"
-                }`}
-              >
-                {plan.cta}
-                {plan.highlighted && (
-                  <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
-                )}
-              </Button>
+              <Link to={plan.price === "Custom" ? "/contact" : `/chat?specialty=${plan.specialty}`} className="w-full">
+                <Button 
+                  className={`w-full group ${
+                    plan.highlighted 
+                      ? plan.colorClass 
+                      : "bg-slate-700 hover:bg-slate-600"
+                  }`}
+                >
+                  <MessageSquare className="mr-2 h-4 w-4" />
+                  {plan.cta}
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
             </div>
           </div>
         ))}

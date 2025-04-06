@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Star, CheckCircle, Coins, MessageSquare, Sparkles, Badge as BadgeIcon } from "lucide-react";
+import { ArrowRight, Star, CheckCircle, Coins, MessageSquare, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 const CTASection = () => {
@@ -17,13 +17,14 @@ const CTASection = () => {
       
       <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {/* Free Tier */}
-        <div className="bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-white/10 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-          <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-6 text-white">
+        <div className="rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl border border-white/10 shadow-md bg-gradient-to-br from-blue-50/5 to-blue-100/10 backdrop-blur-sm">
+          <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-6 text-white relative">
             <div className="flex justify-between items-start">
               <div>
-                <h3 className="text-xl font-bold">Free Trial</h3>
-                <div className="mt-1 text-2xl font-bold">
-                  $0<span className="text-sm font-normal text-white/70">/month</span>
+                <h3 className="text-xl font-bold mb-1">Free Trial</h3>
+                <div className="flex items-end">
+                  <span className="text-3xl font-bold">$0</span>
+                  <span className="text-white/70 ml-1">/month</span>
                 </div>
                 
                 <div className="flex items-center mt-2">
@@ -70,7 +71,7 @@ const CTASection = () => {
           
           <div className="p-6 border-t border-white/5">
             <Link to="/chat?specialty=plumber" className="w-full">
-              <Button className="w-full bg-white/10 hover:bg-white/20 group">
+              <Button className="w-full group bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700">
                 <MessageSquare className="mr-2 h-4 w-4" />
                 Start Free
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -80,7 +81,7 @@ const CTASection = () => {
         </div>
         
         {/* Standard Tier */}
-        <div className="bg-gradient-to-br from-blue-600/5 to-purple-600/5 backdrop-blur-md rounded-xl overflow-hidden border border-blue-400/30 shadow-xl relative transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+        <div className="rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl border border-blue-400/30 shadow-md bg-gradient-to-br from-blue-600/5 to-purple-600/5 backdrop-blur-sm relative">
           <div className="absolute top-0 right-0 bg-amber-400 text-amber-900 text-xs font-bold px-3 py-1 rounded-bl-lg">
             POPULAR
           </div>
@@ -88,9 +89,10 @@ const CTASection = () => {
           <div className="bg-gradient-to-r from-purple-500 to-purple-600 p-6 text-white">
             <div className="flex justify-between items-start">
               <div>
-                <h3 className="text-xl font-bold">Standard</h3>
-                <div className="mt-1 text-2xl font-bold">
-                  $1.99<span className="text-sm font-normal text-white/70">/month</span>
+                <h3 className="text-xl font-bold mb-1">Standard</h3>
+                <div className="flex items-end">
+                  <span className="text-3xl font-bold">$1.99</span>
+                  <span className="text-white/70 ml-1">/month</span>
                 </div>
                 
                 <div className="flex items-center mt-2">
@@ -141,23 +143,24 @@ const CTASection = () => {
           
           <div className="p-6 border-t border-white/5">
             <Link to="/account">
-              <Button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 group">
+              <Button className="w-full group bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700">
                 <MessageSquare className="mr-2 h-4 w-4" />
                 Subscribe Now
-                <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
           </div>
         </div>
         
         {/* Premium Tier */}
-        <div className="bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-white/10 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+        <div className="rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl border border-white/10 shadow-md bg-gradient-to-br from-blue-50/5 to-blue-100/10 backdrop-blur-sm">
           <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-6 text-white">
             <div className="flex justify-between items-start">
               <div>
-                <h3 className="text-xl font-bold">Premium</h3>
-                <div className="mt-1 text-2xl font-bold">
-                  $3.99<span className="text-sm font-normal text-white/70">/month</span>
+                <h3 className="text-xl font-bold mb-1">Premium</h3>
+                <div className="flex items-end">
+                  <span className="text-3xl font-bold">$3.99</span>
+                  <span className="text-white/70 ml-1">/month</span>
                 </div>
                 
                 <div className="flex items-center mt-2">
@@ -208,7 +211,7 @@ const CTASection = () => {
           
           <div className="p-6 border-t border-white/5">
             <Link to="/account">
-              <Button className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 group">
+              <Button className="w-full group bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700">
                 <MessageSquare className="mr-2 h-4 w-4" />
                 Get Premium
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
