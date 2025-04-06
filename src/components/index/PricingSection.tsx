@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Coins, CheckCircle, Star, Sparkles, ArrowRight, MessageSquare, Shield } from "lucide-react";
+import { Coins, CheckCircle, Star, Sparkles, ArrowRight, MessageSquare } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const PricingSection = () => {
@@ -21,10 +21,8 @@ const PricingSection = () => {
       ],
       cta: "Get Started",
       highlighted: false,
-      colorClass: "bg-gradient-to-r from-blue-500 to-blue-600",
-      bgClass: "bg-gradient-to-br from-blue-50/80 to-blue-100/90 dark:from-blue-900/20 dark:to-blue-800/20",
-      rating: 4.7,
-      specialty: "plumber", // Added for chat linking
+      colorClass: "bg-blue-500",
+      specialty: "plumber",
     },
     {
       title: "Professional",
@@ -41,10 +39,8 @@ const PricingSection = () => {
       ],
       cta: "Get Started",
       highlighted: true,
-      colorClass: "bg-gradient-to-r from-purple-500 to-indigo-600",
-      bgClass: "bg-gradient-to-br from-indigo-50/80 to-indigo-100/90 dark:from-indigo-900/20 dark:to-indigo-800/20",
-      rating: 4.9,
-      specialty: "tax", // Added for chat linking
+      colorClass: "bg-purple-500",
+      specialty: "tax",
     },
     {
       title: "Enterprise",
@@ -62,15 +58,13 @@ const PricingSection = () => {
       ],
       cta: "Contact Sales",
       highlighted: false,
-      colorClass: "bg-gradient-to-r from-emerald-500 to-emerald-600",
-      bgClass: "bg-gradient-to-br from-emerald-50/80 to-emerald-100/90 dark:from-emerald-900/20 dark:to-emerald-800/20",
-      rating: 4.8,
-      specialty: "financial", // Added for chat linking
+      colorClass: "bg-emerald-500",
+      specialty: "financial",
     },
   ];
 
   return (
-    <section id="pricing" className="container mx-auto px-4 py-20">
+    <section id="pricing" className="container mx-auto px-4 py-20 text-white">
       <div className="text-center mb-16">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
         <p className="text-xl text-gray-300 max-w-2xl mx-auto">
@@ -82,15 +76,11 @@ const PricingSection = () => {
         {plans.map((plan, index) => (
           <div 
             key={index} 
-            className={`rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl shadow-md hover:-translate-y-1 ${
-              plan.highlighted 
-                ? "border border-blue-400/30" 
-                : "border border-slate-700/20"
-            } ${plan.bgClass}`}
+            className={`rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-slate-700/30`}
           >
             <div className={`p-6 ${plan.colorClass} text-white relative`}>
               {plan.highlighted && (
-                <div className="absolute top-3 right-3 z-10">
+                <div className="absolute top-3 right-3">
                   <div className="bg-yellow-300 text-yellow-900 px-2 py-1 rounded-full flex items-center shadow-lg">
                     <Sparkles className="h-3 w-3 fill-yellow-900 mr-1" />
                     <span className="text-xs font-semibold">Most Popular</span>
@@ -105,20 +95,6 @@ const PricingSection = () => {
                     <span className="text-3xl font-bold">{plan.price}</span>
                     {plan.price !== "Custom" && <span className="text-white/70 ml-1">/month</span>}
                   </div>
-                  
-                  {plan.rating && (
-                    <div className="flex items-center mt-2">
-                      <div className="flex">
-                        {[...Array(5)].map((_, i) => (
-                          <Star 
-                            key={i} 
-                            className={`h-4 w-4 ${i < Math.floor(plan.rating) ? "fill-yellow-300 text-yellow-300" : "text-white/30"}`} 
-                          />
-                        ))}
-                      </div>
-                      <span className="ml-2 text-sm font-medium">{plan.rating}</span>
-                    </div>
-                  )}
                 </div>
                 
                 {plan.txtTokens && (
@@ -130,7 +106,7 @@ const PricingSection = () => {
               </div>
             </div>
             
-            <div className="p-6 bg-white/5">
+            <div className="p-6 bg-slate-800/50">
               <p className="text-gray-300 mb-6">{plan.description}</p>
               
               <div className="mb-6">
@@ -149,8 +125,8 @@ const PricingSection = () => {
                 <Button 
                   className={`w-full group ${
                     plan.highlighted 
-                      ? plan.colorClass 
-                      : "bg-slate-700 hover:bg-slate-600"
+                      ? "bg-purple-500 hover:bg-purple-600" 
+                      : plan.colorClass + " hover:opacity-90"
                   }`}
                 >
                   <MessageSquare className="mr-2 h-4 w-4" />

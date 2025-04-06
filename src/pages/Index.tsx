@@ -49,18 +49,11 @@ export default function Index() {
         <PricingSection />
       </motion.div>
       
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        viewport={{ once: true, margin: "-100px" }}
-      >
-        <CTASection />
-      </motion.div>
+      {/* Removing the CTASection to simplify since it might be redundant with PricingSection */}
       
       <Footer />
       
-      {/* Decorative elements */}
+      {/* Simplified decorative elements */}
       <div className="fixed top-40 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
       <div className="fixed bottom-40 right-10 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
     </div>
