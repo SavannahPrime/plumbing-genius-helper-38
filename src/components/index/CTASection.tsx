@@ -2,7 +2,8 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Star, CheckCircle, Coins } from "lucide-react";
+import { ArrowRight, Star, CheckCircle, Coins, MessageSquare, Sparkles, Badge as BadgeIcon } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 const CTASection = () => {
   return (
@@ -16,132 +17,201 @@ const CTASection = () => {
       
       <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {/* Free Tier */}
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 shadow-xl">
-          <div className="p-6">
-            <h3 className="text-2xl font-bold">Free Trial</h3>
-            <div className="mt-2 text-3xl font-bold">
-              $0<span className="text-sm font-normal text-white/70">/month</span>
+        <div className="bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-white/10 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+          <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-6 text-white">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-xl font-bold">Free Trial</h3>
+                <div className="mt-1 text-2xl font-bold">
+                  $0<span className="text-sm font-normal text-white/70">/month</span>
+                </div>
+                
+                <div className="flex items-center mt-2">
+                  <div className="flex">
+                    {[...Array(5)].map((_, i) => (
+                      <Star 
+                        key={i} 
+                        className={`h-4 w-4 ${i < 4 ? "fill-yellow-300 text-yellow-300" : "text-white/30"}`} 
+                      />
+                    ))}
+                  </div>
+                  <span className="ml-2 text-sm font-medium">4.0</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center bg-white/20 px-3 py-1.5 rounded-full">
+                <Coins className="h-4 w-4 mr-2 text-amber-300" />
+                <span className="text-amber-100 font-medium">0 TXT</span>
+              </div>
             </div>
-            
-            <div className="mt-2 flex items-center bg-amber-50/10 px-3 py-1.5 rounded-full w-fit">
-              <Coins className="h-4 w-4 mr-2 text-amber-500" />
-              <span className="text-amber-400 font-medium">0 TXT tokens</span>
-            </div>
-            
-            <p className="mt-4 text-white/70">Try our basic AI assistants with limited features</p>
-            
-            <ul className="mt-6 space-y-3">
-              <li className="flex items-start">
-                <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-                <span>Access to Home Fix Wizard</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-                <span>Basic chat capabilities</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-                <span>Image upload feature</span>
-              </li>
-            </ul>
           </div>
           
-          <div className="p-6 bg-white/5">
-            <Link to="/chat?specialty=plumber">
-              <Button className="w-full bg-white/20 hover:bg-white/30 border border-white/40 text-white">
+          <div className="p-6">
+            <p className="text-white/70 mb-5">Try our basic AI assistants with limited features</p>
+            
+            <div className="mb-6">
+              <h4 className="text-sm font-semibold text-white/90 mb-3">Included Features:</h4>
+              <ul className="space-y-3">
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
+                  <span className="text-white/70">Access to Home Fix Wizard</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
+                  <span className="text-white/70">Basic chat capabilities</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
+                  <span className="text-white/70">Image upload feature</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="p-6 border-t border-white/5">
+            <Link to="/chat?specialty=plumber" className="w-full">
+              <Button className="w-full bg-white/10 hover:bg-white/20 group">
+                <MessageSquare className="mr-2 h-4 w-4" />
                 Start Free
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
           </div>
         </div>
         
         {/* Standard Tier */}
-        <div className="bg-gradient-to-br from-blue-600/90 to-purple-600/90 backdrop-blur-md rounded-2xl overflow-hidden border border-blue-400/30 shadow-xl relative">
+        <div className="bg-gradient-to-br from-blue-600/5 to-purple-600/5 backdrop-blur-md rounded-xl overflow-hidden border border-blue-400/30 shadow-xl relative transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
           <div className="absolute top-0 right-0 bg-amber-400 text-amber-900 text-xs font-bold px-3 py-1 rounded-bl-lg">
             POPULAR
           </div>
           
-          <div className="p-6">
-            <h3 className="text-2xl font-bold">Standard</h3>
-            <div className="mt-2 text-3xl font-bold">
-              $1.99<span className="text-sm font-normal text-white/70">/month</span>
+          <div className="bg-gradient-to-r from-purple-500 to-purple-600 p-6 text-white">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-xl font-bold">Standard</h3>
+                <div className="mt-1 text-2xl font-bold">
+                  $1.99<span className="text-sm font-normal text-white/70">/month</span>
+                </div>
+                
+                <div className="flex items-center mt-2">
+                  <div className="flex">
+                    {[...Array(5)].map((_, i) => (
+                      <Star 
+                        key={i} 
+                        className={`h-4 w-4 ${i < 4.5 ? "fill-yellow-300 text-yellow-300" : "text-white/30"}`} 
+                      />
+                    ))}
+                  </div>
+                  <span className="ml-2 text-sm font-medium">4.5</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center bg-white/20 px-3 py-1.5 rounded-full">
+                <Coins className="h-4 w-4 mr-2 text-amber-300" />
+                <span className="text-amber-100 font-medium">175 TXT</span>
+              </div>
             </div>
-            
-            <div className="mt-2 flex items-center bg-amber-50/20 px-3 py-1.5 rounded-full w-fit">
-              <Coins className="h-4 w-4 mr-2 text-amber-300" />
-              <span className="text-amber-200 font-medium">175 TXT tokens</span>
-            </div>
-            
-            <p className="mt-4 text-white/70">Access to our most popular AI assistants</p>
-            
-            <ul className="mt-6 space-y-3">
-              <li className="flex items-start">
-                <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-                <span>All Free features</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-                <span>Access to Tax Law Attorney</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-                <span>Enhanced response quality</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-                <span>Unlimited messaging</span>
-              </li>
-            </ul>
           </div>
           
-          <div className="p-6 bg-white/10">
+          <div className="p-6">
+            <p className="text-white/70 mb-5">Access to our most popular AI assistants</p>
+            
+            <div className="mb-6">
+              <h4 className="text-sm font-semibold text-white/90 mb-3">Key Benefits:</h4>
+              <ul className="space-y-3">
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
+                  <span className="text-white/70">All Free features</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
+                  <span className="text-white/70">Access to Tax Law Attorney</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
+                  <span className="text-white/70">Enhanced response quality</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
+                  <span className="text-white/70">Unlimited messaging</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="p-6 border-t border-white/5">
             <Link to="/account">
-              <Button className="w-full bg-white hover:bg-white/90 text-blue-600 font-bold">
-                Subscribe Now <ArrowRight className="ml-1 h-4 w-4" />
+              <Button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 group">
+                <MessageSquare className="mr-2 h-4 w-4" />
+                Subscribe Now
+                <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
           </div>
         </div>
         
         {/* Premium Tier */}
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 shadow-xl">
-          <div className="p-6">
-            <h3 className="text-2xl font-bold">Premium</h3>
-            <div className="mt-2 text-3xl font-bold">
-              $3.99<span className="text-sm font-normal text-white/70">/month</span>
+        <div className="bg-white/5 backdrop-blur-md rounded-xl overflow-hidden border border-white/10 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+          <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-6 text-white">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-xl font-bold">Premium</h3>
+                <div className="mt-1 text-2xl font-bold">
+                  $3.99<span className="text-sm font-normal text-white/70">/month</span>
+                </div>
+                
+                <div className="flex items-center mt-2">
+                  <div className="flex">
+                    {[...Array(5)].map((_, i) => (
+                      <Star 
+                        key={i} 
+                        className={`h-4 w-4 ${i < 5 ? "fill-yellow-300 text-yellow-300" : "text-white/30"}`} 
+                      />
+                    ))}
+                  </div>
+                  <span className="ml-2 text-sm font-medium">5.0</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center bg-white/20 px-3 py-1.5 rounded-full">
+                <Coins className="h-4 w-4 mr-2 text-amber-300" />
+                <span className="text-amber-100 font-medium">350 TXT</span>
+              </div>
             </div>
-            
-            <div className="mt-2 flex items-center bg-amber-50/10 px-3 py-1.5 rounded-full w-fit">
-              <Coins className="h-4 w-4 mr-2 text-amber-500" />
-              <span className="text-amber-400 font-medium">350 TXT tokens</span>
-            </div>
-            
-            <p className="mt-4 text-white/70">Unlock all our specialized AI agents</p>
-            
-            <ul className="mt-6 space-y-3">
-              <li className="flex items-start">
-                <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-                <span>All Standard features</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-                <span>Access to all specialized agents</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-                <span>Priority support</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-                <span>Advanced AI features</span>
-              </li>
-            </ul>
           </div>
           
-          <div className="p-6 bg-white/5">
+          <div className="p-6">
+            <p className="text-white/70 mb-5">Unlock all our specialized AI agents</p>
+            
+            <div className="mb-6">
+              <h4 className="text-sm font-semibold text-white/90 mb-3">Premium Features:</h4>
+              <ul className="space-y-3">
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
+                  <span className="text-white/70">All Standard features</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
+                  <span className="text-white/70">Access to all specialized agents</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
+                  <span className="text-white/70">Priority support</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
+                  <span className="text-white/70">Advanced AI features</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="p-6 border-t border-white/5">
             <Link to="/account">
-              <Button className="w-full bg-white/20 hover:bg-white/30 border border-white/40 text-white">
+              <Button className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 group">
+                <MessageSquare className="mr-2 h-4 w-4" />
                 Get Premium
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
           </div>

@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Coins } from "lucide-react";
+import { Coins, CheckCircle, Star, Sparkles } from "lucide-react";
 
 const PricingSection = () => {
   const plans = [
@@ -19,6 +19,9 @@ const PricingSection = () => {
       ],
       cta: "Get Started",
       highlighted: false,
+      colorClass: "bg-gradient-to-r from-blue-500 to-blue-600",
+      bgClass: "bg-gradient-to-br from-blue-50/80 to-blue-100/90 dark:from-blue-900/20 dark:to-blue-800/20",
+      rating: 4.7,
     },
     {
       title: "Professional",
@@ -34,6 +37,9 @@ const PricingSection = () => {
       ],
       cta: "Get Started",
       highlighted: true,
+      colorClass: "bg-gradient-to-r from-purple-500 to-indigo-600",
+      bgClass: "bg-gradient-to-br from-indigo-50/80 to-indigo-100/90 dark:from-indigo-900/20 dark:to-indigo-800/20",
+      rating: 4.9,
     },
     {
       title: "Enterprise",
@@ -50,6 +56,9 @@ const PricingSection = () => {
       ],
       cta: "Contact Sales",
       highlighted: false,
+      colorClass: "bg-gradient-to-r from-emerald-500 to-emerald-600",
+      bgClass: "bg-gradient-to-br from-emerald-50/80 to-emerald-100/90 dark:from-emerald-900/20 dark:to-emerald-800/20",
+      rating: 4.8,
     },
   ];
 
@@ -66,50 +75,82 @@ const PricingSection = () => {
         {plans.map((plan, index) => (
           <div 
             key={index} 
-            className={`p-8 rounded-xl border ${
+            className={`rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl shadow-md hover:-translate-y-1 ${
               plan.highlighted 
-                ? "border-blue-500 bg-blue-500/10 relative" 
-                : "border-slate-700/50 bg-slate-800/50"
-            }`}
+                ? "border border-blue-400/30" 
+                : "border border-slate-700/20"
+            } ${plan.bgClass}`}
           >
-            {plan.highlighted && (
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-medium">
-                Most Popular
+            <div className={`p-6 ${plan.colorClass} text-white relative`}>
+              {plan.highlighted && (
+                <div className="absolute top-3 right-3 z-10">
+                  <div className="bg-yellow-300 text-yellow-900 px-2 py-1 rounded-full flex items-center shadow-lg">
+                    <Sparkles className="h-3 w-3 fill-yellow-900 mr-1" />
+                    <span className="text-xs font-semibold">Most Popular</span>
+                  </div>
+                </div>
+              )}
+              
+              <div className="flex justify-between items-start">
+                <div>
+                  <h3 className="text-xl font-bold mb-1">{plan.title}</h3>
+                  <div className="flex items-end">
+                    <span className="text-3xl font-bold">{plan.price}</span>
+                    {plan.price !== "Custom" && <span className="text-white/70 ml-1">/month</span>}
+                  </div>
+                  
+                  {plan.rating && (
+                    <div className="flex items-center mt-2">
+                      <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                          <Star 
+                            key={i} 
+                            className={`h-4 w-4 ${i < Math.floor(plan.rating) ? "fill-yellow-300 text-yellow-300" : "text-white/30"}`} 
+                          />
+                        ))}
+                      </div>
+                      <span className="ml-2 text-sm font-medium">{plan.rating}</span>
+                    </div>
+                  )}
+                </div>
+                
+                {plan.txtTokens && (
+                  <div className="flex items-center bg-white/20 px-3 py-1.5 rounded-full">
+                    <Coins className="h-4 w-4 mr-2 text-amber-300" />
+                    <span className="text-amber-100 font-medium">{plan.txtTokens} TXT</span>
+                  </div>
+                )}
               </div>
-            )}
-            <h3 className="text-2xl font-bold mb-2">{plan.title}</h3>
-            <div className="flex items-end mb-2">
-              <span className="text-4xl font-bold">{plan.price}</span>
-              {plan.price !== "Custom" && <span className="text-gray-400 ml-1">/month</span>}
             </div>
             
-            {plan.txtTokens && (
-              <div className="flex items-center mb-4 bg-amber-50/10 px-3 py-1.5 rounded-full w-fit">
-                <Coins className="h-4 w-4 mr-2 text-amber-500" />
-                <span className="text-amber-400 font-medium">{plan.txtTokens} TXT tokens</span>
+            <div className="p-6 bg-white/5">
+              <p className="text-gray-300 mb-6">{plan.description}</p>
+              
+              <div className="mb-6">
+                <h4 className="text-sm font-semibold text-gray-200 mb-3">Key Features:</h4>
+                <ul className="space-y-3">
+                  {plan.features.map((feature, i) => (
+                    <li key={i} className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-300 text-sm">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            )}
-            
-            <p className="text-gray-300 mb-6">{plan.description}</p>
-            <ul className="space-y-3 mb-8">
-              {plan.features.map((feature, i) => (
-                <li key={i} className="flex items-center">
-                  <svg className="h-5 w-5 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  {feature}
-                </li>
-              ))}
-            </ul>
-            <Button 
-              className={`w-full ${
-                plan.highlighted 
-                  ? "bg-blue-600 hover:bg-blue-700" 
-                  : "bg-slate-700 hover:bg-slate-600"
-              }`}
-            >
-              {plan.cta}
-            </Button>
+              
+              <Button 
+                className={`w-full group ${
+                  plan.highlighted 
+                    ? plan.colorClass + " hover:shadow-lg" 
+                    : "bg-slate-700 hover:bg-slate-600"
+                }`}
+              >
+                {plan.cta}
+                {plan.highlighted && (
+                  <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
+                )}
+              </Button>
+            </div>
           </div>
         ))}
       </div>
